@@ -85,9 +85,7 @@ public class CodeGenerate implements Runnable {
 
       File contractFile = new File(spec);
 
-      // has many contracts
       if (contractFile.isDirectory()) {
-
         try {
           Files.walkFileTree(Paths.get(contractFile.toURI()), new SimpleFileVisitor<Path>() {
             @Override
@@ -105,7 +103,6 @@ public class CodeGenerate implements Runnable {
           e.printStackTrace();
         }
       } else {
-        // one contract
         configurator.setInputSpec(spec);
         new DefaultCodeGenerator().opts(configurator).generate();
       }

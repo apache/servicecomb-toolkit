@@ -35,8 +35,6 @@ public class ServiceCombProviderCodegen extends AbstractJavaCodegen implements C
 
   private String resourcesFolder = projectFolder + File.separator + "resources";
 
-  private String apiVersion = "1.0.0";
-
   private String mainClassPackage;
 
 
@@ -66,14 +64,12 @@ public class ServiceCombProviderCodegen extends AbstractJavaCodegen implements C
 
     embeddedTemplateDir = templateDir = "ServiceCombProvider";
 
-    apiPackage = "servicecomb.example.controller";
-
-    modelPackage = "servicecomb.example.model";
-
-    mainClassPackage = "servicecomb.example";
-
     groupId = "org.apache.servicecomb";
-    artifactId = "demo";
+    artifactId = "example";
+
+    apiPackage = groupId + ".example.controller";
+    modelPackage = groupId + ".example.model";
+    mainClassPackage = groupId + ".example";
 
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
 
@@ -94,7 +90,6 @@ public class ServiceCombProviderCodegen extends AbstractJavaCodegen implements C
     importMapping.put("OffsetDateTime", "java.time.OffsetDateTime");
     additionalProperties.put("dateLibrary", "java8");
     additionalProperties.put("jackson", "true");
-    additionalProperties.put("apiVersion", apiVersion);
     additionalProperties.put("mainClassPackage", mainClassPackage);
     additionalProperties.put("camelcase", new CamelCaseLambda());
 
@@ -106,6 +101,7 @@ public class ServiceCombProviderCodegen extends AbstractJavaCodegen implements C
         "",
         "README.md")
     );
+
 
     supportingFiles.add(new SupportingFile("Application.mustache",
         mainClassFolder(),
