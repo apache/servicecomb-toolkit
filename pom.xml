@@ -35,6 +35,7 @@
   <modules>
     <module>code-generator</module>
     <module>toolkit-cli</module>
+    <module>doc-generator</module>
   </modules>
 
 </project>
