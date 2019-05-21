@@ -36,6 +36,8 @@
     <module>code-generator</module>
     <module>toolkit-cli</module>
     <module>doc-generator</module>
+    <module>common</module>
+    <module>toolkit-maven-plugin</module>
   </modules>
 
 </project>
