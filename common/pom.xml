@@ -29,7 +29,6 @@
   <artifactId>toolkit-common</artifactId>
 
   <dependencies>
-
     <dependency>
       <groupId>org.eclipse.jgit</groupId>
       <artifactId>org.eclipse.jgit</artifactId>
@@ -72,8 +71,6 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
-
   </dependencies>
 
   <build>

@@ -31,7 +31,7 @@ import io.swagger.codegen.mustache.CamelCaseLambda;
 
 public class ServiceCombProviderCodegen extends AbstractJavaCodegen implements CodegenConfig {
 
-  private static final String DEFAULT_LIBRARY = "SpringMvc";
+  private static final String DEFAULT_LIBRARY = "SpringMVC";
 
   private String resourcesFolder = projectFolder + File.separator + "resources";
 

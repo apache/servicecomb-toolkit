@@ -47,6 +47,12 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb</groupId>
+      <artifactId>doc-generator</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>

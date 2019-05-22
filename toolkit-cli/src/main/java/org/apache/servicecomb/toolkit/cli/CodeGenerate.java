@@ -34,38 +34,37 @@ import io.airlift.airline.Command;
 import io.airlift.airline.Option;
 import io.swagger.codegen.config.CodegenConfigurator;
 
-@Command(name = "generate", description = "CodeGenerate code with chosen lang")
+@Command(name = "generate",
+    description = "Generate multiple models of microservice project by OpenAPI specification file")
 public class CodeGenerate implements Runnable {
 
-  @Option(name = {"--programming-model"}, title = "programming model", required = false,
-      description = "programming model, equals to --library")
+  @Option(name = {"-p", "--programming-model"}, title = "programming model", required = false,
+      description = "programming model, as SpringMVC, POJO or JAX-RS")
   private String programmingModel;
 
-  @Option(name = {"-i", "--input-spec"}, title = "spec file", required = true,
-      description = "location of the swagger spec, as URL or file (required)")
-  private String spec;
+  @Option(name = {"-m", "--microservice-framework"}, title = "language",
+      description = "microservice-framework")
+  private String framework = "ServiceCombProvider";
+
+  @Option(name = {"-i", "--input"}, title = "OpenAPI specification file", required = true,
+      description = "location of the OpenAPI specification file, as URL or file (required)")
+  private String specFile;
 
   @Option(name = {"-o", "--output"}, title = "output directory",
-      description = "where to write the generated files (current dir by default)")
+      description = "location of the generated document (current dir by default)")
   private String output = "";
 
-  @Option(name = {"--group-id"}, title = "group id", description = "groupId in generated pom.xml")
+  @Option(name = {"--group-id"}, title = "group id",
+      description = "groupId in generated microservice project")
   private String groupId;
 
   @Option(name = {"--artifact-id"}, title = "artifact id",
-      description = "artifact version in generated pom.xml")
+      description = "artifact version in generated microservice project")
   private String artifactId;
 
   @Option(name = {"--artifact-version"}, title = "artifact version",
-      description = "artifact version in generated pom.xml")
+      description = "artifact version in generated microservice project")
   private String artifactVersion;
-
-  @Option(name = {"--library"}, title = "library", description = "library template (sub-template)")
-  private String library;
-
-  @Option(name = {"-l", "--lang"}, title = "language",
-      description = "client language to generate (maybe class name in classpath, required)")
-  private String lang = "ServiceCombProvider";
 
 
   @Override
@@ -77,13 +76,12 @@ public class CodeGenerate implements Runnable {
         .setGroupId(groupId)
         .setArtifactId(artifactId)
         .setArtifactVersion(artifactVersion)
-        .setLibrary(library)
         .setLibrary(programmingModel)
-        .setLang(lang);
+        .setLang(framework);
 
-    if (isNotEmpty(spec)) {
+    if (isNotEmpty(specFile)) {
 
-      File contractFile = new File(spec);
+      File contractFile = new File(specFile);
 
       if (contractFile.isDirectory()) {
         try {
@@ -103,7 +101,7 @@ public class CodeGenerate implements Runnable {
           e.printStackTrace();
         }
       } else {
-        configurator.setInputSpec(spec);
+        configurator.setInputSpec(specFile);
         new DefaultCodeGenerator().opts(configurator).generate();
       }
     }

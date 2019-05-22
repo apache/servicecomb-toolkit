@@ -29,7 +29,6 @@
   <artifactId>toolkit-maven-plugin</artifactId>
 
   <dependencies>
-
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>doc-generator</artifactId>
@@ -47,6 +46,7 @@
       <artifactId>maven-plugin-annotations</artifactId>
       <version>3.6.0</version>
     </dependency>
+
     <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-core</artifactId>
@@ -58,6 +58,7 @@
       <artifactId>plexus-archiver</artifactId>
       <version>2.1</version>
     </dependency>
+
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>toolkit-common</artifactId>

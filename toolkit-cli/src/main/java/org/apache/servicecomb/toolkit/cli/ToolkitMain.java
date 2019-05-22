@@ -33,11 +33,11 @@ public class ToolkitMain {
 
     initialProjectVersion();
 
-    Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("java -jar assistant-cli-" + projectVersion + ".jar");
-    builder.withDescription(
-        "ServiceComb code generator CLI (version " + projectVersion + "). More info on servicecomb.apache.org");
+    Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("java -jar toolkit-cli-" + projectVersion + ".jar");
+    builder.withDescription("Microservice development toolkit(version " + projectVersion
+        + "). More info on https://github.com/MabinGo/toolkit");
     builder.withDefaultCommand(Help.class);
-    builder.withCommands(CodeGenerate.class, Help.class);
+    builder.withCommands(CodeGenerate.class, DocGenerate.class, Help.class);
     Runnable cmd = builder.build().parse(args);
 
     cmd.run();
@@ -49,8 +49,7 @@ public class ToolkitMain {
     try {
       properties.load(ToolkitMain.class.getClassLoader().getResourceAsStream("application.properties"));
 
-      projectVersion = Optional.ofNullable(properties.getProperty("version"))
-          .orElse("unknown");
+      projectVersion = Optional.ofNullable(properties.getProperty("version")).orElse("unknown");
     } catch (IOException e) {
       e.printStackTrace();
     }
