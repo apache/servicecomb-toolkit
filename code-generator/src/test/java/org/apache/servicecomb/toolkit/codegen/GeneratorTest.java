@@ -54,7 +54,7 @@ public class GeneratorTest {
     Assert.assertEquals("ServiceCombProvider", ((ServiceCombProviderCodegen) swaggerCodegenConfig).getName());
     Assert.assertEquals(CodegenType.SERVER, ((ServiceCombProviderCodegen) swaggerCodegenConfig).getTag());
 
-    Assert.assertEquals(16, generatedFiles.size());
+    Assert.assertEquals(14, generatedFiles.size());
     tempDir.toFile().deleteOnExit();
   }
 }

@@ -30,6 +30,7 @@ public class DefaultCodeGenerator implements CodeGenerator {
   @Override
   public CodeGenerator opts(CodegenConfigurator opts) {
 
+    generator.setGenerateSwaggerMetadata(false);
     generator.opts(opts.toClientOptInput());
     return this;
   }
