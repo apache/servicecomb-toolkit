@@ -35,6 +35,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private static final String DEFAULT_LIBRARY = "SpringMVC";
 
+  private static final String POJO_LIBRARY = "POJO";
 
   private String mainClassPackage;
 
@@ -58,6 +59,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private String modelConsumerTemplate = consumerTemplateFolder + "/model.mustache";
 
+  private String pojoApiInterfaceTemplate = "apiInterface.mustache";
 
   private int modelSwitch = 1;
 
@@ -98,6 +100,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     mainClassPackage = groupId + ".example";
 
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
+    supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the pojo programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 
@@ -124,7 +127,17 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
       String suffix = apiTemplateFiles().get(templateName);
       return apiConsumerFolder() + File.separator + toApiFilename(tag) + suffix;
     }
+    if (pojoApiInterfaceTemplate.equals(templateName)) {
+      String suffix = apiTemplateFiles().get(templateName);
+      String pojoApiInterfaceName =  pojoApiInterfaceFolder() + File.separator +  camelize(tag) + "Api" + suffix;
+      additionalProperties.put("pojoApiInterfaceName",camelize(tag) + "Api");
+      return pojoApiInterfaceName;
+    }
     return super.apiFilename(templateName, tag);
+  }
+
+  private String pojoApiInterfaceFolder() {
+    return outputFolder + "/" + modelProject + "/" + sourceFolder + "/" + apiPackage().replace('.', '/');
   }
 
   private String apiConsumerFolder() {
@@ -141,6 +154,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     additionalProperties.put("mainClassPackage", mainClassPackage);
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
+    additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
     additionalProperties.put("microserviceName", microserviceName);
 
@@ -148,6 +162,15 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     processProviderProjectOpts();
     processConsumerOpts();
     processModelProjectOpts();
+    processPojo();
+  }
+
+  private void processPojo() {
+    if (!POJO_LIBRARY.equals(getLibrary())) {
+      return;
+    }
+    apiTemplateFiles.put(pojoApiInterfaceTemplate, ".java");
+    additionalProperties.put("isPOJO", true);
   }
 
   @Override
@@ -239,6 +262,10 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     String apiName = (String) additionalProperties.get("apiName");
     if (apiName != null) {
       return apiName;
+    }
+
+    if(POJO_LIBRARY.equals(getLibrary())){
+      return initialCaps(name) + "ApiImpl";
     }
 
     return initialCaps(name) + "Controller";

@@ -38,6 +38,7 @@ public class GeneratorTest {
   public void generateProgrammingModels() throws IOException, URISyntaxException {
 
     generateCode("SpringMVC");
+    generateCode("POJO");
   }
 
   private void generateCode(String programmingModel) throws IOException, URISyntaxException {

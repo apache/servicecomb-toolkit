@@ -1,0 +1,23 @@
+package {{apiPackage}};
+
+import {{modelPackage}}.*;
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.File;
+
+
+{{#operations}}
+public interface {{#removeImplSuffix}}{{classname}}{{/removeImplSuffix}} {
+    {{#operation}}
+
+     public {{>returnTypes}} {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},
+        {{/hasMore}}{{/allParams}});
+
+    {{/operation}}
+    }
+{{/operations}}
