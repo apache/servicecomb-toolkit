@@ -40,7 +40,7 @@ public class CliTest {
         String[] args = new String[] {
             "generate",
             "-m",
-            "ServiceCombProvider",
+            "ServiceComb",
             "-i",
             Paths.get("./src/test/resources/swagger.yaml").toFile().getCanonicalPath(),
             "-o",
@@ -91,13 +91,13 @@ public class CliTest {
   public void generateCodeFromMultiContract() throws IOException {
 
     Path tempDir = Files.createTempDirectory(null);
-    Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/ServiceCombProvider");
+    Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     String[] args = new String[] {
         "generate",
         "-i",
         Paths.get("./src/test/resources/contracts").toFile().getCanonicalPath(),
         "--artifact-id",
-        "ServiceCombProvider",
+        "ServiceComb",
         "--group-id",
         "org.apache.servicecomb.demo",
         "--artifact-version",

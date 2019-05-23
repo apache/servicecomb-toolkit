@@ -35,14 +35,20 @@ import io.swagger.codegen.config.CodegenConfigurator;
 public class GeneratorTest {
 
   @Test
-  public void generateCode() throws IOException, URISyntaxException {
+  public void generateProgrammingModels() throws IOException, URISyntaxException {
+
+    generateCode("SpringMVC");
+  }
+
+  private void generateCode(String programmingModel) throws IOException, URISyntaxException {
 
     Path tempDir = Files.createTempDirectory(null);
     Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
     CodegenConfigurator configurator = new CodegenConfigurator();
 
-    configurator.setLang("ServiceCombProvider");
-    configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceCombProvider");
+    configurator.setLang("ServiceComb");
+    configurator.setLibrary(programmingModel);
+    configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
     DefaultCodeGenerator codeGenerator = new DefaultCodeGenerator();
     List<File> generatedFiles = codeGenerator.opts(configurator).generate();
@@ -50,11 +56,11 @@ public class GeneratorTest {
     Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
     Assert.assertEquals(DefaultGenerator.class, internalGenerator.getClass());
     Object swaggerCodegenConfig = ReflectUtils.getProperty(internalGenerator, "config");
-    Assert.assertEquals(ServiceCombProviderCodegen.class, swaggerCodegenConfig.getClass());
-    Assert.assertEquals("ServiceCombProvider", ((ServiceCombProviderCodegen) swaggerCodegenConfig).getName());
-    Assert.assertEquals(CodegenType.SERVER, ((ServiceCombProviderCodegen) swaggerCodegenConfig).getTag());
+    Assert.assertEquals(ServiceCombCodegen.class, swaggerCodegenConfig.getClass());
+    Assert.assertEquals("ServiceComb", ((ServiceCombCodegen) swaggerCodegenConfig).getName());
+    Assert.assertEquals(CodegenType.SERVER, ((ServiceCombCodegen) swaggerCodegenConfig).getTag());
 
-    Assert.assertEquals(14, generatedFiles.size());
+    Assert.assertTrue(0 < generatedFiles.size());
     tempDir.toFile().deleteOnExit();
   }
 }

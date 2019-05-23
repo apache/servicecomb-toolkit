@@ -44,7 +44,7 @@ public class CodeGenerate implements Runnable {
 
   @Option(name = {"-m", "--microservice-framework"}, title = "language",
       description = "microservice-framework")
-  private String framework = "ServiceCombProvider";
+  private String framework = "ServiceComb";
 
   @Option(name = {"-i", "--input"}, title = "OpenAPI specification file", required = true,
       description = "location of the OpenAPI specification file, as URL or file (required)")

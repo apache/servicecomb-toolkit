@@ -23,11 +23,11 @@ import org.junit.Test;
 import io.swagger.codegen.CodegenConfig;
 import io.swagger.codegen.CodegenConfigLoader;
 
-public class ServiceCombProviderCodegenTest {
+public class ServiceCombCodegenTest {
 
   @Test
   public void loadImpl() {
-    CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceCombProvider");
-    Assert.assertEquals(ServiceCombProviderCodegen.class, codegenConfig.getClass());
+    CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
+    Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
   }
 }

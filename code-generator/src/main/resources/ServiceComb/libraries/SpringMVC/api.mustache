@@ -22,7 +22,7 @@ import static org.springframework.http.MediaType.*;
 
 @RestSchema(schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
 @RequestMapping(value = "/", produces = {APPLICATION_JSON_VALUE})
-{{>generatedAnnotation}}
+
 {{#operations}}
 public class {{classname}} {
   {{#operation}}
@@ -33,7 +33,7 @@ public class {{classname}} {
     method = RequestMethod.{{httpMethod}})
   public ResponseEntity<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},
     {{/hasMore}}{{/allParams}}) {
-      // do some magic!
+      // do something
       return new ResponseEntity<{{>returnTypes}}>(HttpStatus.OK);
   }
 

@@ -72,14 +72,14 @@ public class {{classname}}ContractTest {
     }
 
     private void doTest(String path, String json) throws IOException {
-      ConsumerClient consumerClient = new ConsumerClient(mockTestProvider.getUrl());
-      consumerClient.options("/second");
+      Consumer consumer = new Consumer(mockTestProvider.getUrl());
+      consumer.options("/second");
       try {
-        consumerClient.getAsMap(path, "");
+        consumer.getAsMap(path, "");
       } catch (IOException e) {
       }
       try {
-        new ConsumerClient(mockTestProvider2.getUrl()).putAsMap("/", json);
+        new Consumer(mockTestProvider2.getUrl()).putAsMap("/", json);
       } catch (IOException e) {
       }
     }
