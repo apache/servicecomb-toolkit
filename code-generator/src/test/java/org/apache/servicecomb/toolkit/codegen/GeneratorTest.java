@@ -40,6 +40,7 @@ public class GeneratorTest {
     generateCode("SpringMVC");
     generateCode("POJO");
     generateCode("JAX-RS");
+    generateCode("SpringBoot");
   }
 
   private void generateCode(String programmingModel) throws IOException, URISyntaxException {

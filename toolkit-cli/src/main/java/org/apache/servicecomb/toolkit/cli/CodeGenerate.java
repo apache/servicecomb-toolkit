@@ -39,7 +39,7 @@ import io.swagger.codegen.config.CodegenConfigurator;
 public class CodeGenerate implements Runnable {
 
   @Option(name = {"-p", "--programming-model"}, title = "programming model", required = false,
-      description = "programming model, as SpringMVC, POJO or JAX-RS")
+      description = "programming model, as SpringMVC, POJO, JAX-RS, and SpringBoot")
   private String programmingModel;
 
   @Option(name = {"-m", "--microservice-framework"}, title = "framework",

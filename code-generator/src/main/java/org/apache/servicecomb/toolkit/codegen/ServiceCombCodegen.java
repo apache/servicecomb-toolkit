@@ -39,6 +39,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private static final String JAX_RS_LIBRARY = "JAX-RS";
 
+  private static final String SPRING_BOOT_LIBRARY = "SpringBoot";
+
   private String mainClassPackage;
 
   private String providerProject = "provider";
@@ -104,6 +106,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the pojo programming model.");
     supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the jax-rs programming model.");
+    supportedLibraries.put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 
