@@ -17,23 +17,21 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template;
-
 import java.io.IOException;
 import java.io.Writer;
 
-public class RemoveImplSuffixLambda implements Mustache.Lambda  {
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
+
+public class RemoveImplSuffixLambda implements Mustache.Lambda {
 
   @Override
   public void execute(Template.Fragment fragment, Writer writer) throws IOException {
 
     String text = fragment.execute();
-    if(text.endsWith("Impl")){
-      text = text.substring(0,text.lastIndexOf("Impl"));
+    if (text.endsWith("Impl")) {
+      text = text.substring(0, text.lastIndexOf("Impl"));
     }
     writer.write(text);
-
   }
-
 }

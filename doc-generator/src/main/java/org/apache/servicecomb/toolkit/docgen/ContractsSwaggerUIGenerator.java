@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.docgen;
+package org.apache.servicecomb.toolkit.docgen;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

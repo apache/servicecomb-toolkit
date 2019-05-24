@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.docgen;
+package org.apache.servicecomb.toolkit.docgen;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 

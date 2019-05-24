@@ -42,7 +42,7 @@ public class CodeGenerate implements Runnable {
       description = "programming model, as SpringMVC, POJO or JAX-RS")
   private String programmingModel;
 
-  @Option(name = {"-m", "--microservice-framework"}, title = "language",
+  @Option(name = {"-m", "--microservice-framework"}, title = "framework",
       description = "microservice-framework")
   private String framework = "ServiceComb";
 
@@ -59,7 +59,7 @@ public class CodeGenerate implements Runnable {
   private String groupId;
 
   @Option(name = {"--artifact-id"}, title = "artifact id",
-      description = "artifact version in generated microservice project")
+      description = "artifact id in generated microservice project")
   private String artifactId;
 
   @Option(name = {"--artifact-version"}, title = "artifact version",

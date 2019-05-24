@@ -15,13 +15,34 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.docgen;
+package org.apache.servicecomb.toolkit.docgen;
+
+import java.util.ServiceLoader;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import io.swagger.models.Swagger;
 
-public interface DocGenerator {
+public class DocGeneratorManager {
 
-  boolean canProcess(String type);
+  private final static CopyOnWriteArrayList<DocGenerator> registeredGenerators = new CopyOnWriteArrayList<>();
 
-  String generate(Swagger source, String outputPath);
+  static {
+    loadInitialDocGenerators();
+  }
+
+  private static void loadInitialDocGenerators() {
+
+    ServiceLoader.load(DocGenerator.class).forEach(registeredGenerators::add);
+  }
+
+  public static String generate(Swagger source, String outputPath, String outputType) {
+
+    for (DocGenerator docGenerator : registeredGenerators) {
+      if (docGenerator.canProcess(outputType)) {
+        return docGenerator.generate(source, outputPath);
+      }
+    }
+
+    return null;
+  }
 }

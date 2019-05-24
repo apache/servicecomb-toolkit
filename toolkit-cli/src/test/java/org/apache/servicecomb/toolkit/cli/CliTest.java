@@ -31,7 +31,7 @@ public class CliTest {
   @Test
   public void generateServiceCombCodeFromSingleContract() throws IOException {
 
-    String[] programModels = new String[] {"SpringMVC","POJO"};
+    String[] programModels = new String[] {"SpringMVC", "POJO", "JAX-RS"};
     Path tempDir = Files.createTempDirectory(null);
     Arrays.stream(programModels).forEach(model -> {
       try {

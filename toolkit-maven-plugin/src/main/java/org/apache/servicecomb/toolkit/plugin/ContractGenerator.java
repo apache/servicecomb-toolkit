@@ -24,7 +24,7 @@ import java.util.List;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.toolkit.ContractsUtils;
+import org.apache.servicecomb.toolkit.common.ContractsUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

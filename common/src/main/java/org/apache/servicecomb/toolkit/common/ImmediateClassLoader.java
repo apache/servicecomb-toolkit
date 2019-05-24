@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit;
+package org.apache.servicecomb.toolkit.common;
 
 import java.io.File;
 import java.net.URL;

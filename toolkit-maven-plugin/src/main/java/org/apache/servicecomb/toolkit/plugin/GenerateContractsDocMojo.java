@@ -35,7 +35,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.docgen.DocGeneratorManager;
+import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
 import org.apache.servicecomb.swagger.SwaggerUtils;
 
 @Mojo(name = "generateDoc", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)

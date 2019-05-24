@@ -26,7 +26,7 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import org.apache.servicecomb.docgen.DocGeneratorManager;
+import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
 import org.apache.servicecomb.swagger.SwaggerUtils;
 
 import io.airlift.airline.Command;
@@ -69,7 +69,8 @@ public class DocGenerate implements Runnable {
       } else {
 
         DocGeneratorManager.generate(SwaggerUtils.parseSwagger(new File(specFile).toURI().toURL()),
-            output + File.separator + new File(specFile).getName().substring(0, new File(specFile).getName().indexOf(".")),
+            output + File.separator + new File(specFile).getName()
+                .substring(0, new File(specFile).getName().indexOf(".")),
             format);
       }
     } catch (IOException e) {

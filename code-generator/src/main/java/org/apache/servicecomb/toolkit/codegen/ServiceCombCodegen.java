@@ -37,6 +37,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private static final String POJO_LIBRARY = "POJO";
 
+  private static final String JAX_RS_LIBRARY = "JAX-RS";
+
   private String mainClassPackage;
 
   private String providerProject = "provider";
@@ -101,6 +103,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the pojo programming model.");
+    supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the jax-rs programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 
@@ -129,8 +132,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     }
     if (pojoApiInterfaceTemplate.equals(templateName)) {
       String suffix = apiTemplateFiles().get(templateName);
-      String pojoApiInterfaceName =  pojoApiInterfaceFolder() + File.separator +  camelize(tag) + "Api" + suffix;
-      additionalProperties.put("pojoApiInterfaceName",camelize(tag) + "Api");
+      String pojoApiInterfaceName = pojoApiInterfaceFolder() + File.separator + camelize(tag) + "Api" + suffix;
+      additionalProperties.put("pojoApiInterfaceName", camelize(tag) + "Api");
       return pojoApiInterfaceName;
     }
     return super.apiFilename(templateName, tag);
@@ -201,11 +204,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         "pom.xml")
     );
 
-    supportingFiles.add(new SupportingFile("README.mustache",
-        providerProject,
-        "README.md")
-    );
-
     supportingFiles.add(new SupportingFile("Application.mustache",
         mainClassFolder(providerProject),
         "Application.java")
@@ -264,7 +262,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
       return apiName;
     }
 
-    if(POJO_LIBRARY.equals(getLibrary())){
+    if (POJO_LIBRARY.equals(getLibrary())) {
       return initialCaps(name) + "ApiImpl";
     }
 
