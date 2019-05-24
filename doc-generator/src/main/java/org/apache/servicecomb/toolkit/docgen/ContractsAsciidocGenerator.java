@@ -42,7 +42,9 @@ public class ContractsAsciidocGenerator implements DocGenerator {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ContractsAsciidocGenerator.class);
 
-  private final static String DOC_FORMAT = "asciidoc";
+  private final static String DOC_FORMAT = "asciidoc-html";
+
+  private final static String DOC_SUFFIX = ".html";
 
   @Override
   public boolean canProcess(String type) {
@@ -75,11 +77,21 @@ public class ContractsAsciidocGenerator implements DocGenerator {
         .asMap();
     String asciidocResult = asciidoctor.convert(markup, optionsMap);
     try {
+      outputPath = correctPath(outputPath);
       Files.write(Paths.get(outputPath), asciidocResult.getBytes());
     } catch (IOException e) {
       LOGGER.error(e.getMessage());
     }
 
     return asciidocResult;
+  }
+
+  private String correctPath(String filepath) {
+
+    if (!filepath.endsWith(DOC_SUFFIX)) {
+      return filepath + "-" + DOC_FORMAT + DOC_SUFFIX;
+    }
+
+    return filepath;
   }
 }

@@ -41,8 +41,8 @@ public class DocGenerate implements Runnable {
 
 
   @Option(name = {"-f", "--format"}, title = "document format", required = false,
-      description = "format of document, as html or asciidoc (html by default)")
-  private String format = "html";
+      description = "format of document, as swagger-ui or asciidoc-html (swagger-ui by default)")
+  private String format = "swagger-ui";
 
   @Option(name = {"-o", "--output"}, title = "output directory",
       description = "location of the generated document (current dir by default)")
@@ -62,7 +62,7 @@ public class DocGenerate implements Runnable {
 
             DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
                 output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")),
-                "html");
+                    format);
             return super.visitFile(file, attrs);
           }
         });

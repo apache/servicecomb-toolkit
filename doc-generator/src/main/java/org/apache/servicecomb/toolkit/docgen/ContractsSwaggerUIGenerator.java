@@ -35,7 +35,9 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
   private static Pattern variablePattern = Pattern.compile("(?<=\\{\\{)[a-zA-Z0-9_-]*(?=\\}\\})");
 
-  private final static String DOC_FORMAT = "html";
+  private final static String DOC_FORMAT = "swagger-ui";
+
+  private final static String DOC_SUFFIX = ".html";
 
   @Override
 
@@ -71,8 +73,8 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
   private String correctPath(String filepath) {
 
-    if (!filepath.endsWith("." + DOC_FORMAT)) {
-      return filepath + DOC_FORMAT;
+    if (!filepath.endsWith(DOC_SUFFIX)) {
+      return filepath + "-" + DOC_FORMAT + DOC_SUFFIX;
     }
 
     return filepath;
