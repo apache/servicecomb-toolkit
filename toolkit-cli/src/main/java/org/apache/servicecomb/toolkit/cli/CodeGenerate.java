@@ -34,7 +34,7 @@ import io.airlift.airline.Command;
 import io.airlift.airline.Option;
 import io.swagger.codegen.config.CodegenConfigurator;
 
-@Command(name = "generate",
+@Command(name = "codegenerate",
     description = "Generate multiple models of microservice project by OpenAPI specification file")
 public class CodeGenerate implements Runnable {
 

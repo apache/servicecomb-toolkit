@@ -17,14 +17,8 @@
 
 package org.apache.servicecomb.toolkit.plugin;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Map;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -35,14 +29,15 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.swagger.SwaggerUtils;
-import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
+import org.apache.servicecomb.toolkit.common.ContractComparator;
+import org.apache.servicecomb.toolkit.common.ContractsUtils;
 
-@Mojo(name = "generateDoc", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
-@Execute(goal = "generateDoc",
+@Mojo(name = "verifyContracts", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Execute(goal = "verifyContracts",
     phase = LifecyclePhase.COMPILE
 )
-public class GenerateContractsDocMojo extends AbstractMojo {
+public class VerifyContractsMojo extends AbstractMojo {
+
 
   @Parameter(defaultValue = "${project}", required = true, readonly = true)
   private MavenProject project;
@@ -53,31 +48,40 @@ public class GenerateContractsDocMojo extends AbstractMojo {
   @Parameter(defaultValue = ".yaml")
   private String format;
 
-  @Parameter(defaultValue = "build/doc")
-  private String docOutputDir;
+  @Parameter(defaultValue = "sourceContracts")
+  private String sourceContractsDir;
+
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
+    getLog().info("outputDir : " + outputDir);
+
     ContractGenerator contractGenerator = new ContractGenerator(project);
+
     contractGenerator.generateAndOutput(outputDir, format);
 
     try {
 
-      Files.walkFileTree(Paths.get(outputDir), new SimpleFileVisitor<Path>() {
+      Map<String, byte[]> currentContracts = ContractsUtils.getFilesGroupByFilename(outputDir);
+      Map<String, byte[]> sourceContracts = ContractsUtils.getFilesGroupByFilename(sourceContractsDir);
 
-        @Override
-        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+      currentContracts.forEach((contractName, swagger) -> {
 
-          DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
-              docOutputDir + File.separator
-                  + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")),
-              format);
-          return super.visitFile(file, attrs);
+        byte[] sourceSwagger = sourceContracts.get(contractName);
+
+        ContractComparator contractComparator = new ContractComparator(new String(sourceSwagger), new String(swagger));
+
+        if (!contractComparator.equals()) {
+          getLog().info("契约文件不匹配,差异如下");
+          getLog().info(sourceContractsDir + "/" + contractName + " vs " + outputDir + "/" + contractName);
+          contractComparator.splitPrintToScreen();
+        } else {
+          getLog().info("恭喜你，契约校验通过");
         }
       });
     } catch (IOException e) {
-      getLog().error(e.getMessage());
+      e.printStackTrace();
     }
   }
 }

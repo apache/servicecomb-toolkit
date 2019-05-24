@@ -32,7 +32,7 @@ import org.apache.servicecomb.swagger.SwaggerUtils;
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
 
-@Command(name = "docGenerate", description = "Generate document by OpenAPI specification file")
+@Command(name = "docgenerate", description = "Generate document by OpenAPI specification file")
 public class DocGenerate implements Runnable {
 
   @Option(name = {"-i", "--input"}, title = "OpenAPI specification file", required = true,

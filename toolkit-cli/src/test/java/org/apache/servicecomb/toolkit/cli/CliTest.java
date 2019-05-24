@@ -38,7 +38,7 @@ public class CliTest {
         Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/" + model + "Server");
         CliTest.class.getClassLoader().getResource("swagger.yaml");
         String[] args = new String[] {
-            "generate",
+            "codegenerate",
             "-m",
             "ServiceComb",
             "-i",
@@ -93,7 +93,7 @@ public class CliTest {
     Path tempDir = Files.createTempDirectory(null);
     Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     String[] args = new String[] {
-        "generate",
+        "codegenerate",
         "-i",
         Paths.get("./src/test/resources/contracts").toFile().getCanonicalPath(),
         "--artifact-id",
