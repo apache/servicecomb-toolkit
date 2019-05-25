@@ -73,11 +73,11 @@ public class VerifyContractsMojo extends AbstractMojo {
         ContractComparator contractComparator = new ContractComparator(new String(sourceSwagger), new String(swagger));
 
         if (!contractComparator.equals()) {
-          getLog().info("契约文件不匹配,差异如下");
+          getLog().info("contract is not matched, difference is as follows");
           getLog().info(sourceContractsDir + "/" + contractName + " vs " + outputDir + "/" + contractName);
           contractComparator.splitPrintToScreen();
         } else {
-          getLog().info("恭喜你，契约校验通过");
+          getLog().info("succee, contract verification passed");
         }
       });
     } catch (IOException e) {
