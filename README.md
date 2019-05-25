@@ -8,7 +8,7 @@
 
 * 快速构建基于流行微服务框架和编程模型的微服务工程，并提供服务契约、代码、文档的一体化制作能力，帮助基于服务契约开发的用户在微服务转型阶段，降低微服务入门成本，聚焦业务开发，提升遗留系统重构、开发效率。
 
-### 1.2 功能
+### 1.2 特性
 
 * 代码提取服务契约
 
@@ -25,6 +25,18 @@
 * 服务契约/代码生成文档
 
   输入符合OpenAPI规范的服务契约，一键生成html/word/pdf格式的文档。
+
+* Todo List
+
+  * 支持契约一键制作以SpringCloud等流行微服务框架为底座的微服务工程。
+
+  * 支持基于gradle的契约开发插件。
+
+  * 支持插件埋入eclipse。
+
+  * 支持word、pdf等流行格式文档。
+
+  * 支持契约增量生成代码。
 
 ### 1.3 适用场景
 
@@ -132,7 +144,7 @@ mvn toolkit:generateContracts
 配置项
 * outputDir : 生成的契约文件输出路径，默认contracts  
 例：
-```shell
+```xml
 <outputDir>contracts</outputDir>
 ```
 
@@ -148,7 +160,7 @@ mvn toolkit:generateDoc
 * docOutputDir : 生成的契约文档输出路径，默认build/doc
 
 例：
-```shell
+```xml
 <outputDir>contracts</outputDir>
 <docOutputDir>build/doc</docOutputDir>
 ```
