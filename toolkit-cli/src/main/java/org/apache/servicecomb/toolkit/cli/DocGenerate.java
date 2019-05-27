@@ -19,6 +19,7 @@ package org.apache.servicecomb.toolkit.cli;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,13 +63,18 @@ public class DocGenerate implements Runnable {
 
             DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
                 output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")),
-                    format);
+                format);
             return super.visitFile(file, attrs);
           }
         });
-      } else {
+      } else if (Files.isRegularFile(specPath)) {
 
-        DocGeneratorManager.generate(SwaggerUtils.parseSwagger(new File(specFile).toURI().toURL()),
+        DocGeneratorManager.generate(SwaggerUtils.parseSwagger(specPath.toUri().toURL()),
+            output + File.separator + new File(specFile).getName()
+                .substring(0, new File(specFile).getName().indexOf(".")),
+            format);
+      } else {
+        DocGeneratorManager.generate(SwaggerUtils.parseSwagger(URI.create(specFile).toURL()),
             output + File.separator + new File(specFile).getName()
                 .substring(0, new File(specFile).getName().indexOf(".")),
             format);

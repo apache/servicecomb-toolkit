@@ -71,7 +71,6 @@ public class ContractsAsciidocGenerator implements DocGenerator {
             .attribute("toclevels", 3)
             .attribute(Attributes.TOC_2, true)
             .attribute(Attributes.TOC_POSITION, "left")
-            .attribute(Attributes.LINK_CSS, true)
             .attribute(Attributes.SECTION_NUMBERS, true)
             .attribute(Attributes.SECT_NUM_LEVELS, 4))
         .asMap();
