@@ -1,190 +1,191 @@
 # toolkit
 
-基于契约的微服务开发工具套件
+Contract-based microservice development toolkit
 
-## 1 简介
+[中文简介](./README-ZH.md)
 
-### 1.1 目标
+## 1 Introduction
 
-* 快速构建基于流行微服务框架和编程模型的微服务工程，并提供服务契约、代码、文档的一体化制作能力，帮助基于服务契约开发的用户在微服务转型阶段，降低微服务入门成本，聚焦业务开发，提升遗留系统重构、开发效率。
+### 1.1 Conceptions
 
-### 1.2 特性
+* A contract-based microservice development toolkit with the goal of rapidly building microservices projects based on popular microservices frameworks and programming models, and supporting the automatic generation of contracts,code and documentation to help users reduce micro-service entry costs, focus on business development, and improve legacy system reconfiguration and development efficiency during the microservice transformation phase.
 
-* 代码提取服务契约
+### 1.2 Features
 
-  在基于SpringMVC/POJO/JAX-RS模型开发的应用中，一键生成符合OpenAPI规范的服务契约文件。
+* Code extraction service contract
 
-* 服务契约生成微服务工程
+  In applications developed based on the SpringMVC/POJO/JAX-RS model, one-click generation of service contract files conforming to the OpenAPI specification.
 
-  输入符合OpenAPI规范的服务契约，一键生成以ServiceComb/SpringCloud/Swagger为底座，以及以SpringMVC/POJO/JAX-RS或SpringBoot为开发模型的微服务项目。
+* Service contract generation microservice project
 
-* 服务契约与代码一致性校验
+  Enter a service contract that conforms to the OpenAPI specification, one-click generation of a microservice project with ServiceComb/SpringCloud/Swagger as the base microservice framework and SpringMVC/POJO/JAX-RS or SpringBoot as programming model.
 
-  校验应用的实际实现（如数据和服务API）是否与达成共识的服务契约描述一致。
+* Service contract and code consistency check
 
-* 服务契约/代码生成文档
+  Verify that the actual implementation of the application (such as the data and service API) is consistent with the agreed service contract description.
 
-  输入符合OpenAPI规范的服务契约，一键生成html/word/pdf格式的文档。
+* Service contract/code generation document
+
+  Enter a service contract that conforms to the OpenAPI specification, one-click generation of a document in html/word/pdf format.
 
 * Todo List
 
-  * 支持契约一键制作以SpringCloud等流行微服务框架为底座的微服务工程。
+  * Support contract one-click production microservice engineering based on popular microservice framework such as SpringCloud.
 
-  * 支持基于gradle的契约开发插件。
+  * Support gradle-based contract development plugin.
 
-  * 支持插件埋入eclipse。
+  * Support plugins to embed eclipse.
 
-  * 支持word、pdf等流行格式文档。
+  * Support for generating popular format documents such as word, pdf.
 
-  * 支持契约增量生成代码。
+  * Support contract incremental generation code.
 
-### 1.3 适用场景
+### 1.3 Applicable Scene
 
-* 集成多厂商应用的企业
+* For users who integrate multi-vendor applications
 
-  问题：厂商数据、服务标准不一致，开发语言、习惯、框架不一致，集成商难集成，企业难管控。
+  Scene: the development languages, habits, and frameworks of different vendors are different, the entire system data and service standards are inconsistent, users are difficult to integrate, and it is difficult to manage and control the final delivery quality.
 
-  措施：通过统一定义的接口描述标准（服务契约），使用工具套件一键生成基于指定微服务框架的微服务工程，并且通过服务契约校验手段协同维护整体系统的一致性。以此协调多个开发团队，降低沟通成本且避免后期的混乱。
+  Solution：Through a uniformly defined interface description standard (service contract), a toolkit is used to generate a microservice project based on a specified microservices framework, and the consistency of the whole system is coordinated through service contract verification. Coordinate multiple development teams to reduce communication costs and avoid post-chaos.
 
-* 遗留系统微服务化快速改造
+* For users who have evolved from legacy systems to microservices
 
-  问题：用户需要额外学习和理解微服务及相关框架后，再设计微服务工程，学习成本高。
+  Scene: additional learning and understanding of the microservices-related framework details is required before the microservices project can be designed, built, and developed according to the selected microservices framework. For users, Need to be distracted to focus on things outside the business.
 
-  措施：使用工具套件分析遗留应用提取服务契约，再一键生成基于指定微服务框架的微服务工程后，即可聚焦业务开发，减少用户对微服务框架的学习成本。
+  Solution: Using the toolkit to analyze the legacy application extraction service contract, and then generate the microservices project based on the specified microservices framework, you can focus on business development and reduce the learning cost of the microservices framework.
 
-## 2 设计
+## 2 Design
 
-### 2.1 主体架构
+### 2.1 Architecture
 
-![image](./images/architecture.png)
+![image](./images/architecture-en.png)
 
-### 2.2 工作原理
+### 2.2 Working Principle
 
-![image](./images/workingprinciple.png)
+![image](./images/workingprinciple-en.png)
 
-## 3 快速入门
-### 3.1 从源码构建工具和插件
-构建环境要求:
+## 3 Quick Start
+### 3.1 Build tool and plugins from source
 
+> Build environment requirements
 * [Java 8](http://java.oracle.com)
-
 * [Apache maven 3.5.0 or greater](http://maven.apache.org/)
 
 ```shell
-# 从github获取toolkit最新源码
+# Get the latest source code for toolkit from github
 $ git clone https://github.com/MabinGo/toolkit.git
 $ cd toolkit
 
-# 构建打包
+# Build package
 $ mvn clean install
 ```
 
-### 3.2 使用toolkit-cli工具
-可执行jar包位于toolkit/toolkit-cli/target目录下
+### 3.2 Use the toolkit-cli
+The executable jar package is located in the toolkit/toolkit-cli/target directory
 ```shell
 $ java -jar toolkit-cli.jar help
 ```
-#### 3.2.1 契约生成微服务工程
+#### 3.2.1 Service contract generation microservice project
 ```shell
 $ java -jar toolkit-cli.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
-> codegenerate命令选项说明:
-* -m, --microservice-framework : 指定微服务框架,现支持ServiceComb  
+> **codegenerate** Command option
+* -m, --microservice-framework. Specify microservices framework, now supports ServiceComb.
 例：-m ServiceComb
-* -p, --programming-model : 指定编程模型，可选JAX-RS，POJO，SpringMVC，SpringBoot  
+* -p, --programming-model. Specify programming model, optional JAX-RS, POJO, SpringMVC, SpringBoot.
 例：-p SpringMvc
-* -i, --input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件  
+* -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
 例：-i http://petstore.swagger.io/v2/swagger.json
-* -o, --output : 生成的项目代码输出路径  
+* -o, --output. Generated project code output path.  
 例：-o ./project
-* --group-id : 指定生成的项目的group id  
+* --group-id. Specify the group id of the generated project.
 例：--group-id com.demo
-* --artifact-id : 指定生成的项目的artifact id     
+* --artifact-id. Specify the artifact id of the generated project.
 例：--artifact-id springmvc-example
-* --artifact-version : 指定生成的项目的artifact version  
+* --artifact-version. Specify the artifact version of the generated project.
 例：--artifact-version 1.0.0
 
-#### 3.2.2 契约生成文档
+#### 3.2.2 Service contract generation document
 ```shell
 $ java -jar toolkit-cli.jar  docgenerate -i swagger.yaml -o ./document
 ```
-> docGenerate命令选项说明:
-* -i, --input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件  
+> **docgenerate** Command option
+* -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
 例：-i http://petstore.swagger.io/v2/swagger.json
-* -o, --output : 文档输出路径   
+* -o, --output. Document output path.
 例：-o ./document
-* -f, --format : 指定输出文档风格,现支持swagger-ui和asciidoc-html  
+* -f, --format. Specifies the output document format, now supports swagger-ui and asciidoc-html
 例：-f swagger-ui
 
-### 3.3 使用toolkit-maven-plugin插件
-#### 3.3.1 配置
-在maven项目的pom文件中配置
+### 3.3 Use the toolkit-maven-plugin plugin
+#### 3.3.1 configuration
+Configured in the pom file of the maven project
 ```xml
 <plugin>
     <groupId>org.apache.servicecomb</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <configuration>
-        <!-- 契约生成目录，默认contracts -->
-        <outputDir>contracts</outputDir>
-        <!-- 标准的契约放置的目录，默认sourceContracts  -->
-        <sourceContractsDir>sourceContracts</sourceContractsDir>  
-        <!-- 文档生成目录，默认build/doc -->
-        <docOutputDir>build/doc</docOutputDir>
+        <!-- Contracts generation directory -->
+        <outputDir>./contracts</outputDir>
+        <!-- SourceContracts placement directory -->
+        <sourceContractsDir>./sourceContracts</sourceContractsDir>  
+        <!-- Document generation directory -->
+        <docOutputDir>./documents</docOutputDir>
     </configuration>
 </plugin>
 ```
-#### 3.3.2 从代码提取契约
+#### 3.3.2 Extract the contract from the code
 
-运行
+Run in shell
 ```shell
 mvn toolkit:generateContracts
 ```
 
-配置项
-* outputDir : 生成的契约文件输出路径，默认contracts  
-例：
+Configuration
+* outputDir: contract generation directory
+example
 ```xml
-<outputDir>contracts</outputDir>
+<outputDir>./contracts</outputDir>
 ```
 
-#### 3.3.3 从代码生成文档
+#### 3.3.3 Generate documentation from code
 
-运行
+Run in shell
 ```shell
 mvn toolkit:generateDoc
 ```
 
-配置项
-* outputDir : 生成的契约文件输出路径，默认contracts
-* docOutputDir : 生成的契约文档输出路径，默认build/doc
+Configuration
+* outputDir : Contract generation directory
+* docOutputDir : Generated contract document output path
 
-例：
+example
 ```xml
-<outputDir>contracts</outputDir>
-<docOutputDir>build/doc</docOutputDir>
+<outputDir>./contracts</outputDir>
+<docOutputDir>./documents</docOutputDir>
 ```
 
-#### 3.3.4 契约校验
+#### 3.3.4 Contract verify
 
-运行
+Run in shell
 ```shell
 mvn toolkit:verifyContracts
 ```
 
-配置项
-* outputDir : 生成的契约文件输出路径，默认当前目录下contracts目录
-* sourceContractsDir : 共识契约存放路径，默认当前目录下sourceContracts目录
-例：
+Configuration
+* outputDir - The generated contract file output path.
+* sourceContractsDir - Consensus contract storage path.
+example
 ```xml
-<outputDir>contracts</outputDir>
-<sourceContractsDir>sourceContracts</sourceContractsDir>
+<outputDir>./contracts</outputDir>
+<sourceContractsDir>./sourceContracts</sourceContractsDir>
 ```
 
-## 4 反馈问题
+## 4 Contact
 
 Bugs: [issues](https://github.com/MabinGo/toolkit/issues)
 
-## 5 参与开发
+## 5 Contribute
 
 PR: [Pull request](https://github.com/MabinGo/toolkit/pulls)
