@@ -1,0 +1,38 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "swagger definition for org.apache.servicecomb.samples.bmi.HelloEndPoint"
+  x-java-interface: "gen.swagger.HelloEndPointIntf"
+basePath: "/hello"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /sayHello:
+    get:
+      operationId: "sayHello"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+  /sayHi:
+    get:
+      operationId: "sayHi"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"

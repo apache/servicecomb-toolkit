@@ -1,0 +1,75 @@
+---
+aaswagfger: "2.066"
+ccc
+info:
+  version: "1.0.02"
+  title: "swagger definition for org.apache.servicecomb.samples.bmi.HelloEndPoint"
+  x-java-interface: "gen.swagger.HelloEndPointIntf"
+basePath: "/hello"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /sayHello:
+    get:
+      operationId: "sayHello"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "result"
+        in: "query"
+        required: false
+        type: "number"
+        format: "double"
+      - name: "instanceId"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "callTime"
+        in: "query"
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+  /sayHi:
+    get:
+      operationId: "sayHi"
+      parameters:
+      - name: "name"
+        in: "query"
+        required: false
+        type: "string"
+      - name: "Authorization"
+        in: "header"
+        description: "aa"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
+  /sayNo:
+    get:
+      operationId: "sayNo"
+      parameters:
+        - name: "name"
+          in: "query"
+          required: false
+          type: "string"
+        - name: "Authorization"
+          in: "header"
+          description: "aa"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
