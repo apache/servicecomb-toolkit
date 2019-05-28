@@ -30,8 +30,12 @@ import java.util.regex.Pattern;
 
 import io.swagger.models.Swagger;
 import io.swagger.util.Json;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ContractsSwaggerUIGenerator implements DocGenerator {
+
+  private final static Logger LOGGER = LoggerFactory.getLogger(ContractsSwaggerUIGenerator.class);
 
   private static Pattern variablePattern = Pattern.compile("(?<=\\{\\{)[a-zA-Z0-9_-]*(?=\\}\\})");
 
@@ -65,7 +69,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
       Files.write(outputFile, swaggerUiHtml.getBytes());
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.error(e.getMessage());
     }
 
     return swaggerUiHtml;

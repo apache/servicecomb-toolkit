@@ -31,6 +31,8 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.common.ContractComparator;
 import org.apache.servicecomb.toolkit.common.ContractsUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Mojo(name = "verifyContracts", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
 @Execute(goal = "verifyContracts",
@@ -38,6 +40,7 @@ import org.apache.servicecomb.toolkit.common.ContractsUtils;
 )
 public class VerifyContractsMojo extends AbstractMojo {
 
+  private final static Logger LOGGER = LoggerFactory.getLogger(VerifyContractsMojo.class);
 
   @Parameter(defaultValue = "${project}", required = true, readonly = true)
   private MavenProject project;
@@ -81,7 +84,7 @@ public class VerifyContractsMojo extends AbstractMojo {
         }
       });
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.error(e.getMessage());
     }
   }
 }
