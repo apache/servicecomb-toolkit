@@ -33,10 +33,14 @@ import org.apache.servicecomb.toolkit.codegen.DefaultCodeGenerator;
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
 import io.swagger.codegen.config.CodegenConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Command(name = "codegenerate",
     description = "Generate multiple models of microservice project by OpenAPI specification file")
 public class CodeGenerate implements Runnable {
+
+  private final static Logger LOGGER = LoggerFactory.getLogger(CodeGenerate.class);
 
   @Option(name = {"-p", "--programming-model"}, title = "programming model", required = false,
       description = "programming model, as SpringMVC, POJO, JAX-RS, and SpringBoot")
@@ -98,7 +102,7 @@ public class CodeGenerate implements Runnable {
             }
           });
         } catch (IOException e) {
-          e.printStackTrace();
+          LOGGER.error(e.getMessage());
         }
       } else {
         configurator.setInputSpec(specFile);

@@ -17,11 +17,16 @@
 
 package org.apache.servicecomb.toolkit.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 
 public class ImmediateClassLoader extends URLClassLoader {
+
+  private final static Logger LOGGER = LoggerFactory.getLogger(ImmediateClassLoader.class);
 
   private String classPath;
 
@@ -45,7 +50,7 @@ public class ImmediateClassLoader extends URLClassLoader {
               .replace(".class", "");
           loadClass(className);
         } catch (ClassNotFoundException e) {
-          e.printStackTrace();
+          LOGGER.error(e.getMessage());
         }
       } else if (file.isDirectory()) {
         for (File f : file.listFiles()) {

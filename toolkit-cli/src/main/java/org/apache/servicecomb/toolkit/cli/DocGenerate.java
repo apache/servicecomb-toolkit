@@ -32,9 +32,13 @@ import org.apache.servicecomb.swagger.SwaggerUtils;
 
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Command(name = "docgenerate", description = "Generate document by OpenAPI specification file")
 public class DocGenerate implements Runnable {
+
+  private final static Logger LOGGER = LoggerFactory.getLogger(CodeGenerate.class);
 
   @Option(name = {"-i", "--input"}, title = "OpenAPI specification file", required = true,
       description = "location of the OpenAPI specification file, as URL or file (required)")
@@ -80,8 +84,7 @@ public class DocGenerate implements Runnable {
             format);
       }
     } catch (IOException e) {
-      // command line , direct print to screen
-      e.printStackTrace();
+      LOGGER.error(e.getMessage());
     }
   }
 }
