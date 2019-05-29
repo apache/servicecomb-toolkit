@@ -51,7 +51,7 @@ public class GenerateContractsMojoTest {
     final MavenProject project = mock(MavenProject.class);
     given(project.getFile()).willReturn(pom);
     List<String> runtimeUrlPath = new ArrayList<>();
-    runtimeUrlPath.add(baseDir + "/target/classes");
+    runtimeUrlPath.add(baseDir + "/classes");
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
 
     rule.setVariableValueToObject(generateContractsMojo, "project", project);
