@@ -40,6 +40,8 @@
 
   * 支持契约增量生成代码。
 
+  * 支持生成“Hello World”微服务演示项目。
+
 ### 1.3 适用场景
 
 * 集成多厂商应用的企业
@@ -82,13 +84,13 @@ $ mvn clean install
 ```
 
 ### 3.2 使用toolkit-cli工具
-可执行jar包位于toolkit/toolkit-cli/target目录下
+可执行jar包位于toolkit/toolkit-cli/target/bin目录下
 ```shell
-$ java -jar toolkit-cli.jar help
+$ java -jar toolkit-cli-{version}.jar help
 ```
 #### 3.2.1 契约生成微服务工程
 ```shell
-$ java -jar toolkit-cli.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
+$ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
 > **codegenerate** 命令选项说明:
 * -m, --microservice-framework : 指定微服务框架,现支持ServiceComb  
@@ -108,7 +110,7 @@ $ java -jar toolkit-cli.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./pr
 
 #### 3.2.2 契约生成文档
 ```shell
-$ java -jar toolkit-cli.jar  docgenerate -i swagger.yaml -o ./document
+$ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
 > **docGenerate** 命令选项说明:
 * -i, --input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件  

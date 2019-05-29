@@ -40,6 +40,8 @@ Contract-based microservice development toolkit
 
   * Support contract incremental generation code.
 
+  * Support for generating "Hello World" microservice demo project.
+
 ### 1.3 Applicable Scene
 
 * For users who integrate multi-vendor applications
@@ -81,13 +83,13 @@ $ mvn clean install
 ```
 
 ### 3.2 Use the toolkit-cli
-The executable jar package is located in the toolkit/toolkit-cli/target directory
+The executable jar package is located in the toolkit/toolkit-cli/target/bin directory
 ```shell
-$ java -jar toolkit-cli.jar help
+$ java -jar toolkit-cli-{version}.jar help
 ```
 #### 3.2.1 Service contract generation microservice project
 ```shell
-$ java -jar toolkit-cli.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
+$ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
 > **codegenerate** Command option
 * -m, --microservice-framework. Specify microservices framework, now supports ServiceComb.
@@ -107,7 +109,7 @@ $ java -jar toolkit-cli.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./pr
 
 #### 3.2.2 Service contract generation document
 ```shell
-$ java -jar toolkit-cli.jar  docgenerate -i swagger.yaml -o ./document
+$ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
 > **docgenerate** Command option
 * -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
