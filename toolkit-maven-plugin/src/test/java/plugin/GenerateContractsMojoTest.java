@@ -1,5 +1,15 @@
 package plugin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
@@ -7,18 +17,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.plugin.GenerateContractsMojo;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
 
 public class GenerateContractsMojoTest {
 
@@ -57,12 +55,12 @@ public class GenerateContractsMojoTest {
     rule.setVariableValueToObject(generateContractsMojo, "project", project);
     assertNotNull(this.rule.getVariableValueFromObject(generateContractsMojo, "project"));
 
-    assertEquals("target/test_output_contracts", this.rule.getVariableValueFromObject(generateContractsMojo, "outputDir"));
+    assertEquals("target/test_output_contracts",
+        this.rule.getVariableValueFromObject(generateContractsMojo, "outputDir"));
     assertEquals(".yaml", this.rule.getVariableValueFromObject(generateContractsMojo, "format"));
 
     generateContractsMojo.execute();
 
     assertTrue(new File("target/test_output_contracts").exists());
   }
-
 }

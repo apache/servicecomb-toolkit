@@ -1,16 +1,7 @@
 package {{package}};
 
-import java.util.Objects;
 {{#imports}}import {{import}};
 {{/imports}}
-{{#serializableModel}}
-import java.io.Serializable;
-{{/serializableModel}}
-{{#useBeanValidation}}
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
-{{/useBeanValidation}}
 {{#withXml}}
 import javax.xml.bind.annotation.*;
 {{/withXml}}

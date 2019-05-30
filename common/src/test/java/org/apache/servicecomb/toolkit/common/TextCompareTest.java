@@ -1,8 +1,10 @@
 package org.apache.servicecomb.toolkit.common;
 
-import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,20 +15,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import org.junit.Test;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 public class TextCompareTest {
 
   Path sourcePath = Paths.get("./src/test/resources/compare/HelloEndPoint.yaml");
+
   Path destPath = Paths.get("./src/test/resources/compare/HelloEndPoint2.yaml");
 
   @Test
   public void contractCompareText() throws IOException {
     ContractComparator contractComparator = new ContractComparator(new String(Files.readAllBytes(sourcePath)),
-            new String(Files.readAllBytes(destPath)));
+        new String(Files.readAllBytes(destPath)));
     assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
 
     List<Comparison> comparisonList = contractComparator.compare();
@@ -37,7 +39,7 @@ public class TextCompareTest {
   @Test
   public void contractCompareResultPrint() throws IOException {
     ContractComparator contractComparator = new ContractComparator(new String(Files.readAllBytes(sourcePath)),
-            new String(Files.readAllBytes(destPath)));
+        new String(Files.readAllBytes(destPath)));
     assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
 
     ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -79,7 +81,7 @@ public class TextCompareTest {
     });
 
     ContractComparator contractComparator = new ContractComparator("source line",
-            "destination line", oneLineAlgorithm);
+        "destination line", oneLineAlgorithm);
 
     ByteArrayOutputStream bout = new ByteArrayOutputStream();
     contractComparator.splitPrint(bout);
@@ -88,10 +90,9 @@ public class TextCompareTest {
 
     bout = new ByteArrayOutputStream();
     contractComparator = new ContractComparator("source line",
-            "source line", oneLineAlgorithm);
+        "source line", oneLineAlgorithm);
     contractComparator.splitPrint(bout);
-    assertEquals(ComparisionType.EQUAL , contractComparator.compare().get(0).type);
-
+    assertEquals(ComparisionType.EQUAL, contractComparator.compare().get(0).type);
   }
 
   private boolean hasNewLine(String s) {
@@ -104,13 +105,11 @@ public class TextCompareTest {
     try (ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
 
       ContractComparator contractComparator = new ContractComparator(null,
-              new String(Files.readAllBytes(destPath)));
+          new String(Files.readAllBytes(destPath)));
       assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
       contractComparator.splitPrint(bout);
-
     } catch (RuntimeException e) {
       assertEquals("source must not be null", e.getMessage());
     }
-
   }
 }

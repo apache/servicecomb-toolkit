@@ -1,20 +1,20 @@
 package plugin;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.plugin.GenerateContractsDocMojo;
 import org.junit.Rule;
 import org.junit.Test;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
 
 
 public class GenerateContractsDocMojoTest {
@@ -46,8 +46,5 @@ public class GenerateContractsDocMojoTest {
     assertEquals(".yaml", this.rule.getVariableValueFromObject(generateContractsDocMojo, "format"));
     rule.executeMojo(project, PLUGIN_GOAL);
     generateContractsDocMojo.execute();
-
   }
-
-
 }

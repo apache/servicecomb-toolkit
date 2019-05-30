@@ -30,6 +30,7 @@
 
   <properties>
     <main.class>org.apache.servicecomb.toolkit.cli.ToolkitMain</main.class>
+    <log4j2.version>2.11.0</log4j2.version>
   </properties>
 
   <dependencies>
@@ -56,6 +57,24 @@
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>doc-generator</artifactId>
       <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
     </dependency>
   </dependencies>
 
@@ -98,12 +117,5 @@
         </executions>
       </plugin>
     </plugins>
-
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-    </resources>
   </build>
 </project>

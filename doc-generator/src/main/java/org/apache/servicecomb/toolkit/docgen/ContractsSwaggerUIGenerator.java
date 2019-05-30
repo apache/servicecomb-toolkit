@@ -28,10 +28,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.swagger.models.Swagger;
-import io.swagger.util.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.swagger.models.Swagger;
+import io.swagger.util.Json;
 
 public class ContractsSwaggerUIGenerator implements DocGenerator {
 

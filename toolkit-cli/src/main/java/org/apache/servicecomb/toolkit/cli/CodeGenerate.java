@@ -29,12 +29,12 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 import org.apache.servicecomb.toolkit.codegen.DefaultCodeGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
 import io.swagger.codegen.config.CodegenConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Command(name = "codegenerate",
     description = "Generate multiple models of microservice project by OpenAPI specification file")
@@ -96,18 +96,25 @@ public class CodeGenerate implements Runnable {
               configurator.setInputSpec(file.toFile().getCanonicalPath())
                   .addAdditionalProperty("apiName", file.toFile().getName().split("\\.")[0]);
 
-              new DefaultCodeGenerator().opts(configurator).generate();
+              try {
+                new DefaultCodeGenerator().opts(configurator).generate();
+              } catch (RuntimeException e) {
+                throw new RuntimeException("Failed to generate code base on file " + file.toFile().getName());
+              }
 
               return super.visitFile(file, attrs);
             }
           });
-        } catch (IOException e) {
+        } catch (RuntimeException | IOException e) {
           LOGGER.error(e.getMessage());
+          return;
         }
       } else {
         configurator.setInputSpec(specFile);
         new DefaultCodeGenerator().opts(configurator).generate();
       }
+
+      LOGGER.info("Success to generate code, the directory is: {}", output);
     }
   }
 }

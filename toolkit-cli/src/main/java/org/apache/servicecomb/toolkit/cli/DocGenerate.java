@@ -27,13 +27,14 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.swagger.SwaggerUtils;
+import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Command(name = "docgenerate", description = "Generate document by OpenAPI specification file")
 public class DocGenerate implements Runnable {
@@ -59,30 +60,48 @@ public class DocGenerate implements Runnable {
     try {
       Path specPath = Paths.get(specFile);
 
+      String[] retValues = new String[1];
+      String[] fileName = new String[1];
+
       if (Files.isDirectory(specPath)) {
 
         Files.walkFileTree(specPath, new SimpleFileVisitor<Path>() {
           @Override
           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-            DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
+            retValues[0] = DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
                 output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")),
                 format);
+            if (StringUtils.isEmpty(retValues[0])) {
+              fileName[0] = file.toFile().getName();
+              return FileVisitResult.TERMINATE;
+            }
+
             return super.visitFile(file, attrs);
           }
         });
       } else if (Files.isRegularFile(specPath)) {
+        fileName[0] = specPath.toFile().getName();
 
-        DocGeneratorManager.generate(SwaggerUtils.parseSwagger(specPath.toUri().toURL()),
+        retValues[0] = DocGeneratorManager.generate(SwaggerUtils.parseSwagger(specPath.toUri().toURL()),
             output + File.separator + new File(specFile).getName()
                 .substring(0, new File(specFile).getName().indexOf(".")),
             format);
       } else {
-        DocGeneratorManager.generate(SwaggerUtils.parseSwagger(URI.create(specFile).toURL()),
+        fileName[0] = specFile;
+
+        retValues[0] = DocGeneratorManager.generate(SwaggerUtils.parseSwagger(URI.create(specFile).toURL()),
             output + File.separator + new File(specFile).getName()
                 .substring(0, new File(specFile).getName().indexOf(".")),
             format);
       }
+
+      if (StringUtils.isEmpty(retValues[0])) {
+        LOGGER.error("Failed to generate document base on file {}", fileName[0]);
+        return;
+      }
+
+      LOGGER.info("Success to generate document, the directory is: {}", output);
     } catch (IOException e) {
       LOGGER.error(e.getMessage());
     }

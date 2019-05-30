@@ -106,7 +106,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the pojo programming model.");
     supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the jax-rs programming model.");
-    supportedLibraries.put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
+    supportedLibraries
+        .put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 
@@ -216,10 +217,12 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         resourcesFolder(providerProject),
         "log4j2.xml")
     );
+
     supportingFiles.add(new SupportingFile(providerTemplateFolder + "/microservice.mustache",
         resourcesFolder(providerProject),
         "microservice.yaml")
     );
+
     apiTemplateFiles.put(apiConsumerTemplate, "Consumer.java");
   }
 
@@ -233,6 +236,11 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/Application.mustache",
         mainClassFolder(consumerProject),
         "Application.java")
+    );
+
+    supportingFiles.add(new SupportingFile("log4j2.mustache",
+        resourcesFolder(consumerProject),
+        "log4j2.xml")
     );
 
     supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/microservice.mustache",

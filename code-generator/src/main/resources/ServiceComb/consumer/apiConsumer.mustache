@@ -1,10 +1,13 @@
 package {{apiPackage}};
 
-import {{modelPackage}}.*;
-
+import static org.springframework.http.MediaType.*;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 {{#imports}}import {{import}};
 {{/imports}}
-
+import {{modelPackage}}.*;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.http.*;
@@ -17,49 +20,47 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.servicecomb.provider.rest.common.RestSchema;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import static org.springframework.http.MediaType.*;
 
 {{#operations}}
 public class {{classname}}Consumer {
-    {{#operation}}
+{{#operation}}
 
-     public ResponseEntity<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>consumer/queryParamsConsumer}}{{>consumer/pathParamsConsumer}}{{>consumer/headerParamsConsumer}}{{>consumer/bodyParamsConsumer}}{{>consumer/formParamsConsumer}}{{#hasMore}},
-        {{/hasMore}}{{/allParams}}) {
+  public ResponseEntity<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>consumer/queryParamsConsumer}}{{>consumer/pathParamsConsumer}}{{>consumer/headerParamsConsumer}}{{>consumer/bodyParamsConsumer}}{{>consumer/formParamsConsumer}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
 
-        Map<String, Object> params = new HashMap<>();
-        HttpEntity httpEntity = null;
-        HttpHeaders headers = new HttpHeaders();
- {{#allParams}}
-      {{#isPathParam}}  params.put("{{paramName}}",{{paramName}}); {{/isPathParam}}
-      {{#isQueryParam}} params.put("{{paramName}}",{{paramName}});  {{/isQueryParam}}
-      {{#isHeaderParam}}
-        headers.add("{{paramName}}",{{paramName}});
-      {{/isHeaderParam}}
-      {{#isFormParam}}
-          {{#notFile}}
-        httpEntity =  new HttpEntity<{{{dataType}}}>({{paramName}}, headers);
-          {{/notFile}}
-          {{#isFile}}
-        httpEntity =  new HttpEntity<MultipartFile>({{paramName}}, headers);
-          {{/isFile}}
-          {{/isFormParam}}
-      {{#isBodyParam}}
-        httpEntity =  new HttpEntity<{{{dataType}}}>({{paramName}}, headers);
-      {{/isBodyParam}}
+    Map<String, Object> params = new HashMap<>();
+    HttpEntity httpEntity = null;
+    HttpHeaders headers = new HttpHeaders();
+    {{#allParams}}
+    {{#isPathParam}}
+    params.put("{{paramName}}",{{paramName}});
+    {{/isPathParam}}
+    {{#isQueryParam}}
+    params.put("{{paramName}}",{{paramName}});
+    {{/isQueryParam}}
+    {{#isHeaderParam}}
+    headers.add("{{paramName}}",{{paramName}});
+    {{/isHeaderParam}}
+    {{#isFormParam}}
+    {{#notFile}}
+    httpEntity =  new HttpEntity<{{{dataType}}}>({{paramName}}, headers);
+    {{/notFile}}
+    {{#isFile}}
+    httpEntity =  new HttpEntity<MultipartFile>({{paramName}}, headers);
+    {{/isFile}}
+    {{/isFormParam}}
+    {{#isBodyParam}}
+    httpEntity =  new HttpEntity<{{{dataType}}}>({{paramName}}, headers);
+    {{/isBodyParam}}
+    {{/allParams}}
 
- {{/allParams}}
-        RestTemplate restTemplate = RestTemplateBuilder.create();
+    RestTemplate restTemplate = RestTemplateBuilder.create();
 
-        ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}/{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
+    ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}/{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
 
-        // do something
-        return result;
-    }
+    // do something
 
-    {{/operation}}
-    }
+    return result;
+  }
+{{/operation}}
+}
 {{/operations}}

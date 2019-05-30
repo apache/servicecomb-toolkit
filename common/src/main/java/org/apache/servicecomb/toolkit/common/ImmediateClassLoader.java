@@ -17,12 +17,12 @@
 
 package org.apache.servicecomb.toolkit.common;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ImmediateClassLoader extends URLClassLoader {
 

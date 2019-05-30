@@ -35,7 +35,7 @@ public class ToolkitMain {
 
     Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("java -jar toolkit-cli-" + projectVersion + ".jar");
     builder.withDescription("Microservice development toolkit(version " + projectVersion
-        + "). More info on https://github.com/MabinGo/toolkit");
+        + "). ");
     builder.withDefaultCommand(Help.class);
     builder.withCommands(CodeGenerate.class, DocGenerate.class, Help.class);
     Runnable cmd = builder.build().parse(args);
