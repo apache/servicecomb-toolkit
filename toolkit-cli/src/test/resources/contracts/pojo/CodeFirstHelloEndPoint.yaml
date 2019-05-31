@@ -19,16 +19,16 @@
 swagger: "2.0"
 info:
   version: "1.0.0"
-  title: "swagger definition for HelloEndPoint"
-  x-java-interface: "gen.swagger.HelloEndPointIntf"
-basePath: "/hello"
+  title: "swagger definition for CodeFirstHelloEndPoint"
+  x-java-interface: "gen.swagger.CodeFirstHelloEndPointIntf"
+basePath: "/codeFirstHello"
 consumes:
 - "application/json"
 produces:
 - "application/json"
 paths:
   /sayHello:
-    get:
+    post:
       operationId: "sayHello"
       parameters:
       - name: "name"
@@ -54,7 +54,7 @@ paths:
           schema:
             type: "string"
   /sayHi:
-    get:
+    post:
       operationId: "sayHi"
       parameters:
       - name: "name"

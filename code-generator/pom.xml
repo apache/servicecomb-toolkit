@@ -41,6 +41,16 @@
       <groupId>io.swagger</groupId>
       <artifactId>swagger-codegen</artifactId>
       <version>${swagger-codegen-version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-compat-qual</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>listenablefuture</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>

@@ -37,6 +37,12 @@
     <dependency>
       <groupId>io.airlift</groupId>
       <artifactId>airline</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.google.code.findbugs</groupId>
+          <artifactId>annotations</artifactId>
+        </exclusion>
+      </exclusions>
       <version>0.7</version>
     </dependency>
 
@@ -117,5 +123,12 @@
         </executions>
       </plugin>
     </plugins>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
   </build>
 </project>

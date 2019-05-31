@@ -19,55 +19,42 @@
 swagger: "2.0"
 info:
   version: "1.0.0"
-  title: "swagger definition for HelloEndPoint"
-  x-java-interface: "gen.swagger.HelloEndPointIntf"
-basePath: "/hello"
+  title: "swagger definition for CalculateEndpoint"
+  x-java-interface: "gen.swagger.CalculateEndpointIntf"
+basePath: "/"
 consumes:
 - "application/json"
 produces:
 - "application/json"
 paths:
-  /sayHello:
+  /bmi:
     get:
-      operationId: "sayHello"
+      operationId: "calculate"
       parameters:
-      - name: "name"
-        in: "query"
-        required: false
-        type: "string"
-      - name: "result"
+      - name: "number1"
         in: "query"
         required: false
         type: "number"
         format: "double"
-      - name: "instanceId"
+      - name: "number2"
         in: "query"
         required: false
-        type: "string"
-      - name: "callTime"
-        in: "query"
-        required: false
-        type: "string"
+        type: "number"
+        format: "double"
       responses:
         200:
           description: "response of 200"
           schema:
-            type: "string"
-  /sayHi:
-    get:
-      operationId: "sayHi"
-      parameters:
-      - name: "name"
-        in: "query"
-        required: false
+            $ref: "#/definitions/CalculateViewObject"
+definitions:
+  CalculateViewObject:
+    type: "object"
+    properties:
+      result:
+        type: "number"
+        format: "double"
+      instanceId:
         type: "string"
-      - name: "Authorization"
-        in: "header"
-        description: "aa"
-        required: true
+      callTime:
         type: "string"
-      responses:
-        200:
-          description: "response of 200"
-          schema:
-            type: "string"
+    x-java-class: "CalculateViewObject"
