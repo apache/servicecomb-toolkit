@@ -126,7 +126,7 @@ public class TextCompareTest {
       assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
       contractComparator.splitPrint(bout);
     } catch (RuntimeException e) {
-      assertEquals("source must not be null", e.getMessage());
+      assertEquals("source and dest must not be null", e.getMessage());
     }
   }
 }

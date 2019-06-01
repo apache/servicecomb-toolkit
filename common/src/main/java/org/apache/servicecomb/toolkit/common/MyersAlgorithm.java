@@ -34,13 +34,9 @@ public class MyersAlgorithm implements CompareAlgorithm {
   @Override
   public List<Comparison> compare(String source, String dest) {
 
-    if (source == null) {
-      LOGGER.error("source must not be null");
-      throw new RuntimeException("source must not be null");
-    }
-    if (source == null) {
-      LOGGER.error("dest must not be null");
-      throw new RuntimeException("dest must not be null");
+    if ((source == null) || (dest == null)) {
+      LOGGER.error("source is {} and dest is {}", source, dest);
+      throw new RuntimeException("source and dest must not be null");
     }
 
     EditList diffList = new EditList();

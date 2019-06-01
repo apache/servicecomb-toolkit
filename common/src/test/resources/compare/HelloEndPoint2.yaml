@@ -16,10 +16,9 @@
 ## ---------------------------------------------------------------------------
 
 ---
-aaswagfger: "2.066"
-ccc
+swagger: "2.0"
 info:
-  version: "1.0.02"
+  version: "1.0.1"
   title: "swagger definition for HelloEndPoint"
   x-java-interface: "gen.swagger.HelloEndPointIntf"
 basePath: "/hello"
@@ -40,7 +39,7 @@ paths:
         in: "query"
         required: false
         type: "number"
-        format: "double"
+        format: "int"
       - name: "instanceId"
         in: "query"
         required: false
@@ -64,7 +63,7 @@ paths:
         type: "string"
       - name: "Authorization"
         in: "header"
-        description: "aa"
+        description: "abc"
         required: true
         type: "string"
       responses:
