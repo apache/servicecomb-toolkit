@@ -10,8 +10,9 @@ import {{modelPackage}}.*;
 
 {{#operations}}
 public interface {{classname}} {
-    {{#operation}}
-     public {{>returnTypes}} {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
-    {{/operation}}
+ {{#operation}}
+
+  public {{>returnTypes}} {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+ {{/operation}}
 }
 {{/operations}}
