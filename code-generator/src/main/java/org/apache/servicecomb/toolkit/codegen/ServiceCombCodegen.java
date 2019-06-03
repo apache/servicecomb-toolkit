@@ -248,12 +248,18 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private void processConsumerOpts() {
 
-    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/pom.mustache",
+    String newConsumerTemplateFolder = consumerTemplateFolder;
+
+    if (SPRING_BOOT_LIBRARY.equals(getLibrary())) {
+      newConsumerTemplateFolder += "/springboot";
+    }
+
+    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/pom.mustache",
         consumerProject,
         "pom.xml")
     );
 
-    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/Application.mustache",
+    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/Application.mustache",
         mainClassFolder(consumerProject),
         "Application.java")
     );
