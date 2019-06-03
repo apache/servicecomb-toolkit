@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.codegen;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import io.swagger.codegen.CliOption;
@@ -61,9 +62,11 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private String apiConsumerTemplate = consumerTemplateFolder + "/apiConsumer.mustache";
 
+  private String apiConsumerTemplateForPojo = consumerTemplateFolder + "/pojo/apiConsumer.mustache";
+
   private String modelConsumerTemplate = consumerTemplateFolder + "/model.mustache";
 
-  private String pojoApiInterfaceTemplate = "apiInterface.mustache";
+  private String pojoApiImplTemplate = "apiImpl.mustache";
 
   private int modelSwitch = 1;
 
@@ -130,15 +133,20 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   @Override
   public String apiFilename(String templateName, String tag) {
-    if (apiConsumerTemplate.equals(templateName)) {
+    if (apiConsumerTemplate.equals(templateName) || apiConsumerTemplateForPojo.equals(templateName)) {
       String suffix = apiTemplateFiles().get(templateName);
       return apiConsumerFolder() + File.separator + toApiFilename(tag) + suffix;
     }
-    if (pojoApiInterfaceTemplate.equals(templateName)) {
-      String suffix = apiTemplateFiles().get(templateName);
-      String pojoApiInterfaceName = pojoApiInterfaceFolder() + File.separator + camelize(tag) + "Api" + suffix;
-      additionalProperties.put("pojoApiInterfaceName", camelize(tag) + "Api");
-      return pojoApiInterfaceName;
+
+    if (POJO_LIBRARY.equals(getLibrary())) {
+      if ("apiImpl.mustache".equals(templateName)) {
+        String suffix = apiTemplateFiles().get(templateName);
+        return apiFileFolder() + File.separator + additionalProperties.get("classnameImpl") + suffix;
+      }
+      if ("api.mustache".equals(templateName)) {
+        String suffix = apiTemplateFiles().get(templateName);
+        return pojoApiInterfaceFolder() + File.separator + camelize(tag) + "Api" + suffix;
+      }
     }
     return super.apiFilename(templateName, tag);
   }
@@ -149,6 +157,16 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
   private String apiConsumerFolder() {
     return outputFolder + "/" + consumerProject + "/" + sourceFolder + "/" + apiPackage().replace('.', '/');
+  }
+
+  @Override
+  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
+
+    Map operations = (Map) objs.get("operations");
+    String classnameImpl = (String) operations.get("classname") + "Impl";
+    operations.put("classnameImpl", classnameImpl);
+    additionalProperties.put("classnameImpl", classnameImpl);
+    return super.postProcessOperationsWithModels(objs, allModels);
   }
 
   @Override
@@ -176,7 +194,9 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     if (!POJO_LIBRARY.equals(getLibrary())) {
       return;
     }
-    apiTemplateFiles.put(pojoApiInterfaceTemplate, ".java");
+    apiTemplateFiles.put(pojoApiImplTemplate, ".java");
+    apiTemplateFiles.remove(apiConsumerTemplate);
+    apiTemplateFiles.put(apiConsumerTemplateForPojo, "Consumer.java");
     additionalProperties.put("isPOJO", true);
   }
 
@@ -265,7 +285,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
   @Override
   public String toApiName(String name) {
     if (name.length() == 0) {
-      return "DefaultController";
+      return "DefaultApi";
     }
 
     String apiName = (String) additionalProperties.get("apiName");
@@ -273,11 +293,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
       return apiName;
     }
 
-    if (POJO_LIBRARY.equals(getLibrary())) {
-      return initialCaps(name) + "ApiImpl";
-    }
-
-    return initialCaps(name) + "Controller";
+    return initialCaps(name) + "Api";
   }
 
   private String mainClassFolder(String projectPath) {
