@@ -1,0 +1,24 @@
+package {{apiPackage}};
+
+import java.util.List;
+{{#imports}}import {{import}};
+{{/imports}}
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.springframework.stereotype.Component;
+
+{{#operations}}
+@Component
+public class {{classname}}Consumer implements {{classname}}{
+
+  @RpcReference(microserviceName = "{{microserviceName}}", schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
+  private {{classname}} api;
+
+{{#operation}}
+  @Override
+  public {{>returnTypes}} {{operationId}}({{#allParams}}{{>consumer/queryParamsConsumer}}{{>consumer/pathParamsConsumer}}{{>consumer/headerParamsConsumer}}{{>consumer/bodyParamsConsumer}}{{>consumer/formParamsConsumer}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+
+    return api.{{operationId}}({{#allParams}}{{#isQueryParam}}{{paramName}}{{/isQueryParam}}{{#isPathParam}}{{paramName}}{{/isPathParam}}{{#isHeaderParam}}{{paramName}}{{/isHeaderParam}}{{#isBodyParam}}{{paramName}}{{/isBodyParam}}{{#isFormParam}}{{paramName}}{{/isFormParam}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+  }
+{{/operation}}
+}
+{{/operations}}
