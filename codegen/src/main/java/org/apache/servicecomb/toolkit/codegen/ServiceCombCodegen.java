@@ -20,6 +20,7 @@ package org.apache.servicecomb.toolkit.codegen;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import io.swagger.codegen.CliOption;
 import io.swagger.codegen.CodegenConfig;
@@ -67,9 +68,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
   private String modelConsumerTemplate = consumerTemplateFolder + "/model.mustache";
 
   private String pojoApiImplTemplate = "apiImpl.mustache";
-
-  private int modelSwitch = 1;
-
 
   @Override
   public CodegenType getTag() {
@@ -184,17 +182,38 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     additionalProperties.put("microserviceName", microserviceName);
 
     processParentProjectOpts();
-    processProviderProjectOpts();
-    processConsumerOpts();
+    switch ((String) Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE)).orElse("")) {
+      case "provider":
+        processProviderProjectOpts();
+        processPojoProvider();
+        break;
+      case "consumer":
+        processConsumerProjectOpts();
+        processPojoConsumer();
+        apiTemplateFiles().remove("api.mustache");
+        break;
+      case "all":
+      default:
+        processProviderProjectOpts();
+        processPojoProvider();
+        processConsumerProjectOpts();
+        processPojoConsumer();
+    }
     processModelProjectOpts();
-    processPojo();
   }
 
-  private void processPojo() {
+  private void processPojoProvider() {
     if (!POJO_LIBRARY.equals(getLibrary())) {
       return;
     }
     apiTemplateFiles.put(pojoApiImplTemplate, ".java");
+    additionalProperties.put("isPOJO", true);
+  }
+
+  private void processPojoConsumer() {
+    if (!POJO_LIBRARY.equals(getLibrary())) {
+      return;
+    }
     apiTemplateFiles.remove(apiConsumerTemplate);
     apiTemplateFiles.put(apiConsumerTemplateForPojo, "Consumer.java");
     additionalProperties.put("isPOJO", true);
@@ -242,11 +261,9 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         resourcesFolder(providerProject),
         "microservice.yaml")
     );
-
-    apiTemplateFiles.put(apiConsumerTemplate, "Consumer.java");
   }
 
-  private void processConsumerOpts() {
+  private void processConsumerProjectOpts() {
 
     String newConsumerTemplateFolder = consumerTemplateFolder;
 
@@ -273,6 +290,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         resourcesFolder(consumerProject),
         "microservice.yaml")
     );
+
+    apiTemplateFiles.put(apiConsumerTemplate, "Consumer.java");
   }
 
   @Override
