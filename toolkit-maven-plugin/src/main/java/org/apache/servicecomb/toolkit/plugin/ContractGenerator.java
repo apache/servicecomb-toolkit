@@ -20,11 +20,14 @@ package org.apache.servicecomb.toolkit.plugin;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.toolkit.common.ContractsUtils;
+import org.apache.servicecomb.toolkit.ContractsGenerator;
+import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,6 +59,11 @@ public class ContractGenerator {
       }
     }
 
-    ContractsUtils.generateAndOutputContracts(outputDir, format, runtimeUrls);
+    ContractsGenerator contractGenerator = GeneratorFactory.getGenerator(ContractsGenerator.class,"default");
+    Map<String,Object> contractConfig = new HashMap<>();
+    contractConfig.put("classpathUrls",runtimeUrls);
+    contractConfig.put("outputDir",outputDir);
+    contractGenerator.configure(contractConfig);
+    contractGenerator.generate();
   }
 }

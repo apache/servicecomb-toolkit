@@ -26,63 +26,27 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>toolkit-common</artifactId>
+  <artifactId>core</artifactId>
+
+  <properties>
+    <swagger-codegen-version>2.4.3</swagger-codegen-version>
+  </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>core</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>5.3.0.201903130848-r</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-springmvc</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-jaxrs</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-rest-common</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-pojo</artifactId>
-      <version>1.2.0</version>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-codegen</artifactId>
+      <version>${swagger-codegen-version}</version>
       <exclusions>
         <exclusion>
-          <groupId>commons-lang</groupId>
-          <artifactId>commons-lang</artifactId>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-compat-qual</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>listenablefuture</artifactId>
         </exclusion>
       </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>2.25.0</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 

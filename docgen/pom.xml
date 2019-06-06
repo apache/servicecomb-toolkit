@@ -26,7 +26,18 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>toolkit-common</artifactId>
+  <artifactId>docgen</artifactId>
+
+  <repositories>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>jcenter-releases</id>
+      <name>jcenter</name>
+      <url>http://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -36,39 +47,55 @@
     </dependency>
 
     <dependency>
-      <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>5.3.0.201903130848-r</version>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.asciidoctor</groupId>
+      <artifactId>asciidoctorj-pdf</artifactId>
+      <version>1.5.0-alpha.15</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jruby</groupId>
+          <artifactId>jruby-complete</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jruby</groupId>
+      <artifactId>jruby-complete</artifactId>
+      <version>9.2.6.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-springmvc</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-jaxrs</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-rest-common</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-pojo</artifactId>
+      <artifactId>swagger-generator-core</artifactId>
       <version>1.2.0</version>
       <exclusions>
         <exclusion>
-          <groupId>commons-lang</groupId>
-          <artifactId>commons-lang</artifactId>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-compat-qual</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>listenablefuture</artifactId>
         </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>io.github.swagger2markup</groupId>
+      <artifactId>swagger2markup</artifactId>
+      <version>1.3.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.4</version>
     </dependency>
 
     <dependency>
@@ -79,13 +106,11 @@
     </dependency>
 
     <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>2.25.0</version>
-      <scope>test</scope>
+      <groupId>org.eclipse.jgit</groupId>
+      <artifactId>org.eclipse.jgit</artifactId>
+      <version>5.3.0.201903130848-r</version>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -99,5 +124,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

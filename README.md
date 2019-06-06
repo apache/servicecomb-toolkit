@@ -82,8 +82,8 @@ $ cd toolkit
 $ mvn clean install
 ```
 
-### 3.2 Use the toolkit-cli
-The executable jar package is located in the toolkit/toolkit-cli/target/bin directory
+### 3.2 Use the toolkit cli
+The executable jar package is located in the toolkit/cli/target/bin directory
 ```shell
 $ java -jar toolkit-cli-{version}.jar help
 ```

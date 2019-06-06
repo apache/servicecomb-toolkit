@@ -201,9 +201,9 @@
    limitations under the License.
 
 ================================================================
-For code-generator/src/main/resources/ServiceComb/*
-For toolkit-cli/src/test/resources/swagger.yaml
-For code-generator/src/test/resources/swagger.yaml
+For codegen/src/main/resources/ServiceComb/*
+For cli/src/test/resources/swagger.yaml
+For codegen/src/test/resources/swagger.yaml
 ================================================================
 This product bundles files from swagger-codegen which is licensed under the Apache License v2.
 For details, see https://github.com/swagger-api/swagger-codegen

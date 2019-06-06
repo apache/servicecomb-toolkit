@@ -83,8 +83,8 @@ $ cd toolkit
 $ mvn clean install
 ```
 
-### 3.2 使用toolkit-cli工具
-可执行jar包位于toolkit/toolkit-cli/target/bin目录下
+### 3.2 使用toolkit cli工具
+可执行jar包位于toolkit/cli/target/bin目录下
 ```shell
 $ java -jar toolkit-cli-{version}.jar help
 ```

@@ -25,6 +25,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -36,7 +38,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.swagger.SwaggerUtils;
-import org.apache.servicecomb.toolkit.docgen.DocGeneratorManager;
+import org.apache.servicecomb.toolkit.GeneratorFactory;
+import org.apache.servicecomb.toolkit.DocGenerator;
 
 @Mojo(name = "generateDoc", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
 @Execute(goal = "generateDoc",
@@ -69,10 +72,14 @@ public class GenerateContractsDocMojo extends AbstractMojo {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-          DocGeneratorManager.generate(SwaggerUtils.parseSwagger(file.toUri().toURL()),
-              docOutputDir + File.separator
-                  + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")),
-              format);
+          DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, format);
+          Map<String, Object> docGeneratorConfig = new HashMap<>();
+          docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
+          docGeneratorConfig.put("outputPath",docOutputDir + File.separator
+              + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
+          docGenerator.configure(docGeneratorConfig);
+          docGenerator.generate();
+
           return super.visitFile(file, attrs);
         }
       });

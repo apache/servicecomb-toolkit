@@ -26,7 +26,15 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>toolkit-common</artifactId>
+  <artifactId>codegen</artifactId>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <swagger-codegen-version>2.4.3</swagger-codegen-version>
+    <maven-plugin-version>1.0.0</maven-plugin-version>
+    <junit-version>4.8.1</junit-version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -36,37 +44,17 @@
     </dependency>
 
     <dependency>
-      <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>5.3.0.201903130848-r</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-springmvc</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-jaxrs</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-rest-common</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-pojo</artifactId>
-      <version>1.2.0</version>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-codegen</artifactId>
+      <version>${swagger-codegen-version}</version>
       <exclusions>
         <exclusion>
-          <groupId>commons-lang</groupId>
-          <artifactId>commons-lang</artifactId>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-compat-qual</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.guava</groupId>
+          <artifactId>listenablefuture</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -77,13 +65,6 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>2.25.0</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
@@ -91,13 +72,21 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.6.1</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>8</source>
+          <target>8</target>
         </configuration>
       </plugin>
     </plugins>
-  </build>
 
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

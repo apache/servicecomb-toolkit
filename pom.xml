@@ -33,11 +33,12 @@
   </properties>
 
   <modules>
-    <module>code-generator</module>
-    <module>toolkit-cli</module>
-    <module>doc-generator</module>
+    <module>codegen</module>
+    <module>cli</module>
+    <module>docgen</module>
     <module>common</module>
     <module>toolkit-maven-plugin</module>
+    <module>core</module>
   </modules>
 
   <build>
