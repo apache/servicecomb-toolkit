@@ -31,6 +31,7 @@ import java.util.Collections;
 
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.CodeGenerator;
+import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,11 +81,15 @@ public class CodeGenerate implements Runnable {
       description = "model package in generated microservice project")
   private String modelPackage;
 
+  @Option(name = {"--service-type"}, title = "service type",
+      description = "microservice type of generated microservice project. optional value is provider,consumer,all")
+  private String serviceType;
+
   @Override
   public void run() {
 
     CodegenConfigurator configurator = new CodegenConfigurator();
-    CodeGenerator codegenerator = GeneratorFactory.getGenerator(CodeGenerator.class,"default");
+    CodeGenerator codegenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "default");
 
     configurator.setOutputDir(output)
         .setGroupId(groupId)
@@ -94,6 +99,8 @@ public class CodeGenerate implements Runnable {
         .setLang(framework)
         .setApiPackage(apiPackage)
         .setModelPackage(modelPackage);
+
+    configurator.addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, serviceType);
 
     if (isNotEmpty(specFile)) {
 
@@ -109,7 +116,7 @@ public class CodeGenerate implements Runnable {
                   .addAdditionalProperty("apiName", file.toFile().getName().split("\\.")[0]);
 
               try {
-                codegenerator.configure(Collections.singletonMap("configurator",configurator));
+                codegenerator.configure(Collections.singletonMap("configurator", configurator));
                 codegenerator.generate();
               } catch (RuntimeException e) {
                 throw new RuntimeException("Failed to generate code base on file " + file.toFile().getName());
@@ -124,7 +131,7 @@ public class CodeGenerate implements Runnable {
         }
       } else {
         configurator.setInputSpec(specFile);
-        codegenerator.configure(Collections.singletonMap("configurator",configurator));
+        codegenerator.configure(Collections.singletonMap("configurator", configurator));
         codegenerator.generate();
       }
 
