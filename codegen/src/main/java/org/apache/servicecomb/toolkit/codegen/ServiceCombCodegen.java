@@ -188,7 +188,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         processPojoProvider();
         break;
       case "consumer":
-        processConsumerOpts();
+        processConsumerProjectOpts();
         processPojoConsumer();
         apiTemplateFiles().remove("api.mustache");
         break;
@@ -196,7 +196,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
       default:
         processProviderProjectOpts();
         processPojoProvider();
-        processConsumerOpts();
+        processConsumerProjectOpts();
         processPojoConsumer();
     }
     processModelProjectOpts();
@@ -263,7 +263,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     );
   }
 
-  private void processConsumerOpts() {
+  private void processConsumerProjectOpts() {
 
     String newConsumerTemplateFolder = consumerTemplateFolder;
 

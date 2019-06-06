@@ -81,7 +81,7 @@ public class CodeGenerate implements Runnable {
       description = "model package in generated microservice project")
   private String modelPackage;
 
-  @Option(name = {"--service-type"}, title = "service type",
+  @Option(name = {"-t", "--service-type"}, title = "service type",
       description = "microservice type of generated microservice project. optional value is provider,consumer,all")
   private String serviceType;
 
