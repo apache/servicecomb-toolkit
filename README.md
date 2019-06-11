@@ -106,6 +106,12 @@ $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.ya
 例：--artifact-id springmvc-example
 * --artifact-version. Specify the artifact version of the generated project.
 例：--artifact-version 1.0.0
+* --api-package : Specify the api package of the generated project.
+例：--api-package com.demo.api
+* --model-package : Specify the model package of the generated project.
+例：--model-package com.demo.model
+* -t, --service-type : Specify microservice type of generated microservice project. optional value is provider,consumer,all               
+例：--service-type provider  
 
 #### 3.2.2 Service contract generation document
 ```shell
