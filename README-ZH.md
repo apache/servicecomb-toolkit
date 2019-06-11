@@ -107,11 +107,11 @@ $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.ya
 例：--artifact-id springmvc-example
 * --artifact-version : 指定生成的项目的artifact version  
 例：--artifact-version 1.0.0
-* --api-package : 指定生成项目的api package
+* --api-package : 指定生成项目的api package  
 例：--api-package com.demo.api
-* --model-package : 指定生成项目的model package
+* --model-package : 指定生成项目的model package   
 例：--model-package com.demo.model
-* -t, --service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all               
+* -t, --service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all                  
 例：--service-type provider  
 
 #### 3.2.2 契约生成文档
