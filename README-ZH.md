@@ -107,12 +107,18 @@ $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.ya
 例：--artifact-id springmvc-example
 * --artifact-version : 指定生成的项目的artifact version  
 例：--artifact-version 1.0.0
+* --api-package : 指定生成项目的api package  
+例：--api-package com.demo.api
+* --model-package : 指定生成项目的model package   
+例：--model-package com.demo.model
+* -t, --service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all                  
+例：--service-type provider  
 
 #### 3.2.2 契约生成文档
 ```shell
 $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
-> **docGenerate** 命令选项说明:
+> **docgenerate** 命令选项说明:
 * -i, --input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件  
 例：-i http://petstore.swagger.io/v2/swagger.json
 * -o, --output : 文档输出路径   

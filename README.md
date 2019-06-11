@@ -92,20 +92,26 @@ $ java -jar toolkit-cli-{version}.jar help
 $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
 > **codegenerate** Command option
-* -m, --microservice-framework. Specify microservices framework, now supports ServiceComb.
-例：-m ServiceComb
-* -p, --programming-model. Specify programming model, optional JAX-RS, POJO, SpringMVC, SpringBoot.
-例：-p SpringMvc
-* -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
-例：-i http://petstore.swagger.io/v2/swagger.json
+* -m, --microservice-framework. Specify microservices framework, now supports ServiceComb.  
+e.g.：-m ServiceComb
+* -p, --programming-model. Specify programming model, optional JAX-RS, POJO, SpringMVC, SpringBoot.  
+e.g.：-p SpringMvc
+* -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.  
+e.g.：-i http://petstore.swagger.io/v2/swagger.json
 * -o, --output. Generated project code output path.  
-例：-o ./project
-* --group-id. Specify the group id of the generated project.
-例：--group-id com.demo
-* --artifact-id. Specify the artifact id of the generated project.
-例：--artifact-id springmvc-example
-* --artifact-version. Specify the artifact version of the generated project.
-例：--artifact-version 1.0.0
+e.g.：-o ./project
+* --group-id. Specify the group id of the generated project.  
+e.g.：--group-id com.demo
+* --artifact-id. Specify the artifact id of the generated project.  
+e.g.：--artifact-id springmvc-example
+* --artifact-version. Specify the artifact version of the generated project.   
+e.g.：--artifact-version 1.0.0
+* --api-package : Specify the api package of the generated project.   
+e.g.：--api-package com.demo.api  
+* --model-package : Specify the model package of the generated project.  
+e.g.：--model-package com.demo.model
+* -t, --service-type : Specify microservice type of generated microservice project. optional value is provider,consumer,all               
+e.g.：--service-type provider  
 
 #### 3.2.2 Service contract generation document
 ```shell
