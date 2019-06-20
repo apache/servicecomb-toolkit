@@ -75,7 +75,8 @@ public class DocGenerate implements Runnable {
           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
             docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
-            docGeneratorConfig.put("outputPath", output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
+            docGeneratorConfig.put("outputPath",
+                output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
             docGenerator.configure(docGeneratorConfig);
             retValues[0] = docGenerator.generate();
             if (retValues[0]) {
@@ -94,18 +95,17 @@ public class DocGenerate implements Runnable {
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
         retValues[0] = docGenerator.generate();
-
       } else {
         fileName[0] = specFile;
 
         docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(URI.create(specFile).toURL()));
-        docGeneratorConfig.put("outputPath",output + File.separator + new File(specFile).getName()
+        docGeneratorConfig.put("outputPath", output + File.separator + new File(specFile).getName()
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
         retValues[0] = docGenerator.generate();
       }
 
-      if (retValues[0]) {
+      if (!retValues[0]) {
         LOGGER.error("Failed to generate document base on file {}", fileName[0]);
         return;
       }

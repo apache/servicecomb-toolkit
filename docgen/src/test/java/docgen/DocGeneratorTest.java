@@ -37,36 +37,6 @@ import java.util.Map;
 
 public class DocGeneratorTest {
 
-
-  @Test
-  public void contractToAsciidoc() throws IOException {
-
-    Swagger20Parser swagger20Parser = new Swagger20Parser();
-    InputStream in = DocGeneratorTest.class.getClassLoader().getResourceAsStream("HelloEndPoint.yaml");
-
-    StringBuilder sb = new StringBuilder();
-    byte[] bytes = new byte[1024];
-    int len = -1;
-    while ((len = in.read(bytes)) != -1) {
-      sb.append(new String(bytes, 0, len));
-    }
-
-    Swagger swagger = swagger20Parser.parse(sb.toString());
-    Path tempDir = Files.createTempDirectory(null);
-    Path outputPath = Paths.get(tempDir.toFile().getAbsolutePath()
-        + File.separator + "asciidoc.html");
-
-    DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, "asciidoc-html");
-    Map<String, Object> docGeneratorConfig = new HashMap<>();
-    docGeneratorConfig.put("contractContent", swagger);
-    docGeneratorConfig.put("outputPath", outputPath.toFile().getCanonicalPath());
-    docGenerator.configure(docGeneratorConfig);
-    docGenerator.generate();
-
-    Assert.assertTrue(Files.exists(outputPath));
-    FileUtils.deleteDirectory(tempDir.toFile());
-  }
-
   @Test
   public void contractTransferToSwaggerUI() throws IOException {
 
