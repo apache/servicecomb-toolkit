@@ -123,7 +123,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 例：-i http://petstore.swagger.io/v2/swagger.json
 * -o, --output : 文档输出路径   
 例：-o ./document
-* -f, --format : 指定输出文档风格,现支持swagger-ui和asciidoc-html  
+* -f, --format : 指定输出文档风格,现支持swagger-ui 
 例：-f swagger-ui
 
 ### 3.3 使用toolkit-maven-plugin插件

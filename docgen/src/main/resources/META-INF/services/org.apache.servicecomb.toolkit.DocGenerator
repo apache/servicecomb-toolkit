@@ -15,5 +15,4 @@
 # limitations under the License.
 #
 
-org.apache.servicecomb.toolkit.docgen.ContractsAsciidocGenerator
 org.apache.servicecomb.toolkit.docgen.ContractsSwaggerUIGenerator

@@ -47,30 +47,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.asciidoctor</groupId>
-      <artifactId>asciidoctorj</artifactId>
-      <version>1.6.2</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.asciidoctor</groupId>
-      <artifactId>asciidoctorj-pdf</artifactId>
-      <version>1.5.0-alpha.15</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.jruby</groupId>
-          <artifactId>jruby-complete</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jruby</groupId>
-      <artifactId>jruby-complete</artifactId>
-      <version>9.2.6.0</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>swagger-generator-core</artifactId>
       <version>1.2.0</version>
@@ -87,12 +63,6 @@
     </dependency>
 
     <dependency>
-      <groupId>io.github.swagger2markup</groupId>
-      <artifactId>swagger2markup</artifactId>
-      <version>1.3.2</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.4</version>
@@ -105,11 +75,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.jgit</groupId>
-      <artifactId>org.eclipse.jgit</artifactId>
-      <version>5.3.0.201903130848-r</version>
-    </dependency>
   </dependencies>
   <build>
     <plugins>
