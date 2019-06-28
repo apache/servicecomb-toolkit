@@ -1,14 +1,14 @@
-# toolkit
+# Toolkit | [中文](./README-ZH.md) [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![Gitter](https://img.shields.io/badge/ServiceComb-Gitter-ff69b4.svg)](https://gitter.im/ServiceCombUsers/Lobby)
 
-Contract-based microservice development toolkit
-
-[中文简介](./README-ZH.md)
+Apache ServiceComb Toolkit is a contract-based microservice development toolkit
 
 ## 1 Introduction
 
 ### 1.1 Conceptions
 
-* A contract-based microservice development toolkit with the goal of rapidly building microservices projects based on popular microservices frameworks and programming models, and supporting the automatic generation of contracts,code and documentation to help users reduce micro-service entry costs, focus on business development, and improve legacy system reconfiguration and development efficiency during the microservice transformation phase.
+* Provides the ability to convert and verify contracts, code, and documents, helping users quickly build microservice projects based on popular microservices frameworks and popular programming models, reducing the cost of microservices entry, enabling users to focus on business development, enhance refactoring and development efficiency.
+
+![image](./images/scene-en.png)
 
 ### 1.2 Features
 
@@ -26,11 +26,13 @@ Contract-based microservice development toolkit
 
 * Service contract/code generation document
 
-  Enter a service contract that conforms to the OpenAPI specification, one-click generation of a document in html/word/pdf format.
+  Enter a service contract that conforms to the OpenAPI specification, one-click generation of a document in html format.
 
 * Todo List
 
   * Support contract one-click production microservice engineering based on popular microservice framework such as SpringCloud.
+
+  * Support one-click generation of micro-service engineering from legacy application code
 
   * Support gradle-based contract development plugin.
 
@@ -40,7 +42,7 @@ Contract-based microservice development toolkit
 
   * Support contract incremental generation code.
 
-  * Support for generating "Hello World" microservice demo project.
+  * make capability as a service.
 
 ### 1.3 Applicable Scene
 
@@ -75,7 +77,7 @@ Contract-based microservice development toolkit
 
 ```shell
 # Get the latest source code for toolkit from github
-$ git clone https://github.com/MabinGo/toolkit.git
+$ git clone https://github.com/apache/servicecomb-toolkit.git
 $ cd toolkit
 
 # Build package
@@ -130,7 +132,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 Configured in the pom file of the maven project
 ```xml
 <plugin>
-    <groupId>org.apache.servicecomb</groupId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <configuration>
@@ -190,9 +192,11 @@ example
 <sourceContractsDir>./sourceContracts</sourceContractsDir>
 ```
 
-## 4 Contact
+## 4 Contact us
 
-Bugs: [issues](https://github.com/MabinGo/toolkit/issues)
+* [issues](https://issues.apache.org/jira/browse/SCB)
+* [gitter](https://gitter.im/ServiceCombUsers/Lobby)
+* mailing list: [subscribe](mailto:dev-subscribe@servicecomb.apache.org) [view](https://lists.apache.org/list.html?dev@servicecomb.apache.org)
 
 ## 5 Contribute
 
