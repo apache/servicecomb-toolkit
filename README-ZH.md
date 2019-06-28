@@ -1,36 +1,38 @@
-# toolkit
+# Toolkit | [English](./README.md) [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![Gitter](https://img.shields.io/badge/ServiceComb-Gitter-ff69b4.svg)](https://gitter.im/ServiceCombUsers/Lobby)
 
-基于契约的微服务开发工具套件
-
-[Introduction to English](./README.md)
+Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
 ## 1 简介
 
 ### 1.1 目标
 
-* 快速构建基于流行微服务框架和编程模型的微服务工程，并提供服务契约、代码、文档的一体化制作能力，帮助基于服务契约开发的用户在微服务转型阶段，降低微服务入门成本，聚焦业务开发，提升遗留系统重构、开发效率。
+* 提供契约、代码、文档相互转换及校验的能力，帮助用户一键式快速构建基于流行微服务框架和流行编程模型的微服务工程，降低微服务入门成本，使用户聚焦业务开发，提升遗留系统重构、开发效率。
+
+![image](./images/scene-zh.png)
 
 ### 1.2 特性
 
-* 代码提取服务契约
+* 遗留应用提取契约文件
 
-  在基于SpringMVC/POJO/JAX-RS模型开发的应用中，一键生成符合OpenAPI规范的服务契约文件。
+  在基于SpringMVC/POJO/JAX-RS模型开发的应用中，一键提取符合OpenAPI规范的服务契约文件。
 
-* 服务契约生成微服务工程
+* 契约文件生成微服务工程
 
   输入符合OpenAPI规范的服务契约，一键生成以ServiceComb/SpringCloud/Swagger为底座，以及以SpringMVC/POJO/JAX-RS或SpringBoot为开发模型的微服务项目。
 
-* 服务契约与代码一致性校验
+* 契约与代码一致性校验
 
   校验应用的实际实现（如数据和服务API）是否与达成共识的服务契约描述一致。
 
-* 服务契约/代码生成文档
+* 契约/代码生成文档
 
-  输入符合OpenAPI规范的服务契约，一键生成html/word/pdf格式的文档。
+  输入符合OpenAPI规范的服务契约，一键生成html格式的文档。
 
 * Todo List
 
-  * 支持契约一键制作以SpringCloud等流行微服务框架为底座的微服务工程。
+  * 支持一键生成以SpringCloud为底座的微服务工程。
+
+  * 支持一键从遗留应用代码生成微服务工程。
 
   * 支持基于gradle的契约开发插件。
 
@@ -40,7 +42,7 @@
 
   * 支持契约增量生成代码。
 
-  * 支持生成“Hello World”微服务演示项目。
+  * 工具能力服务化。
 
 ### 1.3 适用场景
 
@@ -76,7 +78,7 @@
 
 ```shell
 # 从github获取toolkit最新源码
-$ git clone https://github.com/MabinGo/toolkit.git
+$ git clone https://github.com/apache/servicecomb-toolkit.git
 $ cd toolkit
 
 # 构建打包
@@ -123,7 +125,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 例：-i http://petstore.swagger.io/v2/swagger.json
 * -o, --output : 文档输出路径   
 例：-o ./document
-* -f, --format : 指定输出文档风格,现支持swagger-ui 
+* -f, --format : 指定输出文档风格,现支持swagger-ui
 例：-f swagger-ui
 
 ### 3.3 使用toolkit-maven-plugin插件
@@ -131,7 +133,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 在maven项目的pom文件中配置
 ```xml
 <plugin>
-    <groupId>org.apache.servicecomb</groupId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <configuration>
@@ -191,10 +193,12 @@ mvn toolkit:verifyContracts
 <sourceContractsDir>./sourceContracts</sourceContractsDir>
 ```
 
-## 4 反馈问题
+## 4 社区互动
 
-Bugs: [issues](https://github.com/MabinGo/toolkit/issues)
+* [提交issues](https://issues.apache.org/jira/browse/SCB)
+* [gitter聊天室](https://gitter.im/ServiceCombUsers/Lobby)
+* 邮件列表: [订阅](mailto:dev-subscribe@servicecomb.apache.org) [浏览](https://lists.apache.org/list.html?dev@servicecomb.apache.org)
 
 ## 5 参与开发
 
-PR: [Pull request](https://github.com/MabinGo/toolkit/pulls)
+See [Pull Request Guide](http://servicecomb.apache.org/developers/submit-codes/) for details.
