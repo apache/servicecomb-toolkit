@@ -131,7 +131,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 在maven项目的pom文件中配置
 ```xml
 <plugin>
-    <groupId>org.apache.servicecomb</groupId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <configuration>

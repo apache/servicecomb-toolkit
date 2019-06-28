@@ -97,7 +97,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     modelTemplateFiles.put(modelTemplateFolder + "/model.mustache", ".java");
     modelTemplateFiles.remove("model.mustache");
 
-    groupId = "org.apache.servicecomb";
+    groupId = "org.apache.servicecomb.toolkit";
     artifactId = "app";
 
     apiPackage = groupId + "." + artifactId + ".api";
