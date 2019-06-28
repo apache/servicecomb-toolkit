@@ -21,7 +21,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>toolkit</artifactId>
-    <groupId>org.apache.servicecomb</groupId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -30,7 +30,7 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>docgen</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -60,7 +60,7 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>toolkit-common</artifactId>
       <version>${project.version}</version>
     </dependency>

@@ -22,7 +22,7 @@
   <prerequisites>
     <maven>3.0.3</maven>
   </prerequisites>
-  <groupId>org.apache.servicecomb</groupId>
+  <groupId>org.apache.servicecomb.toolkit</groupId>
   <artifactId>this-is-for-test-only</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>This is for Test ONLY</name>
@@ -31,7 +31,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.servicecomb</groupId>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>${project.version}</version>
         <extensions>true</extensions>
