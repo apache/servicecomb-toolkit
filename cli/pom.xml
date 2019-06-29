@@ -49,7 +49,6 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>codegen</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -62,7 +61,6 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>docgen</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>

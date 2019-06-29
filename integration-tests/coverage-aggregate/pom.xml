@@ -20,72 +20,66 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>toolkit</artifactId>
+    <artifactId>integration-tests</artifactId>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>docgen</artifactId>
-
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>jcenter-releases</id>
-      <name>jcenter</name>
-      <url>http://jcenter.bintray.com</url>
-    </repository>
-  </repositories>
+  <artifactId>coverage-aggregate</artifactId>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>cli</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>codegen</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>core</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-core</artifactId>
-      <version>1.2.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.checkerframework</groupId>
-          <artifactId>checker-compat-qual</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.google.guava</groupId>
-          <artifactId>listenablefuture</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>docgen</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-      <version>3.4</version>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>toolkit-maven-plugin</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+
+  <profiles>
+    <profile>
+      <id>jacoco</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>post-integration-test</phase>
+                <goals>
+                  <goal>report-aggregate</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
 </project>

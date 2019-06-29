@@ -40,7 +40,6 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>core</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
