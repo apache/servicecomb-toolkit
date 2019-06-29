@@ -32,7 +32,6 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>docgen</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
@@ -61,8 +60,7 @@
 
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
-      <artifactId>toolkit-common</artifactId>
-      <version>${project.version}</version>
+      <artifactId>common</artifactId>
     </dependency>
 
     <!-- for test -->

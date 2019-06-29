@@ -26,13 +26,12 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>toolkit-common</artifactId>
+  <artifactId>common</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>core</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
