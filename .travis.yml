@@ -24,5 +24,7 @@ cache:
 language: java
 
 install: true
+jdk:
+- oraclejdk8
 
 script: ./scripts/test.sh
