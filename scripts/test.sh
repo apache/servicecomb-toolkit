@@ -36,8 +36,8 @@ else
 	fi
 	
 	echo "Running the unit tests and integration tests here!"
-	##mvn clean install -Pjacoco coveralls:report
-	mvn clean install -Pjacoco
+	mvn clean install -Pjacoco coveralls:report
+	
 if [ $? == 0 ]; then
 	echo "${green}Installation Success..${reset}"
 else
