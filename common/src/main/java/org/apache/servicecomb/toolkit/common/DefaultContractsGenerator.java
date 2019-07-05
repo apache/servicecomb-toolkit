@@ -50,7 +50,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
 
   private String outputDir = ".";
 
-  private String format = "yaml";
+  private String format = ".yaml";
 
   @Override
   public boolean canProcess(String type) {
