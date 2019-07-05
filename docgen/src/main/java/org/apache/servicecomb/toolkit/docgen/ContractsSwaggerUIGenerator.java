@@ -102,7 +102,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
   private String correctPath(String filepath) {
 
     if (!filepath.endsWith(DOC_SUFFIX)) {
-      return filepath + "-" + DOC_FORMAT + DOC_SUFFIX;
+      return filepath + DOC_SUFFIX;
     }
 
     return filepath;
