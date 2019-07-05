@@ -38,8 +38,10 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.swagger.SwaggerUtils;
-import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.DocGenerator;
+import org.apache.servicecomb.toolkit.GeneratorFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Mojo(name = "generateDoc", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
 @Execute(goal = "generateDoc",
@@ -47,44 +49,56 @@ import org.apache.servicecomb.toolkit.DocGenerator;
 )
 public class GenerateContractsDocMojo extends AbstractMojo {
 
-  @Parameter(defaultValue = "${project}", required = true, readonly = true)
+  private static Logger LOGGER = LoggerFactory.getLogger(ContractGenerator.class);
+
+  @Parameter(defaultValue = "${project}")
   private MavenProject project;
 
-  @Parameter(defaultValue = "contracts")
-  private String outputDir;
+  @Parameter(defaultValue = "contractLocation")
+  private String contractLocation;
 
-  @Parameter(defaultValue = ".yaml")
-  private String format;
+  @Parameter(defaultValue = "swagger-ui")
+  private String docType;
 
-  @Parameter(defaultValue = "build/doc")
-  private String docOutputDir;
+  @Parameter(defaultValue = "docOutput")
+  private String docOutput;
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
-    ContractGenerator contractGenerator = new ContractGenerator(project);
-    contractGenerator.generateAndOutput(outputDir, format);
-
     try {
 
-      Files.walkFileTree(Paths.get(outputDir), new SimpleFileVisitor<Path>() {
+      if (!Files.exists(Paths.get(contractLocation))) {
+        throw new MojoFailureException("contractLocation directory is not exists");
+      }
+      if (Files.list(Paths.get(contractLocation)).count() == 0) {
+        throw new MojoFailureException(contractLocation + " has no contractLocation files");
+      }
+
+      DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, docType);
+      if (docGenerator == null) {
+        throw new MojoFailureException("DocGenerator's implementation is not found");
+      }
+
+      Files.walkFileTree(Paths.get(contractLocation), new SimpleFileVisitor<Path>() {
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-          DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, format);
           Map<String, Object> docGeneratorConfig = new HashMap<>();
           docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
-          docGeneratorConfig.put("outputPath",docOutputDir + File.separator
+          docGeneratorConfig.put("outputPath", docOutput + File.separator
               + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
           docGenerator.configure(docGeneratorConfig);
-          docGenerator.generate();
+          if (!docGenerator.generate()) {
+            throw new RuntimeException("Failed to generate doc base on file " + file.toFile().getName());
+          }
 
           return super.visitFile(file, attrs);
         }
       });
     } catch (IOException e) {
-      getLog().error(e.getMessage());
+      LOGGER.error(e.getMessage());
     }
   }
 }
