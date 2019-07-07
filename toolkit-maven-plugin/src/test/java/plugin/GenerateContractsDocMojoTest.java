@@ -17,9 +17,11 @@
 
 package plugin;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -58,14 +60,19 @@ public class GenerateContractsDocMojoTest {
     assertNotNull(generateContractsDocMojo);
 
     String testProjectDir = baseDir + File.separator;
+    String testContractDir = testProjectDir + "contract";
+    String testDocumentDir = testProjectDir + "document";
+
+    if (!new File(testDocumentDir).exists()) {
+      assertTrue((new File(testDocumentDir)).mkdir());
+    }
 
     try {
-      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
-          testProjectDir + "contract");
-      rule.setVariableValueToObject(generateContractsDocMojo, "docOutput", testProjectDir + "document");
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testContractDir);
+      rule.setVariableValueToObject(generateContractsDocMojo, "docOutput", testDocumentDir);
       rule.setVariableValueToObject(generateContractsDocMojo, "docType", "swagger-ui");
       generateContractsDocMojo.execute();
-      assertNotEquals(0, Files.list(Paths.get(testProjectDir + "document")).count());
+      assertNotEquals(0, Files.list(Paths.get(testDocumentDir)).count());
     } catch (MojoFailureException | IOException e) {
       fail();
     }
@@ -79,17 +86,19 @@ public class GenerateContractsDocMojoTest {
       assertEquals("contract location is not exists", e.getMessage());
     }
 
+    String testEmptyDir = testProjectDir + "emptyDir";
+    if (!new File(testEmptyDir).exists()) {
+      assertTrue((new File(testEmptyDir)).mkdir());
+    }
     try {
-      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
-          testProjectDir + "emptyContractDir");
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testEmptyDir);
       generateContractsDocMojo.execute();
     } catch (MojoFailureException e) {
-      assertTrue(e.getMessage().contains("has no contract files"));
+      assertThat(e.getMessage(), containsString("has no contract files"));
     }
 
     try {
-      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
-          testProjectDir + "document");
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testDocumentDir);
       rule.setVariableValueToObject(generateContractsDocMojo, "docType", "nonImpl");
       generateContractsDocMojo.execute();
     } catch (MojoFailureException e) {
