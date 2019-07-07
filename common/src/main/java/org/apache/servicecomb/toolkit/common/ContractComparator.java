@@ -61,9 +61,9 @@ public class ContractComparator {
 
   public boolean equals() {
     if (comparisonList.size() > 0) {
-      return true;
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
 
