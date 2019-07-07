@@ -18,18 +18,20 @@
 package plugin;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
-import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.toolkit.plugin.GenerateContractsDocMojo;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -46,22 +48,52 @@ public class GenerateContractsDocMojoTest {
   @Rule
   public TestResources resources = new TestResources();
 
-
   @Test
   public void testGenerateContractsDoc() throws Exception {
-    File baseDir = this.resources.getBasedir(TEST_PROJECT);
-    GenerateContractsDocMojo generateContractsDocMojo = mock(GenerateContractsDocMojo.class);
-    List<String> runtimeUrlPath = new ArrayList<>();
-    runtimeUrlPath.add(baseDir + "/target/classes");
-    final MavenProject project = mock(MavenProject.class);
-    given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
 
+    File baseDir = this.resources.getBasedir(TEST_PROJECT);
+
+    File pom = new File(baseDir, "pom.xml");
+    AbstractMojo generateContractsDocMojo = (AbstractMojo) this.rule.lookupMojo(PLUGIN_GOAL, pom);
     assertNotNull(generateContractsDocMojo);
-    rule.setVariableValueToObject(generateContractsDocMojo, "project", project);
-    rule.setVariableValueToObject(generateContractsDocMojo, "format", ".yaml");
-    assertNotNull(this.rule.getVariableValueFromObject(generateContractsDocMojo, "project"));
-    assertEquals(".yaml", this.rule.getVariableValueFromObject(generateContractsDocMojo, "format"));
-    rule.executeMojo(project, PLUGIN_GOAL);
-    generateContractsDocMojo.execute();
+
+    String testProjectDir = baseDir + File.separator;
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
+          testProjectDir + "contract");
+      rule.setVariableValueToObject(generateContractsDocMojo, "docOutput", testProjectDir + "document");
+      rule.setVariableValueToObject(generateContractsDocMojo, "docType", "swagger-ui");
+      generateContractsDocMojo.execute();
+      assertNotEquals(0, Files.list(Paths.get(testProjectDir + "document")).count());
+    } catch (MojoFailureException | IOException e) {
+      fail();
+    }
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", "");
+      generateContractsDocMojo.execute();
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", "nonexitstdir");
+      generateContractsDocMojo.execute();
+    } catch (MojoFailureException e) {
+      assertEquals("contract location is not exists", e.getMessage());
+    }
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
+          testProjectDir + "emptyContractDir");
+      generateContractsDocMojo.execute();
+    } catch (MojoFailureException e) {
+      assertTrue(e.getMessage().contains("has no contract files"));
+    }
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation",
+          testProjectDir + "document");
+      rule.setVariableValueToObject(generateContractsDocMojo, "docType", "nonImpl");
+      generateContractsDocMojo.execute();
+    } catch (MojoFailureException e) {
+      assertEquals("DocGenerator's implementation is not found", e.getMessage());
+    }
   }
 }

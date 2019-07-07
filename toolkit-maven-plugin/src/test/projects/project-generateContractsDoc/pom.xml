@@ -36,9 +36,9 @@
         <version>${project.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <outputDir>./target/plugin-test-output</outputDir>
-          <docOutputDir>./target/plugin-test-output</docOutputDir>
-          <format>.yaml</format>
+          <contractLocation>./contract</contractLocation>
+          <docOutput>./document</docOutput>
+          <docType>swagger-ui</docType>
         </configuration>
       </plugin>
     </plugins>
