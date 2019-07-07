@@ -27,6 +27,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -68,11 +69,12 @@ public class GenerateContractsDocMojo extends AbstractMojo {
 
     try {
 
-      if (!Files.exists(Paths.get(contractLocation))) {
-        throw new MojoFailureException("contractLocation directory is not exists");
+      File file = new File(contractLocation);
+      if (!file.exists()) {
+        throw new MojoFailureException("contract location is not exists");
       }
-      if (Files.list(Paths.get(contractLocation)).count() == 0) {
-        throw new MojoFailureException(contractLocation + " has no contractLocation files");
+      if (Objects.requireNonNull(file.list()).length == 0) {
+        throw new MojoFailureException(contractLocation + " has no contract files");
       }
 
       DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, docType);
