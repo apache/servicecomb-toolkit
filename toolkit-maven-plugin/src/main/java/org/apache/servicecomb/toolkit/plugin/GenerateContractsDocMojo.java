@@ -73,7 +73,7 @@ public class GenerateContractsDocMojo extends AbstractMojo {
       if (!file.exists()) {
         throw new MojoFailureException("contract location is not exists");
       }
-      if (Objects.requireNonNull(file.list()).length == 0) {
+      if (Objects.requireNonNull(file.listFiles()).length == 0) {
         throw new MojoFailureException(contractLocation + " has no contract files");
       }
 
