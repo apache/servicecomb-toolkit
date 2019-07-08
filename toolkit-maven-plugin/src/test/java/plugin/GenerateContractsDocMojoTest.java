@@ -24,16 +24,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
+import org.apache.maven.project.MavenProject;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -67,19 +73,48 @@ public class GenerateContractsDocMojoTest {
       assertTrue((new File(testDocumentDir)).mkdir());
     }
 
+    final MavenProject project = mock(MavenProject.class);
+
+    // code has no contract
+    List<String> runtimeUrlPath = new ArrayList<>();
+    runtimeUrlPath.add(baseDir + "/classes-no-contract");
+    given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
+    rule.setVariableValueToObject(generateContractsDocMojo, "project", project);
+
     try {
-      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testContractDir);
-      rule.setVariableValueToObject(generateContractsDocMojo, "docOutput", testDocumentDir);
-      rule.setVariableValueToObject(generateContractsDocMojo, "docType", "swagger-ui");
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "code");
       generateContractsDocMojo.execute();
+
+      assertEquals(0, Objects.requireNonNull(
+          Paths.get(rule.getVariableValueFromObject(generateContractsDocMojo, "contractLocation").toString()).toFile()
+              .listFiles()).length);
+    } catch (MojoFailureException e) {
+      fail();
+    }
+
+    // code has contract
+    runtimeUrlPath.remove(0);
+    runtimeUrlPath.add(baseDir + "/classes");
+    given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
+    rule.setVariableValueToObject(generateContractsDocMojo, "project", project);
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "code");
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentOutput", testDocumentDir);
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "html");
+      generateContractsDocMojo.execute();
+
       assertNotEquals(0, Files.list(Paths.get(testDocumentDir)).count());
     } catch (MojoFailureException | IOException e) {
       fail();
     }
 
     try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "contract");
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "html");
       rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", "");
       generateContractsDocMojo.execute();
+
       rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", "nonexitstdir");
       generateContractsDocMojo.execute();
     } catch (MojoFailureException e) {
@@ -91,6 +126,8 @@ public class GenerateContractsDocMojoTest {
       assertTrue((new File(testEmptyDir)).mkdir());
     }
     try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "contract");
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "html");
       rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testEmptyDir);
       generateContractsDocMojo.execute();
     } catch (MojoFailureException e) {
@@ -98,8 +135,20 @@ public class GenerateContractsDocMojoTest {
     }
 
     try {
-      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testDocumentDir);
-      rule.setVariableValueToObject(generateContractsDocMojo, "docType", "nonImpl");
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "contract");
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "html");
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testContractDir);
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "nonImpl");
+      generateContractsDocMojo.execute();
+    } catch (MojoFailureException e) {
+      assertEquals("DocGenerator's implementation is not found", e.getMessage());
+    }
+
+    try {
+      rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "contract");
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", "html");
+      rule.setVariableValueToObject(generateContractsDocMojo, "contractLocation", testContractDir);
+      rule.setVariableValueToObject(generateContractsDocMojo, "documentType", testDocumentDir);
       generateContractsDocMojo.execute();
     } catch (MojoFailureException e) {
       assertEquals("DocGenerator's implementation is not found", e.getMessage());

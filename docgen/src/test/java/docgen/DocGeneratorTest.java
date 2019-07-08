@@ -56,7 +56,7 @@ public class DocGeneratorTest {
     Path tempDir = Files.createTempDirectory(null);
     Path outputPath = Paths.get(tempDir.toFile().getAbsolutePath()
         + File.separator + "swagger-ui.html");
-    DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, "swagger-ui");
+    DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, "html");
     Map<String, Object> docGeneratorConfig = new HashMap<>();
     docGeneratorConfig.put("contractContent", swagger);
     docGeneratorConfig.put("outputPath", outputPath.toFile().getCanonicalPath());
