@@ -37,8 +37,8 @@
         <extensions>true</extensions>
         <configuration>
           <contractLocation>./contract</contractLocation>
-          <docOutput>./document</docOutput>
-          <docType>swagger-ui</docType>
+          <documentOutput>./document</documentOutput>
+          <documentType>html</documentType>
         </configuration>
       </plugin>
     </plugins>

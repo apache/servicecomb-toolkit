@@ -50,7 +50,7 @@ public class DocGenerate implements Runnable {
 
   @Option(name = {"-f", "--format"}, title = "document format", required = false,
       description = "format of document, as swagger-ui or asciidoc-html (swagger-ui by default)")
-  private String format = "swagger-ui";
+  private String format = "html";
 
   @Option(name = {"-o", "--output"}, title = "output directory",
       description = "location of the generated document (current dir by default)")

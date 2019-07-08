@@ -41,6 +41,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.swagger.SwaggerUtils;
 import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
+import org.apache.servicecomb.toolkit.common.SourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,34 +51,65 @@ import org.slf4j.LoggerFactory;
 )
 public class GenerateContractsDocMojo extends AbstractMojo {
 
-  private static Logger LOGGER = LoggerFactory.getLogger(ContractGenerator.class);
+  private static Logger LOGGER = LoggerFactory.getLogger(GenerateContractsDocMojo.class);
 
   @Parameter(defaultValue = "${project}")
   private MavenProject project;
 
+  @Parameter(defaultValue = "code")
+  private String sourceType;
+
   @Parameter(defaultValue = "contractLocation")
   private String contractLocation;
 
-  @Parameter(defaultValue = "swagger-ui")
-  private String docType;
+  @Parameter(defaultValue = "html")
+  private String documentType;
 
-  @Parameter(defaultValue = "docOutput")
-  private String docOutput;
+  @Parameter(defaultValue = "documentOutput")
+  private String documentOutput;
 
   @Override
   public void execute() throws MojoExecutionException, MojoFailureException {
 
     try {
 
-      File file = new File(contractLocation);
-      if (!file.exists()) {
-        throw new MojoFailureException("contract location is not exists");
-      }
-      if (Objects.requireNonNull(file.listFiles()).length == 0) {
-        throw new MojoFailureException(contractLocation + " has no contract files");
+      switch (SourceType.valueOf(sourceType.toUpperCase())) {
+        case CODE:
+          File tmpFileDir = new File("target/tmp-contract-dir");
+          if (!tmpFileDir.exists()) {
+            if (!tmpFileDir.mkdirs()) {
+              throw new MojoFailureException("fail to create directory to save contract");
+            }
+          }
+
+          Path tmpPath = Files.createTempDirectory(Paths.get(tmpFileDir.toURI()), "");
+          contractLocation = tmpPath.toFile().getCanonicalPath();
+          LOGGER.debug("temporary contract location is " + contractLocation);
+
+          ContractGenerator contractGenerator = new ContractGenerator(project);
+          contractGenerator.generateAndOutput(contractLocation, "");
+          if (Objects.requireNonNull(tmpFileDir.listFiles()).length == 0) {
+            LOGGER.info("no contract in the code");
+            return;
+          }
+
+          break;
+        case CONTRACT:
+          File file = new File(contractLocation);
+          if (!file.exists()) {
+            throw new MojoFailureException("contract location is not exists");
+          }
+
+          if (Objects.requireNonNull(file.listFiles()).length == 0) {
+            throw new MojoFailureException(contractLocation + " has no contract files");
+          }
+
+          break;
+        default:
+          throw new MojoFailureException(sourceType + " is not supported now");
       }
 
-      DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, docType);
+      DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, documentType);
       if (docGenerator == null) {
         throw new MojoFailureException("DocGenerator's implementation is not found");
       }
@@ -89,7 +121,7 @@ public class GenerateContractsDocMojo extends AbstractMojo {
 
           Map<String, Object> docGeneratorConfig = new HashMap<>();
           docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
-          docGeneratorConfig.put("outputPath", docOutput + File.separator
+          docGeneratorConfig.put("outputPath", documentOutput + File.separator
               + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
           docGenerator.configure(docGeneratorConfig);
           if (!docGenerator.generate()) {
