@@ -43,12 +43,18 @@ import org.apache.maven.project.MavenProject;
 import org.junit.Rule;
 import org.junit.Test;
 
+import util.ClassMaker;
+
 
 public class GenerateContractsDocMojoTest {
 
   private static final String PLUGIN_GOAL = "generateDoc";
 
-  private static final String TEST_PROJECT = "project-generateContractsDoc";
+  private static final String TEST_PROJECT_WITHCONTRACT = "demo-with-contract";
+
+  private static final String TEST_PROJECT_NOCONTRACT = "demo-non-contract";
+
+  private static final String TEST_PROJECT_CONTRACTLOCATION = "contract";
 
   @Rule
   public MojoRule rule = new MojoRule();
@@ -59,25 +65,32 @@ public class GenerateContractsDocMojoTest {
   @Test
   public void testGenerateContractsDoc() throws Exception {
 
-    File baseDir = this.resources.getBasedir(TEST_PROJECT);
+    File baseDir = this.resources.getBasedir(TEST_PROJECT_WITHCONTRACT);
+    File baseDirNonContract = this.resources.getBasedir(TEST_PROJECT_NOCONTRACT);
+    File contractLocation = this.resources.getBasedir(TEST_PROJECT_CONTRACTLOCATION);
 
     File pom = new File(baseDir, "pom.xml");
     AbstractMojo generateContractsDocMojo = (AbstractMojo) this.rule.lookupMojo(PLUGIN_GOAL, pom);
     assertNotNull(generateContractsDocMojo);
 
-    String testProjectDir = baseDir + File.separator;
-    String testContractDir = testProjectDir + "contract";
-    String testDocumentDir = testProjectDir + "document";
+    String testDir = baseDir + File.separator;
+    String testDirNonContract = baseDirNonContract + File.separator;
+    String classesPath = "target/classes";
+    String testDocumentDir = testDir + "document";
+    String testContractDir = contractLocation.getCanonicalPath();
 
     if (!new File(testDocumentDir).exists()) {
-      assertTrue((new File(testDocumentDir)).mkdir());
+      assertTrue((new File(testDocumentDir)).mkdirs());
     }
 
     final MavenProject project = mock(MavenProject.class);
 
     // code has no contract
+      ClassMaker.compile(testDirNonContract);
+
     List<String> runtimeUrlPath = new ArrayList<>();
-    runtimeUrlPath.add(baseDir + "/classes-no-contract");
+    runtimeUrlPath.add(testDirNonContract + classesPath);
+
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
     rule.setVariableValueToObject(generateContractsDocMojo, "project", project);
 
@@ -93,8 +106,10 @@ public class GenerateContractsDocMojoTest {
     }
 
     // code has contract
+      ClassMaker.compile(testDir);
+
     runtimeUrlPath.remove(0);
-    runtimeUrlPath.add(baseDir + "/classes");
+    runtimeUrlPath.add(testDir + classesPath);
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
     rule.setVariableValueToObject(generateContractsDocMojo, "project", project);
 
@@ -121,9 +136,9 @@ public class GenerateContractsDocMojoTest {
       assertEquals("contract location is not exists", e.getMessage());
     }
 
-    String testEmptyDir = testProjectDir + "emptyDir";
+    String testEmptyDir = testDir + "emptyDir";
     if (!new File(testEmptyDir).exists()) {
-      assertTrue((new File(testEmptyDir)).mkdir());
+      assertTrue((new File(testEmptyDir)).mkdirs());
     }
     try {
       rule.setVariableValueToObject(generateContractsDocMojo, "sourceType", "contract");

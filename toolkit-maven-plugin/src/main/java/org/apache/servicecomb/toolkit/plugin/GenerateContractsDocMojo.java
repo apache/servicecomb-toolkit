@@ -88,7 +88,7 @@ public class GenerateContractsDocMojo extends AbstractMojo {
 
           ContractGenerator contractGenerator = new ContractGenerator(project);
           contractGenerator.generateAndOutput(contractLocation, "");
-          if (Objects.requireNonNull(tmpFileDir.listFiles()).length == 0) {
+          if (Objects.requireNonNull(tmpPath.toFile().listFiles()).length == 0) {
             LOGGER.info("no contract in the code");
             return;
           }

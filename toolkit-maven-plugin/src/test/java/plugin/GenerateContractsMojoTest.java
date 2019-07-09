@@ -35,9 +35,13 @@ import org.apache.servicecomb.toolkit.plugin.GenerateContractsMojo;
 import org.junit.Rule;
 import org.junit.Test;
 
+import util.ClassMaker;
+
 public class GenerateContractsMojoTest {
 
   private static final String PLUGIN_GOAL = "generateContracts";
+
+  private static final String TEST_PROJECT_CONTRACT = "demo-with-contract";
 
   @Rule
   public MojoRule rule = new MojoRule();
@@ -47,7 +51,7 @@ public class GenerateContractsMojoTest {
 
   @Test
   public void testGenerateContracts() throws Exception {
-    executeMojo("project-generateContracts", PLUGIN_GOAL);
+    executeMojo(TEST_PROJECT_CONTRACT, PLUGIN_GOAL);
   }
 
   protected void executeMojo(String projectName, String goalName) throws Exception {
@@ -57,7 +61,8 @@ public class GenerateContractsMojoTest {
     assertTrue(baseDir.exists());
     assertTrue(baseDir.isDirectory());
 
-    File pom = new File(baseDir, "pom.xml");
+    String pomFile = "pom-gencontract.xml";
+    File pom = new File(baseDir, pomFile);
     AbstractMojo generateContractsMojo = (AbstractMojo) this.rule.lookupMojo(goalName, pom);
 
     assertNotNull(generateContractsMojo);
@@ -65,8 +70,11 @@ public class GenerateContractsMojoTest {
 
     final MavenProject project = mock(MavenProject.class);
     given(project.getFile()).willReturn(pom);
+
+    ClassMaker.compile(baseDir + File.separator + pomFile);
+
     List<String> runtimeUrlPath = new ArrayList<>();
-    runtimeUrlPath.add(baseDir + "/classes");
+    runtimeUrlPath.add(baseDir + File.separator + "target/classes");
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
 
     rule.setVariableValueToObject(generateContractsMojo, "project", project);
