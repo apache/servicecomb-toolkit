@@ -203,18 +203,10 @@
 =======================================================================
 Apache ServiceComb Toolkit Subcomponents:
 
-The Apache ServiceComb Java Chassis project contains subcomponents with
+The Apache ServiceComb Toolkit project contains subcomponents with
 separate copyright notices and license terms. Your use of these
 subcomponents is subject to the terms and conditions of the
 following licenses.
-
-================================================================
-This product bundles mockito which is licensed under the
-MIT license.
-For details, see https://site.mockito.org/
-You can find a copy of the License at licenses/LICENSE-mockito
-
-* mockito-core (org.mockito:mockito-core:2.25.0 - https://site.mockito.org/)
 
 ================================================================
 This product bundles libraries which are licensed under the
@@ -222,13 +214,6 @@ Eclipse Public License v1.0.
 You can find a copy of the License at licenses/LICENSE-epl-v10
 
 * JUnit (junit:junit:4.12 - http://junit.org)
-* Dirgra (org.jruby:dirgra:0.3 - https://github.com/jruby/dirgra)
-* Eclipse Sisu Plexu (org.eclipse.sisu:org.eclipse.sisu.plexus:0.3.3 - https://github.com/eclipse/sisu.plexus)
-* Eclipse Sisu Inject (org.eclipse.sisu:org.eclipse.sisu.inject:0.3.3 - https://github.com/eclipse/sisu.inject)
-* Aether API (org.eclipse.aether:aether-api:0.9.0.M2 - https://github.com/eclipse/aether-core)
-* Aether SPI (org.eclipse.aether:aether-spi:0.9.0.M2 - https://github.com/eclipse/aether-core)
-* Aether Utilities (org.eclipse.aether:aether-util:0.9.0.M2 - https://github.com/eclipse/aether-core)
-* Aether Implementation (org.eclipse.aether:aether-impl:0.9.0.M2 - https://github.com/eclipse/aether-core)
 
 ================================================================
 This product bundles libraries which are licensed under the
@@ -245,7 +230,6 @@ You can find a copy of the License at licenses/LICENSE-cddl
 * JavaMail API jar (javax.mail:mailapi:1.4.3 - http://java.sun.com/projects/javamail/mailapi)
 * Java Servlet API (javax.servlet:javax.servlet-api:4.0.1 - http://servlet-spec.java.net)
 * JavaBeans(TM) Activation Framework (javax.activation:activation:1.1 - http://java.sun.com/products/javabeans/jaf/index.jsp)
-* JSR 250 Common Annotations For The JavaTM Platform (javax.annotation:jsr250-api:1.0 - https://jcp.org/aboutJava/communityprocess/final/jsr250/index.html)
 
 ================================================================
 This product bundles jopt libraries which is licensed under the
@@ -260,68 +244,16 @@ MIT license.
 For details, see http://www.slf4j.org
 You can find a copy of the License at licenses/LICENSE-slf4j
 
-* JCL 1.2 implemented over SLF4J (org.slf4j:jcl-over-slf4j:1.7.25 - http://www.slf4j.org)
-* JUL to SLF4J bridge (org.slf4j:jul-to-slf4j:1.7.25 - http://www.slf4j.org)
 * SLF4J API Module (org.slf4j:slf4j-api:1.7.12 - http://www.slf4j.org)
 * SLF4J Extensions Module (org.slf4j:slf4j-ext:1.7.12 - http://www.slf4j.org)
 * SLF4J Simple Binding (org.slf4j:slf4j-simple:1.7.12 - http://www.slf4j.org)
-
-================================================================
-This product bundles animal-sniffer-annotations which is licensed under the
-MIT license.
-You can find a copy of the License at licenses/LICENSE-animalsniffer
-
-* Animal Sniffer Annotations (org.codehaus.mojo:animal-sniffer-annotations:1.17 - http://mojo.codehaus.org/animal-sniffer/animal-sniffer-annotations)
 
 ===========================================================================
 This product bundles of Hamcrest which is licensed under BSD 3-Clause License
 For details, see https://github.com/hamcrest/JavaHamcrest/blob/master/LICENSE.txt
 You can find a copy of the License at licenses/LICENSE-hamcrest
 
-* Hamcrest All (org.hamcrest:hamcrest-all:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-all)
 * Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
-* Hamcrest library (org.hamcrest:hamcrest-library:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-library)
-
-================================================================
-This product bundles libraries which are licensed under the
-Eclipse Public License v2.0.
-You can find a copy of the License at licenses/LICENSE-epl-v20
-
-* jnr-posix (com.github.jnr:jnr-posix:3.0.49 - http://nexus.sonatype.org/oss-repository-hosting.html/jnr-posix)
-* JRuby Complete (org.jruby:jruby-complete:9.2.6.0 - https://github.com/jruby/jruby/tree/master/maven/jruby-complete)
-* JRuby Core (org.jruby:jruby-core:9.2.6.0 - https://github.com/jruby/jruby/jruby-core)
-* JRuby Lib Setup (org.jruby:jruby-stdlib:9.2.6.0 - https://github.com/jruby/jruby/jruby-stdlib)
-* JRuby Main Maven Artifact (org.jruby:jruby:9.2.6.0 - https://github.com/jruby/jruby/jruby-artifacts/jruby)
-* Vert.x Core (io.vertx:vertx-core:3.6.2 - http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-core)
-* vertx-web (io.vertx:vertx-web:3.6.3 - http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-web-parent/vertx-web)
-
-================================================================
-This product bundles jopt libraries which is licensed under the
-MIT license.
-You can find a copy of the License at licenses/LICENSE-joni
-
-* Joni (org.jruby.joni:joni:2.1.25 - http://nexus.sonatype.org/oss-repository-hosting.html/joni)
-
-================================================================
-This product bundles jcodings which is licensed under the
-MIT license.
-You can find a copy of the License at licenses/LICENSE-jcodings
-
-* JCodings (org.jruby.jcodings:jcodings:1.0.41 - http://nexus.sonatype.org/oss-repository-hosting.html/jcodings)
-
-================================================================
-This product bundles jsch which is licensed under the
-BSD license.
-You can find a copy of the License at licenses/LICENSE-jsch
-
-* jsch (com.jcraft:jsch:0.1.54 - http://www.jcraft.com/jsch/)
-
-================================================================
-This product bundles jsch which is licensed under the
-BSD license.
-You can find a copy of the License at licenses/LICENSE-jzlib
-
-* JZlib (com.jcraft:jzlib:1.1.1 - http://www.jcraft.com/jzlib/)
 
 ================================================================
 This product bundles files from stax2 which is licensed under the
@@ -346,202 +278,59 @@ For details, see http://aopalliance.sourceforge.net/
 
 * AOP alliance (aopalliance:aopalliance:1.0 - http://aopalliance.sourceforge.net)
 
-
 ================================================================
-This product bundles classworlds which is licensed under the
-public domain.
-For details, see https://github.com/codehaus/classworlds,
-
-* classworlds (classworlds:classworlds:jar:1.1-alpha-2 - https://github.com/codehaus/classworlds)
-
-
-================================================================
-This product bundles asm which is licensed under the
-3-Clause BSD license.
-For details, see http://asm.ow2.org/
-You can find a copy of the License at licenses/LICENSE-asm
-
-* ASM Analysis (org.ow2.asm:asm-analysis:4.1 - http://asm.objectweb.org/asm-analysis/)
-* ASM Core (org.ow2.asm:asm:4.1 - http://asm.objectweb.org/asm/)
-* ASM Tree (org.ow2.asm:asm-tree:4.1 - http://asm.objectweb.org/asm-tree/)
-* ASM Util (org.ow2.asm:asm-util:4.1 - http://asm.objectweb.org/asm-util/)
-
-================================================================
-This product bundles bouncycastle which is licensed under the
-Apache 1.1 license and BouncyCastle license.
-For details, see http://www.apache.org/licenses/LICENSE-1.1 and http://www.bouncycastle.org/licence.html
-You can find a copy of the License at licenses/LICENSE-bouncycastle
-
-* Bouncy Castle OpenPGP API (org.bouncycastle:bcpg-jdk15on:1.60 - http://www.bouncycastle.org/java.html)
-* Bouncy Castle Provider (org.bouncycastle:bcprov-jdk15on:1.60 - http://www.bouncycastle.org/java.html)
-* Bouncy Castle PKIX, CMS, EAC, TSP, PKCS, OCSP, CMP, and CRMF APIs (org.bouncycastle:bcpkix-jdk15on:1.60 - http://www.bouncycastle.org/java.html)
-
-================================================================
-This product bundles jsoup which is licensed under the
-MIT license.
-You can find a copy of the License at licenses/LICENSE-jsoup
-
-* jsoup (org.jsoup:jsoup:1.8.1 - http://jsoup.org/)
-
-================================================================
-This product bundles jsoup which is licensed under the
+This product bundles Compiler assisted localization library (CAL10N) which is licensed under the
 MIT license.
 You can find a copy of the License at licenses/LICENSE-cal10n
 
-* cal10n-api (ch.qos.cal10n:cal10n-api:0.8.1 - https://github.com/qos-ch/cal10n)
-
-================================================================
-This product bundles jgit which is licensed under the
-EDL license.
-You can find a copy of the License at licenses/LICENSE-edl
-
-* jgit (org.eclipse.jgit:org.eclipse.jgit:jar:5.3.0.201903130848-r - https://www.eclipse.org/jgit/)
+* Compiler assisted localization library (CAL10N) - API (ch.qos.cal10n:cal10n-api:0.8.1 - http://cal10n.qos.ch/cal10n-api)
 
 ================================================================
 This product bundles the following libraries which are licensed
 under the Apache License v2.
 For details, see their respective project links.
 
-* swagger-codegen (io.swagger:swagger-codegen:2.4.3 - https://github.com/swagger-api/swagger-codegen/)
-* swagger-parser (io.swagger:swagger-parser:1.0.43 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
-* swagger-compat-spec-parser (io.swagger:swagger-compat-spec-parser:1.0.35 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-compat-spec-parser)
-* swagger-core (io.swagger:swagger-core:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-core)
-* json-schema-validator (com.github.java-json-tools:json-schema-validator:2.2.8 - https://github.com/box-metadata/json-schema-validator)
-* json-schema-core (com.github.java-json-tools:json-schema-core:1.2.8 - https://github.com/java-json-tools/json-schema-core)
-* uri-template (com.github.fge:uri-template:0.9 - https://github.com/fge/uri-template)
-* Joda-Time (joda-time:joda-time:2.9.9 - http://www.joda.org/joda-time/)
-* libphonenumber (com.googlecode.libphonenumber:libphonenumber:8.0.0 - https://github.com/googlei18n/libphonenumber/)
-* FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.1 - http://findbugs.sourceforge.net/)
-* json-patch (com.github.fge:json-patch:1.6 - https://github.com/fge/json-patch)
-* jackson-coreutils (com.github.fge:jackson-coreutils:1.6 - https://github.com/fge/jackson-coreutils)
-* msg-simple (com.github.fge:msg-simple:1.1 - https://github.com/fge/msg-simple)
-* btf (com.github.fge:btf:1.2 - https://github.com/fge/btf)
+* airline (io.airlift:airline:0.7 - https://github.com/airlift/airline)
+* Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
+* Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)
+* Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
 * Apache HttpClient (org.apache.httpcomponents:httpclient:4.5.2 - http://hc.apache.org/httpcomponents-client)
 * Apache HttpCore (org.apache.httpcomponents:httpcore:4.4.4 - http://hc.apache.org/httpcomponents-core-ga)
-* Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
-* Apache Commons Codec (commons-codec:commons-codec:1.10 - http://commons.apache.org/proper/commons-codec/)
-* Apache Commons BeanUtils (commons-beanutils:commons-beanutils:1.9.3 - https://commons.apache.org/proper/commons-beanutils/)
-* Apache Commons Collections (commons-collections:commons-collections:3.2.2 - http://commons.apache.org/collections/)
-* Apache Commons Collections (org.apache.commons:commons-collections4:4.1 - http://commons.apache.org/proper/commons-collections/)
-* Apache Commons Configuration (commons-configuration:commons-configuration:1.10 - http://commons.apache.org/configuration/)
-* Vavr (io.vavr:vavr:0.9.1 - http://vavr.io)
-* Vavr Match (io.vavr:vavr-match:0.9.1 - http://vavr.io)
-* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.8 - http://github.com/FasterXML/jackson)
-* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.8 - http://github.com/FasterXML/jackson)
-* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.8 - https://github.com/FasterXML/jackson-core)
-* Jackson-dataformat-YAML (com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8 - https://github.com/FasterXML/jackson-dataformats-text)
-* SnakeYAML (org.yaml:snakeyaml:1.23 - http://www.snakeyaml.org)
-* swagger-models (io.swagger:swagger-models:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-models)
-* swagger-annotations (io.swagger:swagger-annotations:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-annotations)
-* Guava: Google Core Libraries for Java (com.google.guava:guava:27.0.1-android - https://github.com/google/guava/guava)
-* error-prone annotations (com.google.errorprone:error_prone_annotations:2.2.0 - http://nexus.sonatype.org/oss-repository-hosting.html/error_prone_parent/error_prone_annotations)
-* J2ObjC Annotations (com.google.j2objc:j2objc-annotations:1.1 - https://github.com/google/j2objc/)
+* Apache Log4j (log4j:log4j:1.2.17 - http://logging.apache.org/log4j/1.2/)
+* Apache Log4j API (org.apache.logging.log4j:log4j-api:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-api/)
+* Apache Log4j Core (org.apache.logging.log4j:log4j-core:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-core/)
+* Apache Log4j SLF4J Binding (org.apache.logging.log4j:log4j-slf4j-impl:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-slf4j-impl/)
 * Bean Validation API (javax.validation:validation-api:1.1.0.Final - http://beanvalidation.org)
-* Apache Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/proper/commons-io/)
-* Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)
-* asciidoctorj (org.asciidoctor:asciidoctorj:1.6.2 - https://github.com/asciidoctor/asciidoctorj)
-* asciidoctorj-api (org.asciidoctor:asciidoctorj-api:1.6.2 - https://github.com/asciidoctor/asciidoctorj)
-* asciidoctorj-pdf (org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15 - https://github.com/asciidoctor/asciidoctorj-pdf)
-* jnr-constants (com.github.jnr:jnr-constants:0.9.12 - http://github.com/jnr/jnr-constants)
-* jnr-enxio (com.github.jnr:jnr-enxio:0.19 - http://github.com/jnr/jnr-enxio)
-* jnr-netdb (com.github.jnr:jnr-netdb:1.1.6 - http://github.com/jnr/jnr-netdb)
-* jnr-unixsocket (com.github.jnr:jnr-unixsocket:0.20 - http://github.com/jnr/jnr-unixsocket)
-* jffi (com.github.jnr:jffi:1.2.18 - http://github.com/jnr/jffi)
-* invokebinder (com.headius:invokebinder:1.11 - http://maven.apache.org)
-* options (com.headius:options:1.4 - https://github.com/headius/options)
-* nailgun-server (com.martiansoftware:nailgun-server:0.9.1 - http://martiansoftware.com/nailgun)
-* modulator (com.headius:modulator:1.0 - http://nexus.sonatype.org/oss-repository-hosting.html/modulator)
-* backport9 (com.headius:backport9:1.1 - http://nexus.sonatype.org/oss-repository-hosting.html/backport9)
-* JCommander (com.beust:jcommander:1.35 - http://beust.com/jcommander)
+* codegen (org.apache.servicecomb.toolkit:codegen:0.1.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/codegen)
+* Commons CLI (commons-cli:commons-cli:1.2 - http://commons.apache.org/cli/)
+* Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
+* core (org.apache.servicecomb.toolkit:core:0.1.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/core)
+* docgen (org.apache.servicecomb.toolkit:docgen:0.1.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/docgen)
+* FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.1 - http://findbugs.sourceforge.net/)
+* Google Guice - Core Library (com.google.inject:guice:4.1.0 - https://github.com/google/guice/guice)
+* Guava: Google Core Libraries for Java (com.google.guava:guava:18.0 - http://code.google.com/p/guava-libraries/guava)
+* Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.8 - http://github.com/FasterXML/jackson)
+* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.8 - https://github.com/FasterXML/jackson-core)
+* jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.8 - http://github.com/FasterXML/jackson)
 * Jackson-dataformat-XML (com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.8 - http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding)
-* Jackson module: JAXB-annotations (com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.8 - http://github.com/FasterXML/jackson-module-jaxb-annotations)
-* Woodstox (com.fasterxml.woodstox:woodstox-core:5.0.3 - https://github.com/FasterXML/woodstox)
-* Spring Context (org.springframework:spring-context:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
+* Jackson-dataformat-YAML (com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8 - https://github.com/FasterXML/jackson-dataformats-text)
+* Jackson module: JAXB Annotations (com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.8 - https://github.com/FasterXML/jackson-modules-base)
+* Java Chassis::Common::Javassist (org.apache.servicecomb:common-javassist:1.2.0 - https://github.com/apache/servicecomb-java-chassis/common/common-javassist)
+* Java Chassis::Foundations::Common (org.apache.servicecomb:foundation-common:1.2.0 - https://github.com/apache/servicecomb-java-chassis/foundations/foundation-common)
+* Java Chassis::Swagger::Generator::Core (org.apache.servicecomb:swagger-generator-core:1.2.0 - https://github.com/apache/servicecomb-java-chassis/swagger/swagger-generator/swagger-generator-core)
+* javax.inject (javax.inject:javax.inject:1 - http://code.google.com/p/atinject/)
+* Joda-Time (joda-time:joda-time:2.9.7 - http://www.joda.org/joda-time/)
+* libphonenumber (com.googlecode.libphonenumber:libphonenumber:8.0.0 - https://github.com/googlei18n/libphonenumber/)
+* SnakeYAML (org.yaml:snakeyaml:1.23 - http://www.snakeyaml.org)
 * Spring AOP (org.springframework:spring-aop:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * Spring Beans (org.springframework:spring-beans:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
+* Spring Context (org.springframework:spring-context:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * Spring Core (org.springframework:spring-core:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
-* Spring Web (org.springframework:spring-web:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
-* Spring Web MVC (org.springframework:spring-webmvc:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
-* Netty/Resolver/DNS (io.netty:netty-resolver-dns:4.1.30.Final - http://netty.io/netty-resolver-dns/)
-* Netty/Codec/DNS (io.netty:netty-codec-dns:4.1.30.Final - http://netty.io/netty-codec-dns/)
-* Netty/TomcatNative [BoringSSL - Static] (io.netty:netty-tcnative-boringssl-static:2.0.14.Final - https://github.com/netty/netty-tcnative/netty-tcnative-boringssl-static/)
-* Netty/Codec (io.netty:netty-codec:4.1.28.Final - http://netty.io/netty-codec/)
-* Netty/Codec/HTTP (io.netty:netty-codec-http:4.1.28.Final - http://netty.io/netty-codec-http/)
-* Netty/Codec/HTTP2 (io.netty:netty-codec-http2:4.1.28.Final - http://netty.io/netty-codec-http2/)
-* Netty/Common (io.netty:netty-common:4.1.28.Final - http://netty.io/netty-common/)
-* Netty/Handler (io.netty:netty-handler:4.1.28.Final - http://netty.io/netty-handler/)
-* Netty/Buffer (io.netty:netty-buffer:4.1.28.Final - http://netty.io/netty-buffer/)
-* Netty/Codec/Socks (io.netty:netty-codec-socks:4.1.28.Final - http://netty.io/netty-codec-socks/)
-* Netty/Handler/Proxy (io.netty:netty-handler-proxy:4.1.28.Final - http://netty.io/netty-handler-proxy/)
-* Netty/Resolver (io.netty:netty-resolver:4.1.28.Final - http://netty.io/netty-resolver/)
-* Netty/Transport (io.netty:netty-transport:4.1.28.Final - http://netty.io/netty-transport/)
-* vertx-web-common (io.vertx:vertx-web-common:3.6.2 - http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-web-parent/vertx-web-common)
-* Vert.x Bridge Common (io.vertx:vertx-bridge-common:3.6.2 - http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-bridge-common)
-* vertx-auth-common (io.vertx:vertx-auth-common:3.6.2 - http://nexus.sonatype.org/oss-repository-hosting.html/vertx-parent/vertx-ext/vertx-ext-parent/vertx-auth/vertx-auth-common)
-* Brave (io.zipkin.brave:brave:5.6.0 - https://github.com/openzipkin/brave/brave)
-* Zipkin v2 (io.zipkin.zipkin2:zipkin:2.11.10 - https://github.com/openzipkin/zipkin/zipkin)
-* Zipkin Reporter: Core (io.zipkin.reporter2:zipkin-reporter:2.7.13 - https://github.com/openzipkin/zipkin-reporter-java/zipkin-reporter)
-* Objenesis (org.objenesis:objenesis:2.6 - http://objenesis.org)
-* archaius-core (com.netflix.archaius:archaius-core:0.7.3 - https://github.com/Netflix/archaius)
-* Apache Log4j (log4j:log4j:1.2.17 - http://logging.apache.org/log4j/1.2/)
-* javax.ws.rs-api (javax.ws.rs:javax.ws.rs-api:2.0.1 - http://jax-rs-spec.java.net)
-* Javassist (org.javassist:javassist:3.18.1-GA - http://www.javassist.org/)
-* Apache Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/proper/commons-io/)
-* Google Guice - Core Library (com.google.inject:guice:4.1.0 - https://github.com/google/guice/guice)
-* javax.inject (javax.inject:javax.inject:1 - http://code.google.com/p/atinject/)
-* markup-document-builder (io.github.swagger2markup:markup-document-builder:1.1.2 - https://github.com/Swagger2Markup/markup-document-builder)
-* pegdown (org.pegdown:pegdown:1.4.2 - http://pegdown.org)
-* parboiled-core (org.parboiled:parboiled-core:1.1.6 - http://parboiled.org)
-* parboiled-java (org.parboiled:parboiled-java:1.1.6 - http://parboiled.org)
-* maven-plugin-api (org.apache.maven:maven-plugin-api:3.6.0 - https://github.com/apache/maven/tree/master/maven-plugin-api)
-* maven-plugin-annotations (org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.0 - https://github.com/apache/maven-plugin-tools/tree/master/maven-plugin-annotations)
-* maven-core (org.apache.maven:maven-core:3.6.0 - https://github.com/apache/maven/tree/master/maven-core)
-* plexus-archiver (org.codehaus.plexus:plexus-archiver:2.1 - https://github.com/sonatype/plexus-archiver)
-* maven-plugin-testing-harness (org.apache.maven.plugin-testing:maven-plugin-testing-harness:3.3.0 - https://github.com/apache/maven-plugin-testing/tree/master/maven-plugin-testing-harness)
-* maven-aether-provider (org.apache.maven:maven-aether-provider:3.2.2 - https://github.com/Tibor17/maven/tree/master/maven-aether-provider)
-* maven-compat (org.apache.maven:maven-compat:3.2.2 - https://github.com/apache/maven/tree/master/maven-compat)
-* provider-rest-common (org.apache.servicecomb:provider-rest-common:1.2.0 - https://github.com/apache/servicecomb-java-chassis/tree/master/providers/provider-rest-common)
-* provider-pojo (org.apache.servicecomb:provider-pojo:1.2.0 - https://github.com/apache/servicecomb-java-chassis/tree/master/providers/provider-pojo)
-* swagger-generator-springmvc (org.apache.servicecomb:swagger-generator-springmvc:1.2.0 - https://github.com/apache/servicecomb-java-chassis/tree/master/swagger/swagger-generator/generator-springmvc)
-* swagger-generator-jaxrs (org.apache.servicecomb:swagger-generator-jaxrs:1.2.0 - https://github.com/apache/servicecomb-java-chassis/tree/master/swagger/swagger-generator/generator-jaxrs)
-* swagger-generator-core (org.apache.servicecomb:swagger-generator-core:1.2.0 - https://github.com/apache/servicecomb-java-chassis/tree/master/swagger/swagger-generator/generator-core)
-* Foundation Common (org.apache.servicecomb:foundation-common:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* common-javassist (org.apache.servicecomb:common-javassist:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* java-chassis-core (org.apache.servicecomb:java-chassis-core:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* service-registry (org.apache.servicecomb:service-registry:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* deployment (org.apache.servicecomb:deployment:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* foundation-vertx (org.apache.servicecomb:foundation-vertx:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* foundation-ssl (org.apache.servicecomb:foundation-ssl:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* foundation-config (org.apache.servicecomb:foundation-config:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* swagger-invocation-core (org.apache.servicecomb:swagger-invocation-core:1.2.0 - https://github.com/apache/servicecomb-java-chassis)
-* Guava InternalFutureFailureAccess and InternalFutures (com.google.guava:failureaccess:1.0.1 - https://github.com/google/guava/tree/master/futures/failureaccess)
-* Guava ListenableFuture Only (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava - https://github.com/google/guava)
-* jmustache (com.samskivert:jmustache:1.12:compile - https://github.com/samskivert/jmustache)
-* commons-cli (commons-cli:commons-cli:1.2 - http://commons.apache.org/cli/)
-* JavaEWAH (com.googlecode.javaewah:JavaEWAH:1.1.6 - https://github.com/lemire/javaewah)
-* Airline (io.airlift:airline:0.7 - https://github.com/airlift/airline)
-* Guava: Google Core Libraries For Java (com.google.guava:guava:18.0 - https://github.com/google/guava)
-* Byte Buddy (without Dependencies) (net.bytebuddy:byte-buddy:1.9.7 - https://bytebuddy.net/)
-* Byte Buddy Java Agent (net.bytebuddy:byte-buddy-agent:1.9.7 - https://bytebuddy.net/)
-* Maven Model (org.apache.maven:maven-model:3.6.0 - https://github.com/apache/maven)
-* Maven Artifact (org.apache.maven:maven-artifact:3.6.0 - https://github.com/apache/maven)
-* CDI APIs (javax.enterprise:cdi-api:1.0 - http://weld.cdi-spec.org/)
-* Plexus Common Utilities (org.codehaus.plexus:plexus-utils:3.1.0 - https://codehaus-plexus.github.io/plexus-utils/)
-* Plexus Classworlds (org.codehaus.plexus:plexus-classworlds - https://codehaus-plexus.github.io/plexus-classworlds/)
-* Maven Settings (org.apache.maven:maven-settings:3.6.0 - https://github.com/apache/maven)
-* maven-settings-builder (org.apache.maven:maven-settings-builder:3.6.0 - https://github.com/apache/maven)
-* Plexus Security Dispatcher Component (org.sonatype.plexus:plexus-sec-dispatcher:1.4 - http://spice.sonatype.org/plexus-sec-dispatcher)
-* Plexus Cipher: Encryption/decryption Component (org.sonatype.plexus:plexus-cipher:1.4 - http://spice.sonatype.org/plexus-cipher)
-* Maven Builder Support (org.apache.maven:maven-builder-support:3.6.0 - https://github.com/apache/maven)
-* Maven Repository Metadata Model (org.apache.maven:maven-repository-metadata:3.6.0 - https://github.com/apache/maven)
-* Maven Model Builder (org.apache.maven:maven-model-builder:3.6.0 - https://github.com/apache/maven)
-* Maven Artifact Resolver Provider (org.apache.maven:maven-resolver-provider:3.6.0 - https://github.com/apache/maven)
-* Maven Artifact Resolver Implementation (org.apache.maven.resolver:maven-resolver-impl:1.3.1 - https://github.com/apache/maven-resolver)
-* Maven Artifact Resolver API (org.apache.maven.resolver:maven-resolver-api:1.3.1 - https://github.com/apache/maven-resolver)
-* Maven Artifact Resolver SPI (org.apache.maven.resolver:maven-resolver-spi:1.3.1 - https://github.com/apache/maven-resolver)
-* Maven Artifact Resolver Utilities (org.apache.maven.resolver:maven-resolver-util:1.3.1 - https://github.com/apache/maven-resolver)
-* Apache Maven Shared Utils (org.apache.maven.shared:maven-shared-utils:3.2.1 - https://github.com/apache/maven-shared)
-* Plexus :: Component Annotations (org.codehaus.plexus:plexus-component-annotations:1.7.1 - https://codehaus-plexus.github.io/plexus-containers/plexus-component-annotations/)
-* Plexus :: Default Container (org.codehaus.plexus:plexus-container-default:1.0-alpha-9-stable-1 - https://codehaus-plexus.github.io/plexus-containers/plexus-container-default/)
-* Plexus IO Components (org.codehaus.plexus:plexus-io:2.0.2 - https://codehaus-plexus.github.io/plexus-io/)
+* swagger-annotations (io.swagger:swagger-annotations:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-annotations)
+* swagger-codegen (core library) (io.swagger:swagger-codegen:2.4.3 - https://github.com/swagger-api/swagger-codegen/modules/swagger-codegen)
+* swagger-compat-spec-parser (io.swagger:swagger-compat-spec-parser:1.0.43 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-compat-spec-parser)
+* swagger-core (io.swagger:swagger-core:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-core)
+* swagger-models (io.swagger:swagger-models:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-models)
+* swagger-parser (io.swagger:swagger-parser:1.0.43 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
+* Woodstox (com.fasterxml.woodstox:woodstox-core:5.0.3 - https://github.com/FasterXML/woodstox)

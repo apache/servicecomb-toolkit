@@ -1,5 +1,5 @@
 Apache ServiceComb Toolkit
-Copyright 2017-2019 The Apache Software Foundation
+Copyright 2019-present The Apache Software Foundation
 
 This product includes software developed at
 The Apache Software Foundation (http://www.apache.org/).
@@ -19,36 +19,6 @@ This product includes software from the Spring Framework,
 under the Apache License 2.0 (see: StringUtils.containsWhitespace())
 
 ================================================================
-Notice for Netty
-
-See licenses/NOTICE-netty
-
-================================================================
-Notice for Eclipse aether
-
-See licenses/NOTICE-eclipse-aether
-
-================================================================
-Notice for Apache maven
-
-See licenses/NOTICE-maven
-
-================================================================
-Notice for plexus-cipher
-
-See licenses/NOTICE-plexus-cipher
-
-================================================================
-Notice for plexus-utils
-
-See licenses/NOTICE-plexus-utils
-
-================================================================
-Notice for Byte Buddy
-
-See licenses/NOTICE-bytebuddy
-
-================================================================
 Notice for Airline
 
 See licenses/NOTICE-airline
@@ -62,12 +32,3 @@ See licenses/NOTICE-apache-commons-cli
 Notice for Apache ServiceComb Java Chassis
 
 See licenses/NOTICE-servicecomb-java-chassis
-
-================================================================
-Notice for maven-aether-provider
-
-See licenses/NOTICE-maven-aether-provider
-
-
-
-

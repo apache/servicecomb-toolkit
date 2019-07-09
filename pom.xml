@@ -41,6 +41,20 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <name>The ServiceComb Developer Team</name>
+      <email>dev@servicecomb.apache.org</email>
+    </developer>
+  </developers>
+
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://www.apache.org/</url>
+  </organization>
+
+  <inceptionYear>2019</inceptionYear>
+
   <modules>
     <module>codegen</module>
     <module>cli</module>
@@ -214,6 +228,27 @@
             <exclude>**/swagger.yaml</exclude>
           </excludes>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-remote-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>process-resource-bundles</id>
+            <goals>
+              <goal>process</goal>
+            </goals>
+            <configuration>
+              <resourceBundles>
+                <resourceBundle>org.apache:apache-jar-resource-bundle:1.4</resourceBundle>
+                <resourceBundle>org.apache:apache-incubator-disclaimer-resource-bundle:1.1</resourceBundle>
+              </resourceBundles>
+              <properties>
+                <projectName>Apache ServiceComb</projectName>
+              </properties>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
