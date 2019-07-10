@@ -86,7 +86,7 @@ public class GenerateContractsDocMojoTest {
     final MavenProject project = mock(MavenProject.class);
 
     // code has no contract
-      ClassMaker.compile(testDirNonContract);
+    ClassMaker.compile(testDirNonContract);
 
     List<String> runtimeUrlPath = new ArrayList<>();
     runtimeUrlPath.add(testDirNonContract + classesPath);
@@ -106,7 +106,7 @@ public class GenerateContractsDocMojoTest {
     }
 
     // code has contract
-      ClassMaker.compile(testDir);
+    ClassMaker.compile(testDir);
 
     runtimeUrlPath.remove(0);
     runtimeUrlPath.add(testDir + classesPath);

@@ -18,16 +18,69 @@
 package util;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.concurrent.TimeoutException;
+
+import org.apache.commons.io.IOUtils;
 
 public class ClassMaker {
 
-  public static void compile(String projectPath) throws IOException {
+  public static void compile(String projectPath) throws IOException, TimeoutException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     Process exec = runtime.exec("mvn clean package -f " + projectPath);
+
+    Worker worker = new Worker(exec);
+    worker.start();
+    ProcessStatus ps = worker.getProcessStatus();
+
     try {
-      exec.waitFor();
+      worker.join(30000);
+      if (ps.exitCode == ProcessStatus.CODE_STARTED) {
+        // not finished
+        worker.interrupt();
+        throw new TimeoutException();
+      }
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      // canceled by other thread.
+      worker.interrupt();
+      throw e;
     }
+  }
+
+  private static class Worker extends Thread {
+    private final Process process;
+
+    private ProcessStatus ps;
+
+    private Worker(Process process) {
+      this.process = process;
+      this.ps = new ProcessStatus();
+    }
+
+    @Override
+    public void run() {
+      try {
+        InputStream is = process.getInputStream();
+        try {
+          ps.output = IOUtils.toString(is);
+        } catch (IOException ignore) {
+        }
+        ps.exitCode = process.waitFor();
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+    }
+
+    ProcessStatus getProcessStatus() {
+      return this.ps;
+    }
+  }
+
+  public static class ProcessStatus {
+    static final int CODE_STARTED = -257;
+
+    volatile int exitCode;
+
+    volatile String output;
   }
 }
