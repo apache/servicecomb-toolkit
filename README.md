@@ -84,12 +84,124 @@ $ cd toolkit
 $ mvn clean install
 ```
 
-### 3.2 Use the toolkit cli
+### 3.2 Use the toolkit-maven-plugin plugin
+#### 3.2.1 configuration
+Configured in the pom file of the maven project
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+        <sourceType>code</sourceType>
+        <!-- The type of the contract file is generated. If it is not set, the default is 'yaml' -->
+        <contractFileType>yaml</contractFileType>
+        <!-- The type of the generated document. If not set, the default is 'html' -->
+        <documentType>html</documentType>
+        <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
+        <outputDirectory>./target</outputDirectory>
+        <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
+        <contractLocation>./contract</contractLocation>
+        <!-- Checked contract file path. Valid when sourceType is set to 'contract', must be set -->
+        <sourceContractPath>./target/contract</sourceContractPath>
+        <!-- Sample contract file path, must be set -->
+        <destinationContractPath>./contract</destinationContractPath>
+    </configuration>
+</plugin>
+```
+
+#### 3.2.2 Command
+```shell
+# Generating contract, document and microservice project
+mvn toolkit:generate
+
+# Verify code and contract consistency
+mvn toolkit:verify
+```
+
+#### 3.2.2.1 Extract the OpenAPI contract file and document from the code
+
+Configuration(use default configuration if not set `<configuration>`)
+
+example
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+        <sourceType>code</sourceType>
+        <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
+        <outputDirectory>./target</outputDirectory>
+    </configuration>
+</plugin>
+```
+
+Run in shell
+```shell
+mvn toolkit:generate
+```
+
+
+#### 3.2.2.2 Generate document from contract
+
+Configuration(use default configuration if not set `<configuration>`)
+
+example
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+        <sourceType>code</sourceType>
+        <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
+        <outputDirectory>./target</outputDirectory>
+        <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
+        <contractLocation>./contract</contractLocation>
+    </configuration>
+</plugin>
+```
+
+Run in shell
+```shell
+mvn toolkit:generate
+```
+
+#### 3.2.2.3 Contract verify
+
+Configuration
+
+example
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+        <sourceType>code</sourceType>
+        <!-- Sample contract file path, must be set -->
+        <destinationContractPath>./contract</destinationContractPath>
+    </configuration>
+</plugin>
+```
+
+Run in shell
+```shell
+mvn toolkit:verify
+```
+
+
+### 3.3 Use the toolkit cli
 The executable jar package is located in the toolkit/cli/target/bin directory
 ```shell
 $ java -jar toolkit-cli-{version}.jar help
 ```
-#### 3.2.1 Service contract generation microservice project
+#### 3.3.1 Service contract generation microservice project
 ```shell
 $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
@@ -115,7 +227,7 @@ e.g.：--model-package com.demo.model
 * -t, --service-type : Specify microservice type of generated microservice project. optional value is provider,consumer,all               
 e.g.：--service-type provider  
 
-#### 3.2.2 Service contract generation document
+#### 3.3.2 Service contract generation document
 ```shell
 $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
@@ -127,70 +239,6 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 * -f, --format. Specifies the output document format, now supports swagger-ui
 例：-f swagger-ui
 
-### 3.3 Use the toolkit-maven-plugin plugin
-#### 3.3.1 configuration
-Configured in the pom file of the maven project
-```xml
-<plugin>
-    <groupId>org.apache.servicecomb.toolkit</groupId>
-    <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-    <configuration>
-        <!-- Contracts generation directory -->
-        <outputDir>./contracts</outputDir>
-        <!-- SourceContracts placement directory -->
-        <sourceContractsDir>./sourceContracts</sourceContractsDir>  
-        <!-- Document generation directory -->
-        <docOutputDir>./documents</docOutputDir>
-    </configuration>
-</plugin>
-```
-#### 3.3.2 Extract the contract from the code
-
-Run in shell
-```shell
-mvn toolkit:generateContracts
-```
-
-Configuration
-* outputDir: contract generation directory
-example
-```xml
-<outputDir>./contracts</outputDir>
-```
-
-#### 3.3.3 Generate documentation from code
-
-Run in shell
-```shell
-mvn toolkit:generateDoc
-```
-
-Configuration
-* outputDir : Contract generation directory
-* docOutputDir : Generated contract document output path
-
-example
-```xml
-<outputDir>./contracts</outputDir>
-<docOutputDir>./documents</docOutputDir>
-```
-
-#### 3.3.4 Contract verify
-
-Run in shell
-```shell
-mvn toolkit:verifyContracts
-```
-
-Configuration
-* outputDir - The generated contract file output path.
-* sourceContractsDir - Consensus contract storage path.
-example
-```xml
-<outputDir>./contracts</outputDir>
-<sourceContractsDir>./sourceContracts</sourceContractsDir>
-```
 
 ## 4 Contact us
 

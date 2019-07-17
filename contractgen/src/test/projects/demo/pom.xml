@@ -48,14 +48,4 @@
 
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.servicecomb.toolkit</groupId>
-        <artifactId>toolkit-maven-plugin</artifactId>
-        <version>${project.version}</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
 </project>

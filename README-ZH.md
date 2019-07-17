@@ -1,4 +1,4 @@
-# Toolkit | [English](./README.md) [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![Gitter](https://img.shields.io/badge/ServiceComb-Gitter-ff69b4.svg)](https://gitter.im/ServiceCombUsers/Lobby)
+# Toolkit | [English](./README.md) [![Build Status](https://travis-ci.org/apache/servicecomb-toolkit.svg?branch=master)](https://travis-ci.org/apache/servicecomb-toolkit?branch=master)[![Coverage Status](https://coveralls.io/repos/github/apache/servicecomb-toolkit/badge.svg?branch=master)](https://coveralls.io/github/apache/servicecomb-toolkit?branch=master)[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html) [![Gitter](https://img.shields.io/badge/ServiceComb-Gitter-ff69b4.svg)](https://gitter.im/ServiceCombUsers/Lobby)
 
 Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
@@ -22,7 +22,7 @@ Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
 * 契约与代码一致性校验
 
-  校验应用的实际实现（如数据和服务API）是否与达成共识的服务契约描述一致。
+  校验应用的实际实现（如数据和服务API）是否与样本服务契约描述一致。
 
 * 契约/代码生成文档
 
@@ -85,12 +85,121 @@ $ cd toolkit
 $ mvn clean install
 ```
 
-### 3.2 使用toolkit cli工具
+
+### 3.2 使用toolkit-maven-plugin插件
+#### 3.2.1 配置
+在maven项目的pom文件中配置
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+        <sourceType>code</sourceType>
+        <!-- 生成契约文件的类型，不设置则默认为 yaml -->
+        <contractFileType>yaml</contractFileType>
+        <!-- 生成文档的类型，不设置则默认为 html -->
+        <documentType>html</documentType>
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <outputDirectory>./target</outputDirectory>
+        <!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 -->
+        <contractLocation>./contract</contractLocation>
+        <!-- 被校验的契约文件目录，在 sourceType 设置为 contract 时有效，且必须设置 -->
+        <sourceContractPath>./target/contract</sourceContractPath>
+        <!-- 样本契约文件目录，必须设置 -->
+        <destinationContractPath>./contract</destinationContractPath>
+    </configuration>
+</plugin>
+```
+
+#### 3.2.2 命令
+```shell
+# 生成契约，文档和微服务工程
+mvn toolkit:generate
+
+# 校验代码和契约一致性
+mvn toolkit:verify
+```
+
+#### 3.2.2.1 解析代码，生成OpenAPI规范契约、文档
+
+配置项(不显式设置 `<configuration>` 则使用默认配置)
+例：
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+        <sourceType>code</sourceType>
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <outputDirectory>./target</outputDirectory>
+    </configuration>
+</plugin>
+```
+
+运行命令
+```shell
+mvn toolkit:generate
+```
+
+#### 3.2.2.2 解析契约，生成文档
+
+配置项(不显式设置 `<configuration>` 则使用默认配置)
+例：
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+        <sourceType>contract</sourceType>
+        <!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 -->
+        <contractLocation>./contract</contractLocation>
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <outputDirectory>./target</outputDirectory>
+    </configuration>
+</plugin>
+```
+
+运行命令
+```shell
+mvn toolkit:generate
+```
+
+#### 3.2.2.3 代码和契约一致性校验
+
+配置项
+例：
+```xml
+<plugin>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <artifactId>toolkit-maven-plugin</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <configuration>
+        <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+        <sourceType>code</sourceType>
+        <!-- 样本契约文件目录，必须设置 -->
+        <destinationContractPath>./contract</destinationContractPath>
+    </configuration>
+</plugin>
+```
+
+运行命令
+```shell
+mvn toolkit:verify
+```
+
+
+### 3.3 使用toolkit cli工具
 可执行jar包位于toolkit/cli/target/bin目录下
 ```shell
 $ java -jar toolkit-cli-{version}.jar help
 ```
-#### 3.2.1 契约生成微服务工程
+#### 3.3.1 契约生成微服务工程
 ```shell
 $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
@@ -116,7 +225,7 @@ $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.ya
 * -t, --service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all                  
 例：--service-type provider  
 
-#### 3.2.2 契约生成文档
+#### 3.3.2 契约生成文档
 ```shell
 $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
@@ -128,70 +237,6 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 * -f, --format : 指定输出文档风格,现支持swagger-ui
 例：-f swagger-ui
 
-### 3.3 使用toolkit-maven-plugin插件
-#### 3.3.1 配置
-在maven项目的pom文件中配置
-```xml
-<plugin>
-    <groupId>org.apache.servicecomb.toolkit</groupId>
-    <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
-    <configuration>
-        <!-- 契约生成目录 -->
-        <outputDir>./contracts</outputDir>
-        <!-- 标准的契约放置的目录  -->
-        <sourceContractsDir>./sourceContracts</sourceContractsDir>  
-        <!-- 文档生成目录 -->
-        <docOutputDir>./documents</docOutputDir>
-    </configuration>
-</plugin>
-```
-#### 3.3.2 从代码提取契约
-
-运行
-```shell
-mvn toolkit:generateContracts
-```
-
-配置项
-* outputDir : 生成的契约文件输出路径
-例：
-```xml
-<outputDir>./contracts</outputDir>
-```
-
-#### 3.3.3 从代码生成文档
-
-运行
-```shell
-mvn toolkit:generateDoc
-```
-
-配置项
-* outputDir : 生成的契约文件输出路径
-* docOutputDir : 生成的契约文档输出路径
-
-例：
-```xml
-<outputDir>./contracts</outputDir>
-<docOutputDir>./documents</docOutputDir>
-```
-
-#### 3.3.4 契约校验
-
-运行
-```shell
-mvn toolkit:verifyContracts
-```
-
-配置项
-* outputDir : 生成的契约文件输出路径
-* sourceContractsDir : 共识契约存放路径
-例：
-```xml
-<outputDir>./contracts</outputDir>
-<sourceContractsDir>./sourceContracts</sourceContractsDir>
-```
 
 ## 4 社区互动
 

@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
+
 import io.swagger.codegen.CliOption;
 import io.swagger.codegen.CodegenConfig;
 import io.swagger.codegen.CodegenConstants;
@@ -174,14 +176,21 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
     importMapping.put("OffsetDateTime", "java.time.OffsetDateTime");
     additionalProperties.put("dateLibrary", "java8");
-    additionalProperties.put("mainClassPackage", mainClassPackage);
+    if (StringUtils.isEmpty((String) additionalProperties.get("mainClassPackage"))) {
+      additionalProperties.put("mainClassPackage", mainClassPackage);
+    } else {
+      mainClassPackage = (String) additionalProperties.get("mainClassPackage");
+    }
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
     additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
     additionalProperties.put("microserviceName", microserviceName);
 
-    processParentProjectOpts();
+    boolean isMultipleModule = (boolean) Optional.ofNullable(additionalProperties.get("isMultipleModule")).orElse(true);
+    if (isMultipleModule) {
+      processParentProjectOpts();
+    }
     switch ((String) Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE)).orElse("")) {
       case "provider":
         processProviderProjectOpts();
