@@ -41,8 +41,6 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
   private static Pattern variablePattern = Pattern.compile("(?<=\\{\\{)[a-zA-Z0-9_-]*(?=\\}\\})");
 
-  private final static String DOC_FORMAT = "html";
-
   private final static String DOC_SUFFIX = ".html";
 
   private Swagger contractContent;
@@ -52,7 +50,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
   @Override
 
   public boolean canProcess(String type) {
-    return DOC_FORMAT.equals(type);
+    return "default".equals(type);
   }
 
   @Override
@@ -92,8 +90,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
       Files.write(outputFile, swaggerUiHtml.getBytes());
     } catch (IOException e) {
-      LOGGER.error(e.getMessage());
-      return false;
+      throw new RuntimeException(e);
     }
 
     return true;

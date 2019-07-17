@@ -56,9 +56,8 @@
         <version>${project.version}</version>
         <extensions>true</extensions>
         <configuration>
-          <contractLocation>./contract</contractLocation>
-          <documentOutput>./document</documentOutput>
-          <documentType>html</documentType>
+          <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+          <sourceType>code</sourceType>
         </configuration>
       </plugin>
     </plugins>

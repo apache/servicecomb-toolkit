@@ -63,6 +63,7 @@
     <module>toolkit-maven-plugin</module>
     <module>core</module>
     <module>integration-tests</module>
+    <module>contractgen</module>
   </modules>
 
   <dependencyManagement>
@@ -94,6 +95,12 @@
       <dependency>
         <groupId>org.apache.servicecomb.toolkit</groupId>
         <artifactId>docgen</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>contractgen</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -232,6 +239,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-remote-resources-plugin</artifactId>
+        <version>1.6.0</version>
         <executions>
           <execution>
             <id>process-resource-bundles</id>
