@@ -37,7 +37,6 @@ import java.util.concurrent.TimeoutException;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.common.ClassMaker;
@@ -117,11 +116,6 @@ public class DefaultContractsGeneratorTest {
     method.setAccessible(true);
 
     assertFalse((boolean) method.invoke(defaultContractsGenerator, new Object[] {null}));
-
-//    Class<Runnable> mockRunnableaClass = (Class<Runnable>)mock(Class.class);
-//    RestSchema restSchema = mock(RestSchema.class);
-//    given(mockRunnableaClass.getAnnotation(RestSchema.class)).willReturn(restSchema);
-//    assertTrue((boolean) method.invoke(defaultContractsGenerator, new Object[] {mockRunnableaClass}));
   }
 
   @Test
