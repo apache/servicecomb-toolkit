@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -32,15 +33,15 @@ import java.util.Objects;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.swagger.SwaggerUtils;
+import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
+
+import io.swagger.codegen.config.CodegenConfigurator;
 
 public class GenerateUtil {
-
-  private static Logger LOGGER = LoggerFactory.getLogger(GenerateUtil.class);
 
   public static void generateContract(MavenProject project, String contractOutput, String contractFileType,
       String type) {
@@ -57,16 +58,17 @@ public class GenerateUtil {
     // TODO: support users to add other getGenerator type soon
     ContractsGenerator contractGenerator = GeneratorFactory.getGenerator(ContractsGenerator.class, type);
     Objects.requireNonNull(contractGenerator).configure(contractConfig);
-    contractGenerator.generate();
+    if (!contractGenerator.generate()) {
+      throw new RuntimeException("failed to generate contract by generator " + type);
+    }
   }
 
-  public static void generateDocument(String contractLocation, String documentOutput, String type)
-      throws IOException {
+  public static void generateDocument(String contractLocation, String documentOutput, String type) throws IOException {
 
     // TODO: support users to add other getGenerator type soon
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, type);
     if (docGenerator == null) {
-      throw new RuntimeException("DocGenerator's implementation is not found");
+      throw new RuntimeException("not found document generator's implementation");
     }
 
     Files.walkFileTree(Paths.get(contractLocation), new SimpleFileVisitor<Path>() {
@@ -81,10 +83,55 @@ public class GenerateUtil {
             .substring(0, file.toFile().getName().indexOf(".")));
 
         docGenerator.configure(docGeneratorConfig);
-        docGenerator.generate();
+        if (!docGenerator.generate()) {
+          throw new RuntimeException("failed to generate document by generator " + type);
+        }
 
         return super.visitFile(file, attrs);
       }
     });
+  }
+
+  public static void generateCode(ServiceConfig service, String contractLocation,
+      String codeOutput, String type) throws IOException {
+
+    CodeGenerator codeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, type);
+    if (codeGenerator == null) {
+      throw new RuntimeException("not found code generator's implementation");
+    }
+
+    CodegenConfigurator configurator = new CodegenConfigurator();
+    configurator.setOutputDir(codeOutput)
+        .setLang("ServiceComb")
+        .setApiPackage(service.getPackageName())
+        .setGroupId(service.getGroupId())
+        .setArtifactId(service.getArtifactId())
+        .setModelPackage(service.getPackageName())
+        .setLibrary(service.getProgrammingModel())
+        .addAdditionalProperty("mainClassPackage", service.getPackageName())
+        .setArtifactVersion(service.getArtifactVersion())
+        .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType());
+
+    File contractFile = new File(contractLocation);
+    if (contractFile.isDirectory()) {
+
+      Files.walkFileTree(Paths.get(contractFile.toURI()), new SimpleFileVisitor<Path>() {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+          configurator.setInputSpec(file.toFile().getCanonicalPath());
+          Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
+          if (!codeGenerator.generate()) {
+            throw new RuntimeException("failed to generate code by generator " + type);
+          }
+          return super.visitFile(file, attrs);
+        }
+      });
+    } else {
+      configurator.setInputSpec(contractLocation);
+      Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
+      if (!codeGenerator.generate()) {
+        throw new RuntimeException("failed to generate code by generator " + type);
+      }
+    }
   }
 }

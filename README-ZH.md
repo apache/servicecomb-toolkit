@@ -101,7 +101,7 @@ $ mvn clean install
         <contractFileType>yaml</contractFileType>
         <!-- 生成文档的类型，不设置则默认为 html -->
         <documentType>html</documentType>
-        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
         <outputDirectory>./target</outputDirectory>
         <!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 -->
         <contractLocation>./contract</contractLocation>
@@ -109,6 +109,19 @@ $ mvn clean install
         <sourceContractPath>./target/contract</sourceContractPath>
         <!-- 样本契约文件目录，必须设置 -->
         <destinationContractPath>./contract</destinationContractPath>
+        <!-- 生成的微服务代码工程配置 -->
+        <service>
+            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
+            <serviceType>all</serviceType>
+            <!-- 微服务的 groupid，用户可选，默认值为 domain.orgnization.project -->
+            <groupId>domain.orgnization.project</groupId>
+            <!-- 微服务的 artifactId，用户可选，默认值为 sample -->
+            <artifactId>sample</artifactId>
+            <!-- 微服务的 artifactVersion，用户可选，默认值为 0.1.0-SNAPSHOT -->
+            <artifactVersion>0.1.0-SNAPSHOT</artifactVersion>
+            <!-- 微服务的 packageName，用户可选，默认值为 domain.orgnization.project.sample -->
+            <packageName>domain.orgnization.project.sample</packageName>
+        </service>
     </configuration>
 </plugin>
 ```
@@ -122,7 +135,7 @@ mvn toolkit:generate
 mvn toolkit:verify
 ```
 
-#### 3.2.2.1 解析代码，生成OpenAPI规范契约、文档
+#### 3.2.2.1 解析代码，生成微服务代码工程、OpenAPI规范契约、文档
 
 配置项(不显式设置 `<configuration>` 则使用默认配置)
 例：
@@ -134,8 +147,13 @@ mvn toolkit:verify
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
-        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
         <outputDirectory>./target</outputDirectory>
+        <!-- 生成的微服务代码工程配置 -->
+        <service>
+            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
+            <serviceType>all</serviceType>
+        </service>
     </configuration>
 </plugin>
 ```
@@ -145,7 +163,7 @@ mvn toolkit:verify
 mvn toolkit:generate
 ```
 
-#### 3.2.2.2 解析契约，生成文档
+#### 3.2.2.2 解析契约，生成微服务工程、文档
 
 配置项(不显式设置 `<configuration>` 则使用默认配置)
 例：
@@ -159,8 +177,13 @@ mvn toolkit:generate
         <sourceType>contract</sourceType>
         <!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 -->
         <contractLocation>./contract</contractLocation>
-        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的契约文件在 contract 目录，生成的文档在 document 目录 -->
+        <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
         <outputDirectory>./target</outputDirectory>
+        <!-- 生成的微服务代码工程配置 -->
+        <service>
+            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
+            <serviceType>provider</serviceType>
+        </service>
     </configuration>
 </plugin>
 ```

@@ -71,7 +71,7 @@ public class VerifyMojo extends AbstractMojo {
 
         break;
       default:
-        throw new RuntimeException("source type " + sourceType + " is not supported");
+        throw new RuntimeException("not support source type " + sourceType);
     }
 
     try {
