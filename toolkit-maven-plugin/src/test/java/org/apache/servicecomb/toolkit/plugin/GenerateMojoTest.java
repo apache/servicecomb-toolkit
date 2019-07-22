@@ -19,14 +19,15 @@ package org.apache.servicecomb.toolkit.plugin;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -37,6 +38,7 @@ import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.common.ClassMaker;
+import org.apache.servicecomb.toolkit.common.FileUtils;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -59,15 +61,15 @@ public class GenerateMojoTest {
 
   @Test
   public void testGenerateMojo() throws Exception {
-    File baseDir = this.resources.getBasedir(TEST_PROJECT_WITHCONTRACT);
+    File baseDirWithContract = this.resources.getBasedir(TEST_PROJECT_WITHCONTRACT);
     File baseDirWithoutContract = this.resources.getBasedir(TEST_PROJECT_WITHOUTCONTRACT);
     File contractLocation = this.resources.getBasedir(TEST_PROJECT_CONTRACTLOCATION);
 
-    File pom = new File(baseDir, "pom.xml");
+    File pom = new File(baseDirWithContract, "pom.xml");
     AbstractMojo generateMojo = (AbstractMojo) this.rule.lookupMojo(PLUGIN_GOAL, pom);
     assertNotNull(generateMojo);
 
-    String testDir = baseDir + File.separator;
+    String testDirWithContract = baseDirWithContract + File.separator;
     String testDirWithoutContract = baseDirWithoutContract + File.separator;
     String classesPath = "target/classes";
 
@@ -78,68 +80,99 @@ public class GenerateMojoTest {
 
     List<String> runtimeUrlPath = new ArrayList<>();
     runtimeUrlPath.add(testDirWithoutContract + classesPath);
-
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
     rule.setVariableValueToObject(generateMojo, "project", project);
 
+    String outputDirectory = null;
+    String contractOutput = null;
+    String projectOutput = null;
+    String documentOutput = null;
+
     try {
+      outputDirectory = "./target";
+
       rule.setVariableValueToObject(generateMojo, "sourceType", "code");
-      rule.setVariableValueToObject(generateMojo, "outputDirectory", "./target");
+      rule.setVariableValueToObject(generateMojo, "outputDirectory", outputDirectory);
+
       generateMojo.execute();
 
       assertEquals(0, Objects.requireNonNull(
-          Paths.get(rule.getVariableValueFromObject(generateMojo, "contractLocation").toString()).toFile()
-              .listFiles()).length);
+          new File(rule.getVariableValueFromObject(generateMojo, "contractLocation").toString()).listFiles()).length);
     } catch (MojoFailureException e) {
       fail();
     }
 
     // code has contract
-    ClassMaker.compile(testDir);
+    ClassMaker.compile(testDirWithContract);
 
     runtimeUrlPath.remove(0);
-    runtimeUrlPath.add(testDir + classesPath);
+    runtimeUrlPath.add(testDirWithContract + classesPath);
     given(project.getRuntimeClasspathElements()).willReturn(runtimeUrlPath);
-
     rule.setVariableValueToObject(generateMojo, "project", project);
 
     try {
+      outputDirectory = "./target";
+      contractOutput = outputDirectory + File.separator + "contract";
+      projectOutput = outputDirectory + File.separator + "project";
+      documentOutput = outputDirectory + File.separator + "document";
+
       rule.setVariableValueToObject(generateMojo, "sourceType", "code");
-      rule.setVariableValueToObject(generateMojo, "outputDirectory", "./target");
+      rule.setVariableValueToObject(generateMojo, "outputDirectory", outputDirectory);
       rule.setVariableValueToObject(generateMojo, "contractFileType", "yaml");
       rule.setVariableValueToObject(generateMojo, "documentType", "html");
+
       generateMojo.execute();
+
+      assertNotEquals(0, Objects.requireNonNull(new File(outputDirectory).listFiles()).length);
+      assertNotEquals(0, Objects.requireNonNull(new File(contractOutput).listFiles()).length);
+      assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
+      assertNotEquals(0, Objects.requireNonNull(new File(documentOutput).listFiles()).length);
     } catch (RuntimeException e) {
       fail();
     }
 
+    boolean isSuccessful;
     try {
-      rule.setVariableValueToObject(generateMojo, "sourceType", "code");
-      generateMojo.execute();
+      isSuccessful = false;
 
-      rule.setVariableValueToObject(generateMojo, "outputDirectory", null);
-      generateMojo.execute();
-    } catch (RuntimeException e) {
-      assertEquals("output directory setting is invalid", e.getMessage());
-    }
-
-    try {
       rule.setVariableValueToObject(generateMojo, "sourceType", "contract");
       rule.setVariableValueToObject(generateMojo, "contractLocation", null);
+
       generateMojo.execute();
     } catch (RuntimeException e) {
-      assertEquals("contract location is invalid or not set", e.getMessage());
+      assertEquals("invalid or not config contract location", e.getMessage());
+      isSuccessful = true;
     }
+    assertTrue(isSuccessful);
 
     try {
+      isSuccessful = false;
+
       rule.setVariableValueToObject(generateMojo, "sourceType", "contract");
       rule.setVariableValueToObject(generateMojo, "contractLocation", "");
-      generateMojo.execute();
 
-      rule.setVariableValueToObject(generateMojo, "contractLocation", "nonexists");
       generateMojo.execute();
     } catch (RuntimeException e) {
       assertThat(e.getMessage(), containsString("is not exists"));
+      isSuccessful = true;
     }
+    assertTrue(isSuccessful);
+
+    outputDirectory = "./target";
+    projectOutput = outputDirectory + File.separator + "project";
+    ServiceConfig service = new ServiceConfig();
+
+    rule.setVariableValueToObject(generateMojo, "sourceType", "code");
+    rule.setVariableValueToObject(generateMojo, "outputDirectory", outputDirectory);
+    FileUtils.createDirectory(projectOutput);
+    rule.setVariableValueToObject(generateMojo, "service", null);
+    generateMojo.execute();
+    assertEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
+
+    rule.setVariableValueToObject(generateMojo, "sourceType", "code");
+    rule.setVariableValueToObject(generateMojo, "outputDirectory", outputDirectory);
+    rule.setVariableValueToObject(generateMojo, "service", service);
+    generateMojo.execute();
+    assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
   }
 }

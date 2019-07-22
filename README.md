@@ -99,7 +99,7 @@ Configured in the pom file of the maven project
         <contractFileType>yaml</contractFileType>
         <!-- The type of the generated document. If not set, the default is 'html' -->
         <documentType>html</documentType>
-        <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
+        <!-- The root directory to save microservice project,contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
         <outputDirectory>./target</outputDirectory>
         <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
         <contractLocation>./contract</contractLocation>
@@ -107,6 +107,19 @@ Configured in the pom file of the maven project
         <sourceContractPath>./target/contract</sourceContractPath>
         <!-- Sample contract file path, must be set -->
         <destinationContractPath>./contract</destinationContractPath>
+        <!-- Generated microservice project configuration -->
+        <service>
+            <!-- Microservice type,can generated 'provider/consumer/all',the default is 'all' -->
+            <serviceType>all</serviceType>
+            <!-- Microservice project 'groupid',optional,the default is 'domain.orgnization.project' -->
+            <groupId>domain.orgnization.project</groupId>
+            <!-- Microservice project 'artifactId',optional,the default is 'sample' -->
+            <artifactId>sample</artifactId>
+            <!-- Microservice project 'artifactVersion',optional,the default is '0.1.0-SNAPSHOT' -->
+            <artifactVersion>0.1.0-SNAPSHOT</artifactVersion>
+            <!-- Microservice project 'packageName',optional,the default is 'domain.orgnization.project.sample' -->
+            <packageName>domain.orgnization.project.sample</packageName>
+        </service>
     </configuration>
 </plugin>
 ```
@@ -120,7 +133,7 @@ mvn toolkit:generate
 mvn toolkit:verify
 ```
 
-#### 3.2.2.1 Extract the OpenAPI contract file and document from the code
+#### 3.2.2.1 Extract the microservice project, OpenAPI contract file and document from the code
 
 Configuration(use default configuration if not set `<configuration>`)
 
@@ -135,6 +148,11 @@ example
         <sourceType>code</sourceType>
         <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
         <outputDirectory>./target</outputDirectory>
+        <!-- Generated microservice project configuration -->
+        <service>
+            <!-- Microservice type,can generated 'provider/consumer/all',the default is 'all' -->
+            <serviceType>all</serviceType>
+        </service>
     </configuration>
 </plugin>
 ```
@@ -145,7 +163,7 @@ mvn toolkit:generate
 ```
 
 
-#### 3.2.2.2 Generate document from contract
+#### 3.2.2.2 Generate the microservice project and document from contract
 
 Configuration(use default configuration if not set `<configuration>`)
 
@@ -162,6 +180,11 @@ example
         <outputDirectory>./target</outputDirectory>
         <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
         <contractLocation>./contract</contractLocation>
+        <!-- Generated microservice project configuration -->
+        <service>
+            <!-- Microservice type,can generated 'provider/consumer/all',the default is 'all' -->
+            <serviceType>provider</serviceType>
+        </service>
     </configuration>
 </plugin>
 ```

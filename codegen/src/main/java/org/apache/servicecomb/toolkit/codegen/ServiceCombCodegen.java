@@ -99,18 +99,17 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     modelTemplateFiles.put(modelTemplateFolder + "/model.mustache", ".java");
     modelTemplateFiles.remove("model.mustache");
 
-    groupId = "org.apache.servicecomb.toolkit";
-    artifactId = "app";
+    groupId = "domain.orgnization.project";
+    artifactId = "sample";
 
     apiPackage = groupId + "." + artifactId + ".api";
     modelPackage = groupId + "." + artifactId + ".model";
     mainClassPackage = groupId + "." + artifactId;
 
-    supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the springboot programming model.");
-    supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the pojo programming model.");
-    supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the jax-rs programming model.");
-    supportedLibraries
-        .put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
+    supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the SpringMVC programming model.");
+    supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the POJO programming model.");
+    supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the JAX-RS programming model.");
+    supportedLibraries.put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 

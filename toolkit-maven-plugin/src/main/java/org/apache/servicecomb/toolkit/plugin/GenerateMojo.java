@@ -57,15 +57,15 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter(defaultValue = "./target")
   private String outputDirectory;
 
+  @Parameter
+  private ServiceConfig service;
+
   @Override
   public void execute() {
 
     switch (SourceType.valueOf(sourceType.toUpperCase())) {
       case CODE:
         // generate contract file
-        if (outputDirectory == null) {
-          throw new RuntimeException("output directory setting is invalid");
-        }
         String contractOutput = outputDirectory + File.separator + "contract";
         try {
           FileUtils.createDirectory(contractOutput);
@@ -76,14 +76,14 @@ public class GenerateMojo extends AbstractMojo {
         GenerateUtil.generateContract(project, contractOutput, contractFileType, "default");
         contractLocation = contractOutput;
         if (Objects.requireNonNull(new File(contractOutput).listFiles()).length == 0) {
-          LOGGER.info("No contract in the code");
+          LOGGER.info("no contract in the code");
           return;
         }
 
         break;
       case CONTRACT:
         if (contractLocation == null) {
-          throw new RuntimeException("contract location is invalid or not set");
+          throw new RuntimeException("invalid or not config contract location");
         }
 
         if (!new File(contractLocation).exists()) {
@@ -92,7 +92,20 @@ public class GenerateMojo extends AbstractMojo {
 
         break;
       default:
-        throw new RuntimeException("source type " + sourceType + " is not supported");
+        throw new RuntimeException("not support source type " + sourceType);
+    }
+
+    //generate microservice project
+    if (service == null) {
+      LOGGER.info("no service configuration and do not generate code");
+      return;
+    }
+    String codeOutput = outputDirectory + File.separator + "project";
+    try {
+      FileUtils.createDirectory(codeOutput);
+      GenerateUtil.generateCode(service, contractLocation, codeOutput, "default");
+    } catch (IOException e) {
+      throw new RuntimeException("failed to generate code", e);
     }
 
     //generate document
