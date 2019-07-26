@@ -89,7 +89,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
   }
 
   @Override
-  public boolean generate() throws RuntimeException {
+  public void generate() throws RuntimeException {
 
     URL[] runtimeUrls = new URL[classpathUrls.size()];
     for (int i = 0; i < classpathUrls.size(); i++) {
@@ -99,12 +99,12 @@ public class DefaultContractsGenerator implements ContractsGenerator {
       try {
         runtimeUrls[i] = new File(element).toURI().toURL();
       } catch (MalformedURLException e) {
-        throw new RuntimeException("wrong element in classpath", e);
+        throw new RuntimeException("Wrong element in classpath", e);
       }
     }
 
     if (!checkConfig()) {
-      return false;
+      throw new IllegalArgumentException("Cannot found configuration");
     }
 
     ImmediateClassLoader immediateClassLoader = new ImmediateClassLoader(runtimeUrls,
@@ -143,7 +143,6 @@ public class DefaultContractsGenerator implements ContractsGenerator {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return true;
   }
 
   private boolean checkConfig() {
@@ -188,7 +187,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
         return (Vector) classesField.get(classLoader);
       }
     } catch (Exception e) {
-      throw new RuntimeException("cannot get class from ClassLoader " + classLoader.getClass());
+      throw new RuntimeException("Cannot get class from ClassLoader " + classLoader.getClass());
     }
     return new Vector<>();
   }

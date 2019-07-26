@@ -62,7 +62,6 @@ public class DocGenerate implements Runnable {
     try {
       Path specPath = Paths.get(specFile);
 
-      boolean[] retValues = new boolean[1];
       String[] fileName = new String[1];
 
       DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, format);
@@ -78,11 +77,7 @@ public class DocGenerate implements Runnable {
             docGeneratorConfig.put("outputPath",
                 output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
             docGenerator.configure(docGeneratorConfig);
-            retValues[0] = docGenerator.generate();
-            if (retValues[0]) {
-              fileName[0] = file.toFile().getName();
-              return FileVisitResult.TERMINATE;
-            }
+            docGenerator.generate();
 
             return super.visitFile(file, attrs);
           }
@@ -94,7 +89,7 @@ public class DocGenerate implements Runnable {
         docGeneratorConfig.put("outputPath", output + File.separator + new File(specFile).getName()
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
-        retValues[0] = docGenerator.generate();
+        docGenerator.generate();
       } else {
         fileName[0] = specFile;
 
@@ -102,12 +97,7 @@ public class DocGenerate implements Runnable {
         docGeneratorConfig.put("outputPath", output + File.separator + new File(specFile).getName()
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
-        retValues[0] = docGenerator.generate();
-      }
-
-      if (!retValues[0]) {
-        LOGGER.error("Failed to generate document base on file {}", fileName[0]);
-        return;
+        docGenerator.generate();
       }
 
       LOGGER.info("Success to generate document, the directory is: {}", output);

@@ -120,6 +120,7 @@ public class GenerateMojoTest {
       rule.setVariableValueToObject(generateMojo, "outputDirectory", outputDirectory);
       rule.setVariableValueToObject(generateMojo, "contractFileType", "yaml");
       rule.setVariableValueToObject(generateMojo, "documentType", "html");
+      rule.setVariableValueToObject(generateMojo, "service", new ServiceConfig());
 
       generateMojo.execute();
 
@@ -140,7 +141,7 @@ public class GenerateMojoTest {
 
       generateMojo.execute();
     } catch (RuntimeException e) {
-      assertEquals("invalid or not config contract location", e.getMessage());
+      assertEquals("Invalid or not config contract location", e.getMessage());
       isSuccessful = true;
     }
     assertTrue(isSuccessful);

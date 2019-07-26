@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -55,8 +57,13 @@ public class GeneratorTest {
     configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
     DefaultCodeGenerator codeGenerator = new DefaultCodeGenerator();
-    codeGenerator.configure(Collections.singletonMap("configurator",configurator));
-    boolean generateResult = codeGenerator.generate();
+    codeGenerator.configure(Collections.singletonMap("configurator", configurator));
+
+    try {
+      codeGenerator.generate();
+    } catch (RuntimeException e) {
+      fail();
+    }
 
     Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
     Assert.assertEquals(DefaultGenerator.class, internalGenerator.getClass());
@@ -65,18 +72,17 @@ public class GeneratorTest {
     Assert.assertEquals("ServiceComb", ((ServiceCombCodegen) swaggerCodegenConfig).getName());
     Assert.assertEquals(CodegenType.SERVER, ((ServiceCombCodegen) swaggerCodegenConfig).getTag());
 
-    Assert.assertTrue(generateResult);
     tempDir.toFile().deleteOnExit();
   }
 
   @Test
   public void getCodeGeneratorInstanse() {
 
-    CodeGenerator defaultCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class,"default");
+    CodeGenerator defaultCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "default");
     Assert.assertNotNull(defaultCodeGenerator);
     Assert.assertTrue(defaultCodeGenerator.canProcess("default"));
 
-    CodeGenerator unknownCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class,"unknown");
+    CodeGenerator unknownCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "unknown");
     Assert.assertNull(unknownCodeGenerator);
   }
 }

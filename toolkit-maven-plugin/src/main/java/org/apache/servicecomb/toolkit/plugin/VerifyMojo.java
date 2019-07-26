@@ -63,7 +63,7 @@ public class VerifyMojo extends AbstractMojo {
           sourceContractPath = FileUtils.createTempDirectory("target/tmp-contract").toFile().getCanonicalPath();
           GenerateUtil.generateContract(project, sourceContractPath, contractFileType,"default");
         } catch (IOException e) {
-          throw new RuntimeException("failed to generate contract from code.", e);
+          throw new RuntimeException("Failed to generate contract from code.", e);
         }
 
         break;
@@ -71,7 +71,7 @@ public class VerifyMojo extends AbstractMojo {
 
         break;
       default:
-        throw new RuntimeException("not support source type " + sourceType);
+        throw new RuntimeException("Not support source type " + sourceType);
     }
 
     try {
@@ -85,15 +85,15 @@ public class VerifyMojo extends AbstractMojo {
         ContractComparator contractComparator = new ContractComparator(new String(sourceSwagger), new String(swagger));
 
         if (!contractComparator.equals()) {
-          LOGGER.info("contract is not matched, difference is as follows");
+          LOGGER.info("Contract is not matched, difference is as follows");
           LOGGER.info(destinationContractPath + "/" + contractName + " vs " + sourceContractPath + "/" + contractName);
           contractComparator.splitPrintToScreen();
         } else {
-          LOGGER.info("succee, contract verification passed");
+          LOGGER.info("Succee, contract verification passed");
         }
       });
     } catch (IOException e) {
-      throw new RuntimeException("failed to verify contract", e);
+      throw new RuntimeException("Failed to verify contract", e);
     }
   }
 }

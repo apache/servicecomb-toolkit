@@ -23,14 +23,11 @@ import static org.apache.servicecomb.toolkit.plugin.GenerateUtil.generateDocumen
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -60,7 +57,7 @@ public class GenerateUtilTest {
     try {
       generateContract(project, contractOutput, "yaml", "default");
     } catch (RuntimeException e) {
-      assertEquals("failed to get runtime class elements", e.getMessage());
+      assertEquals("Failed to get runtime class elements", e.getMessage());
       return;
     }
 
@@ -79,7 +76,7 @@ public class GenerateUtilTest {
     try {
       generateCode(service, contractLocation.getCanonicalPath(), projectOutput, "invalidType");
     } catch (RuntimeException e) {
-      assertEquals("not found code generator's implementation", e.getMessage());
+      assertEquals("Cannot found code generator's implementation", e.getMessage());
       return;
     }
 
@@ -97,7 +94,7 @@ public class GenerateUtilTest {
     try {
       generateDocument(contractLocation.getCanonicalPath(), codeOutput, "invalidType");
     } catch (RuntimeException e) {
-      assertEquals("not found document generator's implementation", e.getMessage());
+      assertEquals("Cannot found document generator's implementation", e.getMessage());
       return;
     }
 

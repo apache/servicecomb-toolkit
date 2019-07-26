@@ -50,7 +50,7 @@ public class GenerateUtil {
     try {
       contractConfig.put("classpathUrls", project.getRuntimeClasspathElements());
     } catch (DependencyResolutionRequiredException e) {
-      throw new RuntimeException("failed to get runtime class elements", e);
+      throw new RuntimeException("Failed to get runtime class elements", e);
     }
     contractConfig.put("outputDir", contractOutput);
     contractConfig.put("contractFileType", contractFileType);
@@ -58,9 +58,8 @@ public class GenerateUtil {
     // TODO: support users to add other getGenerator type soon
     ContractsGenerator contractGenerator = GeneratorFactory.getGenerator(ContractsGenerator.class, type);
     Objects.requireNonNull(contractGenerator).configure(contractConfig);
-    if (!contractGenerator.generate()) {
-      throw new RuntimeException("failed to generate contract by generator " + type);
-    }
+
+    contractGenerator.generate();
   }
 
   public static void generateDocument(String contractLocation, String documentOutput, String type) throws IOException {
@@ -68,7 +67,7 @@ public class GenerateUtil {
     // TODO: support users to add other getGenerator type soon
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, type);
     if (docGenerator == null) {
-      throw new RuntimeException("not found document generator's implementation");
+      throw new RuntimeException("Cannot found document generator's implementation");
     }
 
     Files.walkFileTree(Paths.get(contractLocation), new SimpleFileVisitor<Path>() {
@@ -83,9 +82,7 @@ public class GenerateUtil {
             .substring(0, file.toFile().getName().indexOf(".")));
 
         docGenerator.configure(docGeneratorConfig);
-        if (!docGenerator.generate()) {
-          throw new RuntimeException("failed to generate document by generator " + type);
-        }
+        docGenerator.generate();
 
         return super.visitFile(file, attrs);
       }
@@ -97,7 +94,7 @@ public class GenerateUtil {
 
     CodeGenerator codeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, type);
     if (codeGenerator == null) {
-      throw new RuntimeException("not found code generator's implementation");
+      throw new RuntimeException("Cannot found code generator's implementation");
     }
 
     CodegenConfigurator configurator = new CodegenConfigurator();
@@ -120,18 +117,15 @@ public class GenerateUtil {
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
           configurator.setInputSpec(file.toFile().getCanonicalPath());
           Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
-          if (!codeGenerator.generate()) {
-            throw new RuntimeException("failed to generate code by generator " + type);
-          }
+          codeGenerator.generate();
+
           return super.visitFile(file, attrs);
         }
       });
     } else {
       configurator.setInputSpec(contractLocation);
       Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
-      if (!codeGenerator.generate()) {
-        throw new RuntimeException("failed to generate code by generator " + type);
-      }
+      codeGenerator.generate();
     }
   }
 }

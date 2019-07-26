@@ -67,10 +67,10 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
   }
 
   @Override
-  public boolean generate() {
+  public void generate() {
 
     if (!checkConfig()) {
-      return false;
+      throw new IllegalArgumentException("Cannot found configuration");
     }
 
     String swaggerUiHtml = null;
@@ -92,8 +92,6 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
-    return true;
   }
 
   private String correctPath(String filepath) {

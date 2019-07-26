@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -85,7 +86,11 @@ public class DefaultContractsGeneratorTest {
 
     DefaultContractsGenerator defaultContractsGenerator = new DefaultContractsGenerator();
     defaultContractsGenerator.configure(config);
-    assertTrue(defaultContractsGenerator.generate());
+    try {
+      defaultContractsGenerator.generate();
+    } catch (RuntimeException e) {
+      fail();
+    }
   }
 
   @Test
