@@ -41,12 +41,7 @@ public class DefaultCodeGenerator implements CodeGenerator {
   }
 
   @Override
-  public boolean generate() {
-
-    if (generator.generate().size() > 0) {
-      return true;
-    }
-
-    return false;
+  public void generate() {
+    generator.generate();
   }
 }

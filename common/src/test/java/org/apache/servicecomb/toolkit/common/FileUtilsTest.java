@@ -35,7 +35,7 @@ public class FileUtilsTest {
     try {
       FileUtils.createDirectory(null);
     } catch (IOException e) {
-      assertEquals("path is null", e.getMessage());
+      assertEquals("Path is null", e.getMessage());
     }
 
     Path path;
@@ -52,7 +52,7 @@ public class FileUtilsTest {
     try {
       FileUtils.getFilesGroupByFilename(null);
     } catch (IOException e) {
-      assertEquals("path is null", e.getMessage());
+      assertEquals("Path is null", e.getMessage());
     }
 
     try {

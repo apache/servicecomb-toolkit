@@ -34,7 +34,7 @@ public class FileUtils {
   public static void createDirectory(String pathName) throws IOException {
 
     if (pathName == null) {
-      throw new IOException("path is null");
+      throw new IOException("Path is null");
     }
 
     File path = new File(pathName);
@@ -43,7 +43,7 @@ public class FileUtils {
     }
 
     if (!path.mkdirs()) {
-      throw new IOException("failed to create directory");
+      throw new IOException("Failed to create directory");
     }
   }
 
@@ -57,11 +57,11 @@ public class FileUtils {
   public static Map<String, byte[]> getFilesGroupByFilename(String pathName) throws IOException {
 
     if (pathName == null) {
-      throw new IOException("path is null");
+      throw new IOException("Path is null");
     }
 
     if (!new File(pathName).exists()) {
-      throw new IOException("path " + pathName + " is not exists");
+      throw new IOException("Path " + pathName + " is not exists");
     }
 
     Map<String, byte[]> filesGroup = new HashMap<>();
@@ -81,12 +81,6 @@ public class FileUtils {
   private static void deleteDirectory(String pathName) throws IOException {
 
     File path = new File(pathName);
-
-/*
-    if (!path.exists()) {
-      return;
-    }
-*/
 
     if (!path.isDirectory()) {
       Files.delete(Paths.get(pathName));

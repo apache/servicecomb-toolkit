@@ -70,42 +70,42 @@ public class GenerateMojo extends AbstractMojo {
         try {
           FileUtils.createDirectory(contractOutput);
         } catch (IOException e) {
-          throw new RuntimeException("failed to generate contract.", e);
+          throw new RuntimeException("Failed to generate contract.", e);
         }
 
         GenerateUtil.generateContract(project, contractOutput, contractFileType, "default");
         contractLocation = contractOutput;
         if (Objects.requireNonNull(new File(contractOutput).listFiles()).length == 0) {
-          LOGGER.info("no contract in the code");
+          LOGGER.info("No contract in the code");
           return;
         }
 
         break;
       case CONTRACT:
         if (contractLocation == null) {
-          throw new RuntimeException("invalid or not config contract location");
+          throw new RuntimeException("Invalid or not config contract location");
         }
 
         if (!new File(contractLocation).exists()) {
-          throw new RuntimeException("contract path " + contractLocation + " is not exists");
+          throw new RuntimeException("Contract path " + contractLocation + " is not exists");
         }
 
         break;
       default:
-        throw new RuntimeException("not support source type " + sourceType);
+        throw new RuntimeException("Not support source type " + sourceType);
     }
 
     //generate microservice project
     if (service == null) {
-      LOGGER.info("no service configuration and do not generate code");
-      return;
-    }
-    String codeOutput = outputDirectory + File.separator + "project";
-    try {
-      FileUtils.createDirectory(codeOutput);
-      GenerateUtil.generateCode(service, contractLocation, codeOutput, "default");
-    } catch (IOException e) {
-      throw new RuntimeException("failed to generate code", e);
+      LOGGER.info("Cannot generate code without service configuration");
+    } else {
+      String codeOutput = outputDirectory + File.separator + "project";
+      try {
+        FileUtils.createDirectory(codeOutput);
+        GenerateUtil.generateCode(service, contractLocation, codeOutput, "default");
+      } catch (IOException e) {
+        throw new RuntimeException("Failed to generate code", e);
+      }
     }
 
     //generate document
@@ -114,7 +114,7 @@ public class GenerateMojo extends AbstractMojo {
       FileUtils.createDirectory(documentOutput);
       GenerateUtil.generateDocument(contractLocation, documentOutput, "default");
     } catch (IOException e) {
-      throw new RuntimeException("failed to generate document", e);
+      throw new RuntimeException("Failed to generate document", e);
     }
   }
 }

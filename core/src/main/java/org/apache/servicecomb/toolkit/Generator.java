@@ -25,5 +25,5 @@ public interface Generator {
 
   void configure(Map<String, Object> config);
 
-  boolean generate();
+  void generate();
 }

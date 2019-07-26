@@ -35,8 +35,8 @@ public class MyersAlgorithm implements CompareAlgorithm {
   public List<Comparison> compare(String source, String dest) {
 
     if ((source == null) || (dest == null)) {
-      LOGGER.error("source is {} and dest is {}", source, dest);
-      throw new RuntimeException("source and dest must not be null");
+      LOGGER.error("Source is {} and dest is {}", source, dest);
+      throw new RuntimeException("Source and dest must not be null");
     }
 
     EditList diffList = new EditList();
