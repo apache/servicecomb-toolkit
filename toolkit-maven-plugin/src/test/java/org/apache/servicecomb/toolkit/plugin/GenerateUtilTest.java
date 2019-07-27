@@ -61,7 +61,7 @@ public class GenerateUtilTest {
       return;
     }
 
-    fail();
+    fail("Run 'testGenerateContract' failed, expected to catch RuntimeException but not");
   }
 
   @Test
@@ -80,7 +80,7 @@ public class GenerateUtilTest {
       return;
     }
 
-    fail();
+    fail("Run 'testGenerateCode' failed, expected to catch RuntimeException but not");
   }
 
   @Test
@@ -98,6 +98,6 @@ public class GenerateUtilTest {
       return;
     }
 
-    fail();
+    fail("Run 'testGenerateDocument' failed, expected to catch RuntimeException but not");
   }
 }

@@ -43,7 +43,7 @@ public class FileUtilsTest {
       path = Files.createTempDirectory("");
       FileUtils.createDirectory(path.toFile().getCanonicalPath());
     } catch (IOException e) {
-      fail();
+      fail("Run 'createDirectoryTest' failed and unexpected to catch IOException: " + e.getMessage());
     }
   }
 

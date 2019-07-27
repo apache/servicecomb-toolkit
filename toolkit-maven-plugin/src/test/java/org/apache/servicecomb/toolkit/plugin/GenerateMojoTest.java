@@ -99,7 +99,7 @@ public class GenerateMojoTest {
       assertEquals(0, Objects.requireNonNull(
           new File(rule.getVariableValueFromObject(generateMojo, "contractLocation").toString()).listFiles()).length);
     } catch (MojoFailureException e) {
-      fail();
+      fail("Run 'testGenerateMojo' failed and unexpected to catch MojoFailureException: " + e.getMessage());
     }
 
     // code has contract
@@ -129,7 +129,7 @@ public class GenerateMojoTest {
       assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
       assertNotEquals(0, Objects.requireNonNull(new File(documentOutput).listFiles()).length);
     } catch (RuntimeException e) {
-      fail();
+      fail("Run 'testGenerateMojo' failed and unexpected to catch RuntimeException: " + e.getMessage());
     }
 
     boolean isSuccessful;
