@@ -70,7 +70,7 @@ public class GenerateMojo extends AbstractMojo {
         try {
           FileUtils.createDirectory(contractOutput);
         } catch (IOException e) {
-          throw new RuntimeException("Failed to generate contract.", e);
+          throw new RuntimeException("Failed to generate contract", e);
         }
 
         GenerateUtil.generateContract(project, contractOutput, contractFileType, "default");
@@ -103,7 +103,7 @@ public class GenerateMojo extends AbstractMojo {
       try {
         FileUtils.createDirectory(codeOutput);
         GenerateUtil.generateCode(service, contractLocation, codeOutput, "default");
-      } catch (IOException e) {
+      } catch (RuntimeException | IOException e) {
         throw new RuntimeException("Failed to generate code", e);
       }
     }
@@ -113,7 +113,7 @@ public class GenerateMojo extends AbstractMojo {
     try {
       FileUtils.createDirectory(documentOutput);
       GenerateUtil.generateDocument(contractLocation, documentOutput, "default");
-    } catch (IOException e) {
+    } catch (RuntimeException | IOException e) {
       throw new RuntimeException("Failed to generate document", e);
     }
   }

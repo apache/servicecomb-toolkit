@@ -39,7 +39,7 @@ import io.swagger.parser.Swagger20Parser;
 public class ContractsSwaggerUIGeneratorTest {
 
   @Test
-  public void contractTransferToSwaggerUI() throws IOException {
+  public void testContractTransferToSwaggerUI() throws IOException {
 
     Swagger20Parser swagger20Parser = new Swagger20Parser();
 
@@ -69,7 +69,7 @@ public class ContractsSwaggerUIGeneratorTest {
   }
 
   @Test
-  public void contractTransferToOther() {
+  public void testContractTransferToOther() {
 
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, "other");
     Assert.assertNull(docGenerator);

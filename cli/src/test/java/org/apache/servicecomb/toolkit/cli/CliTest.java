@@ -29,7 +29,7 @@ import org.junit.Test;
 public class CliTest {
 
   @Test
-  public void generateServiceCombCodeFromSingleContract() throws IOException {
+  public void testGenerateServiceCombCodeFromSingleContract() throws IOException {
 
     String[] programModels = new String[] {"SpringMVC", "POJO", "JAX-RS", "SpringBoot"};
     Path tempDir = Files.createTempDirectory(null);
@@ -59,36 +59,9 @@ public class CliTest {
 
     tempDir.toFile().deleteOnExit();
   }
-/*
 
   @Test
-  public void generateSpringCloudCodeFromSingleContract() throws IOException {
-
-    Path tempDir = Files.createTempDirectory(null);
-    Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/SpringCloudServer");
-    String[] args = new String[] {
-        "generate",
-        "-l",
-        "spring",
-        "-i",
-        Paths.get("./src/test/resources/swagger.yaml").toFile().getCanonicalPath(),
-        "-o",
-        tempFile.toFile().getCanonicalPath(),
-        "--library",
-        "spring-cloud"
-    };
-    Assert.assertTrue(!Files.exists(tempFile));
-
-    ToolkitMain.main(args);
-    Assert.assertTrue(Files.exists(tempFile));
-    Assert.assertTrue(Files.size(tempFile) > 0);
-
-    tempDir.toFile().deleteOnExit();
-  }
-*/
-
-  @Test
-  public void generateCodeFromMultiContract() throws IOException {
+  public void testGenerateCodeFromMultiContract() throws IOException {
 
     Path tempDir = Files.createTempDirectory(null);
     Path tempFile = Paths.get(tempDir.toFile().getCanonicalPath() + "/ServiceComb");

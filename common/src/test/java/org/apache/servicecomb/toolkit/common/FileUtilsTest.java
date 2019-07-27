@@ -20,6 +20,7 @@ package org.apache.servicecomb.toolkit.common;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -32,12 +33,6 @@ public class FileUtilsTest {
 
   @Test
   public void createDirectoryTest() {
-    try {
-      FileUtils.createDirectory(null);
-    } catch (IOException e) {
-      assertEquals("Path is null", e.getMessage());
-    }
-
     Path path;
     try {
       path = Files.createTempDirectory("");
@@ -45,20 +40,37 @@ public class FileUtilsTest {
     } catch (IOException e) {
       fail("Run 'createDirectoryTest' failed and unexpected to catch IOException: " + e.getMessage());
     }
+
+    try {
+      FileUtils.createDirectory(null);
+    } catch (IOException e) {
+      assertEquals("Path is null", e.getMessage());
+      return;
+    }
+
+    fail("Run 'createDirectoryTest' failed, expected to catch IOException but not");
   }
 
   @Test
   public void getFilesGroupByFilenameTest() {
+    boolean succeed = false;
+
     try {
+      succeed = false;
       FileUtils.getFilesGroupByFilename(null);
     } catch (IOException e) {
       assertEquals("Path is null", e.getMessage());
+      succeed = true;
     }
+    assertTrue(succeed);
 
     try {
       FileUtils.getFilesGroupByFilename("");
     } catch (IOException e) {
       assertThat(e.getMessage(), containsString("is not exists"));
+      return;
     }
+
+    fail("Run 'getFilesGroupByFilenameTest' failed, expected to catch IOException but not");
   }
 }

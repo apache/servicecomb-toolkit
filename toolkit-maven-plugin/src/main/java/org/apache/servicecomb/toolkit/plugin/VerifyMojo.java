@@ -61,9 +61,9 @@ public class VerifyMojo extends AbstractMojo {
       case CODE:
         try {
           sourceContractPath = FileUtils.createTempDirectory("target/tmp-contract").toFile().getCanonicalPath();
-          GenerateUtil.generateContract(project, sourceContractPath, contractFileType,"default");
-        } catch (IOException e) {
-          throw new RuntimeException("Failed to generate contract from code.", e);
+          GenerateUtil.generateContract(project, sourceContractPath, contractFileType, "default");
+        } catch (RuntimeException | IOException e) {
+          throw new RuntimeException("Failed to generate contract from code", e);
         }
 
         break;
@@ -93,7 +93,7 @@ public class VerifyMojo extends AbstractMojo {
         }
       });
     } catch (IOException e) {
-      throw new RuntimeException("Failed to verify contract", e);
+      throw new RuntimeException("Failed to verify contract ", e);
     }
   }
 }
