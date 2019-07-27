@@ -89,7 +89,7 @@ public class DefaultContractsGeneratorTest {
     try {
       defaultContractsGenerator.generate();
     } catch (RuntimeException e) {
-      fail();
+      fail("Run 'testGenerate' failed and unexpected to catch RuntimeException: " + e.getMessage());
     }
   }
 

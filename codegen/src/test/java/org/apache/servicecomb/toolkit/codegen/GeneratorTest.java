@@ -62,7 +62,8 @@ public class GeneratorTest {
     try {
       codeGenerator.generate();
     } catch (RuntimeException e) {
-      fail();
+      fail("Run 'generateProgrammingModels' failed while input " + programmingModel + " unexpected to catch RuntimeException: " + e
+          .getMessage());
     }
 
     Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
