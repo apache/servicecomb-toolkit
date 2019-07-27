@@ -38,7 +38,7 @@ import io.swagger.codegen.config.CodegenConfigurator;
 public class GeneratorTest {
 
   @Test
-  public void generateProgrammingModels() throws IOException, URISyntaxException {
+  public void testGenerateProgrammingModels() throws IOException, URISyntaxException {
 
     generateCode("SpringMVC");
     generateCode("POJO");
@@ -62,8 +62,8 @@ public class GeneratorTest {
     try {
       codeGenerator.generate();
     } catch (RuntimeException e) {
-      fail("Run 'generateProgrammingModels' failed while input " + programmingModel + " unexpected to catch RuntimeException: " + e
-          .getMessage());
+      fail("Run 'testGenerateProgrammingModels' failed while input " + programmingModel
+          + " unexpected to catch RuntimeException: " + e.getMessage());
     }
 
     Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
@@ -77,7 +77,7 @@ public class GeneratorTest {
   }
 
   @Test
-  public void getCodeGeneratorInstanse() {
+  public void testGetCodeGeneratorInstanse() {
 
     CodeGenerator defaultCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "default");
     Assert.assertNotNull(defaultCodeGenerator);

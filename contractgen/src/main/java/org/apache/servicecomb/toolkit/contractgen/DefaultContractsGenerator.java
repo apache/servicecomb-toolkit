@@ -73,7 +73,6 @@ public class DefaultContractsGenerator implements ContractsGenerator {
 
     Object classpathUrlsObj = config.get("classpathUrls");
     if (classpathUrlsObj instanceof List) {
-      //noinspection unchecked
       classpathUrls = (List<String>) classpathUrlsObj;
     }
 

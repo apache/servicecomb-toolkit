@@ -38,11 +38,17 @@ import java.util.concurrent.TimeoutException;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
+import org.apache.servicecomb.provider.pojo.RpcSchema;
+import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.common.ClassMaker;
 import org.junit.Rule;
 import org.junit.Test;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javassist.CtClass;
 
 public class DefaultContractsGeneratorTest {
 
@@ -115,12 +121,30 @@ public class DefaultContractsGeneratorTest {
   }
 
   @Test
-  public void testPrivateCanProcess() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+  public void testPrivateCanProcess() throws Exception {
     DefaultContractsGenerator defaultContractsGenerator = new DefaultContractsGenerator();
     Method method = defaultContractsGenerator.getClass().getDeclaredMethod("canProcess", new Class[] {Class.class});
     method.setAccessible(true);
 
     assertFalse((boolean) method.invoke(defaultContractsGenerator, new Object[] {null}));
+
+    Class mockClass;
+    ContractTestUtil contractTestUtil = new ContractTestUtil();
+
+    CtClass ctClass = contractTestUtil.createCtClass("TestCanProcess");
+    assertFalse((boolean) method.invoke("TestCanProcess", ctClass.toClass()));
+
+    mockClass = contractTestUtil.putAnnotationToClass("TestRestSchema", RestSchema.class);
+    assertTrue((boolean) method.invoke("TestRestSchema", mockClass));
+
+    mockClass = contractTestUtil.putAnnotationToClass("TestRestController", RestController.class);
+    assertTrue((boolean) method.invoke("TestRestController", mockClass));
+
+    mockClass = contractTestUtil.putAnnotationToClass("TestRpcSchema", RpcSchema.class);
+    assertTrue((boolean) method.invoke("TestRpcSchema", mockClass));
+
+    mockClass = contractTestUtil.putAnnotationToClass("TestRequestMapping", RequestMapping.class);
+    assertTrue((boolean) method.invoke("TestRequestMapping", mockClass));
   }
 
   @Test
@@ -134,11 +158,14 @@ public class DefaultContractsGeneratorTest {
       method.invoke(defaultContractsGenerator, new Object[] {null});
     } catch (Exception e) {
       assertTrue(true);
+      return;
     }
+
+    fail("Run 'testgetAllClass' failed, expected to catch Exception but not");
   }
 
   @Test
-  public void getContractsGeneratorInstance() {
+  public void testGetContractsGeneratorInstance() {
 
     ContractsGenerator defaultGenerator = GeneratorFactory.getGenerator(ContractsGenerator.class, "default");
     assertNotNull(defaultGenerator);

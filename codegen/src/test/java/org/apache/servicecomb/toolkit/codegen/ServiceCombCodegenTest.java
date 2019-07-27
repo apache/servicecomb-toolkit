@@ -26,7 +26,7 @@ import io.swagger.codegen.CodegenConfigLoader;
 public class ServiceCombCodegenTest {
 
   @Test
-  public void loadImpl() {
+  public void testLoadImpl() {
     CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
     Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
   }

@@ -27,25 +27,26 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 public class GenerateUtilTest {
 
-  private static final String TEST_PROJECT_CONTRACTLOCATION = "contract";
-
   @Rule
   public TestResources resources = new TestResources();
 
-  public GenerateUtilTest() throws IOException {
-  }
+  TestResourcesEx testResourcesEx;
 
+  @Before
+  public void setUp() throws Exception {
+    this.testResourcesEx = new TestResourcesEx(resources);
+  }
 
   @Test
   public void testGenerateContract() throws DependencyResolutionRequiredException {
@@ -53,6 +54,7 @@ public class GenerateUtilTest {
     MavenProject project = mock(MavenProject.class);
 
     String contractOutput = "target/contract";
+    //noinspection unchecked
     when(project.getRuntimeClasspathElements()).thenThrow(DependencyResolutionRequiredException.class);
     try {
       generateContract(project, contractOutput, "yaml", "default");
@@ -65,16 +67,17 @@ public class GenerateUtilTest {
   }
 
   @Test
-  public void testGenerateCode() throws IOException {
-    File contractLocation = resources.getBasedir(TEST_PROJECT_CONTRACTLOCATION);
+  public void testGenerateCode() throws Exception {
+
+    String contractLocation = this.testResourcesEx.getContractLocation();
 
     String projectOutput = "./target/project";
     ServiceConfig service = new ServiceConfig();
-    generateCode(service, contractLocation.getCanonicalPath(), projectOutput, "default");
+    generateCode(service, contractLocation, projectOutput, "default");
     assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
 
     try {
-      generateCode(service, contractLocation.getCanonicalPath(), projectOutput, "invalidType");
+      generateCode(service, contractLocation, projectOutput, "invalidType");
     } catch (RuntimeException e) {
       assertEquals("Cannot found code generator's implementation", e.getMessage());
       return;
@@ -84,15 +87,16 @@ public class GenerateUtilTest {
   }
 
   @Test
-  public void testGenerateDocument() throws IOException {
-    File contractLocation = resources.getBasedir(TEST_PROJECT_CONTRACTLOCATION);
+  public void testGenerateDocument() throws Exception {
+
+    String contractLocation = this.testResourcesEx.getContractLocation();
 
     String codeOutput = "./target/document";
-    generateDocument(contractLocation.getCanonicalPath(), codeOutput, "default");
+    generateDocument(contractLocation, codeOutput, "default");
     assertNotEquals(0, Objects.requireNonNull(new File(codeOutput).listFiles()).length);
 
     try {
-      generateDocument(contractLocation.getCanonicalPath(), codeOutput, "invalidType");
+      generateDocument(contractLocation, codeOutput, "invalidType");
     } catch (RuntimeException e) {
       assertEquals("Cannot found document generator's implementation", e.getMessage());
       return;

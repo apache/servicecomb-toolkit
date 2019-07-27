@@ -43,7 +43,7 @@ public class TextCompareTest {
   Path destPath = Paths.get("./src/test/resources/compare/HelloEndPoint2.yaml");
 
   @Test
-  public void contractCompareText() throws IOException {
+  public void testContractCompareText() throws IOException {
     ContractComparator contractComparator = new ContractComparator(new String(Files.readAllBytes(sourcePath)),
         new String(Files.readAllBytes(destPath)));
     assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
@@ -54,7 +54,7 @@ public class TextCompareTest {
   }
 
   @Test
-  public void contractCompareResultPrint() throws IOException {
+  public void testContractCompareResultPrint() throws IOException {
     ContractComparator contractComparator = new ContractComparator(new String(Files.readAllBytes(sourcePath)),
         new String(Files.readAllBytes(destPath)));
     assertEquals(MyersAlgorithm.class, contractComparator.getAlgorithm().getClass());
@@ -66,7 +66,7 @@ public class TextCompareTest {
   }
 
   @Test
-  public void contractCompareAnotherAlgorithm() throws IOException {
+  public void testContractCompareAnotherAlgorithm() throws IOException {
 
     CompareAlgorithm oneLineAlgorithm = mock(CompareAlgorithm.class);
     when(oneLineAlgorithm.compare(anyString(), anyString())).then(new Answer<Object>() {
@@ -117,7 +117,7 @@ public class TextCompareTest {
   }
 
   @Test
-  public void contractCompareException() throws IOException {
+  public void testContractCompareException() throws IOException {
 
     try (ByteArrayOutputStream bout = new ByteArrayOutputStream()) {
 
