@@ -21,7 +21,6 @@ import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -59,8 +58,6 @@ public class GenerateMojoTest {
     String projectOutput = null;
     String documentOutput = null;
 
-    boolean succeed;
-
     final MavenProject project = mock(MavenProject.class);
 
     // code has no contract
@@ -78,7 +75,7 @@ public class GenerateMojoTest {
       assertEquals(0, Objects
           .requireNonNull(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).listFiles()).length);
     } catch (MojoFailureException e) {
-      fail("Run 'testGenerateMojo' failed and unexpected to catch MojoFailureException: " + e.getMessage());
+      fail("Run 'testGenerateMojo' failed, unexpected to catch MojoFailureException: " + e.getMessage());
     }
 
     // code has contract
@@ -103,34 +100,30 @@ public class GenerateMojoTest {
       assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
       assertNotEquals(0, Objects.requireNonNull(new File(documentOutput).listFiles()).length);
     } catch (RuntimeException e) {
-      fail("Run 'testGenerateMojo' failed and unexpected to catch RuntimeException: " + e.getMessage());
+      fail("Run 'testGenerateMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
 
     try {
-      succeed = false;
-
       testResourcesEx.setVariableValueToObject("sourceType", "contract");
       testResourcesEx.setVariableValueToObject("contractLocation", null);
 
       testResourcesEx.execute();
+
+      fail("Run 'testGenerateMojo' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Invalid or not config contract location", e.getMessage());
-      succeed = true;
     }
-    assertTrue(succeed);
 
     try {
-      succeed = false;
-
       testResourcesEx.setVariableValueToObject("sourceType", "contract");
       testResourcesEx.setVariableValueToObject("contractLocation", "");
 
       testResourcesEx.execute();
+
+      fail("Run 'testGenerateMojo' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertThat(e.getMessage(), containsString("is not exists"));
-      succeed = true;
     }
-    assertTrue(succeed);
 
     try {
       outputDirectory = "target";
@@ -147,7 +140,7 @@ public class GenerateMojoTest {
       assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
       assertNotEquals(0, Objects.requireNonNull(new File(documentOutput).listFiles()).length);
     } catch (RuntimeException e) {
-      fail("Run 'testGenerateMojo' failed and unexpected to catch RuntimeException: " + e.getMessage());
+      fail("Run 'testGenerateMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
 
     outputDirectory = "target";

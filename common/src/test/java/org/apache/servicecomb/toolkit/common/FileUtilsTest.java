@@ -20,7 +20,6 @@ package org.apache.servicecomb.toolkit.common;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -38,39 +37,32 @@ public class FileUtilsTest {
       path = Files.createTempDirectory("");
       FileUtils.createDirectory(path.toFile().getCanonicalPath());
     } catch (IOException e) {
-      fail("Run 'createDirectoryTest' failed and unexpected to catch IOException: " + e.getMessage());
+      fail("Run 'createDirectoryTest' failed, unexpected to catch IOException: " + e.getMessage());
     }
 
     try {
       FileUtils.createDirectory(null);
+      fail("Run 'createDirectoryTest' failed, expected to occur IOException but not");
     } catch (IOException e) {
       assertEquals("Path is null", e.getMessage());
-      return;
     }
-
-    fail("Run 'createDirectoryTest' failed, expected to catch IOException but not");
   }
 
   @Test
   public void getFilesGroupByFilenameTest() {
-    boolean succeed = false;
 
     try {
-      succeed = false;
       FileUtils.getFilesGroupByFilename(null);
+      fail("Run 'getFilesGroupByFilenameTest' failed, expected to occur IOException but not");
     } catch (IOException e) {
       assertEquals("Path is null", e.getMessage());
-      succeed = true;
     }
-    assertTrue(succeed);
 
     try {
       FileUtils.getFilesGroupByFilename("");
+      fail("Run 'getFilesGroupByFilenameTest' failed, expected to occur IOException but not");
     } catch (IOException e) {
       assertThat(e.getMessage(), containsString("is not exists"));
-      return;
     }
-
-    fail("Run 'getFilesGroupByFilenameTest' failed, expected to catch IOException but not");
   }
 }

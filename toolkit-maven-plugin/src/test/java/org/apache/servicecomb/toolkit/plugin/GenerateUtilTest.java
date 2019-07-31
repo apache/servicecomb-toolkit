@@ -58,12 +58,11 @@ public class GenerateUtilTest {
     when(project.getRuntimeClasspathElements()).thenThrow(DependencyResolutionRequiredException.class);
     try {
       generateContract(project, contractOutput, "yaml", "default");
+
+      fail("Run 'testGenerateContract' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Failed to get runtime class elements", e.getMessage());
-      return;
     }
-
-    fail("Run 'testGenerateContract' failed, expected to catch RuntimeException but not");
   }
 
   @Test
@@ -78,12 +77,11 @@ public class GenerateUtilTest {
 
     try {
       generateCode(service, contractLocation, projectOutput, "invalidType");
+
+      fail("Run 'testGenerateCode' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Cannot found code generator's implementation", e.getMessage());
-      return;
     }
-
-    fail("Run 'testGenerateCode' failed, expected to catch RuntimeException but not");
   }
 
   @Test
@@ -97,11 +95,10 @@ public class GenerateUtilTest {
 
     try {
       generateDocument(contractLocation, codeOutput, "invalidType");
+
+      fail("Run 'testGenerateDocument' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Cannot found document generator's implementation", e.getMessage());
-      return;
     }
-
-    fail("Run 'testGenerateDocument' failed, expected to catch RuntimeException but not");
   }
 }
