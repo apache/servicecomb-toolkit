@@ -19,7 +19,6 @@ package org.apache.servicecomb.toolkit.plugin;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -37,8 +36,6 @@ public class VerifyMojoTest {
 
   @Rule
   public TestResources resources = new TestResources();
-
-  boolean succeed;
 
   @Test
   public void testVerifyMojo() throws Exception {
@@ -58,31 +55,31 @@ public class VerifyMojoTest {
       testResourcesEx.setVariableValueToObject("destinationContractPath", testResourcesEx.getContractDestination());
       testResourcesEx.execute();
     } catch (RuntimeException e) {
-      fail("Run 'testVerifyMojo' failed and unexpected to catch RuntimeException: " + e.getMessage());
+      fail("Run 'testVerifyMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
 
     try {
-      succeed = false;
       testResourcesEx.setVariableValueToObject("sourceType", "contract");
       testResourcesEx.setVariableValueToObject("sourceContractPath", null);
+
       testResourcesEx.execute();
+
+      fail("Run 'testVerifyMojo' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertThat(e.getMessage(), containsString("Failed to verify contract"));
-      succeed = true;
     }
-    assertTrue(succeed);
 
     try {
-      succeed = false;
       testResourcesEx.setVariableValueToObject("sourceType", "contract");
       testResourcesEx.setVariableValueToObject("sourceContractPath", testResourcesEx.getContractLocation());
       testResourcesEx.setVariableValueToObject("destinationContractPath", null);
+
       testResourcesEx.execute();
+
+      fail("Run 'testVerifyMojo' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertThat(e.getMessage(), containsString("Failed to verify contract"));
-      succeed = true;
     }
-    assertTrue(succeed);
 
     try {
       testResourcesEx.setVariableValueToObject("sourceType", "contract");
@@ -90,7 +87,7 @@ public class VerifyMojoTest {
       testResourcesEx.setVariableValueToObject("destinationContractPath", testResourcesEx.getContractDestination());
       testResourcesEx.execute();
     } catch (RuntimeException e) {
-      fail("Run 'testVerifyMojo' failed and unexpected to catch RuntimeException: " + e.getMessage());
+      fail("Run 'testVerifyMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
   }
 }

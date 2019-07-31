@@ -17,9 +17,11 @@
 
 package org.apache.servicecomb.toolkit.contractgen;
 
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
@@ -107,51 +109,51 @@ public class DefaultContractsGeneratorTest {
     method.setAccessible(true);
 
     defaultContractsGenerator.configure(null);
-    assertFalse((boolean) method.invoke(defaultContractsGenerator, new Object[] {}));
+    assertThat(method.invoke(defaultContractsGenerator), is(false));
 
     Map<String, Object> config = new HashMap<>();
     config.put("classpathUrls", null);
     defaultContractsGenerator.configure(config);
-    assertFalse((boolean) method.invoke(defaultContractsGenerator, new Object[] {}));
+    assertThat(method.invoke(defaultContractsGenerator), is(false));
 
     MavenProject project = new MavenProject();
     config.put("classpathUrls", project.getRuntimeClasspathElements());
     defaultContractsGenerator.configure(config);
-    assertTrue((boolean) method.invoke(defaultContractsGenerator, new Object[] {}));
+    assertThat(method.invoke(defaultContractsGenerator), is(true));
   }
 
   @Test
   public void testPrivateCanProcess() throws Exception {
     DefaultContractsGenerator defaultContractsGenerator = new DefaultContractsGenerator();
-    Method method = defaultContractsGenerator.getClass().getDeclaredMethod("canProcess", new Class[] {Class.class});
+    Method method = defaultContractsGenerator.getClass().getDeclaredMethod("canProcess", Class.class);
     method.setAccessible(true);
 
-    assertFalse((boolean) method.invoke(defaultContractsGenerator, new Object[] {null}));
+    assertThat(method.invoke(defaultContractsGenerator, new Object[] {null}), is(false));
 
     Class mockClass;
     ContractTestUtil contractTestUtil = new ContractTestUtil();
 
     CtClass ctClass = contractTestUtil.createCtClass("TestCanProcess");
-    assertFalse((boolean) method.invoke("TestCanProcess", ctClass.toClass()));
+    assertThat(method.invoke("TestCanProcess", ctClass.toClass()), is(false));
 
     mockClass = contractTestUtil.putAnnotationToClass("TestRestSchema", RestSchema.class);
-    assertTrue((boolean) method.invoke("TestRestSchema", mockClass));
+    assertThat(method.invoke("TestRestSchema", mockClass), is(true));
 
     mockClass = contractTestUtil.putAnnotationToClass("TestRestController", RestController.class);
-    assertTrue((boolean) method.invoke("TestRestController", mockClass));
+    assertThat(method.invoke("TestRestController", mockClass), is(true));
 
     mockClass = contractTestUtil.putAnnotationToClass("TestRpcSchema", RpcSchema.class);
-    assertTrue((boolean) method.invoke("TestRpcSchema", mockClass));
+    assertThat(method.invoke("TestRpcSchema", mockClass), is(true));
 
     mockClass = contractTestUtil.putAnnotationToClass("TestRequestMapping", RequestMapping.class);
-    assertTrue((boolean) method.invoke("TestRequestMapping", mockClass));
+    assertThat(method.invoke("TestRequestMapping", mockClass), is(true));
   }
 
   @Test
   public void testgetAllClass() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
     DefaultContractsGenerator defaultContractsGenerator = new DefaultContractsGenerator();
     Method method = defaultContractsGenerator.getClass()
-        .getDeclaredMethod("getAllClass", new Class[] {ClassLoader.class});
+        .getDeclaredMethod("getAllClass", ClassLoader.class);
     method.setAccessible(true);
 
     try {
