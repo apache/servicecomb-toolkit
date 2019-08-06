@@ -27,27 +27,30 @@ import org.junit.Test;
 
 public class ClassMakerTest {
 
-  private static final String testResourceDirectory = "./src/test/resources";
+  private static final String testResourceDirectory =
+      "." + File.separator + "src" + File.separator + "test" + File.separator + "resources";
 
   @Test
   public void runWithCorrectMavenProjectPath() throws InterruptedException, TimeoutException, IOException {
 
-    String projectPath = testResourceDirectory + "/projects/demo-with-correct-pom/";
+    String projectPath =
+        testResourceDirectory + File.separator + "projects" + File.separator + "demo-with-correct-pom" + File.separator;
     ClassMaker.compile(projectPath);
-    Assert.assertTrue(new File(projectPath + "/target").exists());
+    Assert.assertTrue(new File(projectPath + "target").exists());
   }
 
   @Test
   public void runWithInvalidMavenProjectPath() throws InterruptedException, TimeoutException, IOException {
 
-    String projectPath = testResourceDirectory + "/projects/demo-with-invalid-pom/";
+    String projectPath =
+        testResourceDirectory + File.separator + "projects" + File.separator + "demo-with-invalid-pom" + File.separator;
 
     try {
       ClassMaker.compile(projectPath);
+      Assert.fail("Run 'runWithInvalidMavenProjectPath' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       Assert.assertThat(e.getMessage(), StringContains.containsString("Command exec fail"));
       return;
     }
-    Assert.fail();
   }
 }
