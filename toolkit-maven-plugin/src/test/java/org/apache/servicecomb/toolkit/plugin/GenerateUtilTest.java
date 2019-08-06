@@ -41,20 +41,20 @@ public class GenerateUtilTest {
   @Rule
   public TestResources resources = new TestResources();
 
-  TestResourcesEx testResourcesEx;
+  private TestResourcesEx testResourcesEx;
 
   @Before
   public void setUp() throws Exception {
     this.testResourcesEx = new TestResourcesEx(resources);
   }
 
+  @SuppressWarnings("unchecked")
   @Test
   public void testGenerateContract() throws DependencyResolutionRequiredException {
 
     MavenProject project = mock(MavenProject.class);
 
-    String contractOutput = "target/contract";
-    //noinspection unchecked
+    String contractOutput = "target/GenerateUtilTest/contract";
     when(project.getRuntimeClasspathElements()).thenThrow(DependencyResolutionRequiredException.class);
     try {
       generateContract(project, contractOutput, "yaml", "default");
@@ -70,7 +70,7 @@ public class GenerateUtilTest {
 
     String contractLocation = this.testResourcesEx.getContractLocation();
 
-    String projectOutput = "./target/project";
+    String projectOutput = "target/GenerateUtilTest/project";
     ServiceConfig service = new ServiceConfig();
     generateCode(service, contractLocation, projectOutput, "default");
     assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
@@ -89,7 +89,7 @@ public class GenerateUtilTest {
 
     String contractLocation = this.testResourcesEx.getContractLocation();
 
-    String codeOutput = "./target/document";
+    String codeOutput = "target/GenerateUtilTest/document";
     generateDocument(contractLocation, codeOutput, "default");
     assertNotEquals(0, Objects.requireNonNull(new File(codeOutput).listFiles()).length);
 

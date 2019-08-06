@@ -65,7 +65,7 @@ public class GenerateMojoTest {
     testResourcesEx.setVariableValueToObject("project", project);
     given(project.getRuntimeClasspathElements()).willReturn(testResourcesEx.getRuntimeUrlPath(testDirWithoutContract));
     try {
-      outputDirectory = "target";
+      outputDirectory = "target/GenerateMojoTest";
 
       testResourcesEx.setVariableValueToObject("sourceType", "code");
       testResourcesEx.setVariableValueToObject("outputDirectory", outputDirectory);
@@ -83,7 +83,7 @@ public class GenerateMojoTest {
     testResourcesEx.setVariableValueToObject("project", project);
     given(project.getRuntimeClasspathElements()).willReturn(testResourcesEx.getRuntimeUrlPath(testDirWithContract));
     try {
-      outputDirectory = "target";
+      outputDirectory = "target/GenerateMojoTest";
       contractOutput = outputDirectory + File.separator + "contract";
       projectOutput = outputDirectory + File.separator + "project";
       documentOutput = outputDirectory + File.separator + "document";
@@ -126,7 +126,7 @@ public class GenerateMojoTest {
     }
 
     try {
-      outputDirectory = "target";
+      outputDirectory = "target/GenerateMojoTest";
       projectOutput = outputDirectory + File.separator + "project";
       documentOutput = outputDirectory + File.separator + "document";
 
@@ -143,7 +143,7 @@ public class GenerateMojoTest {
       fail("Run 'testGenerateMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
 
-    outputDirectory = "target";
+    outputDirectory = "target/GenerateMojoTest";
     projectOutput = outputDirectory + File.separator + "project";
     ServiceConfig service = new ServiceConfig();
 

@@ -63,6 +63,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
     return "default".equals(type);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public void configure(Map<String, Object> config) {
     this.config = config;
@@ -87,6 +88,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
     }
   }
 
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   @Override
   public void generate() throws RuntimeException {
 

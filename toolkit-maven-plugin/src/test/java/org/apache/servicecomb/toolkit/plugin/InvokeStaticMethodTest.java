@@ -147,6 +147,7 @@ public class InvokeStaticMethodTest {
     GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyString());
 
     testGenerateMojoResources.setVariableValueToObject("sourceType", "contract");
+    testGenerateMojoResources.setVariableValueToObject("outputDirectory", "target/InvokeStaticMethodTest");
     testGenerateMojoResources
         .setVariableValueToObject("contractLocation", testGenerateMojoResources.getContractLocation());
     testGenerateMojoResources.setVariableValueToObject("service", new ServiceConfig());
@@ -181,6 +182,7 @@ public class InvokeStaticMethodTest {
     GenerateUtil.generateDocument(anyString(), anyString(), anyString());
 
     testGenerateMojoResources.setVariableValueToObject("sourceType", "contract");
+    testGenerateMojoResources.setVariableValueToObject("outputDirectory", "target/InvokeStaticMethodTest");
     testGenerateMojoResources
         .setVariableValueToObject("contractLocation", testGenerateMojoResources.getContractLocation());
     testGenerateMojoResources.setVariableValueToObject("service", new ServiceConfig());
