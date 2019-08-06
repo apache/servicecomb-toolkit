@@ -17,17 +17,23 @@
 
 package org.apache.servicecomb.toolkit.common;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.concurrent.TimeoutException;
 
-import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClassMaker {
 
   public static void compile(String projectPath) throws IOException, TimeoutException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
-    Process exec = runtime.exec("mvn clean package -f " + projectPath);
+    String mvnCommand =
+        "mvn clean package -f " + projectPath;
+    Process exec = runtime
+        .exec(mvnCommand);
 
     Worker worker = new Worker(exec);
     worker.start();
@@ -35,6 +41,9 @@ public class ClassMaker {
 
     try {
       worker.join(30000);
+      if (ps.exitCode == ProcessStatus.CODE_FAIL) {
+        throw new RuntimeException("Command exec fail,command is: " + mvnCommand);
+      }
       if (ps.exitCode == ProcessStatus.CODE_STARTED) {
         // not finished
         worker.interrupt();
@@ -60,11 +69,20 @@ public class ClassMaker {
     @Override
     public void run() {
       try {
-        InputStream is = process.getInputStream();
-        try {
-          ps.output = IOUtils.toString(is);
-        } catch (IOException ignore) {
-        }
+        new ExecReader(process.getInputStream(), "Command Exec Result Reader") {
+          @Override
+          public void afterReadLine(String line) {
+            LOGGER.info(line);
+          }
+        }.start();
+
+        new ExecReader(process.getErrorStream(), "Command Exec Error Reader") {
+          @Override
+          public void afterReadLine(String line) {
+            LOGGER.error(line);
+          }
+        }.start();
+
         ps.exitCode = process.waitFor();
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
@@ -79,8 +97,41 @@ public class ClassMaker {
   public static class ProcessStatus {
     static final int CODE_STARTED = -257;
 
+    static final int CODE_FAIL = 1;
+
     volatile int exitCode;
 
     volatile String output;
+  }
+
+  private static abstract class ExecReader extends Thread {
+
+    public final Logger LOGGER;
+
+    private final InputStream is;
+
+    private final String readerName;
+
+    public ExecReader(InputStream is, String readerName) {
+      this.is = is;
+      this.readerName = readerName;
+      LOGGER = LoggerFactory.getLogger(ExecReader.class.getName() + "-" + readerName);
+    }
+
+    @Override
+    public void run() {
+      BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+      String line = null;
+      try {
+
+        while ((line = reader.readLine()) != null) {
+          afterReadLine(line);
+        }
+      } catch (IOException e) {
+        LOGGER.error(readerName, e);
+      }
+    }
+
+    public abstract void afterReadLine(String line);
   }
 }
