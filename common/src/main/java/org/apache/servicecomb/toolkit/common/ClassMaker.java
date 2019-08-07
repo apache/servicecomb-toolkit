@@ -31,8 +31,7 @@ public class ClassMaker {
   public static void compile(String projectPath) throws IOException, TimeoutException, InterruptedException {
     Runtime runtime = Runtime.getRuntime();
     String mvnCommand = "mvn clean package -f " + projectPath;
-    Process exec = runtime
-        .exec(mvnCommand);
+    Process exec = runtime.exec(mvnCommand);
 
     Worker worker = new Worker(exec);
     worker.start();
