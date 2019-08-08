@@ -34,7 +34,8 @@ public class MavenPluginUtilTest {
     MavenProject mavenProject = mock(MavenProject.class);
     given(mavenProject.getPackaging()).willReturn("pom");
     assertEquals(mavenProject.getPackaging(), "pom");
-    assertTrue(MavenPluginUtil.isParentProject(mavenProject));
+    MavenPluginUtil mavenPluginUtil = new MavenPluginUtil();
+    assertTrue(mavenPluginUtil.isParentProject(mavenProject));
   }
 
   @Test
@@ -43,6 +44,7 @@ public class MavenPluginUtilTest {
     MavenProject mavenProject = mock(MavenProject.class);
     given(mavenProject.getPackaging()).willReturn("jar");
     assertEquals(mavenProject.getPackaging(), "jar");
-    assertFalse(MavenPluginUtil.isParentProject(mavenProject));
+    MavenPluginUtil mavenPluginUtil = new MavenPluginUtil();
+    assertFalse(mavenPluginUtil.isParentProject(mavenProject));
   }
 }
