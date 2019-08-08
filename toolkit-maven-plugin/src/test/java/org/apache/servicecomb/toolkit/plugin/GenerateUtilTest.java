@@ -27,6 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Objects;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -72,11 +73,11 @@ public class GenerateUtilTest {
 
     String projectOutput = "target/GenerateUtilTest/project";
     ServiceConfig service = new ServiceConfig();
-    generateCode(service, contractLocation, projectOutput, "default");
+    generateCode(service, contractLocation, projectOutput, Collections.EMPTY_MAP, "default");
     assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
 
     try {
-      generateCode(service, contractLocation, projectOutput, "invalidType");
+      generateCode(service, contractLocation, projectOutput, Collections.EMPTY_MAP, "invalidType");
 
       fail("Run 'testGenerateCode' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {

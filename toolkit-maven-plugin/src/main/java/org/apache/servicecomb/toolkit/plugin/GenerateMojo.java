@@ -19,6 +19,8 @@ package org.apache.servicecomb.toolkit.plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -28,16 +30,23 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
+import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
 import org.apache.servicecomb.toolkit.common.FileUtils;
 import org.apache.servicecomb.toolkit.common.SourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.COMPILE, requiresDependencyResolution = ResolutionScope.COMPILE, aggregator = true)
 @Execute(goal = "generate", phase = LifecyclePhase.COMPILE)
 public class GenerateMojo extends AbstractMojo {
 
   private static Logger LOGGER = LoggerFactory.getLogger(GenerateMojo.class);
+
+  private String providerProjectNameSuffix = "-provider";
+
+  private String consumerProjectNameSuffix = "-consumer";
+
+  private String modelProjectNameSuffix = "-model";
 
   @Parameter(defaultValue = "${project}")
   private MavenProject project;
@@ -63,10 +72,22 @@ public class GenerateMojo extends AbstractMojo {
   @Override
   public void execute() {
 
+    if (MavenPluginUtil.isParentProject(project)) {
+      for (MavenProject subProject : project.getCollectedProjects()) {
+        generate(subProject);
+      }
+    } else {
+      generate(project);
+    }
+  }
+
+  private void generate(MavenProject project) {
+
     switch (SourceType.valueOf(sourceType.toUpperCase())) {
       case CODE:
         // generate contract file
-        String contractOutput = outputDirectory + File.separator + "contract";
+        String contractOutput =
+            outputDirectory + File.separator + "contract" + File.separator + project.getBasedir().getName();
         try {
           FileUtils.createDirectory(contractOutput);
         } catch (IOException e) {
@@ -76,6 +97,8 @@ public class GenerateMojo extends AbstractMojo {
         GenerateUtil.generateContract(project, contractOutput, contractFileType, "default");
         contractLocation = contractOutput;
         if (Objects.requireNonNull(new File(contractOutput).listFiles()).length == 0) {
+          //noinspection ResultOfMethodCallIgnored
+          new File(contractOutput).delete();
           LOGGER.info("No contract in the code");
           return;
         }
@@ -99,17 +122,26 @@ public class GenerateMojo extends AbstractMojo {
     if (service == null) {
       LOGGER.info("Cannot generate code without service configuration");
     } else {
-      String codeOutput = outputDirectory + File.separator + "project";
+      String codeOutput =
+          outputDirectory + File.separator + "project" + File.separator;
       try {
         FileUtils.createDirectory(codeOutput);
-        GenerateUtil.generateCode(service, contractLocation, codeOutput, "default");
+        Map<String, Object> externalConfig = new HashMap<>();
+        externalConfig.put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME,
+            project.getBasedir().getName() + providerProjectNameSuffix);
+        externalConfig.put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME,
+            project.getBasedir().getName() + consumerProjectNameSuffix);
+        externalConfig.put(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME,
+            project.getBasedir().getName() + modelProjectNameSuffix);
+        GenerateUtil.generateCode(service, contractLocation, codeOutput, externalConfig, "default");
       } catch (RuntimeException | IOException e) {
         throw new RuntimeException("Failed to generate code", e);
       }
     }
 
     //generate document
-    String documentOutput = outputDirectory + File.separator + "document";
+    String documentOutput =
+        outputDirectory + File.separator + "document" + File.separator + project.getBasedir().getName();
     try {
       FileUtils.createDirectory(documentOutput);
       GenerateUtil.generateDocument(contractLocation, documentOutput, "default");
