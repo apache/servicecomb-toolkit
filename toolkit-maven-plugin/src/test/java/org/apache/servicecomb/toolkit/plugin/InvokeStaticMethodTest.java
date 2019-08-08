@@ -191,8 +191,7 @@ public class InvokeStaticMethodTest {
     try {
       testGenerateMojoResources.execute();
 
-      fail(
-          "Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
+      fail("Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Failed to generate document", e.getMessage());
       assertThat(e.getCause().toString(), containsString("IOException"));
@@ -203,8 +202,7 @@ public class InvokeStaticMethodTest {
     try {
       testGenerateMojoResources.execute();
 
-      fail(
-          "Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
+      fail("Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Failed to generate document", e.getMessage());
       assertThat(e.getCause().toString(), containsString("RuntimeException"));
