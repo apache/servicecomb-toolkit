@@ -20,13 +20,14 @@ package org.apache.servicecomb.toolkit.plugin;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -68,6 +69,7 @@ public class InvokeStaticMethodTest {
     testVerifyMojoResources.createMojo(rule, testDirWithContract, "verify");
 
     MavenProject project = mock(MavenProject.class);
+    given(project.getBasedir()).willReturn(new File("mockProject"));
     testGenerateMojoResources.setVariableValueToObject("project", project);
     testVerifyMojoResources.setVariableValueToObject("project", project);
 
@@ -144,7 +146,7 @@ public class InvokeStaticMethodTest {
     PowerMockito.mockStatic(GenerateUtil.class);
     PowerMockito.doThrow(new IOException()).when(GenerateUtil.class);
     // Powermockito limit: use argument matchers to specify method which would be mock
-    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyString());
+    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyMap(), anyString());
 
     testGenerateMojoResources.setVariableValueToObject("sourceType", "contract");
     testGenerateMojoResources.setVariableValueToObject("outputDirectory", "target/InvokeStaticMethodTest");
@@ -161,7 +163,7 @@ public class InvokeStaticMethodTest {
     }
 
     PowerMockito.doThrow(new RuntimeException()).when(GenerateUtil.class);
-    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyString());
+    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyMap(), anyString());
     try {
       testGenerateMojoResources.execute();
 

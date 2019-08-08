@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -56,6 +57,9 @@ public class GeneratorTest {
     configurator.setLibrary(programmingModel);
     configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, "mock-provider");
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, "mock-consumer");
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME, "mock-model");
     DefaultCodeGenerator codeGenerator = new DefaultCodeGenerator();
     codeGenerator.configure(Collections.singletonMap("configurator", configurator));
 
@@ -85,6 +89,14 @@ public class GeneratorTest {
 
     CodeGenerator unknownCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "unknown");
     Assert.assertNull(unknownCodeGenerator);
+  }
+
+  @Test
+  public void externalConfigGenerator() {
+
+    assertEquals("providerProjectName", GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME);
+    assertEquals("consumerProjectName", GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME);
+    assertEquals("modelProjectName", GeneratorExternalConfigConstant.MODEL_PROJECT_NAME);
   }
 }
 

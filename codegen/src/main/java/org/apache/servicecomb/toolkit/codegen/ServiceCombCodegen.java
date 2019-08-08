@@ -186,6 +186,16 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     additionalProperties.put("applicationId", applicationId);
     additionalProperties.put("microserviceName", microserviceName);
 
+    if (additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME) != null) {
+      providerProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME);
+    }
+    if (additionalProperties.get(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME) != null) {
+      consumerProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME);
+    }
+    if (additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME) != null) {
+      modelProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME);
+    }
+
     boolean isMultipleModule = (boolean) Optional.ofNullable(additionalProperties.get("isMultipleModule")).orElse(true);
     if (isMultipleModule) {
       processParentProjectOpts();

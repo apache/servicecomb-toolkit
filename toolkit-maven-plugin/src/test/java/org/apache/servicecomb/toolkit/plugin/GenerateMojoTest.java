@@ -19,6 +19,7 @@ package org.apache.servicecomb.toolkit.plugin;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -59,6 +60,7 @@ public class GenerateMojoTest {
     String documentOutput = null;
 
     final MavenProject project = mock(MavenProject.class);
+    given(project.getBasedir()).willReturn(new File("mockProject"));
 
     // code has no contract
     testResourcesEx.createMojo(rule, testResourcesEx.getBasedirWithoutContract(), "generate");
@@ -72,8 +74,7 @@ public class GenerateMojoTest {
 
       testResourcesEx.execute();
 
-      assertEquals(0, Objects
-          .requireNonNull(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).listFiles()).length);
+      assertFalse(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).exists());
     } catch (MojoFailureException e) {
       fail("Run 'testGenerateMojo' failed, unexpected to catch MojoFailureException: " + e.getMessage());
     }

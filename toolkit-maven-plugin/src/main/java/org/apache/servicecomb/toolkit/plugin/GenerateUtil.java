@@ -90,7 +90,7 @@ public class GenerateUtil {
   }
 
   public static void generateCode(ServiceConfig service, String contractLocation,
-      String codeOutput, String type) throws IOException {
+      String codeOutput, Map<String, Object> externalConfig, String type) throws IOException {
 
     CodeGenerator codeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, type);
     if (codeGenerator == null) {
@@ -108,6 +108,8 @@ public class GenerateUtil {
         .addAdditionalProperty("mainClassPackage", service.getPackageName())
         .setArtifactVersion(service.getArtifactVersion())
         .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType());
+
+    configurator.getAdditionalProperties().putAll(externalConfig);
 
     File contractFile = new File(contractLocation);
     if (contractFile.isDirectory()) {
