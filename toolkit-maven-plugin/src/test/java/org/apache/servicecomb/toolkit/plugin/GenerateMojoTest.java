@@ -63,7 +63,7 @@ public class GenerateMojoTest {
     given(project.getBasedir()).willReturn(new File("mockProject"));
 
     // code has no contract
-    testResourcesEx.createMojo(rule, testResourcesEx.getBasedirWithoutContract(), "generate");
+    testResourcesEx.createMojo(rule, "generate");
     testResourcesEx.setVariableValueToObject("project", project);
     given(project.getRuntimeClasspathElements()).willReturn(testResourcesEx.getRuntimeUrlPath(testDirWithoutContract));
     try {
@@ -80,7 +80,7 @@ public class GenerateMojoTest {
     }
 
     // code has contract
-    testResourcesEx.createMojo(rule, testResourcesEx.getBasedirWithContract(), "generate");
+    testResourcesEx.createMojo(rule, "generate");
     testResourcesEx.setVariableValueToObject("project", project);
     given(project.getRuntimeClasspathElements()).willReturn(testResourcesEx.getRuntimeUrlPath(testDirWithContract));
     try {

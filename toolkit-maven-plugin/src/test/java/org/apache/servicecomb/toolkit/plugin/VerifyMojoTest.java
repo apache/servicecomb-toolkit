@@ -44,7 +44,7 @@ public class VerifyMojoTest {
 
     String testDirWithContract = testResourcesEx.getBasedirWithContract();
 
-    testResourcesEx.createMojo(rule, testDirWithContract, "verify");
+    testResourcesEx.createMojo(rule, "verify");
 
     MavenProject project = mock(MavenProject.class);
     testResourcesEx.setVariableValueToObject("project", project);

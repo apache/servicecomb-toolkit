@@ -66,6 +66,7 @@ public class GenerateUtilTest {
     }
   }
 
+  @SuppressWarnings("unchecked")
   @Test
   public void testGenerateCode() throws Exception {
 

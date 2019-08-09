@@ -30,7 +30,7 @@ import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.servicecomb.toolkit.common.ClassMaker;
 
-public class TestResourcesEx {
+class TestResourcesEx {
 
   private String basedirWithContract;
 
@@ -52,19 +52,17 @@ public class TestResourcesEx {
     this.contractDestination = resources.getBasedir("contract-destination") + File.separator;
   }
 
-  void createMojo(MojoRule rule, String basedir, String pluginGoal) throws Exception {
-
+  void createMojo(MojoRule rule, String pluginGoal) {
     this.rule = rule;
-
-    File pomPath = new File(basedir, "pom.xml");
-    this.testMojo = (AbstractMojo) this.rule.lookupMojo(pluginGoal, pomPath);
+    this.testMojo = mockMojo(pluginGoal);
   }
 
   void setVariableValueToObject(String variable, Object value) throws IllegalAccessException {
     this.rule.setVariableValueToObject(this.testMojo, variable, value);
   }
 
-  String getVariableValueFromObject(String variable) throws IllegalAccessException {
+  String getVariableValueFromObject(@SuppressWarnings("SameParameterValue") String variable)
+      throws IllegalAccessException {
     return (String) this.rule.getVariableValueFromObject(this.testMojo, variable);
   }
 
@@ -80,7 +78,7 @@ public class TestResourcesEx {
     return contractLocation;
   }
 
-  public String getContractDestination() {
+  String getContractDestination() {
     return contractDestination;
   }
 
@@ -97,5 +95,16 @@ public class TestResourcesEx {
     runtimeUrlPath.add(basedir + "target" + File.separator + "classes");
 
     return runtimeUrlPath;
+  }
+
+  private AbstractMojo mockMojo(String pluginGoal) {
+    switch (pluginGoal) {
+      case "generate":
+        return new GenerateMojo();
+      case "verify":
+        return new VerifyMojo();
+      default:
+        throw new RuntimeException("undefined plugin goal");
+    }
   }
 }

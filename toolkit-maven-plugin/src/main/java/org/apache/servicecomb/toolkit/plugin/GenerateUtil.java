@@ -41,9 +41,9 @@ import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 
 import io.swagger.codegen.config.CodegenConfigurator;
 
-public class GenerateUtil {
+class GenerateUtil {
 
-  public static void generateContract(MavenProject project, String contractOutput, String contractFileType,
+  static void generateContract(MavenProject project, String contractOutput, String contractFileType,
       String type) {
 
     Map<String, Object> contractConfig = new HashMap<>();
@@ -62,7 +62,7 @@ public class GenerateUtil {
     contractGenerator.generate();
   }
 
-  public static void generateDocument(String contractLocation, String documentOutput, String type) throws IOException {
+  static void generateDocument(String contractLocation, String documentOutput, String type) throws IOException {
 
     // TODO: support users to add other getGenerator type soon
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, type);
@@ -89,9 +89,8 @@ public class GenerateUtil {
     });
   }
 
-  public static void generateCode(ServiceConfig service, String contractLocation,
+  static void generateCode(ServiceConfig service, String contractLocation,
       String codeOutput, Map<String, Object> externalConfig, String type) throws IOException {
-
     CodeGenerator codeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, type);
     if (codeGenerator == null) {
       throw new RuntimeException("Cannot found code generator's implementation");
