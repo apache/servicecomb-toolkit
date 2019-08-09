@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyMap;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -64,19 +64,13 @@ public class InvokeStaticMethodTest {
     testGenerateMojoResources = new TestResourcesEx(resources);
     testVerifyMojoResources = new TestResourcesEx(resources);
 
-    String testDirWithContract = testGenerateMojoResources.getBasedirWithContract();
-    testGenerateMojoResources.createMojo(rule, testDirWithContract, "generate");
-    testVerifyMojoResources.createMojo(rule, testDirWithContract, "verify");
+    testGenerateMojoResources.createMojo(rule, "generate");
+    testVerifyMojoResources.createMojo(rule, "verify");
 
     MavenProject project = mock(MavenProject.class);
     given(project.getBasedir()).willReturn(new File("mockProject"));
     testGenerateMojoResources.setVariableValueToObject("project", project);
     testVerifyMojoResources.setVariableValueToObject("project", project);
-
-    given(project.getRuntimeClasspathElements())
-        .willReturn(testGenerateMojoResources.getRuntimeUrlPath(testDirWithContract));
-    given(project.getRuntimeClasspathElements())
-        .willReturn(testVerifyMojoResources.getRuntimeUrlPath(testDirWithContract));
   }
 
   @Test
@@ -146,7 +140,7 @@ public class InvokeStaticMethodTest {
     PowerMockito.mockStatic(GenerateUtil.class);
     PowerMockito.doThrow(new IOException()).when(GenerateUtil.class);
     // Powermockito limit: use argument matchers to specify method which would be mock
-    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyMap(), anyString());
+    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), any(), anyString());
 
     testGenerateMojoResources.setVariableValueToObject("sourceType", "contract");
     testGenerateMojoResources.setVariableValueToObject("outputDirectory", "target/InvokeStaticMethodTest");
@@ -163,7 +157,7 @@ public class InvokeStaticMethodTest {
     }
 
     PowerMockito.doThrow(new RuntimeException()).when(GenerateUtil.class);
-    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), anyMap(), anyString());
+    GenerateUtil.generateCode(anyObject(), anyString(), anyString(), any(), anyString());
     try {
       testGenerateMojoResources.execute();
 
@@ -191,7 +185,8 @@ public class InvokeStaticMethodTest {
     try {
       testGenerateMojoResources.execute();
 
-      fail("Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
+      fail(
+          "Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Failed to generate document", e.getMessage());
       assertThat(e.getCause().toString(), containsString("IOException"));
@@ -202,7 +197,8 @@ public class InvokeStaticMethodTest {
     try {
       testGenerateMojoResources.execute();
 
-      fail("Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
+      fail(
+          "Run 'testGenerateMojoInvokeGenerateUtilGenerateDocument' failed, expected to occur RuntimeException but not");
     } catch (RuntimeException e) {
       assertEquals("Failed to generate document", e.getMessage());
       assertThat(e.getCause().toString(), containsString("RuntimeException"));
