@@ -17,7 +17,6 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -89,14 +88,6 @@ public class GeneratorTest {
 
     CodeGenerator unknownCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "unknown");
     Assert.assertNull(unknownCodeGenerator);
-  }
-
-  @Test
-  public void externalConfigGenerator() {
-
-    assertEquals("providerProjectName", GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME);
-    assertEquals("consumerProjectName", GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME);
-    assertEquals("modelProjectName", GeneratorExternalConfigConstant.MODEL_PROJECT_NAME);
   }
 }
 
