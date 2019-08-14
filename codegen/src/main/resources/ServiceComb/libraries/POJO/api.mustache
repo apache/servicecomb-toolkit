@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.io.File;
 {{#imports}}import {{import}};
 {{/imports}}
-import {{modelPackage}}.*;
-
+{{#models}}import {{importPath}};{{/models}}
 {{#operations}}
 public interface {{classname}} {
  {{#operation}}

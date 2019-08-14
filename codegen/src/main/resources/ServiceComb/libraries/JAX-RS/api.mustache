@@ -11,7 +11,7 @@ import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.*;
 {{#imports}}import {{import}};
 {{/imports}}
-{{#models}}import {{modelPackage}}.*;{{/models}}
+{{#models}}import {{importPath}};{{/models}}
 import org.apache.servicecomb.provider.rest.common.RestSchema;
 import io.swagger.annotations.ApiParam;
 
