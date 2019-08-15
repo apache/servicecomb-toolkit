@@ -1,0 +1,22 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "no model"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+basePath: "/"
+paths:
+  /sayHi:
+    get:
+      operationId: "sayHi"
+      parameters:
+      - in: "query"
+        name: "name"
+        type: "string"
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: "string"
