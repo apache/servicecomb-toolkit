@@ -109,7 +109,8 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the SpringMVC programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the POJO programming model.");
     supportedLibraries.put(JAX_RS_LIBRARY, "ServiceComb Server application using the JAX-RS programming model.");
-    supportedLibraries.put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
+    supportedLibraries
+        .put(SPRING_BOOT_LIBRARY, "ServiceComb Server application using the SpringBoot programming model.");
 
     setLibrary(DEFAULT_LIBRARY);
 
@@ -182,9 +183,9 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     }
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
+    additionalProperties.put("getRelativeBasePath",new GetRelativeBasePathLambda());
     additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
-    additionalProperties.put("microserviceName", microserviceName);
 
     if (additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME) != null) {
       providerProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME);
@@ -195,6 +196,14 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     if (additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME) != null) {
       modelProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME);
     }
+    if (additionalProperties.get("microserviceName") != null) {
+      microserviceName = (String) additionalProperties.get("microserviceName");
+    }
+    additionalProperties.put("microserviceName", microserviceName);
+
+    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_ARTIFACT_ID, k -> providerProject);
+    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_ARTIFACT_ID, k -> consumerProject);
+    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.MODEL_ARTIFACT_ID, k -> modelProject);
 
     boolean isMultipleModule = (boolean) Optional.ofNullable(additionalProperties.get("isMultipleModule")).orElse(true);
     if (isMultipleModule) {
@@ -309,7 +318,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
         "microservice.yaml")
     );
 
-    apiTemplateFiles.put(apiConsumerTemplate, "Consumer.java");
+    apiTemplateFiles.put(apiConsumerTemplate, ".java");
   }
 
   @Override

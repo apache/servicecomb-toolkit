@@ -69,12 +69,13 @@ public class GenerateMojoTest {
     try {
       outputDirectory = "target/GenerateMojoTest";
 
+      FileUtils.deleteDirectory(outputDirectory);
       testResourcesEx.setVariableValueToObject("sourceType", "code");
       testResourcesEx.setVariableValueToObject("outputDirectory", outputDirectory);
 
       testResourcesEx.execute();
 
-      assertFalse(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).exists());
+      assertFalse(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).listFiles().length != 0);
     } catch (MojoFailureException e) {
       fail("Run 'testGenerateMojo' failed, unexpected to catch MojoFailureException: " + e.getMessage());
     }
@@ -150,6 +151,7 @@ public class GenerateMojoTest {
 
     testResourcesEx.setVariableValueToObject("sourceType", "code");
     testResourcesEx.setVariableValueToObject("outputDirectory", outputDirectory);
+    FileUtils.deleteDirectory(projectOutput);
     FileUtils.createDirectory(projectOutput);
     testResourcesEx.setVariableValueToObject("service", null);
     testResourcesEx.execute();

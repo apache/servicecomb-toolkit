@@ -25,4 +25,9 @@ public class GeneratorExternalConfigConstant {
 
   public final static String MODEL_PROJECT_NAME = "modelProjectName";
 
+  public final static String PROVIDER_ARTIFACT_ID = "providerArtifactId";
+
+  public final static String CONSUMER_ARTIFACT_ID = "consumerArtifactId";
+
+  public final static String MODEL_ARTIFACT_ID = "modelArtifactId";
 }

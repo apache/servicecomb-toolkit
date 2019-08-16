@@ -32,13 +32,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.DefaultGenerator;
 import io.swagger.codegen.config.CodegenConfigurator;
 
 public class GeneratorTest {
 
   @Test
-  public void testGenerateProgrammingModels() throws IOException, URISyntaxException {
+  public void testGenerateProgrammingModels()
+      throws IOException, URISyntaxException, NoSuchFieldException, IllegalAccessException {
 
     generateCode("SpringMVC");
     generateCode("POJO");
@@ -46,7 +46,8 @@ public class GeneratorTest {
     generateCode("SpringBoot");
   }
 
-  private void generateCode(String programmingModel) throws IOException, URISyntaxException {
+  private void generateCode(String programmingModel)
+      throws IOException, URISyntaxException, IllegalAccessException, NoSuchFieldException {
 
     Path tempDir = Files.createTempDirectory(null);
     Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
@@ -60,7 +61,7 @@ public class GeneratorTest {
     configurator.addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, "mock-consumer");
     configurator.addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME, "mock-model");
     DefaultCodeGenerator codeGenerator = new DefaultCodeGenerator();
-    codeGenerator.configure(Collections.singletonMap("configurator", configurator));
+    codeGenerator.configure(Collections.singletonMap("configurators", Collections.singletonList(configurator)));
 
     try {
       codeGenerator.generate();
@@ -70,7 +71,7 @@ public class GeneratorTest {
     }
 
     Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
-    Assert.assertEquals(DefaultGenerator.class, internalGenerator.getClass());
+    Assert.assertEquals(MultiContractGenerator.class, internalGenerator.getClass());
     Object swaggerCodegenConfig = ReflectUtils.getProperty(internalGenerator, "config");
     Assert.assertEquals(ServiceCombCodegen.class, swaggerCodegenConfig.getClass());
     Assert.assertEquals("ServiceComb", ((ServiceCombCodegen) swaggerCodegenConfig).getName());

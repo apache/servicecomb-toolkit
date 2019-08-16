@@ -17,16 +17,16 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.servicecomb.toolkit.CodeGenerator;
 
-import io.swagger.codegen.DefaultGenerator;
 import io.swagger.codegen.config.CodegenConfigurator;
 
 public class DefaultCodeGenerator implements CodeGenerator {
 
-  private DefaultGenerator generator = new DefaultGenerator();
+  private MultiContractGenerator generator = new MultiContractGenerator();
 
   @Override
   public boolean canProcess(String type) {
@@ -35,9 +35,16 @@ public class DefaultCodeGenerator implements CodeGenerator {
 
   @Override
   public void configure(Map<String, Object> config) {
-    CodegenConfigurator opts = (CodegenConfigurator) config.get("configurator");
+
     generator.setGenerateSwaggerMetadata(false);
-    generator.opts(opts.toClientOptInput());
+    List<CodegenConfigurator> optsList = (List<CodegenConfigurator>) config.get("configurators");
+    if (optsList == null) {
+      generator.addOpts(((CodegenConfigurator) config.get("configurator")).toClientOptInput());
+      return;
+    }
+    optsList.forEach(opts -> {
+      generator.addOpts(opts.toClientOptInput());
+    });
   }
 
   @Override
