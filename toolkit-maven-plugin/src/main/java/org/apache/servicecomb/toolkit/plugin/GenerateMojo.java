@@ -74,14 +74,19 @@ public class GenerateMojo extends AbstractMojo {
 
     if (MavenPluginUtil.isParentProject(project)) {
       for (MavenProject subProject : project.getCollectedProjects()) {
-        generate(subProject);
+        generateContract(subProject);
+        generateDocument(subProject);
       }
+
+      generateCode(project);
     } else {
-      generate(project);
+      generateContract(project);
+      generateDocument(project);
+      generateCode(project);
     }
   }
 
-  private void generate(MavenProject project) {
+  private void generateContract(MavenProject project) {
 
     switch (SourceType.valueOf(sourceType.toUpperCase())) {
       case CODE:
@@ -95,7 +100,7 @@ public class GenerateMojo extends AbstractMojo {
         }
 
         GenerateUtil.generateContract(project, contractOutput, contractFileType, "default");
-        contractLocation = contractOutput;
+        contractLocation = outputDirectory + File.separator + "contract";
         if (Objects.requireNonNull(new File(contractOutput).listFiles()).length == 0) {
           //noinspection ResultOfMethodCallIgnored
           new File(contractOutput).delete();
@@ -117,7 +122,9 @@ public class GenerateMojo extends AbstractMojo {
       default:
         throw new RuntimeException("Not support source type " + sourceType);
     }
+  }
 
+  private void generateCode(MavenProject project) {
     //generate microservice project
     if (service == null) {
       LOGGER.info("Cannot generate code without service configuration");
@@ -138,6 +145,9 @@ public class GenerateMojo extends AbstractMojo {
         throw new RuntimeException("Failed to generate code", e);
       }
     }
+  }
+
+  private void generateDocument(MavenProject project) {
 
     //generate document
     String documentOutput =

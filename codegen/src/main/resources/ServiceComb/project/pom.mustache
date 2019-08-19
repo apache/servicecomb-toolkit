@@ -16,9 +16,9 @@
   </properties>
 
   <modules>
-    <module>provider</module>
-    <module>consumer</module>
-    <module>model</module>
+    {{#modules}}
+      <module>{{module}}</module>
+    {{/modules}}
   </modules>
 
   <dependencyManagement>

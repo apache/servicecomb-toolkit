@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiParam;
 {{#hasProduces}}@Produces({ {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }){{/hasProduces}}
 {{#operations}}
 @RestSchema(schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
-@Path("/")
+@Path("{{#getRelativeBasePath}}{{basePath}}{{/getRelativeBasePath}}")
 public class {{classname}} {
 {{#operation}}
 

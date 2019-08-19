@@ -39,7 +39,7 @@ public class FileUtils {
 
     File path = new File(pathName);
     if (path.exists()) {
-      deleteDirectory(pathName);
+      return;
     }
 
     if (!path.mkdirs()) {
@@ -78,12 +78,14 @@ public class FileUtils {
     return filesGroup;
   }
 
-  private static void deleteDirectory(String pathName) throws IOException {
+  public static void deleteDirectory(String pathName) throws IOException {
 
     File path = new File(pathName);
 
     if (!path.isDirectory()) {
-      Files.delete(Paths.get(pathName));
+      if(path.exists()){
+        Files.delete(Paths.get(pathName));
+      }
       return;
     }
 

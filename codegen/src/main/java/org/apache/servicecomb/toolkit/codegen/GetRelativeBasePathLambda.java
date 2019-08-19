@@ -15,33 +15,24 @@
  * limitations under the License.
  */
 
+
 package org.apache.servicecomb.toolkit.codegen;
 
-import java.lang.reflect.Field;
+import java.io.IOException;
+import java.io.Writer;
 
-class ReflectUtils {
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template.Fragment;
 
-  static Object getProperty(Object obj, String propName) throws IllegalAccessException, NoSuchFieldException {
+public class GetRelativeBasePathLambda implements Mustache.Lambda {
 
-    Field propFiled = getFiled(obj.getClass(), propName);
+  private String HOST_PORT_PATTERN = "(\\w+://)(\\w+)?(:\\d*)?";
 
-    if (propFiled == null) {
-      return null;
-    }
+  @Override
+  public void execute(Fragment fragment, Writer writer) throws IOException {
 
-    propFiled.setAccessible(true);
-    return propFiled.get(obj);
-  }
-
-  private static Field getFiled(Class cls, String propName) throws NoSuchFieldException {
-    try {
-      return cls.getDeclaredField(propName);
-    } catch (NoSuchFieldException e) {
-      if (cls.getSuperclass() != null) {
-        return getFiled(cls.getSuperclass(), propName);
-      } else {
-        throw new NoSuchFieldException("No such field: " + propName);
-      }
-    }
+    String text = fragment.execute();
+    String relativeBasePath = text.replaceAll(HOST_PORT_PATTERN, "");
+    writer.write(relativeBasePath);
   }
 }

@@ -25,8 +25,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -37,13 +39,20 @@ import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
+import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 
 import io.swagger.codegen.config.CodegenConfigurator;
 
 class GenerateUtil {
 
-  static void generateContract(MavenProject project, String contractOutput, String contractFileType,
+  private static String providerProjectNameSuffix = "-provider";
+
+  private static String consumerProjectNameSuffix = "-consumer";
+
+  private static String modelProjectNameSuffix = "-model";
+
+  public static void generateContract(MavenProject project, String contractOutput, String contractFileType,
       String type) {
 
     Map<String, Object> contractConfig = new HashMap<>();
@@ -75,6 +84,9 @@ class GenerateUtil {
       @Override
       public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
+        if (Files.isDirectory(file)) {
+          return super.visitFile(file, attrs);
+        }
         Map<String, Object> docGeneratorConfig = new HashMap<>();
 
         docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
@@ -96,36 +108,51 @@ class GenerateUtil {
       throw new RuntimeException("Cannot found code generator's implementation");
     }
 
-    CodegenConfigurator configurator = new CodegenConfigurator();
-    configurator.setOutputDir(codeOutput)
-        .setLang("ServiceComb")
-        .setApiPackage(service.getPackageName())
-        .setGroupId(service.getGroupId())
-        .setArtifactId(service.getArtifactId())
-        .setModelPackage(service.getPackageName())
-        .setLibrary(service.getProgrammingModel())
-        .addAdditionalProperty("mainClassPackage", service.getPackageName())
-        .setArtifactVersion(service.getArtifactVersion())
-        .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType());
-
-    configurator.getAdditionalProperties().putAll(externalConfig);
-
     File contractFile = new File(contractLocation);
     if (contractFile.isDirectory()) {
 
+      List<CodegenConfigurator> configurators = new ArrayList<>();
       Files.walkFileTree(Paths.get(contractFile.toURI()), new SimpleFileVisitor<Path>() {
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-          configurator.setInputSpec(file.toFile().getCanonicalPath());
-          Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
-          codeGenerator.generate();
+          if (Files.isDirectory(file)) {
+            return super.visitFile(file, attrs);
+          }
 
+          CodegenConfigurator configurator = new CodegenConfigurator();
+          configurator.setOutputDir(codeOutput)
+              .setLang("ServiceComb")
+              .setApiPackage(service.getPackageName())
+              .setGroupId(service.getGroupId())
+              .setArtifactId(service.getArtifactId())
+              .setModelPackage(service.getPackageName())
+              .setLibrary(service.getProgrammingModel())
+              .addAdditionalProperty("mainClassPackage", service.getPackageName())
+              .setArtifactVersion(service.getArtifactVersion())
+              .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType())
+              .addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME,
+                  file.getParent().getFileName() + providerProjectNameSuffix)
+              .addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME,
+                  file.getParent().getFileName() + consumerProjectNameSuffix)
+              .addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME,
+                  file.getParent().getFileName() + modelProjectNameSuffix)
+              .addAdditionalProperty("apiName", file.toFile().getName().split("\\.")[0])
+              .addAdditionalProperty("microserviceName", file.getParent().getFileName().toString());
+
+          configurator.setInputSpec(file.toFile().getCanonicalPath());
+          configurators.add(configurator);
           return super.visitFile(file, attrs);
         }
       });
+
+      Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurators", configurators));
+      codeGenerator.generate();
     } else {
+
+      CodegenConfigurator configurator = new CodegenConfigurator();
       configurator.setInputSpec(contractLocation);
-      Objects.requireNonNull(codeGenerator).configure(Collections.singletonMap("configurator", configurator));
+      Objects.requireNonNull(codeGenerator)
+          .configure(Collections.singletonMap("configurators", Collections.singletonList(configurator)));
       codeGenerator.generate();
     }
   }

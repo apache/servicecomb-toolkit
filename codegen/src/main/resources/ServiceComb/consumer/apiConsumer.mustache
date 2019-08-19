@@ -54,7 +54,7 @@ public class {{classname}}Consumer {
 
     RestTemplate restTemplate = RestTemplateBuilder.create();
 
-    ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}/{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
+    ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}{{#getRelativeBasePath}}{{basePath}}{{/getRelativeBasePath}}/{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
 
     // do something
 
