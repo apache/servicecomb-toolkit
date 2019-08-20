@@ -1,0 +1,25 @@
+---
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "swagger definition for org.apache.servicecomb.toolkit.goodbye.GoodbyeController"
+  x-java-interface: "gen.swagger.GoodbyeControllerIntf"
+basePath: "/"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /goodbye/{name}:
+    get:
+      operationId: "sayGoodbye"
+      parameters:
+      - name: "name"
+        in: "path"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "response of 200"
+          schema:
+            type: "string"
