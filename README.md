@@ -162,6 +162,11 @@ Run in shell
 mvn toolkit:generate
 ```
 
+When generating contracts from code,support for identifying restful interfaces written by the following annotations (class level)
+>RestController, RestSchema, RpcSchema, RequestMapping
+
+When generating contracts from code,the restful interface method access modifier must be specified as public
+
 
 #### 3.2.2.2 Generate the microservice project and document from contract
 

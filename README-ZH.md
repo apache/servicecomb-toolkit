@@ -163,6 +163,12 @@ mvn toolkit:verify
 mvn toolkit:generate
 ```
 
+代码生成契约现已支持以下注解(类级别)编写的restful接口
+>RestController, RestSchema, RpcSchema, RequestMapping
+
+代码生成契约时,restful接口方法修饰符必须指定为public
+
+
 #### 3.2.2.2 解析契约，生成微服务工程、文档
 
 配置项(不显式设置 `<configuration>` 则使用默认配置)
