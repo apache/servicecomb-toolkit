@@ -28,7 +28,8 @@
   <artifactId>samples</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>toolkit-maven-plugin-sample</module>
+    <module>generate-from-code-sample</module>
+    <module>generate-from-contract-sample</module>
   </modules>
 
 </project>
