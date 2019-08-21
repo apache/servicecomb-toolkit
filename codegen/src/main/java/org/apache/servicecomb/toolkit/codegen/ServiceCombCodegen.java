@@ -119,6 +119,10 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     library.setEnum(supportedLibraries);
     library.setDefault(DEFAULT_LIBRARY);
     cliOptions.add(library);
+
+    additionalProperties.put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, providerProject);
+    additionalProperties.put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, consumerProject);
+    additionalProperties.put(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME, modelProject);
   }
 
   @Override
@@ -183,7 +187,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     }
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
-    additionalProperties.put("getRelativeBasePath",new GetRelativeBasePathLambda());
+    additionalProperties.put("getRelativeBasePath", new GetRelativeBasePathLambda());
     additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
 
