@@ -27,6 +27,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.Objects;
 
 import org.apache.maven.plugin.MojoFailureException;
@@ -53,6 +54,7 @@ public class GenerateMojoTest {
 
     String testDirWithContract = testResourcesEx.getBasedirWithContract();
     String testDirWithoutContract = testResourcesEx.getBasedirWithoutContract();
+    String testDirMultiModule = testResourcesEx.getBasedirMultiModule();
 
     String outputDirectory = null;
     String contractOutput = null;
@@ -162,5 +164,30 @@ public class GenerateMojoTest {
     testResourcesEx.setVariableValueToObject("service", service);
     testResourcesEx.execute();
     assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
+
+    // test multi module
+    given(project.getRuntimeClasspathElements()).willReturn(testResourcesEx.getRuntimeUrlPath(testDirMultiModule));
+    MavenProject subModuleProject = mock(MavenProject.class);
+    given(subModuleProject.getRuntimeClasspathElements())
+        .willReturn(testResourcesEx.getRuntimeUrlPath(testDirMultiModule + File.separator + "first-module"));
+    given(subModuleProject.getBasedir()).willReturn(new File("mockSubModuleProject"));
+    given(project.getPackaging()).willReturn("pom");
+    given(project.getCollectedProjects()).willReturn(Collections.singletonList(subModuleProject));
+
+    try {
+      outputDirectory = "target/GenerateMojoTest";
+      FileUtils.deleteDirectory(outputDirectory);
+      testResourcesEx.setVariableValueToObject("sourceType", "code");
+      testResourcesEx.setVariableValueToObject("outputDirectory", outputDirectory);
+      testResourcesEx.setVariableValueToObject("contractFileType", "yaml");
+      testResourcesEx.setVariableValueToObject("documentType", "html");
+      testResourcesEx.setVariableValueToObject("service", new ServiceConfig());
+
+      testResourcesEx.execute();
+
+      assertFalse(new File(testResourcesEx.getVariableValueFromObject("contractLocation")).listFiles().length != 0);
+    } catch (RuntimeException e) {
+      fail("Run 'testGenerateMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
+    }
   }
 }
