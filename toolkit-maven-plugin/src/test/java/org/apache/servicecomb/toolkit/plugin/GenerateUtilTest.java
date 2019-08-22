@@ -84,6 +84,11 @@ public class GenerateUtilTest {
     } catch (RuntimeException e) {
       assertEquals("Cannot found code generator's implementation", e.getMessage());
     }
+
+    // Test the scenario where the configuration property contractLocation is specified as a file
+    generateCode(service, contractLocation + File.separator + "HelloEndPoint.yaml", projectOutput,
+        Collections.EMPTY_MAP, "default");
+    assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
   }
 
   @Test

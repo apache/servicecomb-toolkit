@@ -122,16 +122,8 @@ class GenerateUtil {
           }
 
           CodegenConfigurator configurator = new CodegenConfigurator();
+          commonConfig(configurator, service);
           configurator.setOutputDir(codeOutput)
-              .setLang("ServiceComb")
-              .setApiPackage(service.getPackageName())
-              .setGroupId(service.getGroupId())
-              .setArtifactId(service.getArtifactId())
-              .setModelPackage(service.getPackageName())
-              .setLibrary(service.getProgrammingModel())
-              .addAdditionalProperty("mainClassPackage", service.getPackageName())
-              .setArtifactVersion(service.getArtifactVersion())
-              .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType())
               .addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME,
                   file.getParent().getFileName() + providerProjectNameSuffix)
               .addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME,
@@ -152,10 +144,35 @@ class GenerateUtil {
     } else {
 
       CodegenConfigurator configurator = new CodegenConfigurator();
+      commonConfig(configurator, service);
+      configurator.setOutputDir(codeOutput)
+          .addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME,
+              contractFile.getParentFile().getName() + providerProjectNameSuffix)
+          .addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME,
+              contractFile.getParentFile().getName() + consumerProjectNameSuffix)
+          .addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME,
+              contractFile.getParentFile().getName() + modelProjectNameSuffix)
+          .addAdditionalProperty("apiName", contractFile.getName().split("\\.")[0])
+          .addAdditionalProperty("microserviceName", contractFile.getParentFile().getName());
+
       configurator.setInputSpec(contractLocation);
       Objects.requireNonNull(codeGenerator)
           .configure(Collections.singletonMap("configurators", Collections.singletonList(configurator)));
       codeGenerator.generate();
     }
+  }
+
+  private static void commonConfig(CodegenConfigurator configurator, ServiceConfig service) {
+
+    configurator
+        .setLang("ServiceComb")
+        .setApiPackage(service.getPackageName())
+        .setGroupId(service.getGroupId())
+        .setArtifactId(service.getArtifactId())
+        .setModelPackage(service.getPackageName())
+        .setLibrary(service.getProgrammingModel())
+        .addAdditionalProperty("mainClassPackage", service.getPackageName())
+        .setArtifactVersion(service.getArtifactVersion())
+        .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType());
   }
 }
