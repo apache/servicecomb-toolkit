@@ -19,17 +19,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>samples</artifactId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <version>0.1.0-SNAPSHOT</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.servicecom.toolkit</groupId>
-  <artifactId>generate-from-code-sample</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
-  <modules>
-    <module>HelloService</module>
-    <module>GoodbyeService</module>
-  </modules>
+  <artifactId>verify-with-code-sample</artifactId>
   <packaging>pom</packaging>
-
+  <modules>
+    <module>GreetingService</module>
+  </modules>
 
   <build>
     <plugins>
@@ -40,18 +41,10 @@
         <configuration>
           <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
           <sourceType>code</sourceType>
-          <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
-          <outputDirectory>./target/</outputDirectory>
-          <!-- 生成的微服务代码工程配置 -->
-          <service>
-            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
-            <serviceType>all</serviceType>
-            <groupId>org.apache.servicecom.toolkit</groupId>
-            <artifactId>generate-from-code-sample</artifactId>
-          </service>
+          <!-- 样本契约文件目录，必须设置 -->
+          <destinationContractPath>./contract</destinationContractPath>
         </configuration>
       </plugin>
     </plugins>
   </build>
-
 </project>

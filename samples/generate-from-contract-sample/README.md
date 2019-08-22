@@ -7,3 +7,25 @@ You will need:
 ```
 mvn toolkit:generate
 ```
+
+## Output Result
+```
+target/
+├── document
+│   ├── GoodByeService
+│   │   └── GoodbyeController.html
+│   └── HelloService
+│       └── HelloController.html
+└── project
+    ├── GoodByeService-model
+    │   └── pom.xml
+    ├── GoodByeService-provider
+    │   ├── pom.xml
+    │   └── src
+    ├── HelloService-model
+    │   └── pom.xml
+    ├── HelloService-provider
+    │   ├── pom.xml
+    │   └── src
+    └── pom.xml
+```
