@@ -90,8 +90,10 @@ class GenerateUtil {
         Map<String, Object> docGeneratorConfig = new HashMap<>();
 
         docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
-        docGeneratorConfig.put("outputPath", documentOutput + File.separator + file.toFile().getName()
-            .substring(0, file.toFile().getName().indexOf(".")));
+        docGeneratorConfig.put("outputPath",
+            documentOutput + File.separator + file.getParent().toFile().getName() + File.separator + file.toFile()
+                .getName()
+                .substring(0, file.toFile().getName().indexOf(".")));
 
         docGenerator.configure(docGeneratorConfig);
         docGenerator.generate();
