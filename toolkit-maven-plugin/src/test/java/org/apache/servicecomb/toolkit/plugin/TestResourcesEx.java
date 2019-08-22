@@ -40,6 +40,8 @@ class TestResourcesEx {
 
   private String contractDestination;
 
+  private String basedirMultiModule;
+
   private AbstractMojo testMojo;
 
   private MojoRule rule;
@@ -50,6 +52,7 @@ class TestResourcesEx {
     this.basedirWithoutContract = resources.getBasedir("demo-without-contract") + File.separator;
     this.contractLocation = resources.getBasedir("contract-source") + File.separator;
     this.contractDestination = resources.getBasedir("contract-destination") + File.separator;
+    this.basedirMultiModule = resources.getBasedir("demo-multi-module") + File.separator;
   }
 
   void createMojo(MojoRule rule, String pluginGoal) {
@@ -72,6 +75,10 @@ class TestResourcesEx {
 
   String getBasedirWithoutContract() {
     return basedirWithoutContract;
+  }
+
+  String getBasedirMultiModule() {
+    return basedirMultiModule;
   }
 
   String getContractLocation() {

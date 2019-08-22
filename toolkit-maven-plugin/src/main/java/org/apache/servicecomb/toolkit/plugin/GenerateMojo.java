@@ -77,7 +77,8 @@ public class GenerateMojo extends AbstractMojo {
         generateContract(subProject);
         generateDocument(subProject);
       }
-
+      generateContract(project);
+      generateDocument(project);
       generateCode(project);
     } else {
       generateContract(project);
@@ -151,7 +152,7 @@ public class GenerateMojo extends AbstractMojo {
 
     //generate document
     String documentOutput =
-        outputDirectory + File.separator + "document" + File.separator + project.getBasedir().getName();
+        outputDirectory + File.separator + "document";
     try {
       FileUtils.createDirectory(documentOutput);
       GenerateUtil.generateDocument(contractLocation, documentOutput, "default");
