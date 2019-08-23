@@ -39,9 +39,9 @@
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>0.1.0-SNAPSHOT</version>
         <configuration>
-          <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+          <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
           <sourceType>code</sourceType>
-          <!-- 样本契约文件目录，必须设置 -->
+          <!-- Sample contract file path, must be set -->
           <destinationContractPath>./contract</destinationContractPath>
         </configuration>
       </plugin>

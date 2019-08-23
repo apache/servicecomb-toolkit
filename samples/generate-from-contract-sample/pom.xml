@@ -36,15 +36,15 @@
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>0.1.0-SNAPSHOT</version>
         <configuration>
-          <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+          <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
           <sourceType>contract</sourceType>
-          <!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 -->
-          <contractLocation>./contract</contractLocation>
-          <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
+          <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
           <outputDirectory>./target</outputDirectory>
-          <!-- 生成的微服务代码工程配置 -->
+          <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
+          <contractLocation>./contract</contractLocation>
+          <!-- Generated microservice project configuration -->
           <service>
-            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
+            <!-- Microservice type,can generated 'provider/consumer/all',the default is 'all' -->
             <serviceType>provider</serviceType>
           </service>
         </configuration>

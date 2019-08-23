@@ -175,7 +175,7 @@ example
     <version>0.1.0-SNAPSHOT</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
-        <sourceType>code</sourceType>
+        <sourceType>contract</sourceType>
         <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
         <outputDirectory>./target</outputDirectory>
         <!-- Input contract file path. Valid when sourceType is set to 'contract', must be set -->
@@ -262,6 +262,8 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 * -f, --format. Specifies the output document format, now supports swagger-ui
 例：-f swagger-ui
 
+### 3.4 Use case
+some example of using plugin can be found [here](https://github.com/kakulisen/servicecomb-toolkit/tree/master/samples)
 
 ## 4 Contact us
 

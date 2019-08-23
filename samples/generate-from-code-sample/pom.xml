@@ -38,13 +38,13 @@
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>0.1.0-SNAPSHOT</version>
         <configuration>
-          <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
+          <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
           <sourceType>code</sourceType>
-          <!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 -->
-          <outputDirectory>./target/</outputDirectory>
-          <!-- 生成的微服务代码工程配置 -->
+          <!-- The root directory to save contract file and document. If it is not set, the default is the 'target' under the directory where the command is run -->
+          <outputDirectory>./target</outputDirectory>
+          <!-- Generated microservice project configuration -->
           <service>
-            <!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all -->
+            <!-- Microservice type,can generated 'provider/consumer/all',the default is 'all' -->
             <serviceType>all</serviceType>
             <groupId>org.apache.servicecom.toolkit</groupId>
             <artifactId>generate-from-code-sample</artifactId>
