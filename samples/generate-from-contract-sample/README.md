@@ -1,12 +1,14 @@
-## Prerequisites
+### Generate From Contract Sample
+This case simulates an empty project, and the contracts are placed in the contract directory of the project root directory.  
+This case will generate a ServiceComb java-chassis based microservice project based on the contracts in the contract directory.
+
+### Prerequisites
 You will need:
-1. [JDK 1.8][jdk]
-2. [Maven 3.x][maven]
+1. [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+2. [Maven 3.x](https://maven.apache.org/install.html)
 
-[jdk]: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-[maven]: https://maven.apache.org/install.html
-
-## Configure plugin
+### Step1: Configure plugin
+In the pom.xml file in the root directory of the current sample project, add the configuration of the toolkit-maven-plugin plugin as follows.
 ```xml
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
@@ -29,12 +31,14 @@ You will need:
 
 ```
 
-## Running Demo
+### Step2: Running Demo
+Execute the following maven command on the command line
 ```
 mvn toolkit:generate
 ```
 
-## Output Result
+### Step3: Output Result
+The generated content is in the target directory of generate-from-code-sample, including the document and the ServiceComb java-chassis-based microservice project.
 ```
 target/
 ├── document

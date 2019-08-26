@@ -322,7 +322,6 @@
     <profile>
       <id>release</id>
       <modules>
-        <module>samples</module>
         <module>toolkit-distribution</module>
       </modules>
       <build>

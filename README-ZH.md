@@ -267,7 +267,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 例：-f swagger-ui
 
 ### 3.4 使用案例
-可以在[这里]((https://github.com/kakulisen/servicecomb-toolkit/tree/master/samples))找到使用插件的一些示例 
+可以在[这里](./samples/README-ZH.md)找到使用插件的一些示例 
 
 ## 4 社区互动
 

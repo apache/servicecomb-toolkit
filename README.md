@@ -268,7 +268,7 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 例：-f swagger-ui
 
 ### 3.4 Use case
-some example of using plugin can be found [here](https://github.com/kakulisen/servicecomb-toolkit/tree/master/samples)
+some example of using plugin can be found [here](./samples)
 
 ## 4 Contact us
 
