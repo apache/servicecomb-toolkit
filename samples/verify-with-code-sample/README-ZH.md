@@ -1,36 +1,36 @@
 ### Verify With Code Sample
-This case simulates a multi-module project that includes one of the following services and a contract directory that holds standard contracts.  
-This case will use the standard contract to verify the contract of the current project and output the verification result to the console
+本案例包括以下服务和一个存放标准契约的contract目录
+* GreetingService  
+本案例将使用标准契约校验当前项目的契约并输出校验结果到控制台
 
-### Prerequisites
-You will need:
+### 运行环境
 1. [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 2. [Maven 3.x](https://maven.apache.org/install.html)
 
-### Step1: Configure plugin
-Configure the toolkit-maven-plugin in the parent pom
+### 步骤1： 配置插件
+在父pom中配置toolkit-maven-plugin插件
 ```xml
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
     <version>0.1.0-SNAPSHOT</version>
     <configuration>
-        <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
+        <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
-        <!-- Sample contract file path, must be set -->
+        <!-- 样本契约文件目录，必须设置 -->
         <destinationContractPath>./contract</destinationContractPath>
     </configuration>
 </plugin>
 ```
 
-### Step2: Running Demo
-Run the plugin's verify goal
+### 步骤2：执行插件
+运行插件的generate目标
 ```
 mvn toolkit:verify
 ```
 
-### Step3: Output Result
-The result of the verification is output directly on the console
+### 步骤3：输出结果
+校验的结果直接在控制台上输出
 ```
 [INFO] Contract is not matched, difference is as follows
 [INFO] ./contract/GreetingController.yaml vs /opt/sunlisen/workspace/servicecomb-toolkit/samples/verify-with-code-sample/target/tmp-contract/2244468406394280775/GreetingController.yaml
