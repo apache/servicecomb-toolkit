@@ -8,7 +8,7 @@ You will need:
 2. [Maven 3.x](https://maven.apache.org/install.html)
 
 ### Step1: Configure plugin
-Configure the toolkit-maven-plugin in the parent pom
+In the pom.xml file in the root directory of the current sample project, add the configuration of the toolkit-maven-plugin plugin as follows.
 ```xml
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
@@ -32,7 +32,7 @@ Configure the toolkit-maven-plugin in the parent pom
 ```
 
 ### Step2: Running Demo
-Run the plugin's generate goal
+Execute the following maven command on the command line
 ```
 mvn toolkit:generate
 ```

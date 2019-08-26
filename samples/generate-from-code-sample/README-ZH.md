@@ -10,7 +10,7 @@ HelloService和GoodbyeService各提供一个接口，本案例将分别将其转
 2. [Maven 3.x](https://maven.apache.org/install.html)
 
 ### 步骤1： 配置插件
-在父pom中配置toolkit-maven-plugin插件
+在示例项目根目录的pom.xml文件中，新增toolkit-maven-plugin插件的配置，如下
 ```xml
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
@@ -33,7 +33,7 @@ HelloService和GoodbyeService各提供一个接口，本案例将分别将其转
 ```
 
 ### 步骤2：执行插件
-运行插件的generate目标
+在命令行中执行如下的maven命令：
 ```
 mvn toolkit:generate
 ```
