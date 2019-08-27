@@ -91,7 +91,7 @@ Configured in the pom file of the maven project
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>
@@ -116,7 +116,7 @@ Configured in the pom file of the maven project
             <!-- Microservice project 'artifactId',optional,the default is 'sample' -->
             <artifactId>sample</artifactId>
             <!-- Microservice project 'artifactVersion',optional,the default is '0.1.0-SNAPSHOT' -->
-            <artifactVersion>0.1.0-SNAPSHOT</artifactVersion>
+            <artifactVersion>0.1.0</artifactVersion>
             <!-- Microservice project 'packageName',optional,the default is 'domain.orgnization.project.sample' -->
             <packageName>domain.orgnization.project.sample</packageName>
         </service>
@@ -142,7 +142,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>
@@ -177,7 +177,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>contract</sourceType>
@@ -208,7 +208,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>

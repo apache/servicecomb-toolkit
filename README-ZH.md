@@ -93,7 +93,7 @@ $ mvn clean install
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
@@ -118,7 +118,7 @@ $ mvn clean install
             <!-- 微服务的 artifactId，用户可选，默认值为 sample -->
             <artifactId>sample</artifactId>
             <!-- 微服务的 artifactVersion，用户可选，默认值为 0.1.0-SNAPSHOT -->
-            <artifactVersion>0.1.0-SNAPSHOT</artifactVersion>
+            <artifactVersion>0.1.0</artifactVersion>
             <!-- 微服务的 packageName，用户可选，默认值为 domain.orgnization.project.sample -->
             <packageName>domain.orgnization.project.sample</packageName>
         </service>
@@ -143,7 +143,7 @@ mvn toolkit:verify
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
@@ -177,7 +177,7 @@ mvn toolkit:generate
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>contract</sourceType>
@@ -207,7 +207,7 @@ mvn toolkit:generate
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
