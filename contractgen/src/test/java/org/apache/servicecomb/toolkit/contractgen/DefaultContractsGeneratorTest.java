@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
+import javax.ws.rs.Path;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.testing.resources.TestResources;
 import org.apache.maven.project.MavenProject;
@@ -147,6 +148,9 @@ public class DefaultContractsGeneratorTest {
 
     mockClass = contractTestUtil.putAnnotationToClass("TestRequestMapping", RequestMapping.class);
     assertThat(method.invoke("TestRequestMapping", mockClass), is(true));
+
+    mockClass = contractTestUtil.putAnnotationToClass("TestPath", Path.class);
+    assertThat(method.invoke("TestPath", mockClass), is(true));
   }
 
   @Test
