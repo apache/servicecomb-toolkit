@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.Path;
+
 public class DefaultContractsGenerator implements ContractsGenerator {
 
   private static Logger LOGGER = LoggerFactory.getLogger(DefaultContractsGenerator.class);
@@ -131,7 +133,8 @@ public class DefaultContractsGenerator implements ContractsGenerator {
         String swaggerString = SwaggerUtils.swaggerToString(generator.generate());
 
         File outputFile = new File(
-            outputDir + File.separator + loadClass.getSimpleName() + contractfileType.getFileSuffix());
+            outputDir + File.separator + loadClass.getSimpleName() + contractfileType
+                .getFileSuffix());
 
         if (!outputFile.exists()) {
           if (!outputFile.getParentFile().exists()) {
@@ -176,6 +179,10 @@ public class DefaultContractsGenerator implements ContractsGenerator {
       return true;
     }
 
+    Path pathAnnotation = loadClass.getAnnotation(Path.class);
+    if (pathAnnotation != null) {
+      return true;
+    }
     return false;
   }
 
