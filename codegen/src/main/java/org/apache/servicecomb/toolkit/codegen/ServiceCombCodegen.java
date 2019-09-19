@@ -35,7 +35,7 @@ import io.swagger.codegen.languages.AbstractJavaCodegen;
 import io.swagger.codegen.languages.SpringCodegen;
 import io.swagger.codegen.mustache.CamelCaseLambda;
 
-public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenConfig {
+public class ServiceCombCodegen extends AbstractJavaCodegenExt {
 
   private static final String DEFAULT_LIBRARY = "SpringMVC";
 
@@ -91,20 +91,9 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
     outputFolder = "generated-code/ServiceComb";
 
-    modelDocTemplateFiles.remove("model_doc.mustache");
-    apiDocTemplateFiles.remove("api_doc.mustache");
-    apiTestTemplateFiles.remove("api_test.mustache");
-
     embeddedTemplateDir = templateDir = "ServiceComb";
     modelTemplateFiles.put(modelTemplateFolder + "/model.mustache", ".java");
     modelTemplateFiles.remove("model.mustache");
-
-    groupId = "domain.orgnization.project";
-    artifactId = "sample";
-
-    apiPackage = groupId + "." + artifactId + ".api";
-    modelPackage = groupId + "." + artifactId + ".model";
-    mainClassPackage = groupId + "." + artifactId;
 
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the SpringMVC programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the POJO programming model.");
@@ -350,13 +339,5 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     }
 
     return initialCaps(name) + "Api";
-  }
-
-  private String mainClassFolder(String projectPath) {
-    return projectPath + File.separator + sourceFolder + File.separator + mainClassPackage.replace(".", File.separator);
-  }
-
-  private String resourcesFolder(String projectPath) {
-    return projectPath + File.separator + projectFolder + File.separator + "resources";
   }
 }

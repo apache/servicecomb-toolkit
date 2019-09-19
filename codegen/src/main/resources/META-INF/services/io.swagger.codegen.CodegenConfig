@@ -16,3 +16,4 @@
 #
 
 org.apache.servicecomb.toolkit.codegen.ServiceCombCodegen
+org.apache.servicecomb.toolkit.codegen.SpringCloudCodegen

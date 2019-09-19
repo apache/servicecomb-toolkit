@@ -30,4 +30,10 @@ public class GeneratorExternalConfigConstant {
   public final static String CONSUMER_ARTIFACT_ID = "consumerArtifactId";
 
   public final static String MODEL_ARTIFACT_ID = "modelArtifactId";
+
+  public final static String MICRO_SERVICE_FRAMEWORK = "microServiceFramework";
+
+  public final static String PROVIDER_SERVICE_ID = "providerServiceId";
+
+  public final static String CONSUMER_SERVICE_ID = "consumerServiceId";
 }
