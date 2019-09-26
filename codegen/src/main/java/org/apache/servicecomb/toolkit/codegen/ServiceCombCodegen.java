@@ -17,22 +17,22 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import static org.openapitools.codegen.utils.StringUtils.camelize;
+
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openapitools.codegen.CliOption;
+import org.openapitools.codegen.CodegenConstants;
+import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.CodegenProperty;
+import org.openapitools.codegen.CodegenType;
+import org.openapitools.codegen.SupportingFile;
+import org.openapitools.codegen.languages.SpringCodegen;
 
-import io.swagger.codegen.CliOption;
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenConstants;
-import io.swagger.codegen.CodegenModel;
-import io.swagger.codegen.CodegenProperty;
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.SupportingFile;
-import io.swagger.codegen.languages.AbstractJavaCodegen;
-import io.swagger.codegen.languages.SpringCodegen;
 import io.swagger.codegen.mustache.CamelCaseLambda;
 
 public class ServiceCombCodegen extends AbstractJavaCodegenExt {
@@ -44,8 +44,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
   private static final String JAX_RS_LIBRARY = "JAX-RS";
 
   private static final String SPRING_BOOT_LIBRARY = "SpringBoot";
-
-  private String mainClassPackage;
 
   private String providerProject = "provider";
 
@@ -156,7 +154,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
   public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
 
     Map operations = (Map) objs.get("operations");
-    String classnameImpl = (String) operations.get("classname") + "Impl";
+    String classnameImpl = operations.get("classname") + "Impl";
     operations.put("classnameImpl", classnameImpl);
     additionalProperties.put("classnameImpl", classnameImpl);
     return super.postProcessOperationsWithModels(objs, allModels);
@@ -322,12 +320,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
   }
 
   @Override
-  public Map<String, Object> postProcessOperations(Map<String, Object> objs) {
-    SpringCodegen springCodegen = new SpringCodegen();
-    return springCodegen.postProcessOperations(objs);
-  }
-
-  @Override
   public String toApiName(String name) {
     if (name.length() == 0) {
       return "DefaultApi";
@@ -338,6 +330,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
       return apiName;
     }
 
-    return initialCaps(name) + "Api";
+    return camelize(name) + "Api";
   }
 }

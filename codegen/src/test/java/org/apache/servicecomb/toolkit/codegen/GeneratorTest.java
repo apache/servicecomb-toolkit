@@ -30,9 +30,8 @@ import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.CodegenType;
+import org.openapitools.codegen.config.CodegenConfigurator;
 
 public class GeneratorTest {
 
@@ -40,20 +39,20 @@ public class GeneratorTest {
   public void testGenerateProgrammingModels()
       throws IOException, URISyntaxException, NoSuchFieldException, IllegalAccessException {
 
-    generateCode("SpringMVC");
-    generateCode("POJO");
-    generateCode("JAX-RS");
-    generateCode("SpringBoot");
+//    generateServiceCombCode("SpringMVC");
+//    generateServiceCombCode("POJO");
+//    generateServiceCombCode("JAX-RS");
+    generateServiceCombCode("SpringBoot");
   }
 
-  private void generateCode(String programmingModel)
+  private void generateServiceCombCode(String programmingModel)
       throws IOException, URISyntaxException, IllegalAccessException, NoSuchFieldException {
 
     Path tempDir = Files.createTempDirectory(null);
     Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
     CodegenConfigurator configurator = new CodegenConfigurator();
 
-    configurator.setLang("ServiceComb");
+    configurator.setGeneratorName("ServiceComb");
     configurator.setLibrary(programmingModel);
     configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
@@ -93,13 +92,46 @@ public class GeneratorTest {
 
   @Test
   public void generateSpringCloudProject()
+      throws URISyntaxException, NoSuchFieldException, IllegalAccessException, IOException {
+
+    // generate with OpenAPI 2
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore-separate/spec/swagger.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/api-with-examples.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore-expanded.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore-minimal.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore-simple.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/petstore-with-external-docs.json");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/json/uber.json");
+
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore-separate/spec/swagger.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/api-with-examples.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore-expanded.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore-minimal.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore-simple.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/petstore-with-external-docs.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v2.0/yaml/uber.yaml");
+
+
+    // generate with OpenAPI 3
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/api-with-examples.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/callback-example.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/link-example.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/petstore.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/petstore-expanded.yaml");
+    generateSpringCloudProjectByOpenAPI_V3("examples/v3.0/uspto.yaml");
+
+  }
+
+  private void generateSpringCloudProjectByOpenAPI_V3(String inputSpecUrl)
       throws IOException, URISyntaxException, IllegalAccessException, NoSuchFieldException {
 
     Path tempDir = Files.createTempDirectory(null);
-    Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
+    Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource(inputSpecUrl).toURI());
     CodegenConfigurator configurator = new CodegenConfigurator();
 
-    configurator.setLang("SpringCloud");
+    configurator.setGeneratorName("SpringCloud");
     configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/SpringCloud");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
     configurator.addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, "mock-provider");

@@ -23,9 +23,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openapitools.codegen.CodegenType;
+import org.openapitools.codegen.SupportingFile;
 
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.SupportingFile;
 import io.swagger.codegen.mustache.CamelCaseLambda;
 
 public class SpringCloudCodegen extends AbstractJavaCodegenExt {
@@ -216,7 +216,7 @@ public class SpringCloudCodegen extends AbstractJavaCodegenExt {
       return apiName;
     }
 
-    return initialCaps(name) + "Api";
+    return StringUtils.capitalize(name) + "Api";
   }
 
   @Override
@@ -251,7 +251,7 @@ public class SpringCloudCodegen extends AbstractJavaCodegenExt {
       List<Object> allModels) {
 
     Map operations = (Map) objs.get("operations");
-    String classnameImpl = (String) operations.get("classname") + "Impl";
+    String classnameImpl = operations.get("classname") + "Impl";
     operations.put("classnameImpl", classnameImpl);
     additionalProperties.put("classnameImpl", classnameImpl);
     return super.postProcessOperationsWithModels(objs, allModels);

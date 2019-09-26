@@ -32,12 +32,12 @@ import java.util.Collections;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
+import org.openapitools.codegen.config.CodegenConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
-import io.swagger.codegen.config.CodegenConfigurator;
 
 @Command(name = "codegenerate",
     description = "Generate multiple models of microservice project by OpenAPI specification file")
@@ -83,7 +83,7 @@ public class CodeGenerate implements Runnable {
 
   @Option(name = {"-t", "--service-type"}, title = "service type",
       description = "microservice type of generated microservice project. optional value is provider,consumer,all")
-  private String serviceType;
+  private String serviceType = "all";
 
   @Override
   public void run() {
@@ -96,7 +96,7 @@ public class CodeGenerate implements Runnable {
         .setArtifactId(artifactId)
         .setArtifactVersion(artifactVersion)
         .setLibrary(programmingModel)
-        .setLang(framework)
+        .setGeneratorName(framework)
         .setApiPackage(apiPackage)
         .setModelPackage(modelPackage);
 

@@ -17,11 +17,12 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenConfigLoader;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenConfigLoader;
 
 public class ServiceCombCodegenTest {
 
@@ -29,5 +30,19 @@ public class ServiceCombCodegenTest {
   public void testLoadImpl() {
     CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
     Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
+  }
+
+  @Test
+  public void defaultValue(){
+    CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
+    Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
+    ServiceCombCodegen serviceCombCodegen = (ServiceCombCodegen)codegenConfig;
+    serviceCombCodegen.processOpts();
+
+    Map<String, Object> additionalProperties = serviceCombCodegen.additionalProperties();
+    Assert.assertEquals("domain.orgnization.project.sample",additionalProperties.get("mainClassPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.api",additionalProperties.get("apiPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.model",additionalProperties.get("modelPackage"));
+
   }
 }

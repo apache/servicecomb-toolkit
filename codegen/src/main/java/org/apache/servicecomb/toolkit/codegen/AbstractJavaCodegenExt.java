@@ -17,12 +17,14 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-import io.swagger.codegen.CodegenModel;
-import io.swagger.codegen.CodegenProperty;
-import io.swagger.codegen.languages.AbstractJavaCodegen;
-import io.swagger.codegen.languages.SpringCodegen;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
+
+import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.CodegenProperty;
+import org.openapitools.codegen.languages.AbstractJavaCodegen;
+import org.openapitools.codegen.languages.SpringCodegen;
 
 public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
 
@@ -40,7 +42,6 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
     apiPackage = groupId + "." + artifactId + ".api";
     modelPackage = groupId + "." + artifactId + ".model";
     mainClassPackage = groupId + "." + artifactId;
-
   }
 
   @Override
@@ -51,9 +52,9 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
   }
 
   @Override
-  public Map<String, Object> postProcessOperations(Map<String, Object> objs) {
+  public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
     SpringCodegen springCodegen = new SpringCodegen();
-    return springCodegen.postProcessOperations(objs);
+    return springCodegen.postProcessOperationsWithModels(objs, allModels);
   }
 
   @Override
@@ -72,4 +73,13 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
     return projectPath + File.separator + projectFolder + File.separator + "resources";
   }
 
+  @Override
+  public String templateDir() {
+    return getTemplatingEngine().getIdentifier() + File.separator + super.templateDir();
+  }
+
+  @Override
+  public String embeddedTemplateDir() {
+    return templateDir();
+  }
 }

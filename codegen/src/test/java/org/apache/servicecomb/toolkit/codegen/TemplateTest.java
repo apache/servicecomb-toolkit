@@ -17,30 +17,47 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.servicecomb.toolkit.codegen.handlebars.lambda.GetRelativeBasePathLambda;
 import org.junit.Test;
+import org.openapitools.codegen.ClientOptInput;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.DefaultGenerator;
+import org.openapitools.codegen.api.TemplatingEngineAdapter;
+import org.openapitools.codegen.templating.MustacheEngineAdapter;
 
+import com.github.jknack.handlebars.Context;
+import com.github.jknack.handlebars.TagType;
+import com.github.jknack.handlebars.TypeSafeTemplate;
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenModel;
 import io.swagger.models.Model;
 import io.swagger.models.Swagger;
+import io.swagger.parser.OpenAPIParser;
 import io.swagger.parser.SwaggerParser;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.parser.core.models.ParseOptions;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 public class TemplateTest {
 
@@ -67,7 +84,7 @@ public class TemplateTest {
 
     Arrays.stream(apiTemplateLocations).forEach(apiTemplateLocation -> {
       try {
-        String renderResult = renderTemplate(templateData, apiTemplateLocation);
+        String renderResult = renderTemplate(templateData, "mustache" + File.separator + apiTemplateLocation);
         assertNotNull(renderResult);
         assertFalse(renderResult.contains(config.modelPackage()));
       } catch (IOException e) {
@@ -79,7 +96,7 @@ public class TemplateTest {
   @Test
   public void generateApisWithModel() throws IOException {
     ServiceCombCodegen config = new ServiceCombCodegen();
-
+    TemplatingEngineAdapter templateEngine = new MustacheEngineAdapter();
     Map<String, Object> templateData = readSwaggerModelInfo("with-model.yaml", config);
 
     assertNotNull(templateData);
@@ -90,7 +107,7 @@ public class TemplateTest {
 
     Arrays.stream(apiTemplateLocations).forEach(apiTemplateLocation -> {
       try {
-        String renderResult = renderTemplate(templateData, apiTemplateLocation);
+        String renderResult = renderTemplate(templateData, "mustache" + File.separator + apiTemplateLocation);
         assertNotNull(renderResult);
         assertTrue(renderResult.contains(config.modelPackage()));
       } catch (IOException e) {
@@ -99,20 +116,42 @@ public class TemplateTest {
     });
   }
 
+  @Test
+  public void getRelativeBasePath() throws IOException {
+    GetRelativeBasePathLambda lambda = new GetRelativeBasePathLambda();
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://a.b.c.com")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://a.bc.d.com")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://a.b.c.com/")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://a.com/")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://abc.com/")));
+    assertEquals("/app", lambda.apply(null, new TextTempalte("https://abc.com/app")));
+    assertEquals("/app", lambda.apply(null, new TextTempalte("https://localhost/app")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://localhost/")));
+    assertEquals("/", lambda.apply(null, new TextTempalte("https://localhost")));
+  }
 
   private Map<String, Object> readSwaggerModelInfo(String swaggerYamlFile, CodegenConfig config) throws IOException {
 
     Map<String, Object> templateData = new HashMap<>();
     String swaggerString = readResourceInClasspath(swaggerYamlFile);
     Swagger swagger = new SwaggerParser().parse(swaggerString);
+
+    ParseOptions options = new ParseOptions();
+    options.setResolve(true);
+    options.setFlatten(true);
+    SwaggerParseResult result = new OpenAPIParser().readContents(swaggerString, null, options);
+    OpenAPI openAPI = result.getOpenAPI();
+
+    Components components = openAPI.getComponents();
+
     Map<String, Model> definitions = swagger.getDefinitions();
     if (definitions == null) {
       return templateData;
     }
     List<Map<String, String>> imports = new ArrayList<Map<String, String>>();
-    for (String key : definitions.keySet()) {
-      Model mm = definitions.get(key);
-      CodegenModel cm = config.fromModel(key, mm, definitions);
+    for (String key : components.getSchemas().keySet()) {
+      Schema mm = components.getSchemas().get(key);
+      CodegenModel cm = config.fromModel(key, mm);
       Map<String, String> item = new HashMap<String, String>();
       item.put("import", config.toModelImport(cm.classname));
       imports.add(item);
@@ -140,5 +179,74 @@ public class TemplateTest {
       stringBuilder.append(new String(buffer, 0, len));
     }
     return stringBuilder.toString();
+  }
+
+  private class TextTempalte implements com.github.jknack.handlebars.Template {
+
+    private String text = "";
+
+    public TextTempalte(String text) {
+      this.text = text;
+    }
+
+    @Override
+    public void apply(Object context, Writer writer) throws IOException {
+      writer.write(text);
+    }
+
+    @Override
+    public String apply(Object context) throws IOException {
+      return text;
+    }
+
+    @Override
+    public void apply(Context context, Writer writer) throws IOException {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public String apply(Context context) throws IOException {
+      return text;
+    }
+
+    @Override
+    public String text() {
+      return text;
+    }
+
+    @Override
+    public String toJavaScript() {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public <T, S extends TypeSafeTemplate<T>> S as(Class<S> type) {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public <T> TypeSafeTemplate<T> as() {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public List<String> collect(TagType... tagType) {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public List<String> collectReferenceParameters() {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public String filename() {
+      throw new UnsupportedOperationException("No implementation");
+    }
+
+    @Override
+    public int[] position() {
+      throw new UnsupportedOperationException("No implementation");
+    }
   }
 }

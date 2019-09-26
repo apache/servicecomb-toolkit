@@ -230,6 +230,8 @@ You can find a copy of the License at licenses/LICENSE-cddl
 * JavaMail API jar (javax.mail:mailapi:1.4.3 - http://java.sun.com/projects/javamail/mailapi)
 * Java Servlet API (javax.servlet:javax.servlet-api:4.0.1 - http://servlet-spec.java.net)
 * JavaBeans(TM) Activation Framework (javax.activation:activation:1.1 - http://java.sun.com/products/javabeans/jaf/index.jsp)
+* javax.ws.rs-api (javax.ws.rs:javax.ws.rs-api:2.0.1 - http://jax-rs-spec.java.net)
+* jaxb-api (javax.xml.bind:jaxb-api:2.3.0 - https://github.com/javaee/jaxb-spec/jaxb-api)
 
 ================================================================
 This product bundles jopt libraries which is licensed under the
@@ -254,6 +256,20 @@ For details, see https://github.com/hamcrest/JavaHamcrest/blob/master/LICENSE.tx
 You can find a copy of the License at licenses/LICENSE-hamcrest
 
 * Hamcrest Core (org.hamcrest:hamcrest-core:1.3 - https://github.com/hamcrest/JavaHamcrest/hamcrest-core)
+
+===========================================================================
+This product bundles of Hamcrest which is licensed under BSD 3-Clause License
+For details, see https://www.threeten.org/threetenbp
+You can find a copy of the License at licenses/LICENSE-threetenbp
+
+* ThreeTen backport (org.threeten:threetenbp:1.3.1 - https://www.threeten.org/threetenbp)
+
+===========================================================================
+This product bundles of Hamcrest which is licensed under BSD License
+For details, see http://www.brics.dk/automaton/
+You can find a copy of the License at licenses/LICENSE-automaton
+
+* Automaton (dk.brics.automaton:automaton:1.11-8 - http://www.brics.dk/automaton/)
 
 ================================================================
 This product bundles files from stax2 which is licensed under the
@@ -291,6 +307,7 @@ under the Apache License v2.
 For details, see their respective project links.
 
 * airline (io.airlift:airline:0.7 - https://github.com/airlift/airline)
+* A Jackson 2.x helper (com.github.jknack:handlebars-jackson2:4.1.2 - https://github.com/jknack/handlebars.java/handlebars-jackson2)
 * Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
 * Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)
 * Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
@@ -301,26 +318,34 @@ For details, see their respective project links.
 * Apache Log4j Core (org.apache.logging.log4j:log4j-core:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-core/)
 * Apache Log4j SLF4J Binding (org.apache.logging.log4j:log4j-slf4j-impl:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-slf4j-impl/)
 * Bean Validation API (javax.validation:validation-api:1.1.0.Final - http://beanvalidation.org)
-* codegen (org.apache.servicecomb.toolkit:codegen:0.1.0 - https://github.com/apache/servicecomb-toolkit/codegen)
+* codegen (org.apache.servicecomb.toolkit:codegen:0.2.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/codegen)
 * Commons CLI (commons-cli:commons-cli:1.2 - http://commons.apache.org/cli/)
 * Commons IO (commons-io:commons-io:2.4 - http://commons.apache.org/io/)
-* core (org.apache.servicecomb.toolkit:core:0.1.0 - https://github.com/apache/servicecomb-toolkit/core)
-* docgen (org.apache.servicecomb.toolkit:docgen:0.1.0 - https://github.com/apache/servicecomb-toolkit/docgen)
+* core (org.apache.servicecomb.toolkit:core:0.2.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/core)
+* docgen (org.apache.servicecomb.toolkit:docgen:0.2.0-SNAPSHOT - https://github.com/apache/servicecomb-toolkit/docgen)
 * FindBugs-jsr305 (com.google.code.findbugs:jsr305:3.0.1 - http://findbugs.sourceforge.net/)
+* Generex (com.github.mifmif:generex:1.0.2 - https://github.com/mifmif/Generex/tree/master)
 * Google Guice - Core Library (com.google.inject:guice:4.1.0 - https://github.com/google/guice/guice)
 * Guava: Google Core Libraries for Java (com.google.guava:guava:18.0 - http://code.google.com/p/guava-libraries/guava)
+* Handlebars (com.github.jknack:handlebars:4.1.2 - https://github.com/jknack/handlebars.java/handlebars)
 * Jackson-annotations (com.fasterxml.jackson.core:jackson-annotations:2.9.8 - http://github.com/FasterXML/jackson)
-* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.8 - https://github.com/FasterXML/jackson-core)
+* Jackson-core (com.fasterxml.jackson.core:jackson-core:2.9.5 - https://github.com/FasterXML/jackson-core)
 * jackson-databind (com.fasterxml.jackson.core:jackson-databind:2.9.8 - http://github.com/FasterXML/jackson)
 * Jackson-dataformat-XML (com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.8 - http://wiki.fasterxml.com/JacksonExtensionXmlDataBinding)
 * Jackson-dataformat-YAML (com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.8 - https://github.com/FasterXML/jackson-dataformats-text)
+* Jackson datatype: Guava (com.fasterxml.jackson.datatype:jackson-datatype-guava:2.9.5 - https://github.com/FasterXML/jackson-datatypes-collections)
+* Jackson datatype: JSR310 (com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.5 - https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jsr310)
+* Jackson-datatype-Joda (com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.5 - http://wiki.fasterxml.com/JacksonModuleJoda)
+* Jackson-Datatype-ThreeTenBackport (com.github.joschi.jackson:jackson-datatype-threetenbp:2.6.4 - https://github.com/joschi/jackson-datatype-threetenbp)
 * Jackson module: JAXB Annotations (com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.9.8 - https://github.com/FasterXML/jackson-modules-base)
 * Java Chassis::Common::Javassist (org.apache.servicecomb:common-javassist:1.2.0 - https://github.com/apache/servicecomb-java-chassis/common/common-javassist)
 * Java Chassis::Foundations::Common (org.apache.servicecomb:foundation-common:1.2.0 - https://github.com/apache/servicecomb-java-chassis/foundations/foundation-common)
 * Java Chassis::Swagger::Generator::Core (org.apache.servicecomb:swagger-generator-core:1.2.0 - https://github.com/apache/servicecomb-java-chassis/swagger/swagger-generator/swagger-generator-core)
 * javax.inject (javax.inject:javax.inject:1 - http://code.google.com/p/atinject/)
-* Joda-Time (joda-time:joda-time:2.9.7 - http://www.joda.org/joda-time/)
+* Joda-Time (joda-time:joda-time:2.7 - http://www.joda.org/joda-time/)
 * libphonenumber (com.googlecode.libphonenumber:libphonenumber:8.0.0 - https://github.com/googlei18n/libphonenumber/)
+* openapi-generator (core library) (org.openapitools:openapi-generator:4.1.2 - https://github.com/openapitools/openapi-generator/modules/openapi-generator)
+* openapi-generator-core (org.openapitools:openapi-generator-core:4.1.2 - https://github.com/openapitools/openapi-generator)
 * SnakeYAML (org.yaml:snakeyaml:1.23 - http://www.snakeyaml.org)
 * Spring AOP (org.springframework:spring-aop:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * Spring Beans (org.springframework:spring-beans:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
@@ -328,9 +353,16 @@ For details, see their respective project links.
 * Spring Core (org.springframework:spring-core:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * Spring Expression Language (SpEL) (org.springframework:spring-expression:4.3.20.RELEASE - https://github.com/spring-projects/spring-framework)
 * swagger-annotations (io.swagger:swagger-annotations:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-annotations)
+* swagger-annotations (io.swagger.core.v3:swagger-annotations:2.0.9 - https://github.com/swagger-api/swagger-core/modules/swagger-annotations)
 * swagger-codegen (core library) (io.swagger:swagger-codegen:2.4.3 - https://github.com/swagger-api/swagger-codegen/modules/swagger-codegen)
 * swagger-compat-spec-parser (io.swagger:swagger-compat-spec-parser:1.0.43 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-compat-spec-parser)
 * swagger-core (io.swagger:swagger-core:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-core)
+* swagger-core (io.swagger.core.v3:swagger-core:2.0.9 - https://github.com/swagger-api/swagger-core/modules/swagger-core)
 * swagger-models (io.swagger:swagger-models:1.5.22 - https://github.com/swagger-api/swagger-core/modules/swagger-models)
+* swagger-models (io.swagger.core.v3:swagger-models:2.0.9 - https://github.com/swagger-api/swagger-core/modules/swagger-models)
 * swagger-parser (io.swagger:swagger-parser:1.0.43 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
+* swagger-parser (org.openapitools.swagger.parser:swagger-parser:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
+* swagger-parser (org.openapitools.swagger.parser:swagger-parser-core:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-core)
+* swagger-parser-v2-converter (org.openapitools.swagger.parser:swagger-parser-v2-converter:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v2-converter)
+* swagger-parser-v3 (org.openapitools.swagger.parser:swagger-parser-v3:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v3)
 * Woodstox (com.fasterxml.woodstox:woodstox-core:5.0.3 - https://github.com/FasterXML/woodstox)

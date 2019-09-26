@@ -19,9 +19,8 @@ package org.apache.servicecomb.toolkit.codegen;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenConfigLoader;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenConfigLoader;
 
 public class SpringCloudCodegenTest {
 

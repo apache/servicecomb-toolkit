@@ -1,0 +1,37 @@
+package {{apiPackage}};
+
+import java.util.Map;
+import java.util.List;
+import java.io.InputStream;
+import javax.servlet.ServletConfig;
+import javax.servlet.http.Part;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.*;
+{{#imports}}import {{import}};
+{{/imports}}
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import io.swagger.annotations.ApiParam;
+
+{{#hasConsumes}}@Consumes({ {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} }){{/hasConsumes}}
+{{#hasProduces}}@Produces({ {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }){{/hasProduces}}
+{{#operations}}
+@RestSchema(schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
+@Path("{{#getRelativeBasePath}}{{basePath}}{{/getRelativeBasePath}}")
+public class {{classname}} {
+{{#operation}}
+
+  {{#hasConsumes}}@Consumes({ {{#consumes}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} }){{/hasConsumes}}
+  {{#hasProduces}}@Produces({ {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }){{/hasProduces}}
+  @Path("{{{path}}}")
+  @{{httpMethod}}
+  public {{>returnTypes}} {{nickname}}({{#allParams}}{{>libraries/JAX-RS/queryParams}}{{>libraries/JAX-RS/pathParams}}{{>libraries/JAX-RS/headerParams}}{{>libraries/JAX-RS/bodyParams}}{{>libraries/JAX-RS/formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+
+    // do something
+
+    return null;
+  }
+{{/operation}}
+}
+{{/operations}}

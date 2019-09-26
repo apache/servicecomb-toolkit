@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.servicecomb.toolkit.CodeGenerator;
-
-import io.swagger.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.config.CodegenConfigurator;
 
 public class DefaultCodeGenerator implements CodeGenerator {
 
@@ -36,7 +35,7 @@ public class DefaultCodeGenerator implements CodeGenerator {
   @Override
   public void configure(Map<String, Object> config) {
 
-    generator.setGenerateSwaggerMetadata(false);
+    generator.setGenerateMetadata(false);
     List<CodegenConfigurator> optsList = (List<CodegenConfigurator>) config.get("configurators");
     if (optsList == null) {
       generator.addOpts(((CodegenConfigurator) config.get("configurator")).toClientOptInput());

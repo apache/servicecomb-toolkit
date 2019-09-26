@@ -1,0 +1,16 @@
+package {{apiPackage}};
+
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.File;
+{{#imports}}import {{import}};
+{{/imports}}
+{{#operations}}
+public interface {{classname}} {
+ {{#operation}}
+
+  public {{>returnTypes}} {{operationId}}({{#allParams}}{{>libraries/POJO/queryParams}}{{>libraries/POJO/pathParams}}{{>libraries/POJO/headerParams}}{{>libraries/POJO/bodyParams}}{{>libraries/POJO/formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}});
+ {{/operation}}
+}
+{{/operations}}
