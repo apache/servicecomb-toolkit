@@ -15,24 +15,19 @@
  * limitations under the License.
  */
 
-
 package org.apache.servicecomb.toolkit.codegen;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.util.Map;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template.Fragment;
+public interface DirectoryStrategy<T> {
 
-public class GetRelativeBasePathLambda implements Mustache.Lambda {
+  String modelDirectory();
 
-  private static String HOST_PORT_PATTERN = "(\\w+://)([\\w\\.]+)?(:\\d*)?/?";
+  String providerDirectory();
 
-  @Override
-  public void execute(Fragment fragment, Writer writer) throws IOException {
+  String consumerDirectory();
 
-    String text = fragment.execute();
-    String relativeBasePath = text.replaceAll(HOST_PORT_PATTERN, "/");
-    writer.write(relativeBasePath);
-  }
+  void processSupportingFile(T t);
+
+  void addCustomProperties(Map<String, Object> propertiesMap);
 }

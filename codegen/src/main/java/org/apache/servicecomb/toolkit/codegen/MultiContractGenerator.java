@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import io.swagger.codegen.ClientOptInput;
@@ -68,7 +69,6 @@ public class MultiContractGenerator extends DefaultGenerator {
 
     Set<Object> moduleSet = new HashSet<>();
     for (ClientOptInput opts : optsList) {
-      opts.getConfig().additionalProperties().put("isMultipleModule", false);
       moduleSet.add(opts.getConfig().additionalProperties().get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME));
       moduleSet.add(opts.getConfig().additionalProperties().get(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME));
       moduleSet.add(opts.getConfig().additionalProperties().get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME));
@@ -80,7 +80,11 @@ public class MultiContractGenerator extends DefaultGenerator {
       modules.add(Collections.singletonMap("module", module));
     });
 
-    generateParentProject(fileList, modules);
+    if (ServiceType.ALL.getValue().equals(
+        Optional.ofNullable(opts.getConfig().additionalProperties().get(ProjectMetaConstant.SERVICE_TYPE))
+            .orElse(ServiceType.ALL.getValue()))) {
+      generateParentProject(fileList, modules);
+    }
 
     return fileList;
   }
