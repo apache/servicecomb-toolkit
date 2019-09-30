@@ -15,24 +15,26 @@
  * limitations under the License.
  */
 
-
 package org.apache.servicecomb.toolkit.codegen;
 
-import java.io.IOException;
-import java.io.Writer;
+public enum ServiceType {
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template.Fragment;
+  /**
+   * both consumer and provider
+   */
+  ALL,
 
-public class GetRelativeBasePathLambda implements Mustache.Lambda {
+  /**
+   *  only consumer project
+   */
+  CONSUMER,
 
-  private static String HOST_PORT_PATTERN = "(\\w+://)([\\w\\.]+)?(:\\d*)?/?";
+  /**
+   *  only provider project
+   */
+  PROVIDER;
 
-  @Override
-  public void execute(Fragment fragment, Writer writer) throws IOException {
-
-    String text = fragment.execute();
-    String relativeBasePath = text.replaceAll(HOST_PORT_PATTERN, "/");
-    writer.write(relativeBasePath);
+  public String getValue() {
+    return toString().toLowerCase();
   }
 }

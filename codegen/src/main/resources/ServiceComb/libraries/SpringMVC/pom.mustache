@@ -1,15 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+  {{#isMultipleModule}}
   <parent>
     <artifactId>{{artifactId}}</artifactId>
     <groupId>{{groupId}}</groupId>
     <version>{{artifactVersion}}</version>
   </parent>
+  {{/isMultipleModule}}
 
   <modelVersion>4.0.0</modelVersion>
   <artifactId>{{providerArtifactId}}</artifactId>
   <packaging>jar</packaging>
+{{^isMultipleModule}}
+  <groupId>{{groupId}}</groupId>
+  <version>{{artifactVersion}}</version>
+{{/isMultipleModule}}
   <name>{{providerArtifactId}}</name>
 
   <properties>
@@ -17,13 +23,26 @@
     <java-chassis.version>1.2.0</java-chassis.version>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>java-chassis-dependencies</artifactId>
+        <version>${java-chassis.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
+{{#isMultipleModule}}
     <dependency>
       <groupId>{{groupId}}</groupId>
       <artifactId>{{modelArtifactId}}</artifactId>
       <version>${project.version}</version>
     </dependency>
-
+{{/isMultipleModule}}
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>transport-rest-vertx</artifactId>

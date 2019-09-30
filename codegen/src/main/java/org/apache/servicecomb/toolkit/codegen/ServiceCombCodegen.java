@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.codegen;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -30,46 +31,31 @@ import io.swagger.codegen.CodegenConstants;
 import io.swagger.codegen.CodegenModel;
 import io.swagger.codegen.CodegenProperty;
 import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.SupportingFile;
 import io.swagger.codegen.languages.AbstractJavaCodegen;
 import io.swagger.codegen.languages.SpringCodegen;
 import io.swagger.codegen.mustache.CamelCaseLambda;
 
 public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenConfig {
 
-  private static final String DEFAULT_LIBRARY = "SpringMVC";
+  public static final String DEFAULT_LIBRARY = "SpringMVC";
 
-  private static final String POJO_LIBRARY = "POJO";
+  public static final String POJO_LIBRARY = "POJO";
 
-  private static final String JAX_RS_LIBRARY = "JAX-RS";
+  public static final String JAX_RS_LIBRARY = "JAX-RS";
 
-  private static final String SPRING_BOOT_LIBRARY = "SpringBoot";
+  public static final String SPRING_BOOT_LIBRARY = "SpringBoot";
 
   private String mainClassPackage;
-
-  private String providerProject = "provider";
-
-  private String consumerProject = "consumer";
-
-  private String modelProject = "model";
 
   private String applicationId = "defaultApp";
 
   private String microserviceName = "defaultService";
 
-  private String consumerTemplateFolder = "consumer";
-
-  private String providerTemplateFolder = "provider";
-
   private String modelTemplateFolder = "model";
 
-  private String apiConsumerTemplate = consumerTemplateFolder + "/apiConsumer.mustache";
+  private final Map<String, DirectoryStrategy> directoryStrategyMap = new LinkedHashMap<>();
 
-  private String apiConsumerTemplateForPojo = consumerTemplateFolder + "/pojo/apiConsumer.mustache";
-
-  private String modelConsumerTemplate = consumerTemplateFolder + "/model.mustache";
-
-  private String pojoApiImplTemplate = "apiImpl.mustache";
+  private DirectoryStrategy currentDirectoryStrategy;
 
   @Override
   public CodegenType getTag() {
@@ -120,47 +106,37 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     library.setDefault(DEFAULT_LIBRARY);
     cliOptions.add(library);
 
-    additionalProperties.put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, providerProject);
-    additionalProperties.put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, consumerProject);
-    additionalProperties.put(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME, modelProject);
+    addDirectoryStrategy(new ProviderDirectoryStrategy(), ServiceType.PROVIDER.getValue());
+    addDirectoryStrategy(new ConsumerDirectoryStrategy(), ServiceType.CONSUMER.getValue());
+    addDirectoryStrategy(new DefaultDirectoryStrategy(), ServiceType.ALL.getValue());
   }
 
   @Override
   public String modelFileFolder() {
-    return outputFolder + "/" + modelProject + "/" + sourceFolder + "/" + modelPackage().replace('.', '/');
+    return outputFolder + "/" + currentDirectoryStrategy.modelDirectory() + "/" + sourceFolder + "/" + modelPackage()
+        .replace('.', '/');
   }
 
   @Override
   public String apiFileFolder() {
-    return outputFolder + "/" + providerProject + "/" + sourceFolder + "/" + apiPackage().replace('.', '/');
+    return outputFolder + "/" + currentDirectoryStrategy.providerDirectory() + "/" + sourceFolder + "/" + apiPackage()
+        .replace('.', '/');
   }
 
   @Override
   public String apiFilename(String templateName, String tag) {
-    if (apiConsumerTemplate.equals(templateName) || apiConsumerTemplateForPojo.equals(templateName)) {
+    if (ServiceType.CONSUMER.getValue().equals(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE))
+        || ServiceType.CONSUMER.getValue().equals(additionalProperties.get(templateName))) {
       String suffix = apiTemplateFiles().get(templateName);
       return apiConsumerFolder() + File.separator + toApiFilename(tag) + suffix;
     }
 
-    if (POJO_LIBRARY.equals(getLibrary())) {
-      if ("apiImpl.mustache".equals(templateName)) {
-        String suffix = apiTemplateFiles().get(templateName);
-        return apiFileFolder() + File.separator + additionalProperties.get("classnameImpl") + suffix;
-      }
-      if ("api.mustache".equals(templateName)) {
-        String suffix = apiTemplateFiles().get(templateName);
-        return pojoApiInterfaceFolder() + File.separator + camelize(tag) + "Api" + suffix;
-      }
-    }
     return super.apiFilename(templateName, tag);
   }
 
-  private String pojoApiInterfaceFolder() {
-    return outputFolder + "/" + modelProject + "/" + sourceFolder + "/" + apiPackage().replace('.', '/');
-  }
-
   private String apiConsumerFolder() {
-    return outputFolder + "/" + consumerProject + "/" + sourceFolder + "/" + apiPackage().replace('.', '/');
+    return outputFolder + "/" + currentDirectoryStrategy.consumerDirectory() + "/" + sourceFolder + "/" + apiPackage()
+        .replace('.', '/');
   }
 
   @Override
@@ -190,64 +166,25 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     additionalProperties.put("getRelativeBasePath", new GetRelativeBasePathLambda());
     additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
+    additionalProperties.put("library", getLibrary());
+    additionalProperties.put("outputFolder", outputFolder);
+    additionalProperties.put("apiTemplateFiles", apiTemplateFiles);
+    additionalProperties.put("apiTestTemplateFiles", apiTestTemplateFiles);
+    additionalProperties.put("modelTemplateFiles", modelTemplateFiles);
+    additionalProperties.put("apiDocTemplateFiles", apiDocTemplateFiles);
 
-    if (additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME) != null) {
-      providerProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME);
-    }
-    if (additionalProperties.get(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME) != null) {
-      consumerProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME);
-    }
-    if (additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME) != null) {
-      modelProject = (String) additionalProperties.get(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME);
-    }
     if (additionalProperties.get("microserviceName") != null) {
       microserviceName = (String) additionalProperties.get("microserviceName");
     }
     additionalProperties.put("microserviceName", microserviceName);
 
-    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_ARTIFACT_ID, k -> providerProject);
-    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_ARTIFACT_ID, k -> consumerProject);
-    additionalProperties.computeIfAbsent(GeneratorExternalConfigConstant.MODEL_ARTIFACT_ID, k -> modelProject);
+    currentDirectoryStrategy = getStrategyMap()
+        .get(Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE))
+            .orElse(ServiceType.ALL.getValue()));
 
-    boolean isMultipleModule = (boolean) Optional.ofNullable(additionalProperties.get("isMultipleModule")).orElse(true);
-    if (isMultipleModule) {
-      processParentProjectOpts();
-    }
-    switch ((String) Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE)).orElse("")) {
-      case "provider":
-        processProviderProjectOpts();
-        processPojoProvider();
-        break;
-      case "consumer":
-        processConsumerProjectOpts();
-        processPojoConsumer();
-        apiTemplateFiles().remove("api.mustache");
-        break;
-      case "all":
-      default:
-        processProviderProjectOpts();
-        processPojoProvider();
-        processConsumerProjectOpts();
-        processPojoConsumer();
-    }
-    processModelProjectOpts();
-  }
-
-  private void processPojoProvider() {
-    if (!POJO_LIBRARY.equals(getLibrary())) {
-      return;
-    }
-    apiTemplateFiles.put(pojoApiImplTemplate, ".java");
-    additionalProperties.put("isPOJO", true);
-  }
-
-  private void processPojoConsumer() {
-    if (!POJO_LIBRARY.equals(getLibrary())) {
-      return;
-    }
-    apiTemplateFiles.remove(apiConsumerTemplate);
-    apiTemplateFiles.put(apiConsumerTemplateForPojo, "Consumer.java");
-    additionalProperties.put("isPOJO", true);
+    // when all additionalProperties are processed
+    currentDirectoryStrategy.addCustomProperties(additionalProperties);
+    currentDirectoryStrategy.processSupportingFile(supportingFiles);
   }
 
   @Override
@@ -255,74 +192,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     super.postProcessModelProperty(model, property);
     model.imports.remove("ApiModelProperty");
     model.imports.remove("ApiModel");
-  }
-
-  private void processModelProjectOpts() {
-    supportingFiles.add(new SupportingFile("model/pom.mustache",
-        modelProject,
-        "pom.xml")
-    );
-  }
-
-  private void processParentProjectOpts() {
-
-    supportingFiles.add(new SupportingFile("project/pom.mustache",
-        "",
-        "pom.xml")
-    );
-  }
-
-  private void processProviderProjectOpts() {
-    supportingFiles.add(new SupportingFile("pom.mustache",
-        providerProject,
-        "pom.xml")
-    );
-
-    supportingFiles.add(new SupportingFile("Application.mustache",
-        mainClassFolder(providerProject),
-        "Application.java")
-    );
-
-    supportingFiles.add(new SupportingFile("log4j2.mustache",
-        resourcesFolder(providerProject),
-        "log4j2.xml")
-    );
-
-    supportingFiles.add(new SupportingFile(providerTemplateFolder + "/microservice.mustache",
-        resourcesFolder(providerProject),
-        "microservice.yaml")
-    );
-  }
-
-  private void processConsumerProjectOpts() {
-
-    String newConsumerTemplateFolder = consumerTemplateFolder;
-
-    if (SPRING_BOOT_LIBRARY.equals(getLibrary())) {
-      newConsumerTemplateFolder += "/springboot";
-    }
-
-    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/pom.mustache",
-        consumerProject,
-        "pom.xml")
-    );
-
-    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/Application.mustache",
-        mainClassFolder(consumerProject),
-        "Application.java")
-    );
-
-    supportingFiles.add(new SupportingFile("log4j2.mustache",
-        resourcesFolder(consumerProject),
-        "log4j2.xml")
-    );
-
-    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/microservice.mustache",
-        resourcesFolder(consumerProject),
-        "microservice.yaml")
-    );
-
-    apiTemplateFiles.put(apiConsumerTemplate, ".java");
   }
 
   @Override
@@ -352,11 +221,24 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     return initialCaps(name) + "Api";
   }
 
-  private String mainClassFolder(String projectPath) {
-    return projectPath + File.separator + sourceFolder + File.separator + mainClassPackage.replace(".", File.separator);
+  /**
+   * Register a custom VersionStrategy to apply to resource URLs that match the
+   * given path patterns.
+   * @param strategy the custom strategy
+   * @param serviceTypes one or more service type,
+   * relative to the service type that represent microservice type of generated microservice project
+   * @see DirectoryStrategy
+   */
+  public void addDirectoryStrategy(DirectoryStrategy strategy, String... serviceTypes) {
+    for (String serviceType : serviceTypes) {
+      getStrategyMap().put(serviceType, strategy);
+    }
   }
 
-  private String resourcesFolder(String projectPath) {
-    return projectPath + File.separator + projectFolder + File.separator + "resources";
+  /**
+   * Return the map with directory strategies keyed by service type.
+   */
+  public Map<String, DirectoryStrategy> getStrategyMap() {
+    return this.directoryStrategyMap;
   }
 }
