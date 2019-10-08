@@ -1,16 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
+{{#isMultipleModule}}
   <parent>
     <artifactId>{{artifactId}}</artifactId>
     <groupId>{{groupId}}</groupId>
     <version>{{artifactVersion}}</version>
   </parent>
+{{/isMultipleModule}}
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>consumer</artifactId>
+  <artifactId>{{consumerArtifactId}}</artifactId>
   <packaging>jar</packaging>
-  <name>consumer</name>
+{{^isMultipleModule}}
+  <groupId>{{groupId}}</groupId>
+  <version>{{artifactVersion}}</version>
+{{/isMultipleModule}}
+  <name>{{consumerArtifactId}}</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,11 +36,13 @@
   </dependencyManagement>
 
   <dependencies>
+  {{#isMultipleModule}}
     <dependency>
       <groupId>{{groupId}}</groupId>
-      <artifactId>model</artifactId>
+      <artifactId>{{modelArtifactId}}</artifactId>
       <version>${project.version}</version>
     </dependency>
+  {{/isMultipleModule}}
 
     <dependency>
       <groupId>org.springframework.boot</groupId>

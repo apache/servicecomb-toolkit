@@ -1,7 +1,7 @@
 {{#operation}}
 
   @RequestMapping(value = "{{path}}", {{#hasProduces}}produces = { {{#produces}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }, {{/hasProduces}} {{#hasConsumes}}consumes = { {{#consumes}}"{{mediaType}}"{{#hasMore}}, {{/hasMore}}{{/consumes}} },{{/hasConsumes}} method = RequestMethod.{{httpMethod}})
-  public ResponseEntity<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+  public ResponseEntity<{{>returnTypes}}> {{operationId}}({{#allParams}}{{>libraries/SpringBoot/queryParams}}{{>libraries/SpringBoot/pathParams}}{{>libraries/SpringBoot/headerParams}}{{>libraries/SpringBoot/bodyParams}}{{>libraries/SpringBoot/formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
     // do something
 
     return new ResponseEntity<{{>returnTypes}}>(HttpStatus.OK);

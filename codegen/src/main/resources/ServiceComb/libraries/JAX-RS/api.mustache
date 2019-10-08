@@ -26,7 +26,7 @@ public class {{classname}} {
   {{#hasProduces}}@Produces({ {{#produces}}"{{{mediaType}}}"{{#hasMore}}, {{/hasMore}}{{/produces}} }){{/hasProduces}}
   @Path("{{{path}}}")
   @{{httpMethod}}
-  public {{>returnTypes}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
+  public {{>returnTypes}} {{nickname}}({{#allParams}}{{>libraries/JAX-RS/queryParams}}{{>libraries/JAX-RS/pathParams}}{{>libraries/JAX-RS/headerParams}}{{>libraries/JAX-RS/bodyParams}}{{>libraries/JAX-RS/formParams}}{{#hasMore}},{{/hasMore}}{{/allParams}}) {
 
     // do something
 

@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class {{classname}} {
   {{#operation}}
 
-  public {{>returnTypes}} {{operationId}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
+  public {{>returnTypes}} {{operationId}}({{#allParams}}{{>libraries/POJO/queryParams}}{{>libraries/POJO/pathParams}}{{>libraries/POJO/headerParams}}{{>libraries/POJO/bodyParams}}{{>libraries/POJO/formParams}}{{#hasMore}}, {{/hasMore}}{{/allParams}}) {
     // do something
 
     return null;

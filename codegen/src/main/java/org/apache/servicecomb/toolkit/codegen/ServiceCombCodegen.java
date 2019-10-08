@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import static org.openapitools.codegen.utils.StringUtils.camelize;
+
 import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,18 +26,17 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openapitools.codegen.CliOption;
+import org.openapitools.codegen.CodegenConstants;
+import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.CodegenProperty;
+import org.openapitools.codegen.CodegenType;
+import org.openapitools.codegen.SupportingFile;
+import org.openapitools.codegen.languages.SpringCodegen;
 
-import io.swagger.codegen.CliOption;
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenConstants;
-import io.swagger.codegen.CodegenModel;
-import io.swagger.codegen.CodegenProperty;
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.languages.AbstractJavaCodegen;
-import io.swagger.codegen.languages.SpringCodegen;
 import io.swagger.codegen.mustache.CamelCaseLambda;
 
-public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenConfig {
+public class ServiceCombCodegen extends AbstractJavaCodegenExt {
 
   public static final String DEFAULT_LIBRARY = "SpringMVC";
 
@@ -77,10 +78,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
 
     outputFolder = "generated-code/ServiceComb";
 
-    modelDocTemplateFiles.remove("model_doc.mustache");
-    apiDocTemplateFiles.remove("api_doc.mustache");
-    apiTestTemplateFiles.remove("api_test.mustache");
-
     embeddedTemplateDir = templateDir = "ServiceComb";
     modelTemplateFiles.put(modelTemplateFolder + "/model.mustache", ".java");
     modelTemplateFiles.remove("model.mustache");
@@ -101,7 +98,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     setLibrary(DEFAULT_LIBRARY);
 
     CliOption library = new CliOption(CodegenConstants.LIBRARY, "library template (sub-template) to use");
-    library.setDefault(DEFAULT_LIBRARY);
     library.setEnum(supportedLibraries);
     library.setDefault(DEFAULT_LIBRARY);
     cliOptions.add(library);
@@ -143,7 +139,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
   public Map<String, Object> postProcessOperationsWithModels(Map<String, Object> objs, List<Object> allModels) {
 
     Map operations = (Map) objs.get("operations");
-    String classnameImpl = (String) operations.get("classname") + "Impl";
+    String classnameImpl = operations.get("classname") + "Impl";
     operations.put("classnameImpl", classnameImpl);
     additionalProperties.put("classnameImpl", classnameImpl);
     return super.postProcessOperationsWithModels(objs, allModels);
@@ -164,7 +160,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
     additionalProperties.put("getRelativeBasePath", new GetRelativeBasePathLambda());
-    additionalProperties.put("removeImplSuffix", new RemoveImplSuffixLambda());
     additionalProperties.put("applicationId", applicationId);
     additionalProperties.put("library", getLibrary());
     additionalProperties.put("outputFolder", outputFolder);
@@ -202,12 +197,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
   }
 
   @Override
-  public Map<String, Object> postProcessOperations(Map<String, Object> objs) {
-    SpringCodegen springCodegen = new SpringCodegen();
-    return springCodegen.postProcessOperations(objs);
-  }
-
-  @Override
   public String toApiName(String name) {
     if (name.length() == 0) {
       return "DefaultApi";
@@ -218,7 +207,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegen implements CodegenCo
       return apiName;
     }
 
-    return initialCaps(name) + "Api";
+    return camelize(name) + "Api";
   }
 
   /**

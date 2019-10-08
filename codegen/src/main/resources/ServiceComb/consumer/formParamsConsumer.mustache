@@ -1,1 +1,1 @@
-{{#isFormParam}}{{#notFile}}{{{dataType}}} {{paramName}}{{/notFile}}{{#isFile}} {{#isPOJO}}File{{/isPOJO}}{{^isPOJO}}MultipartFile{{/isPOJO}} {{baseName}}{{/isFile}}{{/isFormParam}}
+{{#isFormParam}}{{^isFile}}{{{dataType}}} {{paramName}}{{/isFile}}{{#isFile}} {{#isPOJO}}File{{/isPOJO}}{{^isPOJO}}MultipartFile{{/isPOJO}} {{baseName}}{{/isFile}}{{/isFormParam}}

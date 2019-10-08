@@ -207,3 +207,9 @@ For codegen/src/test/resources/swagger.yaml
 ================================================================
 This product bundles files from swagger-codegen which is licensed under the Apache License v2.
 For details, see https://github.com/swagger-api/swagger-codegen
+
+================================================================
+For codegen/src/main/resources/examples/*
+================================================================
+This product bundles files from swagger-codegen which is licensed under the Apache License v2.
+For details, see https://github.com/OAI/OpenAPI-Specification

@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import io.swagger.codegen.SupportingFile;
+import org.openapitools.codegen.SupportingFile;
 
 public class DefaultDirectoryStrategy implements DirectoryStrategy<List<SupportingFile>> {
 

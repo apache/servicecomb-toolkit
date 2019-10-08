@@ -22,7 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import io.swagger.codegen.SupportingFile;
+import org.openapitools.codegen.SupportingFile;
 
 public class ProviderDirectoryStrategy implements DirectoryStrategy<List<SupportingFile>> {
 
