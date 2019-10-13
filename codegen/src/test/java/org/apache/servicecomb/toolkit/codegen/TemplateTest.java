@@ -32,15 +32,23 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.api.TemplatingEngineAdapter;
+import org.openapitools.codegen.templating.MustacheEngineAdapter;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenModel;
 import io.swagger.models.Model;
 import io.swagger.models.Swagger;
+import io.swagger.parser.OpenAPIParser;
 import io.swagger.parser.SwaggerParser;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.parser.core.models.ParseOptions;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 public class TemplateTest {
 
@@ -79,7 +87,7 @@ public class TemplateTest {
   @Test
   public void generateApisWithModel() throws IOException {
     ServiceCombCodegen config = new ServiceCombCodegen();
-
+    TemplatingEngineAdapter templateEngine = new MustacheEngineAdapter();
     Map<String, Object> templateData = readSwaggerModelInfo("with-model.yaml", config);
 
     assertNotNull(templateData);
@@ -99,20 +107,28 @@ public class TemplateTest {
     });
   }
 
-
   private Map<String, Object> readSwaggerModelInfo(String swaggerYamlFile, CodegenConfig config) throws IOException {
 
     Map<String, Object> templateData = new HashMap<>();
     String swaggerString = readResourceInClasspath(swaggerYamlFile);
     Swagger swagger = new SwaggerParser().parse(swaggerString);
+
+    ParseOptions options = new ParseOptions();
+    options.setResolve(true);
+    options.setFlatten(true);
+    SwaggerParseResult result = new OpenAPIParser().readContents(swaggerString, null, options);
+    OpenAPI openAPI = result.getOpenAPI();
+
+    Components components = openAPI.getComponents();
+
     Map<String, Model> definitions = swagger.getDefinitions();
     if (definitions == null) {
       return templateData;
     }
     List<Map<String, String>> imports = new ArrayList<Map<String, String>>();
-    for (String key : definitions.keySet()) {
-      Model mm = definitions.get(key);
-      CodegenModel cm = config.fromModel(key, mm, definitions);
+    for (String key : components.getSchemas().keySet()) {
+      Schema mm = components.getSchemas().get(key);
+      CodegenModel cm = config.fromModel(key, mm);
       Map<String, String> item = new HashMap<String, String>();
       item.put("import", config.toModelImport(cm.classname));
       imports.add(item);

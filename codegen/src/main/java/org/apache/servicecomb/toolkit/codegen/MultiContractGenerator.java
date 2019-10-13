@@ -27,9 +27,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-import io.swagger.codegen.ClientOptInput;
-import io.swagger.codegen.DefaultGenerator;
-import io.swagger.codegen.Generator;
+import org.openapitools.codegen.ClientOptInput;
+import org.openapitools.codegen.DefaultGenerator;
+import org.openapitools.codegen.Generator;
 
 public class MultiContractGenerator extends DefaultGenerator {
 

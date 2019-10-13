@@ -278,7 +278,8 @@
             <!-- Skip template files -->
             <exclude>**/**.mustache</exclude>
             <!-- Skip test template files -->
-            <exclude>**/swagger.yaml</exclude>
+            <exclude>**/src/test/resources/**/*.yaml</exclude>
+            <exclude>**/src/test/resources/**/*.json</exclude>
           </excludes>
         </configuration>
       </plugin>

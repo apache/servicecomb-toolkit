@@ -23,10 +23,9 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.swagger.codegen.CodegenConfig;
-import io.swagger.codegen.CodegenConfigLoader;
-import io.swagger.codegen.SupportingFile;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenConfigLoader;
+import org.openapitools.codegen.SupportingFile;
 
 public class ServiceCombCodegenTest {
 
@@ -91,6 +90,18 @@ public class ServiceCombCodegenTest {
     Assert.assertEquals("consumer", defaultDirectoryStrategy.consumerDirectory());
     Assert.assertEquals("provider", defaultDirectoryStrategy.providerDirectory());
     Assert.assertEquals("model", defaultDirectoryStrategy.modelDirectory());
+  }
 
+  @Test
+  public void defaultValue(){
+    CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
+    Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
+    ServiceCombCodegen serviceCombCodegen = (ServiceCombCodegen)codegenConfig;
+    serviceCombCodegen.processOpts();
+
+    Map<String, Object> additionalProperties = serviceCombCodegen.additionalProperties();
+    Assert.assertEquals("domain.orgnization.project.sample",additionalProperties.get("mainClassPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.api",additionalProperties.get("apiPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.model",additionalProperties.get("modelPackage"));
   }
 }

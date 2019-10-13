@@ -40,9 +40,9 @@ public class {{classname}} {
     headers.add("{{paramName}}",{{paramName}});
     {{/isHeaderParam}}
     {{#isFormParam}}
-    {{#notFile}}
+    {{^isFile}}
     httpEntity =  new HttpEntity<{{{dataType}}}>({{paramName}}, headers);
-    {{/notFile}}
+    {{/isFile}}
     {{#isFile}}
     httpEntity =  new HttpEntity<MultipartFile>({{paramName}}, headers);
     {{/isFile}}
@@ -54,7 +54,7 @@ public class {{classname}} {
 
     RestTemplate restTemplate = RestTemplateBuilder.create();
 
-    ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}{{#getRelativeBasePath}}{{basePath}}{{/getRelativeBasePath}}/{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
+    ResponseEntity<{{>returnTypes}}> result = restTemplate.exchange("cse://{{microserviceName}}{{#getRelativeBasePath}}{{basePath}}{{/getRelativeBasePath}}{{path}}",HttpMethod.{{httpMethod}},httpEntity,{{#getGenericClassType}}{{>returnTypes}}{{/getGenericClassType}}.class,params);
 
     // do something
 

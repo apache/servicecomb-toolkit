@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
@@ -41,8 +42,7 @@ import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
-
-import io.swagger.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.config.CodegenConfigurator;
 
 class GenerateUtil {
 
@@ -166,14 +166,15 @@ class GenerateUtil {
   private static void commonConfig(CodegenConfigurator configurator, ServiceConfig service) {
 
     configurator
-        .setLang("ServiceComb")
+        .setGeneratorName("ServiceComb")
         .setApiPackage(service.getPackageName())
         .setGroupId(service.getGroupId())
         .setArtifactId(service.getArtifactId())
         .setModelPackage(service.getPackageName())
         .setLibrary(service.getProgrammingModel())
-        .addAdditionalProperty("mainClassPackage", service.getPackageName())
+        .addAdditionalProperty("mainClassPackage", Optional.ofNullable(service.getPackageName()).orElse(""))
         .setArtifactVersion(service.getArtifactVersion())
-        .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE, service.getServiceType());
+        .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE,
+            Optional.ofNullable(service.getServiceType()).orElse("all"));
   }
 }

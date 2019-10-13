@@ -30,9 +30,8 @@ import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.junit.Assert;
 import org.junit.Test;
-
-import io.swagger.codegen.CodegenType;
-import io.swagger.codegen.config.CodegenConfigurator;
+import org.openapitools.codegen.CodegenType;
+import org.openapitools.codegen.config.CodegenConfigurator;
 
 public class GeneratorTest {
 
@@ -40,20 +39,20 @@ public class GeneratorTest {
   public void testGenerateProgrammingModels()
       throws IOException, URISyntaxException, NoSuchFieldException, IllegalAccessException {
 
-    generateCode("SpringMVC");
-    generateCode("POJO");
-    generateCode("JAX-RS");
-    generateCode("SpringBoot");
+    generateServiceCombCode("SpringMVC");
+    generateServiceCombCode("POJO");
+    generateServiceCombCode("JAX-RS");
+    generateServiceCombCode("SpringBoot");
   }
 
-  private void generateCode(String programmingModel)
+  private void generateServiceCombCode(String programmingModel)
       throws IOException, URISyntaxException, IllegalAccessException, NoSuchFieldException {
 
     Path tempDir = Files.createTempDirectory(null);
     Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
     CodegenConfigurator configurator = new CodegenConfigurator();
 
-    configurator.setLang("ServiceComb");
+    configurator.setGeneratorName("ServiceComb");
     configurator.setLibrary(programmingModel);
     configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/ServiceComb");
     configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
@@ -90,5 +89,6 @@ public class GeneratorTest {
     CodeGenerator unknownCodeGenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "unknown");
     Assert.assertNull(unknownCodeGenerator);
   }
+
 }
 

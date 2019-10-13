@@ -27,12 +27,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Objects;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.common.FileUtils;
 import org.junit.Rule;
@@ -104,6 +106,7 @@ public class GenerateMojoTest {
       assertNotEquals(0, Objects.requireNonNull(new File(projectOutput).listFiles()).length);
       assertNotEquals(0, Objects.requireNonNull(new File(documentOutput).listFiles()).length);
     } catch (RuntimeException e) {
+      e.printStackTrace();
       fail("Run 'testGenerateMojo' failed, unexpected to catch RuntimeException: " + e.getMessage());
     }
 
