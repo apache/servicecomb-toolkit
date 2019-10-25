@@ -130,7 +130,6 @@ class GenerateUtil {
                   file.getParent().getFileName() + consumerProjectNameSuffix)
               .addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME,
                   file.getParent().getFileName() + modelProjectNameSuffix)
-              .setArtifactId(file.getParent().getFileName().toString())
               .addAdditionalProperty("apiName", file.toFile().getName().split("\\.")[0])
               .addAdditionalProperty("microserviceName", file.getParent().getFileName().toString());
 

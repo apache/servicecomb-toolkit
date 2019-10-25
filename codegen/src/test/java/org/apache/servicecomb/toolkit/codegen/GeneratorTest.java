@@ -90,5 +90,39 @@ public class GeneratorTest {
     Assert.assertNull(unknownCodeGenerator);
   }
 
+  @Test
+  public void generateSpringCloudProject()
+      throws IOException, URISyntaxException, IllegalAccessException, NoSuchFieldException {
+
+    Path tempDir = Files.createTempDirectory(null);
+    Path specFilePath = Paths.get(GeneratorTest.class.getClassLoader().getResource("swagger.yaml").toURI());
+    CodegenConfigurator configurator = new CodegenConfigurator();
+
+    configurator.setGeneratorName("SpringCloud");
+    configurator.setOutputDir(tempDir.toFile().getCanonicalPath() + "/SpringCloud");
+    configurator.setInputSpec(specFilePath.toFile().getCanonicalPath());
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, "mock-provider");
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, "mock-consumer");
+    configurator.addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME, "mock-model");
+    DefaultCodeGenerator codeGenerator = new DefaultCodeGenerator();
+    codeGenerator.configure(Collections.singletonMap("configurators", Collections.singletonList(configurator)));
+
+    try {
+      codeGenerator.generate();
+    } catch (RuntimeException e) {
+      fail("Run 'testGenerateProgrammingModels' failed. Unexpected to catch RuntimeException: " + e.getMessage());
+    }
+
+    Object internalGenerator = ReflectUtils.getProperty(codeGenerator, "generator");
+    Assert.assertEquals(MultiContractGenerator.class, internalGenerator.getClass());
+    Object swaggerCodegenConfig = ReflectUtils.getProperty(internalGenerator, "config");
+    Assert.assertEquals(SpringCloudCodegen.class, swaggerCodegenConfig.getClass());
+    Assert.assertEquals("SpringCloud", ((SpringCloudCodegen) swaggerCodegenConfig).getName());
+    Assert.assertEquals(CodegenType.SERVER, ((SpringCloudCodegen) swaggerCodegenConfig).getTag());
+    Assert
+        .assertEquals("Generates a SpringCloud server library.", ((SpringCloudCodegen) swaggerCodegenConfig).getHelp());
+
+    tempDir.toFile().deleteOnExit();
+  }
 }
 

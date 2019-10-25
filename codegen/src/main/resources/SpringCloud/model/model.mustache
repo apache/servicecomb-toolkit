@@ -1,0 +1,18 @@
+package {{package}};
+
+{{#imports}}import {{import}};
+{{/imports}}
+{{#withXml}}
+import javax.xml.bind.annotation.*;
+{{/withXml}}
+
+{{#models}}
+{{#model}}
+{{#isEnum}}
+{{>model/enumOuterClass}}
+{{/isEnum}}
+{{^isEnum}}
+{{>model/pojo}}
+{{/isEnum}}
+{{/model}}
+{{/models}}
