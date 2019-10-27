@@ -17,11 +17,11 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-public class ProjectMetaConstant {
+public enum MicroServiceFramework {
 
-  public static final String SERVICE_TYPE = "serviceType";
+  // ServiceComb
+  SERVICECOMB,
 
-  public static final String PROVIDER_SERVICE_ID = "providerServiceId";
-
-  public static final String SERVICE_ID = "serviceId";
+  // SpringCloud
+  SPRINGCLOUD
 }

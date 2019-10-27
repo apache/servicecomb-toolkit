@@ -41,6 +41,7 @@ import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
+import org.apache.servicecomb.toolkit.codegen.MicroServiceFramework;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 import org.openapitools.codegen.config.CodegenConfigurator;
 
@@ -165,15 +166,22 @@ class GenerateUtil {
   private static void commonConfig(CodegenConfigurator configurator, ServiceConfig service) {
 
     configurator
-        .setGeneratorName("ServiceComb")
+        .setGeneratorName(service.getMicroServiceFramework())
         .setApiPackage(service.getPackageName())
         .setGroupId(service.getGroupId())
         .setArtifactId(service.getArtifactId())
         .setModelPackage(service.getPackageName())
-        .setLibrary(service.getProgrammingModel())
         .addAdditionalProperty("mainClassPackage", Optional.ofNullable(service.getPackageName()).orElse(""))
         .setArtifactVersion(service.getArtifactVersion())
         .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE,
-            Optional.ofNullable(service.getServiceType()).orElse("all"));
+            Optional.ofNullable(service.getServiceType()).orElse("all"))
+        .addAdditionalProperty(ProjectMetaConstant.SERVICE_ID, service.getServiceId());
+
+    Optional.ofNullable(service.getProviderServiceId()).ifPresent(providerServiceId -> configurator
+        .addAdditionalProperty(ProjectMetaConstant.PROVIDER_SERVICE_ID, service.getProviderServiceId()));
+
+    if (MicroServiceFramework.SERVICECOMB.name().equalsIgnoreCase(service.getMicroServiceFramework())) {
+      configurator.setLibrary(service.getProgrammingModel());
+    }
   }
 }

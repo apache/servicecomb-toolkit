@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class {{classname}}Consumer{
 
-  @RpcReference(microserviceName = "{{microserviceName}}", schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
+  @RpcReference(microserviceName = "{{providerServiceId}}", schemaId = "{{#camelcase}}{{classname}}{{/camelcase}}")
   private {{classname}} api;
 
 {{#operation}}

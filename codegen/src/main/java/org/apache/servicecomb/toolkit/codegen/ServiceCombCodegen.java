@@ -48,7 +48,7 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
 
   private String applicationId = "defaultApp";
 
-  private String microserviceName = "defaultService";
+  private String serviceId = "defaultService";
 
   private String modelTemplateFolder = "model";
 
@@ -155,10 +155,10 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
     additionalProperties.put("modelTemplateFiles", modelTemplateFiles);
     additionalProperties.put("apiDocTemplateFiles", apiDocTemplateFiles);
 
-    if (additionalProperties.get("microserviceName") != null) {
-      microserviceName = (String) additionalProperties.get("microserviceName");
+    if (additionalProperties.get(ProjectMetaConstant.SERVICE_ID) != null) {
+      serviceId = (String) additionalProperties.get(ProjectMetaConstant.SERVICE_ID);
     }
-    additionalProperties.put("microserviceName", microserviceName);
+    additionalProperties.put(ProjectMetaConstant.SERVICE_ID, serviceId);
 
     currentDirectoryStrategy = getStrategyMap()
         .get(Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE))
