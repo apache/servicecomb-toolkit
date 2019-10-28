@@ -1,0 +1,10 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.EncodingDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.HeaderDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.MediaTypeDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.OperationDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.ParameterDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.PathItemDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.RequestBodyDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.ResponseDiffValidatorsConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compatibility.config.SchemaDiffValidatorsConfiguration

@@ -1,0 +1,587 @@
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements.  See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>README</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; tab-size: 4; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror-linenumber { }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h1><a name='header-n0' class='md-header-anchor '></a>OAS Validator</h1><p>OpenAPI V3 Spec校验工具。</p><div class='md-toc' mdtype='toc'><p class="md-toc-content"><span class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#header-n0">OAS Validator</a></span><span class="md-toc-item md-toc-h2" data-ref="n4"><a class="md-toc-inner" href="#header-n4">项目结构</a></span><span class="md-toc-item md-toc-h2" data-ref="n20"><a class="md-toc-inner" href="#header-n20">合规性校验</a></span><span class="md-toc-item md-toc-h3" data-ref="n22"><a class="md-toc-inner" href="#header-n22">一些字符串匹配规则</a></span><span class="md-toc-item md-toc-h3" data-ref="n30"><a class="md-toc-inner" href="#header-n30">OpenAPI Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n46"><a class="md-toc-inner" href="#header-n46">Info Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n51"><a class="md-toc-inner" href="#header-n51">Tag Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n60"><a class="md-toc-inner" href="#header-n60">Paths Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n68"><a class="md-toc-inner" href="#header-n68">Path Item Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n75"><a class="md-toc-inner" href="#header-n75">Operation Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n92"><a class="md-toc-inner" href="#header-n92">Parameter Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n108"><a class="md-toc-inner" href="#header-n108">Request Body Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n115"><a class="md-toc-inner" href="#header-n115">Media Type Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n122"><a class="md-toc-inner" href="#header-n122">Responses Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n127"><a class="md-toc-inner" href="#header-n127">Response Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n139"><a class="md-toc-inner" href="#header-n139">Schema Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n149"><a class="md-toc-inner" href="#header-n149">Encoding Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n157"><a class="md-toc-inner" href="#header-n157">Header Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n166"><a class="md-toc-inner" href="#header-n166">Components Object doc</a></span><span class="md-toc-item md-toc-h2" data-ref="n200"><a class="md-toc-inner" href="#header-n200">兼容性检查</a></span><span class="md-toc-item md-toc-h3" data-ref="n210"><a class="md-toc-inner" href="#header-n210">Paths Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n218"><a class="md-toc-inner" href="#header-n218">Path Item Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n223"><a class="md-toc-inner" href="#header-n223">Operation Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n241"><a class="md-toc-inner" href="#header-n241">Parameter Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n261"><a class="md-toc-inner" href="#header-n261">Request Body Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n271"><a class="md-toc-inner" href="#header-n271">Media Type Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n281"><a class="md-toc-inner" href="#header-n281">Responses Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n290"><a class="md-toc-inner" href="#header-n290">Response Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n303"><a class="md-toc-inner" href="#header-n303">Schema Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n312"><a class="md-toc-inner" href="#header-n312">用做请求时</a></span><span class="md-toc-item md-toc-h3" data-ref="n372"><a class="md-toc-inner" href="#header-n372">用做响应时</a></span><span class="md-toc-item md-toc-h3" data-ref="n426"><a class="md-toc-inner" href="#header-n426">Encoding Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n443"><a class="md-toc-inner" href="#header-n443">Header Object doc</a></span><span class="md-toc-item md-toc-h3" data-ref="n448"><a class="md-toc-inner" href="#header-n448">Components Object doc</a></span></p></div><h2><a name='header-n4' class='md-header-anchor '></a>项目结构</h2><ul><li>oas-validator-core，核心API及骨架实现</li><li>oas-validator-core-spring，骨架的Spring Boot Autoconfiguration</li><li>oas-validator-test，核心API的测试帮助类</li><li>oas-validator-compliance，合规性校验实现</li><li>oas-validator-compliance-spring，合规性校验的Spring Boot Autoconfiguration</li><li>oas-validator-compatibility，兼容性校验实现</li><li>oas-validator-compatibility-spring，兼容性校验实现的Spring Boot Autoconfiguration</li></ul><h2><a name='header-n20' class='md-header-anchor '></a>合规性校验</h2><p>OAS必须符合<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md' target='_blank'>OAS 3.0.2规范</a>（比如属性的名称、REQUIED要求）。除此之外则是我们自己的定义的合规性检查。</p><h3><a name='header-n22' class='md-header-anchor '></a>一些字符串匹配规则</h3><ul><li><a name="lower-camel-case"></a>Lower Camel Case：首字母小写的驼峰，对应的正则<code>^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$</code></li><li><a name="upper-camel-case"></a>Upper Camel Case：首字母大写的驼峰，对应的正则<code>^[A-Z]([a-z0-9]+[A-Z]?)*$</code></li><li><a name="upper-hyphen-case"></a>Upper Hyphen Case：单词首字母大写，多个单词用<code>-</code>连接，比如<code>Content-Type</code>、<code>Accept</code>、<code>X-Rate-Limit-Limit</code>。对应的正则：<code>^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$</code></li></ul><h3><a name='header-n30' class='md-header-anchor '></a>OpenAPI Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object' target='_blank'>doc</a></h3><p><a name="openapi-compliance"></a></p><ul><li><p><code>openapi</code>属性必须为3.0.x且&gt;=3.0.2</p></li><li><p><code>info</code>属性见<a href='#info-compliance'>Info Object合规性检查</a></p></li><li><p><code>paths</code>属性，必须提供见<a href='#paths-compliance'>Paths Object合规性检查</a></p></li><li><p><code>components</code>属性见<a href='#components-compliance'>Components Object合规性检查</a></p></li><li><p><code>tags</code>属性，至少提供一个<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject' target='_blank'>Tag Object</a></p><ul><li>见<a href='#tag-compliance'>Tag Object合规性检查</a></li></ul></li></ul><h3><a name='header-n46' class='md-header-anchor '></a>Info Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject' target='_blank'>doc</a></h3><p><a name="info-compliance"></a></p><ul><li><code>description</code>属性，必须填写</li></ul><h3><a name='header-n51' class='md-header-anchor '></a>Tag Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject' target='_blank'>doc</a></h3><p><a name="tag-compliance"></a></p><ul><li><code>name</code>属性，必须是<a href='#upper-camel-case'>Upper Camel Case</a></li><li><code>description</code>属性，必须填写</li><li>不得存在<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject' target='_blank'>Operation Object</a>没有引用过的tag</li></ul><h3><a name='header-n60' class='md-header-anchor '></a>Paths Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object' target='_blank'>doc</a></h3><p><a name="paths-compliance"></a></p><ul><li><p>path必须是<a href='#lower-camel-case'>Lower Camel Case</a>，包括<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating' target='_blank'>Path Templating</a>中的变量</p><ul><li>见<a href='#path-item-compliance'>Path Item Object合规性检查</a></li></ul></li></ul><h3><a name='header-n68' class='md-header-anchor '></a>Path Item Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject' target='_blank'>doc</a></h3><p><a name="path-item-compliance"></a></p><ul><li><code>get/post/put/delete/...</code>属性，见<a href='operation-compliance'>Operation Object合规性检查</a></li><li><code>parameters</code>属性，见<a href='#parameter-compliance'>Parameter Object合规性检查</a></li></ul><h3><a name='header-n75' class='md-header-anchor '></a>Operation Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject' target='_blank'>doc</a></h3><p><a name="operation-compliance"></a></p><ul><li><code>summary</code>属性、必须填写</li><li><code>operationId</code>属性，且<a href='#lower-camel-case'>Lower Camel Case</a></li><li><code>parameters</code>属性，见<a href='#parameter-compliance'>Parameter Object合规性检查</a></li><li><code>requestBody</code>属性，见<a href='#request-body-compliance'>Request Body Object合规性检查</a></li><li><code>responses</code>属性，见<a href='#responses-compliance'>Responses Object合规性检查</a></li><li><code>tags</code>属性，且只能写一个tag，且必须在<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object' target='_blank'>OpenAPI Object</a> 的 <code>tags</code>属性里所定义的范围内</li><li><code>servers</code>属性，不允许提供</li></ul><h3><a name='header-n92' class='md-header-anchor '></a>Parameter Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>doc</a></h3><p><a name="parameter-compliance"></a></p><ul><li><p><code>description</code>属性，必须填写</p></li><li><p><code>name</code>属性</p><ul><li>如果<code>in</code>为path、query、cookie，则那么必须是<a href='#lower-camel-case'>Lower Camel Case</a></li><li>如果<code>in</code>为header，则那么必须是<a href='#upper-hyphen-case'>Upper Hyphen Case</a></li></ul></li><li><p><code>schema</code>属性，见<a href='#schema-compliance'>Schema Object合规性检查</a></p></li><li><p><code>content</code>属性，见<a href='#media-type-compliance'>Media Type Object合规性检查</a></p></li></ul><h3><a name='header-n108' class='md-header-anchor '></a>Request Body Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject' target='_blank'>doc</a></h3><p><a name="request-body-compliance"></a></p><ul><li><code>description</code>属性，必须填写</li><li><code>content</code>属性，见<a href='#media-type-compliance'>Media Type Object合规性检查</a></li></ul><h3><a name='header-n115' class='md-header-anchor '></a>Media Type Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object' target='_blank'>doc</a></h3><p><a name="media-type-compliance"></a></p><ul><li><code>schema</code>属性，必须填写。见<a href='#schema-compliance'>Schema Object合规性检查</a></li><li><code>encoding</code>属性，见<a href='#encoding-compliance'>Encoding Object合规性检查</a></li></ul><h3><a name='header-n122' class='md-header-anchor '></a>Responses Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject' target='_blank'>doc</a></h3><p><a name="responses-compliance"></a></p><ul><li>见<a href='#response-compliance'>Response Object合规性检查</a></li></ul><h3><a name='header-n127' class='md-header-anchor '></a>Response Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object' target='_blank'>doc</a></h3><p><a name="response-compliance"></a></p><ul><li><p><code>description</code>属性，必须填写</p></li><li><p><code>headers</code>属性，name（<code>headers</code>的key）必须是<a href='#upper-hyphen-case'>Upper Hyphen Case</a></p><ul><li>见<a href='#header-compliance'>Header Object合规性检查</a></li></ul></li><li><p><code>content</code>属性，见<a href='#media-type-compliance'>Media Type Object合规性检查</a></p></li></ul><h3><a name='header-n139' class='md-header-anchor '></a>Schema Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject' target='_blank'>doc</a></h3><p><a name="schema-compliance"></a></p><ul><li><p><code>title</code>属性，如果上级是<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject' target='_blank'>Schema Object</a>或<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object' target='_blank'>Components Object</a>，那么必须填写</p></li><li><p><code>properties</code>属性，name（<code>properties</code>的key）必须是<a href='#lower-camel-case'>Lower Camel Case</a></p><ul><li>Sub Schema见<a href='#schema-compliance'>Schema Object合规性检查</a></li></ul></li></ul><h3><a name='header-n149' class='md-header-anchor '></a>Encoding Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject' target='_blank'>doc</a></h3><p><a name="encoding-compliance"></a></p><ul><li><p><code>headers</code>属性，name（<code>headers</code>的key）必须是<a href='#upper-hyphen-case'>Upper Hyphen Case</a></p><ul><li>见<a href='#header-compliance'>Header Object合规性检查</a></li></ul></li></ul><h3><a name='header-n157' class='md-header-anchor '></a>Header Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>doc</a></h3><p><a name="header-compliance"></a></p><ul><li><code>description</code>属性，必须填写</li><li><code>schema</code>属性，见<a href='#schema-compliance'>Schema Object合规性检查</a></li><li><code>content</code>属性，见<a href='#media-type-compliance'>Media Type Object合规性检查</a></li></ul><h3><a name='header-n166' class='md-header-anchor '></a>Components Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object' target='_blank'>doc</a></h3><p><a name="components-compliance"></a></p><ul><li><p><code>schemas</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p><ul><li>见<a href='#schema-compliance'>Schema Object合规性检查</a></li></ul></li><li><p><code>responses</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p><ul><li>见<a href='#response-compliance'>Response Object合规性检查</a></li></ul></li><li><p><code>parameters</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p><ul><li>见<a href='#parameter-compliance'>Parameter Object合规性检查</a></li></ul></li><li><p><code>examples</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p></li><li><p><code>requestBodies</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p><ul><li>见<a href='#request-body-compliance'>Request Body合规性检查</a></li></ul></li><li><p><code>headers</code>属性，name必须是<a href='#upper-hyphen-case'>Upper Hyphen Case</a></p><ul><li>见<a href='#header-compliance'>Header合规性检查</a></li></ul></li><li><p><code>links</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p></li><li><p><code>callbacks</code>属性，name必须是<a href='#upper-camel-case'>Upper Camel Case</a></p></li></ul><h2><a name='header-n200' class='md-header-anchor '></a>兼容性检查</h2><p>对新旧两个版本的OAS做兼容性检查。</p><p>OAS可以使用<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object' target='_blank'>Reference Object</a>来描述Spec，两个不同的OAS会出现描述不同但语义相同的情况。比如下面的旧OAS没有使用<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object' target='_blank'>Reference Object</a>，而新OAS则使用了的情况：</p><p>旧OAS</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="yaml" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">openapi</span><span class="cm-meta">: </span><span class="cm-string">"3.0.0"</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">info</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  version</span><span class="cm-meta">: </span><span class="cm-number">1.0.0</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  title</span><span class="cm-meta">: </span>Swagger Petstore</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  license</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp;  name</span><span class="cm-meta">: </span>MIT</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">servers</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">  - </span><span class="cm-atom">url</span><span class="cm-meta">: </span>http<span class="cm-meta">:</span>//petstore.swagger.io/v1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">paths</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  /pets</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp;  post</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  summary</span><span class="cm-meta">: </span>List all pets</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  operationId</span><span class="cm-meta">: </span>listPets</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  requestBody</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  content</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp;  application/json</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  schema</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>array</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  items</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>object</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  properties</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Foo</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>string</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  responses</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  '200'</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp;  description</span><span class="cm-meta">: </span>A paged array of pets</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 572px;"></div><div class="CodeMirror-gutters" style="display: none; height: 572px;"></div></div></div></pre><p>新OAS</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="yaml" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="yaml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">paths</span><span class="cm-meta">:</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  /pets</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp;  post</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  operationId</span><span class="cm-meta">: </span>listPets</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  requestBody</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  content</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp;  application/json</span><span class="cm-meta">: </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  schema</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  $ref</span><span class="cm-meta">: </span><span class="cm-string">'#/components/schemas/Foo'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  responses</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  '200'</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp;  description</span><span class="cm-meta">: </span>A paged array of pets</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">components</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom">  schemas</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp;  Foo</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>array</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp;  items</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>object</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp;  properties</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp;  Foo</span><span class="cm-meta">:</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-atom"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  type</span><span class="cm-meta">: </span>string</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 462px;"></div><div class="CodeMirror-gutters" style="display: none; height: 462px;"></div></div></div></pre><p>因此在检查兼容性的时候会将新旧OAS的<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object' target='_blank'>Reference Object</a>做解析，然后再检查，下面是一段<a href='https://github.com/swagger-api/swagger-parser' target='_blank'>swagger-parser</a>的例子：</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="java"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">OpenAPIV3Parser</span> <span class="cm-variable">parser</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">OpenAPIV3Parser</span>();</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">ParseOptions</span> <span class="cm-variable">parseOptions</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">ParseOptions</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">parseOptions</span>.<span class="cm-variable">setResolve</span>(<span class="cm-atom">true</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">parseOptions</span>.<span class="cm-variable">setResolveCombinators</span>(<span class="cm-atom">true</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">parseOptions</span>.<span class="cm-variable">setResolveFully</span>(<span class="cm-atom">true</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">parseOptions</span>.<span class="cm-variable">setFlatten</span>(<span class="cm-atom">false</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable">SwaggerParseResult</span> <span class="cm-variable">parseResult</span> <span class="cm-operator">=</span> <span class="cm-variable">parser</span>.<span class="cm-variable">readContents</span>(<span class="cm-variable">content</span>, <span class="cm-atom">null</span>, <span class="cm-variable">parseOptions</span>);</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 198px;"></div><div class="CodeMirror-gutters" style="display: none; height: 198px;"></div></div></div></pre><p>因此，检查下来如果发现不兼容，那么所报告的位置会和原文档有所不同。</p><h3><a name='header-n210' class='md-header-anchor '></a>Paths Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object' target='_blank'>doc</a></h3><p><a name="paths-compatibility"></a></p><ul><li><p>新OAS必须包含旧OAS的所有的<code>path</code>，如果<code>path</code>使用了<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating' target='_blank'>Path Templating</a>，只要变量名发生了变化，那么即使语义上相同也会被认为不同，比如<code>/pets/{foo}</code>和<code>/pets/{bar}</code>会被认定为不同。</p><ul><li>见<a href='#path-item-compatibility'>Path Item Object兼容性检查</a></li></ul></li></ul><h3><a name='header-n218' class='md-header-anchor '></a>Path Item Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject' target='_blank'>doc</a></h3><p><a name="path-item-compatibility"></a></p><ul><li>新OAS必须包含旧OAS的所有的get/put/post/delete/...<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject' target='_blank'>Operation Object</a></li></ul><h3><a name='header-n223' class='md-header-anchor '></a>Operation Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject' target='_blank'>doc</a></h3><p><a name="operation-compatibility"></a></p><ul><li><p><code>operationId</code>属性，新旧OAS必须完全一致。</p></li><li><p><code>parameters</code>属性，对它检查须在考虑到<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#user-content-pathitemparameters' target='_blank'>Path Item Object parameters属性</a>的情况下进行：</p><ul><li>新OAS可以新增<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a>，但是新增的<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a>的<code>required</code>属性必须为<code>false</code></li><li>新OAS可以删除<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a></li><li>针对单个<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a>的修改的检查见<a href='#parameter-compatibility'>Parameter Object兼容性检查</a>（在同一个<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject' target='_blank'>Operation Object</a>下<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a>依靠<code>name</code>和<code>in</code>两个属性作为ID）。</li></ul></li><li><p><code>requestBody</code>属性，见<a href='#request-body-compatibility'>Request Body Object兼容性检查</a></p></li><li><p><code>responses</code>属性，见<a href='#responses-compatibility'>Responses Object兼容性检查</a></p></li></ul><h3><a name='header-n241' class='md-header-anchor '></a>Parameter Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>doc</a></h3><p><a name="parameter-compatibility"></a></p><ul><li><p><code>required</code>属性，只允许<code>true(旧) -&gt; false(新)</code></p></li><li><p><code>allowEmptyValue</code>属性，只允许<code>false(旧) -&gt; true(新)</code>的变化</p></li><li><p><code>style</code>属性，新旧OAS必须保持一致</p></li><li><p><code>explode</code>属性，新旧OAS必须保持一致</p></li><li><p><code>allowReserved</code>属性，只允许<code>false(旧) -&gt; true(新)</code>的变化</p></li><li><p><code>schema</code>属性，见<a href='#schema-compatibility'>Schema Object兼容性检查</a></p></li><li><p><code>content</code>属性，新OAS必须包含旧OAS的所有media type（<code>content</code>的key），且不能新增media type</p><ul><li>见<a href='#media-type-compatibility'>Media Type Object兼容性检查</a></li></ul></li></ul><h3><a name='header-n261' class='md-header-anchor '></a>Request Body Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject' target='_blank'>doc</a></h3><p><a name="request-body-compatibility"></a></p><ul><li><p><code>content</code>属性，新OAS必须包含旧OAS的所有media type（<code>content</code>的key）</p><ul><li>见<a href='#media-type-compatibility'>Media Type Object兼容性检查</a></li></ul></li><li><p><code>required</code>属性，只允许<code>true(旧) -&gt; false(新)</code>的变化</p></li></ul><h3><a name='header-n271' class='md-header-anchor '></a>Media Type Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object' target='_blank'>doc</a></h3><p><a name="media-type-compatibility"></a></p><ul><li><p><code>schema</code>属性，见<a href='#schema-compatibility'>Schema Object兼容性检查</a></p></li><li><p><code>encoding</code>属性，该属性仅适用于<code>requestBody</code>，因此新旧OAS的property name（<code>encoding</code>的key）必须完全一致</p><ul><li>见<a href='#encoding-compatibility'>Encoding Object兼容性检查</a></li></ul></li></ul><h3><a name='header-n281' class='md-header-anchor '></a>Responses Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject' target='_blank'>doc</a></h3><p><a name="responses-compatibility"></a></p><ul><li><code>default</code>属性，如果旧OAS没有定义<code>default</code>，那么新OAS也不能定义<code>default</code>。</li><li><code>{Http Status Code}</code>属性，新OAS不允许新增。</li><li>见<a href='#response-compatibility'>Response Object兼容性检查</a></li></ul><h3><a name='header-n290' class='md-header-anchor '></a>Response Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object' target='_blank'>doc</a></h3><p><a name="response-compatibility"></a></p><ul><li><p><code>headers</code>属性，新OAS必须包含旧OAS的所有header name（<code>headers</code>的key），可以新增header name</p><ul><li><a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>Header Object</a>见<a href='#header-compatibility'>Header Object兼容性检查</a></li></ul></li><li><p><code>content</code>属性，新OAS必须包含旧OAS的所有media type（<code>content</code>的key），可以新增media type</p><ul><li><a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object' target='_blank'>Media Type Object</a>见<a href='#media-type-compatibility'>Media Type Object兼容性检查</a></li></ul></li></ul><h3><a name='header-n303' class='md-header-anchor '></a>Schema Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject' target='_blank'>doc</a></h3><p><a name="schema-compatibility"></a></p><p>OAS中定义，Schema Object可以直接或间接用在：</p><ul><li>请求类：<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject' target='_blank'>Parameter Object</a>、<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject' target='_blank'>Request Body Object</a>、<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>Header Object</a></li><li>响应类：<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>Header Object</a>、<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object' target='_blank'>Response Object</a></li></ul><p>不同用途的兼容性检查规则有所不同。</p><h3><a name='header-n312' class='md-header-anchor '></a>用做请求时</h3><p>原则上，当Schema Object用在请求时，只允许从紧到松的变化。</p><ul><li><code>type, format</code>组合所允许的变化范围</li></ul><figure><table><thead><tr><th>旧(type,format)</th><th>新(type,format)</th></tr></thead><tbody><tr><td>integer, null</td><td>integer, int64<br />number, double<br />number, null</td></tr><tr><td>integer, int32</td><td>integer, int64<br />integer, null<br />number, float<br />number, double<br />number, null</td></tr><tr><td>integer, int64</td><td>integer, null<br />number, double<br />number, null</td></tr><tr><td>number, null</td><td>number, double</td></tr><tr><td>number, float</td><td>number, null<br />number, double</td></tr><tr><td>number, double</td><td>number, null</td></tr><tr><td>string, null</td><td>string, password</td></tr><tr><td>string, password</td><td>string, null</td></tr></tbody></table></figure><ul><li><code>allOf</code>、<code>oneOf</code>、<code>anyOf</code>属性，在combine之后再做检查</li><li><code>multipleOf</code>属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的因子，比如6(旧)-&gt;3(新)</li><li><code>maximum</code>、<code>maxLength</code>、<code>maxItems</code>、<code>maxProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&gt;=旧OAS。</li><li><code>minimum</code>、<code>minLenght</code>、<code>minItems</code>、<code>minProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&lt;=旧OAS。</li><li><code>exclusiveMaximum</code>、<code>exclusiveMinimum</code>属性，仅允许<code>true(旧)-&gt;false(新)</code>的变化</li><li><code>uniqueItems</code>属性，只允许<code>true(旧)-&gt;false(新)</code>的变化。</li><li><code>required</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。</li><li><code>enum</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的超集。</li><li><code>properties</code>属性，新OAS可以新增property name（<code>properties</code>的key）或者减少property name。</li><li><code>nullable</code>属性，只允许<code>false(旧)-&gt;true(新)</code>的变化。</li><li><code>discriminator</code>属性，新旧OAS必须完全一致。</li><li><code>xml</code>属性，新旧OAS必须完全一致。</li><li><code>readOnly</code>、<code>writeOnly</code>，新旧OAS必须完全一致。</li></ul><h3><a name='header-n372' class='md-header-anchor '></a>用做响应时</h3><p>原则上，当Schema Object用在响应时，只允许从松到紧的变化。</p><ul><li><code>type, format</code>组合所允许的变化范围</li></ul><figure><table><thead><tr><th>旧(type,format)</th><th>新(type,format)</th></tr></thead><tbody><tr><td>integer, null</td><td>integer, int64<br />integer, int32</td></tr><tr><td>integer, int64</td><td>integer, null<br />interger, int32</td></tr><tr><td>number, null</td><td>number, double<br />number, float</td></tr><tr><td>number, double</td><td>number, null<br />number, float</td></tr><tr><td>string, null</td><td>string, password</td></tr><tr><td>string, password</td><td>string, null</td></tr></tbody></table></figure><ul><li><code>allOf</code>、<code>oneOf</code>、<code>anyOf</code>属性，在combine之后再做检查</li><li><code>multipleOf</code>属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的倍数，比如3(旧)-&gt;6(新)</li><li><code>maximum</code>、<code>maxLength</code>、<code>maxItems</code>、<code>maxProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&lt;=旧OAS。</li><li><code>minimum</code>、<code>minLenght</code>、<code>minItems</code>、<code>minProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&gt;=旧OAS。</li><li><code>exclusiveMaximum</code>、<code>exclusiveMinimum</code>属性，仅允许<code>false(旧)-&gt;true(新)</code>的变化</li><li><code>uniqueItems</code>属性，只允许<code>false(旧)-&gt;true(新)</code>的变化。</li><li><code>required</code>属性，新OAS必须==旧OAS或者，新OAS是旧OAS的超集。</li><li><code>enum</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。</li><li><code>properties</code>属性，新OAS可以新增property name（<code>properties</code>的key）或者减少property name。</li><li><code>nullable</code>属性，只允许<code>true(旧)-&gt;false(新)</code>的变化。</li><li><code>discriminator</code>属性，新旧OAS必须完全一致。</li><li><code>xml</code>属性，新旧OAS必须完全一致。</li><li><code>readOnly</code>、<code>writeOnly</code>，新旧OAS必须完全一致。</li></ul><h3><a name='header-n426' class='md-header-anchor '></a>Encoding Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject' target='_blank'>doc</a></h3><p><a name="encoding-compatibility"></a></p><p>PS. Encoding Object仅针对Request Body Object有用</p><ul><li><p><code>contentType</code>属性，新旧OAS必须保持一致</p></li><li><p><code>headers</code>属性，新OAS必须包含旧OAS的所有header name（<code>headers</code>的key），且不能新增header name，但是可以减少header name</p><ul><li><a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>Header Object</a>见<a href='#header-compatibility'>Header Object兼容性检查</a></li></ul></li><li><p><code>style</code>属性，新旧OAS必须保持一致</p></li><li><p><code>explode</code>属性，新旧OAS必须保持一致</p></li><li><p><code>allowReserved</code>属性，只允许<code>false(旧) -&gt; true(新)</code>的变化</p></li></ul><h3><a name='header-n443' class='md-header-anchor '></a>Header Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object' target='_blank'>doc</a></h3><p><a name="header-compatibility"></a></p><ul><li><code>schema</code>属性，见<a href='#schema-compatibility'>Schema Object兼容性检查</a></li></ul><h3><a name='header-n448' class='md-header-anchor '></a>Components Object <a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object' target='_blank'>doc</a></h3><p><a name="components-compatibility"></a></p><p><a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object' target='_blank'>Components Object</a>定义的都是可复用OAS Object，而在检查兼容性的时候所有<code>$ref</code>都已被解析了，因此不需要对<a href='https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object' target='_blank'>Components Object</a>的属性做兼容性检查。</p><p>&nbsp;</p></div>
+</body>
+</html>
