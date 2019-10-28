@@ -1,0 +1,13 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.apache.servicecomb.toolkit.oasv.compliance.config.ComponentsValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.EncodingValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.HeaderValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.InfoValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.OpenApiValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.OperationValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.ParameterValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.PathsValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.RequestBodyValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.ResponseValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.SchemaValidatorConfiguration,\
+org.apache.servicecomb.toolkit.oasv.compliance.config.TagValidatorConfiguration

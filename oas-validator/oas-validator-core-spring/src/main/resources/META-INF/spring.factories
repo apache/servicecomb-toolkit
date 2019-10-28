@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration,\
+org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration
