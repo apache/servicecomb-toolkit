@@ -55,36 +55,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-springmvc</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>swagger-generator-jaxrs</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-rest-common</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>provider-pojo</artifactId>
-      <version>1.2.0</version>
-      <exclusions>
-        <exclusion>
-          <groupId>commons-lang</groupId>
-          <artifactId>commons-lang</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>

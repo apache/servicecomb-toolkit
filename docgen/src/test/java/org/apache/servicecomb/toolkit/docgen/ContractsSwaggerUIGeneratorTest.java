@@ -33,15 +33,13 @@ import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import io.swagger.models.Swagger;
-import io.swagger.parser.Swagger20Parser;
+import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 public class ContractsSwaggerUIGeneratorTest {
 
   @Test
   public void testContractTransferToSwaggerUI() throws IOException {
-
-    Swagger20Parser swagger20Parser = new Swagger20Parser();
 
     InputStream in = ContractsSwaggerUIGeneratorTest.class.getClassLoader().getResourceAsStream("HelloEndPoint.yaml");
 
@@ -52,14 +50,15 @@ public class ContractsSwaggerUIGeneratorTest {
       sb.append(new String(bytes, 0, len));
     }
 
-    Swagger swagger = swagger20Parser.parse(sb.toString());
+    OpenAPIParser openAPIParser = new OpenAPIParser();
+    SwaggerParseResult swaggerParseResult = openAPIParser.readContents(sb.toString(), null, null);
 
     Path tempDir = Files.createTempDirectory(null);
     Path outputPath = Paths.get(tempDir.toFile().getAbsolutePath()
         + File.separator + "swagger-ui.html");
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, "default");
     Map<String, Object> docGeneratorConfig = new HashMap<>();
-    docGeneratorConfig.put("contractContent", swagger);
+    docGeneratorConfig.put("contractContent", swaggerParseResult.getOpenAPI());
     docGeneratorConfig.put("outputPath", outputPath.toFile().getCanonicalPath());
     Objects.requireNonNull(docGenerator).configure(docGeneratorConfig);
     docGenerator.generate();

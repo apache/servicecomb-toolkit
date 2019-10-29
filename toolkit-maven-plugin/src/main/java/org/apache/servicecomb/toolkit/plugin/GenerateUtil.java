@@ -35,7 +35,6 @@ import java.util.Optional;
 
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.project.MavenProject;
-import org.apache.servicecomb.swagger.SwaggerUtils;
 import org.apache.servicecomb.toolkit.CodeGenerator;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.DocGenerator;
@@ -44,6 +43,10 @@ import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
 import org.apache.servicecomb.toolkit.codegen.MicroServiceFramework;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 import org.openapitools.codegen.config.CodegenConfigurator;
+
+import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 class GenerateUtil {
 
@@ -90,7 +93,13 @@ class GenerateUtil {
         }
         Map<String, Object> docGeneratorConfig = new HashMap<>();
 
-        docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
+        SwaggerParseResult swaggerParseResult = new OpenAPIParser()
+            .readLocation(file.toUri().toURL().toString(), null, null);
+        OpenAPI openAPI = swaggerParseResult.getOpenAPI();
+        if (openAPI == null) {
+          return super.visitFile(file, attrs);
+        }
+        docGeneratorConfig.put("contractContent", openAPI);
         docGeneratorConfig.put("outputPath",
             documentOutput + File.separator + file.getParent().toFile().getName() + File.separator + file.toFile()
                 .getName()

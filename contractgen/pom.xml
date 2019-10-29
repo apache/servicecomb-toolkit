@@ -35,6 +35,21 @@
     </dependency>
 
     <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-jaxrs</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-spring</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-servicecomb</artifactId>
+    </dependency>
+    
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>

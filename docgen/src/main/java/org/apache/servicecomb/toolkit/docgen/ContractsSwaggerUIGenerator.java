@@ -32,8 +32,8 @@ import org.apache.servicecomb.toolkit.DocGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.swagger.models.Swagger;
-import io.swagger.util.Json;
+import io.swagger.v3.core.util.Json;
+import io.swagger.v3.oas.models.OpenAPI;
 
 public class ContractsSwaggerUIGenerator implements DocGenerator {
 
@@ -43,7 +43,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
   private final static String DOC_SUFFIX = ".html";
 
-  private Swagger contractContent;
+  private OpenAPI contractContent;
 
   private String outputPath = ".";
 
@@ -55,7 +55,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
 
   @Override
   public void configure(Map<String, Object> config) {
-    this.contractContent = (Swagger) config.get("contractContent");
+    this.contractContent = (OpenAPI) config.get("contractContent");
     this.outputPath = (String) config.get("outputPath");
   }
 
