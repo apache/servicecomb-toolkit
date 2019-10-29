@@ -183,7 +183,7 @@ public class SpringAnnotationProcessorTest {
       return "request";
     }
 
-    @GetMapping(value = "/get", consumes = {"application/json"})
+    @GetMapping(value = "/get", consumes = {"application/json"}, produces = {"application/json"})
     public String get() {
       return "get";
     }
