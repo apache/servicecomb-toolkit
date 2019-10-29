@@ -123,8 +123,7 @@ public class OperationContext {
       mediaType.schema(refSchema);
 
       Content content = new Content();
-      content.addMediaType(MediaTypeConst.TEXT_PLAIN, mediaType);
-
+      content.addMediaType(MediaTypeConst.APPLICATION_JSON, mediaType);
       apiResponse.description("OK");
       apiResponse.setContent(content);
       apiResponses.addApiResponse(HttpStatus.OK, apiResponse);
