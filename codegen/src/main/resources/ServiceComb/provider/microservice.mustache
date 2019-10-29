@@ -16,6 +16,8 @@ servicecomb:
   #Specifies the rest transport listening IP address.
   rest:
     address: 0.0.0.0:8080
+{{#isPOJO}}
   #Specifies the highway transport listening IP address.
   highway:
     address: 0.0.0.0:7070
+{{/isPOJO}}

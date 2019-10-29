@@ -73,6 +73,7 @@ public class SpringCloudCodegen extends AbstractJavaCodegenExt {
     additionalProperties.put("apiTemplateFiles", apiTemplateFiles);
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
     additionalProperties.put("getRelativeBasePath", new GetRelativeBasePathLambda());
+    additionalProperties.put("showBasePath", new ShowBasePathLambda());
     additionalProperties.put("applicationId", applicationId);
 
     if (additionalProperties.get(ProjectMetaConstant.SERVICE_ID) != null) {
@@ -87,7 +88,6 @@ public class SpringCloudCodegen extends AbstractJavaCodegenExt {
     // when all additionalProperties are processed
     currentDirectoryStrategy.addCustomProperties(additionalProperties);
     currentDirectoryStrategy.processSupportingFile(supportingFiles);
-
   }
 
   @Override

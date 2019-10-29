@@ -1,1 +1,1 @@
-{{#isHeaderParam}} {{{dataType}}} {{paramName}}{{/isHeaderParam}}
+{{#isHeaderParam}}@RequestHeader(value="{{paramName}}", required={{#required}}true{{/required}}{{^required}}false{{/required}}) {{{dataType}}} {{paramName}}{{/isHeaderParam}}

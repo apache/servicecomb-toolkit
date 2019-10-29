@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.codegen;
 
 import java.util.List;
+import java.util.Map;
 
 import org.openapitools.codegen.SupportingFile;
 
@@ -68,5 +69,9 @@ public class SpringCloudConsumerDirectoryStrategy extends AbstractDirectoryStrat
     propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_SERVICE_ID, key -> consumerDirectory());
 
     propertiesMap.put(apiConsumerTemplate, ServiceType.CONSUMER.getValue());
+
+    Map<String, String> apiTemplateFiles = ((Map<String, String>) propertiesMap.get("apiTemplateFiles"));
+    apiTemplateFiles.remove("api.mustache");
+    apiTemplateFiles.put(apiConsumerTemplate, ".java");
   }
 }
