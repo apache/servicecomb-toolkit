@@ -30,28 +30,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.ws.rs.Path;
+
 import org.apache.servicecomb.provider.pojo.RpcSchema;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
-import org.apache.servicecomb.swagger.SwaggerUtils;
-import org.apache.servicecomb.swagger.generator.core.CompositeSwaggerGeneratorContext;
-import org.apache.servicecomb.swagger.generator.core.SwaggerGenerator;
-import org.apache.servicecomb.swagger.generator.core.SwaggerGeneratorContext;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.common.ContractFileType;
 import org.apache.servicecomb.toolkit.common.ImmediateClassLoader;
+import org.apache.servicecomb.toolkit.generator.OasGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.ws.rs.Path;
+import io.swagger.v3.core.util.Yaml;
+import io.swagger.v3.oas.models.OpenAPI;
 
 public class DefaultContractsGenerator implements ContractsGenerator {
 
   private static Logger LOGGER = LoggerFactory.getLogger(DefaultContractsGenerator.class);
-
-  private static CompositeSwaggerGeneratorContext compositeSwaggerGeneratorContext = new CompositeSwaggerGeneratorContext();
 
   private Map<String, Object> config;
 
@@ -125,12 +122,14 @@ public class DefaultContractsGenerator implements ContractsGenerator {
           continue;
         }
 
-        SwaggerGeneratorContext generatorContext =
-            compositeSwaggerGeneratorContext.selectContext(loadClass);
+        OasGenerator oasGenerator = new OasGenerator();
+        OpenAPI oas = oasGenerator.generate(loadClass);
 
-        SwaggerGenerator generator = new SwaggerGenerator(generatorContext, loadClass);
+        if (oas == null) {
+          continue;
+        }
 
-        String swaggerString = SwaggerUtils.swaggerToString(generator.generate());
+        String oasPretty = Yaml.pretty(oas);
 
         File outputFile = new File(
             outputDir + File.separator + loadClass.getSimpleName() + contractfileType
@@ -143,7 +142,7 @@ public class DefaultContractsGenerator implements ContractsGenerator {
           outputFile.createNewFile();
         }
 
-        Files.write(Paths.get(outputFile.toURI()), swaggerString.getBytes());
+        Files.write(Paths.get(outputFile.toURI()), oasPretty.getBytes());
       }
     } catch (IOException e) {
       throw new RuntimeException(e);
