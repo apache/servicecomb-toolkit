@@ -40,6 +40,10 @@ public class ServiceConfig {
 
   private String serviceId;
 
+  private String apiPackage;
+
+  private String modelPackage;
+
   public String getServiceType() {
     return serviceType;
   }
@@ -78,5 +82,13 @@ public class ServiceConfig {
       serviceId = artifactId;
     }
     return serviceId;
+  }
+
+  public String getApiPackage() {
+    return apiPackage;
+  }
+
+  public String getModelPackage() {
+    return modelPackage;
   }
 }

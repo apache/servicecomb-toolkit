@@ -167,7 +167,6 @@ class GenerateUtil {
 
     configurator
         .setGeneratorName(service.getMicroServiceFramework())
-        .setApiPackage(service.getPackageName())
         .setGroupId(service.getGroupId())
         .setArtifactId(service.getArtifactId())
         .setModelPackage(service.getPackageName())
@@ -183,5 +182,10 @@ class GenerateUtil {
     if (MicroServiceFramework.SERVICECOMB.name().equalsIgnoreCase(service.getMicroServiceFramework())) {
       configurator.setLibrary(service.getProgrammingModel());
     }
+
+    configurator.setApiPackage(
+        Optional.ofNullable(service.getApiPackage()).orElse(String.format("%s.api", service.getPackageName())));
+    configurator.setModelPackage(
+        Optional.ofNullable(service.getModelPackage()).orElse(String.format("%s.model", service.getPackageName())));
   }
 }
