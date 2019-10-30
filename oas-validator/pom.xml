@@ -19,20 +19,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+  <parent>
+    <artifactId>toolkit</artifactId>
+    <groupId>org.apache.servicecomb.toolkit</groupId>
+    <version>0.2.0-SNAPSHOT</version>
+  </parent>
+
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.servicecomb.toolkit</groupId>
   <artifactId>oas-validator-parent</artifactId>
-  <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-
-  <licenses>
-    <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
   
   <properties>
     <java.version>1.8</java.version>
@@ -42,12 +38,6 @@
 
     <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
     <maven.surefire.version>3.0.0-M3</maven.surefire.version>
-    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-    <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
-
-    <skipTests>false</skipTests>
-    <skipITs>${skipTests}</skipITs>
-    <skipUTs>${skipTests}</skipUTs>
 
     <swagger-parser.version>2.0.12</swagger-parser.version>
     <commons-collections4.version>4.3</commons-collections4.version>
@@ -64,9 +54,7 @@
     <module>oas-validator-compatibility</module>
     <module>oas-validator-compatibility-spring</module>
     <module>oas-validator-web</module>
-    <module>distribution</module>
   </modules>
-
 
   <dependencyManagement>
     <dependencies>
@@ -103,79 +91,9 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>boot-repackage</id>
-              <phase>package</phase>
-              <goals>
-                <goal>repackage</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <classifier>exec</classifier>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
-          <executions>
-            <execution>
-              <id>integration-test</id>
-              <goals>
-                <goal>integration-test</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>verify</id>
-              <goals>
-                <goal>verify</goal>
-              </goals>
-            </execution>
-          </executions>
-          <configuration>
-            <skipTests>${skipTests}</skipTests>
-            <skipITs>${skipITs}</skipITs>
-          </configuration>
-        </plugin>
-
-        <plugin>
-          <groupId>io.fabric8</groupId>
-          <artifactId>docker-maven-plugin</artifactId>
-          <version>${fabric8.dmp.version}</version>
-          <configuration>
-            <skip>${skipITs}</skip>
-          </configuration>
-          <executions>
-            <execution>
-              <id>start</id>
-              <phase>pre-integration-test</phase>
-              <goals>
-                <goal>start</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>stop</id>
-              <phase>post-integration-test</phase>
-              <goals>
-                <goal>stop</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-
-
-        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${maven.surefire.version}</version>
-          <configuration>
-            <skipTests>${skipUTs}</skipTests>
-          </configuration>
         </plugin>
 
         <plugin>
@@ -192,124 +110,11 @@
             </execution>
           </executions>
         </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>1.19</version>
-          <executions>
-            <execution>
-              <id>default-cli</id>
-              <configuration>
-                <!-- Accept the pom module -->
-                <acceptPomPackaging>true</acceptPomPackaging>
-                <!-- Using the template which is grouped by License file -->
-                <fileTemplate>/org/codehaus/mojo/license/third-party-file-groupByMultiLicense.ftl</fileTemplate>
-                <licenseMerges>
-                  <licenseMerge>The Apache Software License, Version 2.0|The Apache License, Version 2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache Public License 2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache 2</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache 2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache-2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache License 2.0</licenseMerge>
-                  <licenseMerge>The Apache Software License, Version 2.0|Apache License, version 2.0</licenseMerge>
-                  <licenseMerge>3-Clause BSD License|BSD 3-clause</licenseMerge>
-                  <licenseMerge>3-Clause BSD License|BSD 3-Clause</licenseMerge>
-                  <licenseMerge>Eclipse Public License v1.0|Eclipse Public License 1.0</licenseMerge>
-                  <licenseMerge>Eclipse Public License v1.0|Eclipse Public License - v 1.0</licenseMerge>
-                  <licenseMerge>The MIT License|MIT License</licenseMerge>
-                </licenseMerges>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
         
       </plugins>
     </pluginManagement>
-
-
-    <plugins>
-
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-
-    </plugins>
     
   </build>
 
-  <profiles>
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <!-- <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin> -->
-          <!-- Source -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${maven-source-plugin.version}</version>
-            <executions>
-              <execution>
-                <!-- <phase>package</phase> -->
-                <id>attach-sources</id>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <!-- Javadoc -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <version>${maven-javadoc-plugin.version}</version>
-            <executions>
-              <execution>
-                <!-- <phase>package</phase> -->
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <charset>UTF-8</charset>
-              <locale>zh_CN</locale>
-              <doclint>reference</doclint>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-
-  <repositories>
-    <repository>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <id>central</id>
-      <url>http://repo.maven.apache.org/maven2</url>
-    </repository>
-  </repositories>
 
 </project>
