@@ -18,7 +18,6 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.apache.servicecomb.toolkit</groupId>
@@ -27,9 +26,9 @@
     <relativePath>../pom.xml</relativePath>
   </parent>
 
-  <groupId>org.apache.servicecomb.toolkit</groupId>
+  <modelVersion>4.0.0</modelVersion>
+
   <artifactId>oas-validator-web</artifactId>
-  <version>${parent.version}</version>
   
   <properties>
     <start-class>org.apache.servicecomb.toolkit.oasv.web.Application</start-class>
@@ -101,7 +100,6 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
 
     <plugins>
       <plugin>
@@ -114,13 +112,21 @@
         <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
 
-
-
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
+        <executions>
+          <execution>
+            <id>boot-repackage</id>
+            <phase>package</phase>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
         <configuration>
-          <skip>false</skip>
+          <classifier>exec</classifier>
         </configuration>
       </plugin>
 

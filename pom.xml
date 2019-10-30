@@ -110,6 +110,7 @@
     <module>core</module>
     <module>integration-tests</module>
     <module>contractgen</module>
+    <module>oas-validator</module>
   </modules>
 
   <dependencyManagement>
