@@ -23,7 +23,7 @@ import java.util.Optional;
 
 import org.openapitools.codegen.SupportingFile;
 
-public class SpringCloudMultiDirectoryStrategy extends AbstractDirectoryStrategy {
+public class SpringCloudMultiDirectoryStrategy extends AbstractMultiDirectoryStrategy {
 
   private String consumerTemplateFolder = "consumer/openfeign";
 
@@ -51,6 +51,7 @@ public class SpringCloudMultiDirectoryStrategy extends AbstractDirectoryStrategy
 
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
+    super.processSupportingFile(supportingFiles);
     processProvider(supportingFiles);
     processConsumer(supportingFiles);
     processModel(supportingFiles);
@@ -95,8 +96,6 @@ public class SpringCloudMultiDirectoryStrategy extends AbstractDirectoryStrategy
         k -> providerDirectory());
     propertiesMap
         .put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, providerDirectory());
-
-    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_SERVICE_ID, key -> providerDirectory());
   }
 
   private void processConsumer(List<SupportingFile> supportingFiles) {
@@ -120,8 +119,6 @@ public class SpringCloudMultiDirectoryStrategy extends AbstractDirectoryStrategy
 
     propertiesMap
         .put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, consumerDirectory());
-
-    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_SERVICE_ID, key -> consumerDirectory());
 
     propertiesMap.put(apiConsumerTemplate, ServiceType.CONSUMER.getValue());
 

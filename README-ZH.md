@@ -121,6 +121,12 @@ $ mvn clean install
             <artifactVersion>0.1.0-SNAPSHOT</artifactVersion>
             <!-- 微服务的 packageName，用户可选，默认值为 domain.orgnization.project.sample -->
             <packageName>domain.orgnization.project.sample</packageName>
+            <!-- 微服务框架，用户可选。设置为 ServiceComb，生成ServiceComb风格的微服务项目；设置为 SpringCloud，生成SpringCloud风格的微服务项目。默认值为 ServiceComb -->
+            <microServiceFramework>ServiceComb</microServiceFramework>
+            <!-- 服务提供者的服务id。仅包含服务消费者的场景（serviceType=consumer）必须设置该值 -->            
+            <providerServiceId>servicecomb-provider</providerServiceId>
+            <!-- 服务id，默认值为artifactId的值 -->
+            <serviceId>servicecomb-consumer</serviceId>
         </service>
     </configuration>
 </plugin>

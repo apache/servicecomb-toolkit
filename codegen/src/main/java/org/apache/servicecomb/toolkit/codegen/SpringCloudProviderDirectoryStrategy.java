@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.openapitools.codegen.SupportingFile;
 
-public class SpringCloudProviderDirectoryStrategy extends AbstractDirectoryStrategy {
+public class SpringCloudProviderDirectoryStrategy extends AbstractProviderDirectoryStrategy {
 
   private String providerTemplateFolder = "provider/servlet";
 
@@ -43,6 +43,7 @@ public class SpringCloudProviderDirectoryStrategy extends AbstractDirectoryStrat
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
 
+    super.processSupportingFile(supportingFiles);
     supportingFiles.add(new SupportingFile(providerTemplateFolder + "/applicationYml.mustache",
         resourcesFolder(providerDirectory()),
         "application.yml"));
@@ -61,7 +62,5 @@ public class SpringCloudProviderDirectoryStrategy extends AbstractDirectoryStrat
         k -> providerDirectory());
     propertiesMap
         .put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, providerDirectory());
-
-    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_SERVICE_ID, key -> providerDirectory());
   }
 }

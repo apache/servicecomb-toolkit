@@ -20,9 +20,10 @@ package org.apache.servicecomb.toolkit.codegen;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.SupportingFile;
 
-public class SpringCloudConsumerDirectoryStrategy extends AbstractDirectoryStrategy {
+public class SpringCloudConsumerDirectoryStrategy extends AbstractConsumerDirectoryStrategy {
 
   private String consumerTemplateFolder = "consumer/openfeign";
 
@@ -46,6 +47,8 @@ public class SpringCloudConsumerDirectoryStrategy extends AbstractDirectoryStrat
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
 
+    super.processSupportingFile(supportingFiles);
+
     supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/applicationYml.mustache",
         resourcesFolder(consumerDirectory()),
         "application.yml"));
@@ -65,8 +68,6 @@ public class SpringCloudConsumerDirectoryStrategy extends AbstractDirectoryStrat
 
     propertiesMap
         .put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, consumerDirectory());
-
-    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_SERVICE_ID, key -> consumerDirectory());
 
     propertiesMap.put(apiConsumerTemplate, ServiceType.CONSUMER.getValue());
 

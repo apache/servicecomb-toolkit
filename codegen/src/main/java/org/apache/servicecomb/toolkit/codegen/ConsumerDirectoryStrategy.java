@@ -17,22 +17,14 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.openapitools.codegen.SupportingFile;
 
-public class ConsumerDirectoryStrategy implements DirectoryStrategy<List<SupportingFile>> {
-
-  protected Map<String, Object> propertiesMap = Collections.emptyMap();
+public class ConsumerDirectoryStrategy extends AbstractConsumerDirectoryStrategy {
 
   private String consumerTemplateFolder = "consumer";
-
-  protected String projectFolder = "src" + File.separator + "main";
-
-  protected String sourceFolder = projectFolder + File.separator + "java";
 
   private String apiConsumerTemplate = consumerTemplateFolder + "/apiConsumer.mustache";
 
@@ -58,6 +50,7 @@ public class ConsumerDirectoryStrategy implements DirectoryStrategy<List<Support
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
 
+    super.processSupportingFile(supportingFiles);
     String newConsumerTemplateFolder = consumerTemplateFolder;
 
     if (ServiceCombCodegen.SPRING_BOOT_LIBRARY.equals(propertiesMap.get("library"))) {
@@ -98,19 +91,5 @@ public class ConsumerDirectoryStrategy implements DirectoryStrategy<List<Support
     } else {
       apiTemplateFiles.put(apiConsumerTemplate, ".java");
     }
-  }
-
-  @Override
-  public void addCustomProperties(Map<String, Object> propertiesMap) {
-    this.propertiesMap = propertiesMap;
-  }
-
-  private String mainClassFolder(String projectPath) {
-    return projectPath + File.separator + sourceFolder + File.separator + ((String) propertiesMap
-        .get("mainClassPackage")).replace(".", File.separator);
-  }
-
-  private String resourcesFolder(String projectPath) {
-    return projectPath + File.separator + projectFolder + File.separator + "resources";
   }
 }
