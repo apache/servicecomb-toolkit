@@ -63,6 +63,7 @@ public class ServiceCombCodegenTest {
     Map<String, Object> propertiesMap = new HashMap<>();
     propertiesMap.put("artifactId", "consumer");
     propertiesMap.put("mainClassPackage", "consumer");
+    propertiesMap.put("providerServiceId", "provider");
     propertiesMap.put("apiTemplateFiles", new HashMap<String, String>());
     consumerDirectoryStrategy.addCustomProperties(propertiesMap);
     consumerDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
@@ -116,6 +117,7 @@ public class ServiceCombCodegenTest {
     Map<String, Object> propertiesMap = new HashMap<>();
     propertiesMap.put("artifactId", "consumer");
     propertiesMap.put("mainClassPackage", "consumer");
+    propertiesMap.put("providerServiceId", "provider");
     propertiesMap.put("apiTemplateFiles", new HashMap<String, String>());
     consumerDirectoryStrategy.addCustomProperties(propertiesMap);
     consumerDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
