@@ -17,23 +17,15 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-import java.io.File;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.openapitools.codegen.SupportingFile;
 
-public class DefaultDirectoryStrategy implements DirectoryStrategy<List<SupportingFile>> {
-
-  protected Map<String, Object> propertiesMap = Collections.emptyMap();
+public class DefaultDirectoryStrategy extends AbstractMultiDirectoryStrategy {
 
   protected String providerTemplateFolder = "provider";
-
-  protected String projectFolder = "src" + File.separator + "main";
-
-  protected String sourceFolder = projectFolder + File.separator + "java";
 
   private String consumerTemplateFolder = "consumer";
 
@@ -63,6 +55,7 @@ public class DefaultDirectoryStrategy implements DirectoryStrategy<List<Supporti
 
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
+    super.processSupportingFile(supportingFiles);
     processProvider(supportingFiles);
     processConsumer(supportingFiles);
     processModel(supportingFiles);
@@ -161,19 +154,5 @@ public class DefaultDirectoryStrategy implements DirectoryStrategy<List<Supporti
 //      ((Map<String, String>) propertiesMap.get("apiTemplateFiles")).put(pojoApiImplTemplate, ".java");
       propertiesMap.put("isPOJO", true);
     }
-  }
-
-  @Override
-  public void addCustomProperties(Map<String, Object> propertiesMap) {
-    this.propertiesMap = propertiesMap;
-  }
-
-  private String mainClassFolder(String projectPath) {
-    return projectPath + File.separator + sourceFolder + File.separator + ((String) propertiesMap
-        .get("mainClassPackage")).replace(".", File.separator);
-  }
-
-  private String resourcesFolder(String projectPath) {
-    return projectPath + File.separator + projectFolder + File.separator + "resources";
   }
 }

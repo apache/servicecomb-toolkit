@@ -63,6 +63,7 @@ public class ServiceCombCodegenTest {
     Map<String, Object> propertiesMap = new HashMap<>();
     propertiesMap.put("artifactId", "consumer");
     propertiesMap.put("mainClassPackage", "consumer");
+    propertiesMap.put("providerServiceId", "provider");
     propertiesMap.put("apiTemplateFiles", new HashMap<String, String>());
     consumerDirectoryStrategy.addCustomProperties(propertiesMap);
     consumerDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
@@ -93,15 +94,73 @@ public class ServiceCombCodegenTest {
   }
 
   @Test
-  public void defaultValue(){
+  public void spirngCloudMultiDirectoryStrategy() {
+
+    SpringCloudMultiDirectoryStrategy multiDirectoryStrategy = new SpringCloudMultiDirectoryStrategy();
+
+    Map<String, Object> propertiesMap = new HashMap<>();
+    propertiesMap.put("artifactId", "all");
+    propertiesMap.put("mainClassPackage", "all");
+    propertiesMap.put("apiTemplateFiles", new HashMap<String, String>());
+    multiDirectoryStrategy.addCustomProperties(propertiesMap);
+    multiDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
+    Assert.assertEquals("consumer", multiDirectoryStrategy.consumerDirectory());
+    Assert.assertEquals("provider", multiDirectoryStrategy.providerDirectory());
+    Assert.assertEquals("model", multiDirectoryStrategy.modelDirectory());
+  }
+
+  @Test
+  public void spirngCloudConsumerDirectoryStrategy() {
+
+    SpringCloudConsumerDirectoryStrategy consumerDirectoryStrategy = new SpringCloudConsumerDirectoryStrategy();
+
+    Map<String, Object> propertiesMap = new HashMap<>();
+    propertiesMap.put("artifactId", "consumer");
+    propertiesMap.put("mainClassPackage", "consumer");
+    propertiesMap.put("providerServiceId", "provider");
+    propertiesMap.put("apiTemplateFiles", new HashMap<String, String>());
+    consumerDirectoryStrategy.addCustomProperties(propertiesMap);
+    consumerDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
+    Assert.assertEquals("consumer", consumerDirectoryStrategy.consumerDirectory());
+    Assert.assertEquals("consumer", consumerDirectoryStrategy.modelDirectory());
+
+    try {
+      consumerDirectoryStrategy.providerDirectory();
+    } catch (Exception e) {
+      Assert.assertTrue(e instanceof UnsupportedOperationException);
+    }
+  }
+
+  @Test
+  public void spirngCloudProviderDirectoryStrategy() {
+
+    SpringCloudProviderDirectoryStrategy providerDirectoryStrategy = new SpringCloudProviderDirectoryStrategy();
+
+    Map<String, Object> propertiesMap = new HashMap<>();
+    propertiesMap.put("artifactId", "provider");
+    propertiesMap.put("mainClassPackage", "provider");
+    providerDirectoryStrategy.addCustomProperties(propertiesMap);
+    providerDirectoryStrategy.processSupportingFile(new ArrayList<SupportingFile>());
+    Assert.assertEquals("provider", providerDirectoryStrategy.providerDirectory());
+    Assert.assertEquals("provider", providerDirectoryStrategy.modelDirectory());
+
+    try {
+      providerDirectoryStrategy.consumerDirectory();
+    } catch (Exception e) {
+      Assert.assertTrue(e instanceof UnsupportedOperationException);
+    }
+  }
+
+  @Test
+  public void defaultValue() {
     CodegenConfig codegenConfig = CodegenConfigLoader.forName("ServiceComb");
     Assert.assertEquals(ServiceCombCodegen.class, codegenConfig.getClass());
-    ServiceCombCodegen serviceCombCodegen = (ServiceCombCodegen)codegenConfig;
+    ServiceCombCodegen serviceCombCodegen = (ServiceCombCodegen) codegenConfig;
     serviceCombCodegen.processOpts();
 
     Map<String, Object> additionalProperties = serviceCombCodegen.additionalProperties();
-    Assert.assertEquals("domain.orgnization.project.sample",additionalProperties.get("mainClassPackage"));
-    Assert.assertEquals("domain.orgnization.project.sample.api",additionalProperties.get("apiPackage"));
-    Assert.assertEquals("domain.orgnization.project.sample.model",additionalProperties.get("modelPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample", additionalProperties.get("mainClassPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.api", additionalProperties.get("apiPackage"));
+    Assert.assertEquals("domain.orgnization.project.sample.model", additionalProperties.get("modelPackage"));
   }
 }

@@ -41,6 +41,7 @@ import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.DocGenerator;
 import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
+import org.apache.servicecomb.toolkit.codegen.MicroServiceFramework;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 import org.openapitools.codegen.config.CodegenConfigurator;
 
@@ -130,7 +131,6 @@ class GenerateUtil {
                   file.getParent().getFileName() + consumerProjectNameSuffix)
               .addAdditionalProperty(GeneratorExternalConfigConstant.MODEL_PROJECT_NAME,
                   file.getParent().getFileName() + modelProjectNameSuffix)
-              .setArtifactId(file.getParent().getFileName().toString())
               .addAdditionalProperty("apiName", file.toFile().getName().split("\\.")[0])
               .addAdditionalProperty("microserviceName", file.getParent().getFileName().toString());
 
@@ -166,15 +166,26 @@ class GenerateUtil {
   private static void commonConfig(CodegenConfigurator configurator, ServiceConfig service) {
 
     configurator
-        .setGeneratorName("ServiceComb")
-        .setApiPackage(service.getPackageName())
+        .setGeneratorName(service.getMicroServiceFramework())
         .setGroupId(service.getGroupId())
         .setArtifactId(service.getArtifactId())
         .setModelPackage(service.getPackageName())
-        .setLibrary(service.getProgrammingModel())
         .addAdditionalProperty("mainClassPackage", Optional.ofNullable(service.getPackageName()).orElse(""))
         .setArtifactVersion(service.getArtifactVersion())
         .addAdditionalProperty(ProjectMetaConstant.SERVICE_TYPE,
-            Optional.ofNullable(service.getServiceType()).orElse("all"));
+            Optional.ofNullable(service.getServiceType()).orElse("all"))
+        .addAdditionalProperty(ProjectMetaConstant.SERVICE_ID, service.getServiceId());
+
+    Optional.ofNullable(service.getProviderServiceId()).ifPresent(providerServiceId -> configurator
+        .addAdditionalProperty(ProjectMetaConstant.PROVIDER_SERVICE_ID, service.getProviderServiceId()));
+
+    if (MicroServiceFramework.SERVICECOMB.name().equalsIgnoreCase(service.getMicroServiceFramework())) {
+      configurator.setLibrary(service.getProgrammingModel());
+    }
+
+    configurator.setApiPackage(
+        Optional.ofNullable(service.getApiPackage()).orElse(String.format("%s.api", service.getPackageName())));
+    configurator.setModelPackage(
+        Optional.ofNullable(service.getModelPackage()).orElse(String.format("%s.model", service.getPackageName())));
   }
 }

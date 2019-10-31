@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,10 @@ import org.openapitools.codegen.languages.AbstractJavaCodegen;
 import org.openapitools.codegen.languages.SpringCodegen;
 
 public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
+
+  protected final Map<String, DirectoryStrategy> directoryStrategyMap = new LinkedHashMap<>();
+
+  protected DirectoryStrategy currentDirectoryStrategy;
 
   protected String mainClassPackage;
 
@@ -41,6 +46,7 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
     apiPackage = groupId + "." + artifactId + ".api";
     modelPackage = groupId + "." + artifactId + ".model";
     mainClassPackage = groupId + "." + artifactId;
+
   }
 
   @Override
@@ -61,5 +67,27 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
     super.postProcessModelProperty(model, property);
     model.imports.remove("ApiModelProperty");
     model.imports.remove("ApiModel");
+  }
+
+
+  /**
+   * Register a custom VersionStrategy to apply to resource URLs that match the
+   * given path patterns.
+   * @param strategy the custom strategy
+   * @param serviceTypes one or more service type,
+   * relative to the service type that represent microservice type of generated microservice project
+   * @see DirectoryStrategy
+   */
+  public void addDirectoryStrategy(DirectoryStrategy strategy, String... serviceTypes) {
+    for (String serviceType : serviceTypes) {
+      getStrategyMap().put(serviceType, strategy);
+    }
+  }
+
+  /**
+   * Return the map with directory strategies keyed by service type.
+   */
+  public Map<String, DirectoryStrategy> getStrategyMap() {
+    return this.directoryStrategyMap;
   }
 }

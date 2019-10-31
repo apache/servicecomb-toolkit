@@ -17,11 +17,19 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-public class ProjectMetaConstant {
+import java.util.List;
 
-  public static final String SERVICE_TYPE = "serviceType";
+import org.openapitools.codegen.SupportingFile;
 
-  public static final String PROVIDER_SERVICE_ID = "providerServiceId";
+public abstract class AbstractProviderDirectoryStrategy extends AbstractDirectoryStrategy {
 
-  public static final String SERVICE_ID = "serviceId";
+  @Override
+  public void processSupportingFile(List<SupportingFile> supportingFiles) {
+    correctServiceId();
+  }
+
+  private void correctServiceId() {
+    propertiesMap
+        .computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_SERVICE_ID, key -> propertiesMap.get("artifactId"));
+  }
 }

@@ -15,13 +15,30 @@
  * limitations under the License.
  */
 
+
 package org.apache.servicecomb.toolkit.codegen;
 
-public class ProjectMetaConstant {
+import java.io.IOException;
+import java.io.Writer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-  public static final String SERVICE_TYPE = "serviceType";
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template.Fragment;
 
-  public static final String PROVIDER_SERVICE_ID = "providerServiceId";
+public class ShowBasePathLambda implements Mustache.Lambda {
+  
+  private Pattern pattern = Pattern.compile("\"[ ]*[/]*[ ]*\"");
 
-  public static final String SERVICE_ID = "serviceId";
+  @Override
+  public void execute(Fragment fragment, Writer writer) throws IOException {
+
+    String text = fragment.execute();
+    Matcher matcher = pattern.matcher(text);
+
+    if (matcher.find()) {
+      return;
+    }
+    writer.write(text);
+  }
 }

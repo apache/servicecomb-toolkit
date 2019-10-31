@@ -17,27 +17,32 @@
 
 package org.apache.servicecomb.toolkit.plugin;
 
-import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.commons.lang3.StringUtils;
 
 public class ServiceConfig {
 
-  @Parameter(defaultValue = "all")
-  private String serviceType;
+  private String serviceType = "all";
 
-  @Parameter(defaultValue = "domain.orgnization.project")
-  private String groupId;
+  private String groupId = "domain.orgnization.project";
 
-  @Parameter(defaultValue = "sample")
-  private String artifactId;
+  private String artifactId = "sample";
 
-  @Parameter(defaultValue = "0.1.0-SNAPSHOT")
-  private String artifactVersion;
+  private String artifactVersion = "0.1.0-SNAPSHOT";
 
-  @Parameter(defaultValue = "domain.orgnization.project.sample")
-  private String packageName;
+  private String packageName = "domain.orgnization.project.sample";
 
-  @Parameter(defaultValue = "SpringMVC")
-  private String programmingModel;
+  private String programmingModel = "SpringMVC";
+
+  private String microServiceFramework = "ServiceComb";
+
+  // only for consumer
+  private String providerServiceId;
+
+  private String serviceId;
+
+  private String apiPackage;
+
+  private String modelPackage;
 
   public String getServiceType() {
     return serviceType;
@@ -61,5 +66,29 @@ public class ServiceConfig {
 
   public String getProgrammingModel() {
     return programmingModel;
+  }
+
+  public String getMicroServiceFramework() {
+    return microServiceFramework;
+  }
+
+  public String getProviderServiceId() {
+    return providerServiceId;
+  }
+
+  public String getServiceId() {
+    // Default, serviceId equals artifactId
+    if (StringUtils.isEmpty(serviceId) && StringUtils.isNotEmpty(artifactId)) {
+      serviceId = artifactId;
+    }
+    return serviceId;
+  }
+
+  public String getApiPackage() {
+    return apiPackage;
+  }
+
+  public String getModelPackage() {
+    return modelPackage;
   }
 }

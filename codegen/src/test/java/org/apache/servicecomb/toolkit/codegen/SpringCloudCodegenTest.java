@@ -17,11 +17,16 @@
 
 package org.apache.servicecomb.toolkit.codegen;
 
-public class ProjectMetaConstant {
+import org.junit.Assert;
+import org.junit.Test;
+import org.openapitools.codegen.CodegenConfig;
+import org.openapitools.codegen.CodegenConfigLoader;
 
-  public static final String SERVICE_TYPE = "serviceType";
+public class SpringCloudCodegenTest {
 
-  public static final String PROVIDER_SERVICE_ID = "providerServiceId";
-
-  public static final String SERVICE_ID = "serviceId";
+  @Test
+  public void testLoadImpl() {
+    CodegenConfig codegenConfig = CodegenConfigLoader.forName("SpringCloud");
+    Assert.assertEquals(SpringCloudCodegen.class, codegenConfig.getClass());
+  }
 }

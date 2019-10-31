@@ -21,9 +21,9 @@ import java.util.List;
 
 import org.openapitools.codegen.SupportingFile;
 
-public class ProviderDirectoryStrategy extends AbstractProviderDirectoryStrategy {
+public class SpringCloudProviderDirectoryStrategy extends AbstractProviderDirectoryStrategy {
 
-  protected String providerTemplateFolder = "provider";
+  private String providerTemplateFolder = "provider/servlet";
 
   @Override
   public String modelDirectory() {
@@ -42,36 +42,25 @@ public class ProviderDirectoryStrategy extends AbstractProviderDirectoryStrategy
 
   @Override
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
+
     super.processSupportingFile(supportingFiles);
-    supportingFiles.add(new SupportingFile("pom.mustache",
+    supportingFiles.add(new SupportingFile(providerTemplateFolder + "/applicationYml.mustache",
+        resourcesFolder(providerDirectory()),
+        "application.yml"));
+
+    supportingFiles.add(new SupportingFile(providerTemplateFolder + "/pom.mustache",
         providerDirectory(),
         "pom.xml")
     );
 
-    supportingFiles.add(new SupportingFile("Application.mustache",
+    supportingFiles.add(new SupportingFile(providerTemplateFolder + "/Application.mustache",
         mainClassFolder(providerDirectory()),
         "Application.java")
     );
 
-    supportingFiles.add(new SupportingFile("log4j2.mustache",
-        resourcesFolder(providerDirectory()),
-        "log4j2.xml")
-    );
-
-    supportingFiles.add(new SupportingFile(providerTemplateFolder + "/microservice.mustache",
-        resourcesFolder(providerDirectory()),
-        "microservice.yaml")
-    );
-
-    propertiesMap
-        .computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_ARTIFACT_ID, k -> propertiesMap.get("artifactId"));
+    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.PROVIDER_ARTIFACT_ID,
+        k -> providerDirectory());
     propertiesMap
         .put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME, providerDirectory());
-
-    if (ServiceCombCodegen.POJO_LIBRARY.equals(propertiesMap.get("library"))) {
-//      ((Map<String, String>) propertiesMap.get("apiTemplateFiles")).put(pojoApiImplTemplate, ".java");
-      propertiesMap.put("isPOJO", true);
-    }
-    propertiesMap.put("isMultipleModule", false);
   }
 }

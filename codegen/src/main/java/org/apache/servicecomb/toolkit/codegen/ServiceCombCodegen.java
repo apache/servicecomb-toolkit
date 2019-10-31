@@ -46,17 +46,11 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
 
   public static final String SPRING_BOOT_LIBRARY = "SpringBoot";
 
-  private String mainClassPackage;
-
   private String applicationId = "defaultApp";
 
-  private String microserviceName = "defaultService";
+  private String serviceId = "defaultService";
 
   private String modelTemplateFolder = "model";
-
-  private final Map<String, DirectoryStrategy> directoryStrategyMap = new LinkedHashMap<>();
-
-  private DirectoryStrategy currentDirectoryStrategy;
 
   @Override
   public CodegenType getTag() {
@@ -81,13 +75,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
     embeddedTemplateDir = templateDir = "ServiceComb";
     modelTemplateFiles.put(modelTemplateFolder + "/model.mustache", ".java");
     modelTemplateFiles.remove("model.mustache");
-
-    groupId = "domain.orgnization.project";
-    artifactId = "sample";
-
-    apiPackage = groupId + "." + artifactId + ".api";
-    modelPackage = groupId + "." + artifactId + ".model";
-    mainClassPackage = groupId + "." + artifactId;
 
     supportedLibraries.put(DEFAULT_LIBRARY, "ServiceComb Server application using the SpringMVC programming model.");
     supportedLibraries.put(POJO_LIBRARY, "ServiceComb Server application using the POJO programming model.");
@@ -168,10 +155,10 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
     additionalProperties.put("modelTemplateFiles", modelTemplateFiles);
     additionalProperties.put("apiDocTemplateFiles", apiDocTemplateFiles);
 
-    if (additionalProperties.get("microserviceName") != null) {
-      microserviceName = (String) additionalProperties.get("microserviceName");
+    if (additionalProperties.get(ProjectMetaConstant.SERVICE_ID) != null) {
+      serviceId = (String) additionalProperties.get(ProjectMetaConstant.SERVICE_ID);
     }
-    additionalProperties.put("microserviceName", microserviceName);
+    additionalProperties.put(ProjectMetaConstant.SERVICE_ID, serviceId);
 
     currentDirectoryStrategy = getStrategyMap()
         .get(Optional.ofNullable(additionalProperties.get(ProjectMetaConstant.SERVICE_TYPE))
@@ -208,26 +195,5 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
     }
 
     return camelize(name) + "Api";
-  }
-
-  /**
-   * Register a custom VersionStrategy to apply to resource URLs that match the
-   * given path patterns.
-   * @param strategy the custom strategy
-   * @param serviceTypes one or more service type,
-   * relative to the service type that represent microservice type of generated microservice project
-   * @see DirectoryStrategy
-   */
-  public void addDirectoryStrategy(DirectoryStrategy strategy, String... serviceTypes) {
-    for (String serviceType : serviceTypes) {
-      getStrategyMap().put(serviceType, strategy);
-    }
-  }
-
-  /**
-   * Return the map with directory strategies keyed by service type.
-   */
-  public Map<String, DirectoryStrategy> getStrategyMap() {
-    return this.directoryStrategyMap;
   }
 }

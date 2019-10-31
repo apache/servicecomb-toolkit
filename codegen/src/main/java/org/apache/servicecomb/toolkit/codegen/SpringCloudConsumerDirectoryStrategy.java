@@ -20,17 +20,14 @@ package org.apache.servicecomb.toolkit.codegen;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.SupportingFile;
 
-public class ConsumerDirectoryStrategy extends AbstractConsumerDirectoryStrategy {
+public class SpringCloudConsumerDirectoryStrategy extends AbstractConsumerDirectoryStrategy {
 
-  private String consumerTemplateFolder = "consumer";
+  private String consumerTemplateFolder = "consumer/openfeign";
 
   private String apiConsumerTemplate = consumerTemplateFolder + "/apiConsumer.mustache";
-
-  private String apiConsumerTemplateForPojo = consumerTemplateFolder + "/pojo/apiConsumer.mustache";
-
-  private String apiInterfaceTemplateForPojo = consumerTemplateFolder + "/pojo/apiInterface.mustache";
 
   @Override
   public String modelDirectory() {
@@ -51,45 +48,31 @@ public class ConsumerDirectoryStrategy extends AbstractConsumerDirectoryStrategy
   public void processSupportingFile(List<SupportingFile> supportingFiles) {
 
     super.processSupportingFile(supportingFiles);
-    String newConsumerTemplateFolder = consumerTemplateFolder;
 
-    if (ServiceCombCodegen.SPRING_BOOT_LIBRARY.equals(propertiesMap.get("library"))) {
-      newConsumerTemplateFolder += "/springboot";
-    }
+    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/applicationYml.mustache",
+        resourcesFolder(consumerDirectory()),
+        "application.yml"));
 
-    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/pom.mustache",
+    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/pom.mustache",
         consumerDirectory(),
         "pom.xml")
     );
 
-    supportingFiles.add(new SupportingFile(newConsumerTemplateFolder + "/Application.mustache",
+    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/Application.mustache",
         mainClassFolder(consumerDirectory()),
         "Application.java")
     );
 
-    supportingFiles.add(new SupportingFile("log4j2.mustache",
-        resourcesFolder(consumerDirectory()),
-        "log4j2.xml")
-    );
-
-    supportingFiles.add(new SupportingFile(consumerTemplateFolder + "/microservice.mustache",
-        resourcesFolder(consumerDirectory()),
-        "microservice.yaml")
-    );
+    propertiesMap.computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_ARTIFACT_ID,
+        k -> consumerDirectory());
 
     propertiesMap
-        .computeIfAbsent(GeneratorExternalConfigConstant.CONSUMER_ARTIFACT_ID, k -> propertiesMap.get("artifactId"));
+        .put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME, consumerDirectory());
 
-    propertiesMap.put("apiConsumerTemplate", apiConsumerTemplate);
-    propertiesMap.put("apiConsumerTemplateForPojo", apiConsumerTemplateForPojo);
+    propertiesMap.put(apiConsumerTemplate, ServiceType.CONSUMER.getValue());
+
     Map<String, String> apiTemplateFiles = ((Map<String, String>) propertiesMap.get("apiTemplateFiles"));
     apiTemplateFiles.remove("api.mustache");
-    if (ServiceCombCodegen.POJO_LIBRARY.equals(propertiesMap.get("library"))) {
-      apiTemplateFiles.put(apiConsumerTemplateForPojo, "Consumer.java");
-      apiTemplateFiles.put(apiInterfaceTemplateForPojo, ".java");
-      propertiesMap.put("isPOJO", true);
-    } else {
-      apiTemplateFiles.put(apiConsumerTemplate, ".java");
-    }
+    apiTemplateFiles.put(apiConsumerTemplate, ".java");
   }
 }

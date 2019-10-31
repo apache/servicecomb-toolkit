@@ -5,7 +5,7 @@ service_description:
 #The microservice name should be unique within an application.
 #The name can contain digits, uppercase and lowercase letters, hyphens(-), underscores(_), and periods(.); and can neither start nor end with punctuations.
 #The naming rule is as follows: ^[a-zA-Z0-9]+$|^[a-zA-Z0-9][a-zA-Z0-9_-.]*[a-zA-Z0-9]$.
-  name: {{microserviceName}}
+  name: {{providerServiceId}}
 #Indicates a service version
   version: 1.0.0
 servicecomb:
@@ -16,6 +16,8 @@ servicecomb:
   #Specifies the rest transport listening IP address.
   rest:
     address: 0.0.0.0:8080
+{{#isPOJO}}
   #Specifies the highway transport listening IP address.
   highway:
     address: 0.0.0.0:7070
+{{/isPOJO}}

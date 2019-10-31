@@ -22,7 +22,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Execute;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -31,6 +33,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.codegen.GeneratorExternalConfigConstant;
+import org.apache.servicecomb.toolkit.codegen.ServiceType;
 import org.apache.servicecomb.toolkit.common.FileUtils;
 import org.apache.servicecomb.toolkit.common.SourceType;
 import org.slf4j.Logger;
@@ -72,6 +75,8 @@ public class GenerateMojo extends AbstractMojo {
   @Override
   public void execute() {
 
+    checkConfig();
+
     if (MavenPluginUtil.isParentProject(project)) {
       for (MavenProject subProject : project.getCollectedProjects()) {
         generateContract(subProject);
@@ -85,6 +90,16 @@ public class GenerateMojo extends AbstractMojo {
       generateDocument(project);
       generateCode(project);
     }
+  }
+
+  private void checkConfig() {
+    Optional.ofNullable(service).ifPresent(service -> {
+      if (service.getServiceType().equalsIgnoreCase(ServiceType.CONSUMER.name())) {
+        if (StringUtils.isEmpty(service.getProviderServiceId())) {
+          throw new IllegalArgumentException("In consumer type, providerServiceId is required");
+        }
+      }
+    });
   }
 
   private void generateContract(MavenProject project) {
