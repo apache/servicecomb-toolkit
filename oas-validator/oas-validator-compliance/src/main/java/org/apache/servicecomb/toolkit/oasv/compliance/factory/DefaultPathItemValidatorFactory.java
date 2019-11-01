@@ -48,8 +48,8 @@ public class DefaultPathItemValidatorFactory implements PathItemValidatorFactory
     ArrayList<PathItemValidator> validators = new ArrayList<>();
 
     // skeletons
-    new PathItemOperationsValidator(operationValidatorFactory.create());
-    new PathItemParametersValidator(parameterValidatorFactory.create());
+    validators.add(new PathItemOperationsValidator(operationValidatorFactory.create()));
+    validators.add(new PathItemParametersValidator(parameterValidatorFactory.create()));
 
     return Collections.unmodifiableList(validators);
   }
