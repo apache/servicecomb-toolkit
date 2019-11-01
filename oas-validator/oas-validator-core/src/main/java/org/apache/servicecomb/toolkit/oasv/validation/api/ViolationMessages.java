@@ -19,15 +19,15 @@ package org.apache.servicecomb.toolkit.oasv.validation.api;
 
 public abstract class ViolationMessages {
 
-  public static final String REQUIRED = "必须提供";
+  public static final String REQUIRED = "Required";
 
-  public static final String MUST_BE_EMPTY = "不允许提供";
+  public static final String MUST_BE_EMPTY = "This field is no allowed";
 
-  public static final String LOWER_CAMEL_CASE = "必须为lower camel case";
+  public static final String LOWER_CAMEL_CASE = "Must be lower camel case";
 
-  public static final String UPPER_CAMEL_CASE = "必须为upper camel case";
+  public static final String UPPER_CAMEL_CASE = "Must be upper camel case";
 
-  public static final String UPPER_HYPHEN_CASE = "必须为upper hyphen case";
+  public static final String UPPER_HYPHEN_CASE = "Must be upper hyphen case";
 
 }
 

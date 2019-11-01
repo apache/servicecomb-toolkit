@@ -40,7 +40,7 @@ public class OpenApiVersionValidatorTest extends OasComplianceTestBase {
     OpenAPI openAPI = loadRelative("petstore-openapi-wrong.yaml");
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).hasSize(1);
-    assertThat(violations).containsExactly(createViolation("必须>=3.0.2", "openapi", null));
+    assertThat(violations).containsExactly(createViolation("Must be >= 3.0.2", "openapi", null));
   }
 
   @Configuration

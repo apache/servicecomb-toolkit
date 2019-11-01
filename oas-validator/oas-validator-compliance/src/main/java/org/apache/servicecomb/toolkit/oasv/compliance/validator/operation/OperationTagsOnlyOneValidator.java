@@ -46,7 +46,7 @@ public class OperationTagsOnlyOneValidator implements OperationValidator {
     List<String> tags = oasObject.getTags();
     if (CollectionUtils.size(tags) != 1) {
       return singletonList(
-        new OasViolation(location.property("tags"), "必须提供且只提供一个tag"));
+        new OasViolation(location.property("tags"), "Must provide one and at most one tag"));
     }
     return emptyList();
   }

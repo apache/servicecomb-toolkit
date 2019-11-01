@@ -41,7 +41,7 @@ public class OperationTagsReferenceValidatorTest extends OasComplianceTestBase {
     OpenAPI openAPI = loadRelative("petstore-operation-tags-reference.yaml");
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).containsExactly(
-      createViolation("不在$.tags所定义的范围内",
+      createViolation("Is not defined in $.tags",
         "paths", PATHS,
         "/pets", PATH_ITEM,
         "get", OPERATION,
