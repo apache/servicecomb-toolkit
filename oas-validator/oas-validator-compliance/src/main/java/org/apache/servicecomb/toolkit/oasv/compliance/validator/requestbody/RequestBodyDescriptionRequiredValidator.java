@@ -26,7 +26,7 @@ import io.swagger.v3.oas.models.parameters.RequestBody;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#request-body-object">Request Object</a>
  * .description 属性校验器
  * <ul>
- * <li>必须提供</li>
+ * <li>Required</li>
  * </ul>
  */
 public class RequestBodyDescriptionRequiredValidator

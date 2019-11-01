@@ -49,7 +49,7 @@ public class TagReferenceValidator implements TagValidator {
     List<OasViolation> violations = new ArrayList<>();
 
     if (!allOperationsTags.contains(tag.getName())) {
-      violations.add(new OasViolation(location, "此Tag没有被Operation Object使用过"));
+      violations.add(new OasViolation(location, "Is not referenced by any Operation object"));
     }
 
     return violations;

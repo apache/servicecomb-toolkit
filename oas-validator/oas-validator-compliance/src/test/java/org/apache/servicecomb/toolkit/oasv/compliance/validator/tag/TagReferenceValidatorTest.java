@@ -43,7 +43,7 @@ public class TagReferenceValidatorTest extends OasComplianceTestBase {
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).hasSize(1);
     assertThat(violations)
-      .containsExactly(createViolation("此Tag没有被Operation Object使用过", "tags[1]", TAG));
+      .containsExactly(createViolation("Is not referenced by any Operation object", "tags[1]", TAG));
   }
 
   @Configuration

@@ -19,6 +19,7 @@ package org.apache.servicecomb.toolkit.oasv.compliance.validator.tag;
 
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
 import org.apache.servicecomb.toolkit.oasv.validation.api.TagValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration;
 
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasComplianceTestBase;
@@ -43,7 +44,7 @@ public class TagDescriptionRequiredValidatorTest extends OasComplianceTestBase {
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).hasSize(1);
     assertThat(violations)
-      .containsExactly(createViolation("必须提供", "tags[0]", TAG, "description", null));
+      .containsExactly(createViolation(ViolationMessages.REQUIRED, "tags[0]", TAG, "description", null));
   }
 
   @Configuration

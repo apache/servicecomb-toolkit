@@ -20,6 +20,7 @@ package org.apache.servicecomb.toolkit.oasv.compliance.validator.header;
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasComplianceTestBase;
 import org.apache.servicecomb.toolkit.oasv.validation.api.HeaderValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.Test;
@@ -42,8 +43,8 @@ public class HeaderDescriptionRequiredValidatorTest extends OasComplianceTestBas
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations)
       .containsExactlyInAnyOrder(
-        createViolation("必须提供", "components", COMPONENTS, "headers.'X-Pet-Foo'", HEADER, "description", null),
-        createViolation("必须提供",
+        createViolation(ViolationMessages.REQUIRED, "components", COMPONENTS, "headers.'X-Pet-Foo'", HEADER, "description", null),
+        createViolation(ViolationMessages.REQUIRED,
           "paths", PATHS,
           "/pets", PATH_ITEM,
           "get", OPERATION,
@@ -51,7 +52,7 @@ public class HeaderDescriptionRequiredValidatorTest extends OasComplianceTestBas
           "200", RESPONSE,
           "headers.'x-next'", HEADER,
           "description", null),
-        createViolation("必须提供",
+        createViolation(ViolationMessages.REQUIRED,
           "paths", PATHS,
           "/pets", PATH_ITEM,
           "get", OPERATION,

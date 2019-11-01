@@ -35,7 +35,7 @@ import static java.util.Collections.singletonList;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
  * .security属性校验器
  * <ul>
- * <li>不允许提供</li>
+ * <li>This field is not allowed</li>
  * </ul>
  */
 public class OpenApiSecurityEmptyValidator implements OpenApiValidator {

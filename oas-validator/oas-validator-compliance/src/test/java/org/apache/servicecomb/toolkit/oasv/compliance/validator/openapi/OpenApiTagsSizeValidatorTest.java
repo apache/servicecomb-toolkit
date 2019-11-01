@@ -41,7 +41,7 @@ public class OpenApiTagsSizeValidatorTest extends OasComplianceTestBase {
     OpenAPI openAPI = loadRelative("petstore-tag-not-provided.yaml");
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).hasSize(1);
-    assertThat(violations).containsExactly(createViolation("至少提供一个", "tags", TAG));
+    assertThat(violations).containsExactly(createViolation("At least provide one tag", "tags", TAG));
   }
 
   @Configuration
