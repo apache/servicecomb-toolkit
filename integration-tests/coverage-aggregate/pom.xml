@@ -58,6 +58,38 @@
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>toolkit-maven-plugin</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-core-spring</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compliance</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compliance-spring</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compatibility</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compatibility-spring</artifactId>
+    </dependency>
+
   </dependencies>
 
   <profiles>
