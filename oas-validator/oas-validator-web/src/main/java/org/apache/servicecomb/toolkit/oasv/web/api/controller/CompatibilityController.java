@@ -23,6 +23,10 @@ import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.servicecomb.toolkit.oasv.compatibility.CompatibilityCheckParser;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasSpecDiffValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -32,22 +36,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasSpecDiffValidator;
-import org.apache.servicecomb.toolkit.oasv.util.DefaultOasSpecSyntaxChecker;
-import org.apache.servicecomb.toolkit.oasv.util.OasSpecSyntaxChecker;
-
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 @RestController
 @RequestMapping("/api/compatibility")
 public class CompatibilityController {
-
-  private OasSpecSyntaxChecker oasSpecSyntaxChecker = new DefaultOasSpecSyntaxChecker();
 
   @Autowired
   private OasSpecDiffValidator oasSpecDiffValidator;
@@ -72,8 +66,8 @@ public class CompatibilityController {
     String leftYaml = yaml.split("---\n")[0];
     String rightYaml = yaml.split("---\n")[1];
 
-    importError.addLeftParseErrors(oasSpecSyntaxChecker.check(leftYaml));
-    importError.addRightParseErrors(oasSpecSyntaxChecker.check(rightYaml));
+    importError.addLeftParseErrors(CompatibilityCheckParser.checkSyntax(leftYaml));
+    importError.addRightParseErrors(CompatibilityCheckParser.checkSyntax(rightYaml));
 
     if (importError.isNotEmpty()) {
       return importError;
@@ -91,24 +85,14 @@ public class CompatibilityController {
   }
 
   private OpenAPI loadByYaml(String yaml) {
-    OpenAPIV3Parser parser = new OpenAPIV3Parser();
-    SwaggerParseResult parseResult = parser.readContents(yaml, null, createParseOptions());
+    SwaggerParseResult parseResult = CompatibilityCheckParser.parseYaml(yaml);
     if (CollectionUtils.isNotEmpty(parseResult.getMessages())) {
       throw new RuntimeException(StringUtils.join(parseResult.getMessages(), ","));
     }
     return parseResult.getOpenAPI();
   }
 
-  private ParseOptions createParseOptions() {
 
-    ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(true);
-    parseOptions.setResolveFully(true);
-    parseOptions.setFlatten(false);
-    return parseOptions;
-
-  }
   
   private OasDiffValidationContext createContext(OpenAPI leftOpenAPI, OpenAPI rightOpenAPI) {
 

@@ -33,15 +33,8 @@ public abstract class OasSpecLoader {
    * @param classpath
    * @return
    */
-  protected final SwaggerParseResult parseAbsolute(String classpath) {
+  protected abstract SwaggerParseResult parseAbsolute(String classpath);
 
-    String content = ClasspathHelper.loadFileFromClasspath(classpath);
-    OpenAPIV3Parser parser = new OpenAPIV3Parser();
-    return parser.readContents(content, null, createParseOptions());
-
-  }
-
-  protected abstract ParseOptions createParseOptions();
 
   /**
    * 加载绝对路径下的文件
