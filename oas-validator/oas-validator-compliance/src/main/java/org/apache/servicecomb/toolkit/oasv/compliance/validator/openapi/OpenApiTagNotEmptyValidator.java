@@ -43,7 +43,7 @@ public class OpenApiTagNotEmptyValidator implements OpenApiValidator {
   public List<OasViolation> validate(OasValidationContext context, OasObjectPropertyLocation location, OpenAPI openAPI) {
 
     if (CollectionUtils.isEmpty(openAPI.getTags())) {
-      return singletonList(new OasViolation(location.property("tags", OasObjectType.TAG), "至少提供一个"));
+      return singletonList(new OasViolation(location.property("tags", OasObjectType.TAG), "At least provide one tag"));
 
     }
     return emptyList();

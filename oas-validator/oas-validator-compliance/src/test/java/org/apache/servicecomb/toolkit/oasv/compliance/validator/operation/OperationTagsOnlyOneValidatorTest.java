@@ -41,7 +41,7 @@ public class OperationTagsOnlyOneValidatorTest extends OasComplianceTestBase {
     OpenAPI openAPI = loadRelative("petstore-operation-tags-only-one.yaml");
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).containsExactly(
-      createViolation("必须提供且只提供一个tag",
+      createViolation("Must provide one and at most one tag",
         "paths", PATHS,
         "/pets", PATH_ITEM,
         "get", OPERATION,

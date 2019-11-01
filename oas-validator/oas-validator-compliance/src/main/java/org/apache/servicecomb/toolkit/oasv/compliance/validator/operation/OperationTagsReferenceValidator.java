@@ -59,7 +59,7 @@ public class OperationTagsReferenceValidator implements OperationValidator {
       String tagName = tags.get(i);
       if (!globalTagNames.contains(tagName)) {
         violations.add(
-          new OasViolation(location.property("tags[" + i + "]"), "不在$.tags所定义的范围内"));
+          new OasViolation(location.property("tags[" + i + "]"), "Is not defined in $.tags"));
       }
     }
 

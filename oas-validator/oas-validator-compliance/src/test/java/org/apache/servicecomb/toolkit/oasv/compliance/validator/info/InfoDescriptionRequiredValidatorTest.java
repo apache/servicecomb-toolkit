@@ -20,6 +20,7 @@ package org.apache.servicecomb.toolkit.oasv.compliance.validator.info;
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasComplianceTestBase;
 import org.apache.servicecomb.toolkit.oasv.validation.api.InfoValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class InfoDescriptionRequiredValidatorTest extends OasComplianceTestBase 
     OpenAPI openAPI = loadRelative("petstore-info-no-desc.yaml");
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).hasSize(1);
-    assertThat(violations).containsExactly(createViolation("必须提供", "info", INFO, "description", null));
+    assertThat(violations).containsExactly(createViolation(ViolationMessages.REQUIRED, "info", INFO, "description", null));
   }
 
   @Configuration

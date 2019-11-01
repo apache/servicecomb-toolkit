@@ -47,7 +47,7 @@ public class OpenApiVersionValidator implements OpenApiValidator {
     if (ok) {
       return emptyList();
     }
-    return singletonList(new OasViolation(location.property("openapi"), "必须>=3.0.2"));
+    return singletonList(new OasViolation(location.property("openapi"), "Must be >= 3.0.2"));
   }
 
 }
