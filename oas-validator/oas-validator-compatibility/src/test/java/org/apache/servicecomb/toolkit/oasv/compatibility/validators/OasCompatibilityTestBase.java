@@ -17,21 +17,18 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators;
 
+import org.apache.servicecomb.toolkit.oasv.compatibility.CompatibilityCheckParser;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.test.OasDiffValidatorTestBase;
-import io.swagger.v3.parser.core.models.ParseOptions;
+
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import io.swagger.v3.parser.util.ClasspathHelper;
 
 public class OasCompatibilityTestBase extends OasDiffValidatorTestBase {
 
   @Override
-  protected ParseOptions createParseOptions() {
-
-    ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(true);
-    parseOptions.setResolveFully(true);
-    parseOptions.setFlatten(false);
-    return parseOptions;
-
+  protected SwaggerParseResult parseAbsolute(String classpath) {
+    String content = ClasspathHelper.loadFileFromClasspath(classpath);
+    return CompatibilityCheckParser.parseYaml(content);
   }
 
 }
