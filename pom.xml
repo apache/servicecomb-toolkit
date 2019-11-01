@@ -156,6 +156,49 @@
         <artifactId>toolkit-maven-plugin</artifactId>
         <version>${project.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-core-spring</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-test</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-compliance</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-compliance-spring</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-compatibility</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb.toolkit</groupId>
+        <artifactId>oas-validator-compatibility-spring</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
