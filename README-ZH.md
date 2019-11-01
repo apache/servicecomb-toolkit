@@ -272,6 +272,15 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 * -f, --format : 指定输出文档风格,现支持swagger-ui
 例：-f swagger-ui
 
+#### 3.3.3 契约风格检查
+
+```shell
+$ java -jar toolkit-cli-{version}.jar checkstyle openapi.yaml
+```
+
+> **checkstyle** Command argument
+* &lt;file&gt; OpenAPI v3 spec yaml文件
+
 ### 3.4 使用案例
 可以在[这里](./samples/README-ZH.md)找到使用插件的一些示例 
 

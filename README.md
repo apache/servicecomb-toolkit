@@ -261,13 +261,24 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 ```
 > **docgenerate** Command option
 * -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
-例：-i http://petstore.swagger.io/v2/swagger.json
+e.g：-i http://petstore.swagger.io/v2/swagger.json
 * -o, --output. Document output path.
-例：-o ./document
+e.g：-o ./document
 * -f, --format. Specifies the output document format, now supports swagger-ui
-例：-f swagger-ui
+e.g：-f swagger-ui
+
+#### 3.3.3 Service contract style checking
+
+```shell
+$ java -jar toolkit-cli-{version}.jar checkstyle openapi.yaml
+```
+
+> **checkstyle** Command argument
+* &lt;file&gt; OpenAPI v3 spec yaml file
+
 
 ### 3.4 Use case
+
 some example of using plugin can be found [here](./samples)
 
 ## 4 Contact us
