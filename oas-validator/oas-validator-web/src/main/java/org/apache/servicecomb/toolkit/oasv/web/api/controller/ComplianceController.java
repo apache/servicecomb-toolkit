@@ -23,6 +23,10 @@ import java.util.Map;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -32,22 +36,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.apache.servicecomb.toolkit.oasv.util.DefaultOasSpecSyntaxChecker;
-import org.apache.servicecomb.toolkit.oasv.util.OasSpecSyntaxChecker;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
-
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 @RestController
 @RequestMapping("/api/compliance")
 public class ComplianceController {
-
-  private OasSpecSyntaxChecker oasSpecSyntaxChecker = new DefaultOasSpecSyntaxChecker();
 
   @Autowired
   private OasSpecValidator oasSpecValidator;
@@ -70,9 +64,14 @@ public class ComplianceController {
   private ImportError doValidate(String yaml) {
 
     ImportError importError = new ImportError();
-    importError.addParseErrors(oasSpecSyntaxChecker.check(yaml));
+    importError.addParseErrors(ComplianceCheckParser.checkSyntax(yaml));
     if (importError.isNotEmpty()) {
       return importError;
+    }
+
+    SwaggerParseResult parseResult = ComplianceCheckParser.parseYaml(yaml);
+    if (CollectionUtils.isNotEmpty(parseResult.getMessages())) {
+      throw new RuntimeException(StringUtils.join(parseResult.getMessages(), ","));
     }
 
     OpenAPI openAPI = loadByYaml(yaml);
@@ -84,25 +83,12 @@ public class ComplianceController {
     return importError;
   }
 
-
   private OpenAPI loadByYaml(String yaml) {
-    OpenAPIV3Parser parser = new OpenAPIV3Parser();
-    SwaggerParseResult parseResult = parser.readContents(yaml, null, createParseOptions());
+    SwaggerParseResult parseResult = ComplianceCheckParser.parseYaml(yaml);
     if (CollectionUtils.isNotEmpty(parseResult.getMessages())) {
       throw new RuntimeException(StringUtils.join(parseResult.getMessages(), ","));
     }
     return parseResult.getOpenAPI();
-  }
-  
-  private ParseOptions createParseOptions() {
-
-    ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(false);
-    parseOptions.setResolveFully(false);
-    parseOptions.setFlatten(false);
-    return parseOptions;
-
   }
   
   private OasValidationContext createContext(OpenAPI openAPI) {

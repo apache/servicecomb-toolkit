@@ -17,20 +17,18 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.validator;
 
+import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
 import org.apache.servicecomb.toolkit.oasv.validation.test.OasValidatorTestBase;
-import io.swagger.v3.parser.core.models.ParseOptions;
+
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import io.swagger.v3.parser.util.ClasspathHelper;
 
 public class OasComplianceTestBase extends OasValidatorTestBase {
 
   @Override
-  protected ParseOptions createParseOptions() {
-
-    ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(false);
-    parseOptions.setResolveFully(false);
-    parseOptions.setFlatten(false);
-    return parseOptions;
-
+  protected SwaggerParseResult parseAbsolute(String classpath) {
+    String content = ClasspathHelper.loadFileFromClasspath(classpath);
+    return ComplianceCheckParser.parseYaml(content);
   }
+
 }
