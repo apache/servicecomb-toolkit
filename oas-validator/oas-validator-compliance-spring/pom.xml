@@ -35,13 +35,11 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-compliance</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-core-spring</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
