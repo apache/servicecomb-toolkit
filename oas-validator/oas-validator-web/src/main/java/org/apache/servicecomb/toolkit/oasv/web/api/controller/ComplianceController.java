@@ -24,6 +24,7 @@ import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
+import org.apache.servicecomb.toolkit.oasv.util.SyntaxChecker;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
@@ -64,7 +65,7 @@ public class ComplianceController {
   private ImportError doValidate(String yaml) {
 
     ImportError importError = new ImportError();
-    importError.addParseErrors(ComplianceCheckParser.checkSyntax(yaml));
+    importError.addParseErrors(SyntaxChecker.check(yaml));
     if (importError.isNotEmpty()) {
       return importError;
     }

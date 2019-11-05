@@ -17,28 +17,27 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility;
 
-import io.swagger.v3.parser.OpenAPIV3Parser;
-import io.swagger.v3.parser.core.models.ParseOptions;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.Test;
+
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import io.swagger.v3.parser.util.ClasspathHelper;
 
-public abstract class CompatibilityCheckParser {
+public class CompatibilityCheckParserTest {
 
-  private CompatibilityCheckParser() {
-    // singleton
+  @Test
+  public void parseYaml() {
+    String yaml = loadRelative("parser-test.yaml");
+    SwaggerParseResult swaggerParseResult = CompatibilityCheckParser.parseYaml(yaml);
+    assertThat(swaggerParseResult).isNotNull();
+    assertThat(swaggerParseResult.getOpenAPI()).isNotNull();
+    assertThat(swaggerParseResult.getMessages()).isEmpty();
   }
 
-  public static SwaggerParseResult parseYaml(String yaml) {
-    OpenAPIV3Parser parser = new OpenAPIV3Parser();
-    return parser.readContents(yaml, null, createParseOptions());
-  }
-
-  private static ParseOptions createParseOptions() {
-
-    ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(true);
-    parseOptions.setResolveFully(true);
-    parseOptions.setFlatten(false);
-    return parseOptions;
+  private String loadRelative(String filename) {
+    String basePath = getClass().getPackage().getName().replaceAll("\\.", "/");
+    return ClasspathHelper.loadFileFromClasspath(basePath + "/" + filename);
   }
 }
