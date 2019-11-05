@@ -27,6 +27,7 @@ import org.apache.servicecomb.toolkit.oasv.compatibility.CompatibilityCheckParse
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasSpecDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.util.SyntaxChecker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
@@ -66,8 +67,8 @@ public class CompatibilityController {
     String leftYaml = yaml.split("---\n")[0];
     String rightYaml = yaml.split("---\n")[1];
 
-    importError.addLeftParseErrors(CompatibilityCheckParser.checkSyntax(leftYaml));
-    importError.addRightParseErrors(CompatibilityCheckParser.checkSyntax(rightYaml));
+    importError.addLeftParseErrors(SyntaxChecker.check(leftYaml));
+    importError.addRightParseErrors(SyntaxChecker.check(rightYaml));
 
     if (importError.isNotEmpty()) {
       return importError;
