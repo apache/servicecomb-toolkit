@@ -90,4 +90,14 @@ public class CliTest {
 
     tempDir.toFile().deleteOnExit();
   }
+
+  @Test
+  public void testCheckStyle() throws IOException {
+    String[] args = new String[] {
+        "checkstyle",
+        Paths.get("./src/test/resources/oas/parser-test.yaml").toFile().getCanonicalPath()
+    };
+    ToolkitMain.main(args);
+  }
+
 }
