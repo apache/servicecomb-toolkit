@@ -15,30 +15,34 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit.oasv.compatibility;
+package org.apache.servicecomb.toolkit.oasv.util;
+
+import static java.util.Collections.emptyList;
+
+import java.util.List;
 
 import io.swagger.v3.parser.OpenAPIV3Parser;
 import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
-public abstract class CompatibilityCheckParser {
+public class SyntaxChecker {
 
-  private CompatibilityCheckParser() {
+  private SyntaxChecker() {
     // singleton
   }
 
-  public static SwaggerParseResult parseYaml(String yaml) {
-    OpenAPIV3Parser parser = new OpenAPIV3Parser();
-    return parser.readContents(yaml, null, createParseOptions());
-  }
-
-  private static ParseOptions createParseOptions() {
+  public static List<String> check(String oasSpecContent) {
 
     ParseOptions parseOptions = new ParseOptions();
-    parseOptions.setResolve(true);
-    parseOptions.setResolveCombinators(true);
-    parseOptions.setResolveFully(true);
+    parseOptions.setResolve(false);
+    parseOptions.setResolveFully(false);
+    parseOptions.setResolveCombinators(false);
     parseOptions.setFlatten(false);
-    return parseOptions;
+
+    OpenAPIV3Parser parser = new OpenAPIV3Parser();
+    SwaggerParseResult result = parser.readContents(oasSpecContent, null, parseOptions);
+    return result.getMessages() == null ? emptyList() : result.getMessages();
+
   }
+
 }
