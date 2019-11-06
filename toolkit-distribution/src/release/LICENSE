@@ -230,6 +230,7 @@ You can find a copy of the License at licenses/LICENSE-cddl
 * JavaMail API jar (javax.mail:mailapi:1.4.3 - http://java.sun.com/projects/javamail/mailapi)
 * Java Servlet API (javax.servlet:javax.servlet-api:4.0.1 - http://servlet-spec.java.net)
 * JavaBeans(TM) Activation Framework (javax.activation:activation:1.1 - http://java.sun.com/products/javabeans/jaf/index.jsp)
+* javax.annotation API (javax.annotation:javax.annotation-api:1.3.2 - http://jcp.org/en/jsr/detail?id=250)
 * javax.ws.rs-api (javax.ws.rs:javax.ws.rs-api:2.0.1 - http://jax-rs-spec.java.net)
 * jaxb-api (javax.xml.bind:jaxb-api:2.3.0 - https://github.com/javaee/jaxb-spec/jaxb-api)
 
@@ -458,14 +459,6 @@ For details, see their respective project links.
 * unbescape (org.unbescape:unbescape:1.1.6.RELEASE - http://www.unbescape.org)
 
 ===========================================================================
-This product bundles the following libraries which are licensed under the
-CDDL + GPLv2 with classpath exception.
-For details, see their respective project links.
-You can find a copy of the License at licenses/LICENSE-cddl-gplv2
-
-* javax.annotation API (javax.annotation:javax.annotation-api:1.3.2 - http://jcp.org/en/jsr/detail?id=250)
-
-===========================================================================
 This product bundles Webjars which is licensed under the
 MIT License.
 For details, see their respective project links.
@@ -478,7 +471,7 @@ You can find a copy of the License at licenses/LICENSE-webjars
 This product bundles Animal Sniffer Annotations which is licensed under the
 MIT License.
 For details, see http://www.mojohaus.org/animal-sniffer/animal-sniffer-annotations
-You can find a copy of the License at licenses/LICENSE-mit-unknown
+You can find a copy of the License at licenses/LICENSE-mit
 
 * Animal Sniffer Annotations (org.codehaus.mojo:animal-sniffer-annotations:1.17 - http://www.mojohaus.org/animal-sniffer/animal-sniffer-annotations)
 
@@ -486,7 +479,7 @@ You can find a copy of the License at licenses/LICENSE-mit-unknown
 This product bundles Checker Qual which is licensed under the
 MIT License.
 For details, see https://checkerframework.org
-You can find a copy of the License at licenses/LICENSE-mit-unknown
+You can find a copy of the License at licenses/LICENSE-mit
 
 * Checker Qual (org.checkerframework:checker-compat-qual:2.5.2 - https://checkerframework.org)
 
