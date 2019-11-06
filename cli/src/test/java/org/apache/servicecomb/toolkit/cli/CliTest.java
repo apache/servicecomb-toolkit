@@ -100,4 +100,13 @@ public class CliTest {
     ToolkitMain.main(args);
   }
 
+  @Test
+  public void testCheckStyleAbbr() throws IOException {
+    String[] args = new String[] {
+        "cs",
+        Paths.get("./src/test/resources/oas/parser-test.yaml").toFile().getCanonicalPath()
+    };
+    ToolkitMain.main(args);
+  }
+
 }
