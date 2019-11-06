@@ -19,8 +19,8 @@ package org.apache.servicecomb.toolkit.cli;
 
 import io.airlift.airline.Command;
 
-@Command(name = "checkstyle",
-    description = "Check style for OpenAPI v3 spec yaml")
-public class CheckStyle extends CheckStyleBase {
+@Command(name = "cs",
+    description = "Check style for OpenAPI v3 spec yaml(abbr for checkstyle)")
+public class CheckStyleAbbr extends CheckStyleBase {
 
 }
