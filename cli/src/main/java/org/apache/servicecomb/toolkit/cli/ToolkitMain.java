@@ -37,7 +37,12 @@ public class ToolkitMain {
     builder.withDescription("Microservice development toolkit(version " + projectVersion
         + "). ");
     builder.withDefaultCommand(Help.class);
-    builder.withCommands(CodeGenerate.class, DocGenerate.class, CheckStyle.class, CheckStyleAbbr.class, Help.class);
+    builder.withCommands(
+        CodeGenerate.class, DocGenerate.class,
+        CheckStyle.class, CheckStyleAbbr.class,
+        CheckCompatibility.class, CheckCompatibilityAbbr.class,
+        Help.class
+    );
     Runnable cmd = builder.build().parse(args);
 
     cmd.run();

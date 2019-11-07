@@ -85,6 +85,11 @@
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-compliance</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compatibility</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

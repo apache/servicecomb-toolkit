@@ -95,7 +95,7 @@ public class CliTest {
   public void testCheckStyle() throws IOException {
     String[] args = new String[] {
         "checkstyle",
-        Paths.get("./src/test/resources/oas/parser-test.yaml").toFile().getCanonicalPath()
+        Paths.get("./src/test/resources/oas/style.yaml").toFile().getCanonicalPath()
     };
     ToolkitMain.main(args);
   }
@@ -104,9 +104,30 @@ public class CliTest {
   public void testCheckStyleAbbr() throws IOException {
     String[] args = new String[] {
         "cs",
-        Paths.get("./src/test/resources/oas/parser-test.yaml").toFile().getCanonicalPath()
+        Paths.get("./src/test/resources/oas/style.yaml").toFile().getCanonicalPath()
     };
     ToolkitMain.main(args);
   }
+
+  @Test
+  public void testCheckCompatibility() throws IOException {
+    String[] args = new String[] {
+        "checkcompatibility",
+        Paths.get("./src/test/resources/oas/compatibility-left.yaml").toFile().getCanonicalPath(),
+        Paths.get("./src/test/resources/oas/compatibility-right.yaml").toFile().getCanonicalPath()
+    };
+    ToolkitMain.main(args);
+  }
+
+  @Test
+  public void testCheckCompatibilityAbbr() throws IOException {
+    String[] args = new String[] {
+        "cc",
+        Paths.get("./src/test/resources/oas/compatibility-left.yaml").toFile().getCanonicalPath(),
+        Paths.get("./src/test/resources/oas/compatibility-right.yaml").toFile().getCanonicalPath()
+    };
+    ToolkitMain.main(args);
+  }
+
 
 }
