@@ -47,7 +47,7 @@ public class SchemaTypeFormatChangeInResponseValidatorTest extends OasCompatibil
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许(type=integer,format=int32)->(type=integer,format=int64)的修改",
+          "the change (type=integer,format=int32)->(type=integer,format=int64) is not allowed",
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

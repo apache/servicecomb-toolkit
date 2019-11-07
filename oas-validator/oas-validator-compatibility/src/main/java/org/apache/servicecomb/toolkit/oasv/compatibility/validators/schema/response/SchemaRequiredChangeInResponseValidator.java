@@ -29,6 +29,8 @@ import static java.util.Collections.emptyList;
 
 public class SchemaRequiredChangeInResponseValidator extends SchemaPropertyChangeValidator<List<String>> {
 
+  public static final String VIOLATION_MESSAGE = "delete required fields is not allowed on right side";
+
   @Override
   protected List<String> getProperty(Schema schema) {
     return ObjectUtils.defaultIfNull(schema.getRequired(), emptyList());
@@ -46,7 +48,7 @@ public class SchemaRequiredChangeInResponseValidator extends SchemaPropertyChang
 
   @Override
   protected String getMessage(List<String> leftProperty, List<String> rightProperty) {
-    return "不允许删除required字段";
+    return SchemaRequiredChangeInResponseValidator.VIOLATION_MESSAGE;
   }
 
   @Override

@@ -32,6 +32,7 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.List;
 
 import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.*;
+import static org.apache.servicecomb.toolkit.oasv.compatibility.validators.parameter.ParameterAddDiffValidator.VIOLATION_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ContextConfiguration(classes = ParameterAddDiffValidatorTest.TestConfiguration.class)
@@ -47,7 +48,7 @@ public class ParameterAddDiffValidatorTest extends OasCompatibilityTestBase {
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationRight(
-          "[name=bar,in=query]:仅允许新增required=false的parameter",
+          "[name=bar,in=query]:" + VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

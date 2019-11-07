@@ -20,7 +20,8 @@ package org.apache.servicecomb.toolkit.cli;
 import io.airlift.airline.Command;
 
 @Command(name = "cc",
-    description = "Check compatibility for two OpenAPI v3 spec yamls, right one should be semantically compatible with left one")
+    description = "Check compatibility for two OpenAPI v3 spec yamls,"
+        + " right one should be semantically compatible with left one(abbr for checkcompatibility)")
 public class CheckCompatibilityAbbr extends CheckCompatibilityBase {
 
 }

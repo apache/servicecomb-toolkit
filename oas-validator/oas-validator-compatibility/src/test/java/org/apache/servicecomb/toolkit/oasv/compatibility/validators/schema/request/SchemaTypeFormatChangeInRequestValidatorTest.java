@@ -47,7 +47,7 @@ public class SchemaTypeFormatChangeInRequestValidatorTest extends OasCompatibili
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许(type=integer,format=null)->(type=string,format=null)的修改",
+          "the change (type=integer,format=null)->(type=string,format=null) is not allowed",
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
@@ -59,7 +59,7 @@ public class SchemaTypeFormatChangeInRequestValidatorTest extends OasCompatibili
         ),
 
         createViolationBoth(
-          "不允许(type=integer,format=null)->(type=string,format=null)的修改",
+          "the change (type=integer,format=null)->(type=string,format=null) is not allowed",
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

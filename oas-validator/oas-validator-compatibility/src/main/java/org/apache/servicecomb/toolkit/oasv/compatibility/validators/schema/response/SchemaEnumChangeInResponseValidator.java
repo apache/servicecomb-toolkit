@@ -29,6 +29,8 @@ import static java.util.Collections.emptyList;
 
 public class SchemaEnumChangeInResponseValidator extends SchemaPropertyChangeValidator<List> {
 
+  public static final String VIOLATION_MESSAGE = "add enum on right side is not allowed";
+
   @Override
   protected List getProperty(Schema schema) {
     return ObjectUtils.defaultIfNull(schema.getEnum(), emptyList());
@@ -46,7 +48,7 @@ public class SchemaEnumChangeInResponseValidator extends SchemaPropertyChangeVal
 
   @Override
   protected String getMessage(List leftProperty, List rightProperty) {
-    return "不允许新增enum";
+    return VIOLATION_MESSAGE;
   }
 
   @Override

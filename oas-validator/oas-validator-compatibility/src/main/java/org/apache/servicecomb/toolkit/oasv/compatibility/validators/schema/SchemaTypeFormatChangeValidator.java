@@ -46,7 +46,7 @@ public abstract class SchemaTypeFormatChangeValidator implements SchemaCompareVa
       return emptyList();
     }
 
-    StringBuilder message = new StringBuilder("不允许");
+    StringBuilder message = new StringBuilder("the change ");
     message
       .append("(type=")
       .append(leftTypeFormat.getType())
@@ -59,7 +59,7 @@ public abstract class SchemaTypeFormatChangeValidator implements SchemaCompareVa
       .append(",format=")
       .append(rightTypeFormat.getFormat())
       .append(')')
-      .append("的修改");
+      .append(" is not allowed");
 
     return singletonList(new OasDiffViolation(leftLocation, rightLocation, message.toString()));
 

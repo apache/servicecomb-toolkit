@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.encoding;
 
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.EncodingDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
@@ -50,7 +51,7 @@ public class EncodingAllowedReservedChangeDiffValidator
     return singletonList(new OasDiffViolation(
       leftLocation.property("allowReserved"),
       rightLocation.property("allowReserved"),
-      "仅允许false->true的修改"
+      DiffViolationMessages.FALSE_TO_TRUE
     ));
 
   }

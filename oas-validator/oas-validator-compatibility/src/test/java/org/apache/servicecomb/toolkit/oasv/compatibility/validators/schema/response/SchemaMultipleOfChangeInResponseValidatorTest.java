@@ -47,7 +47,7 @@ public class SchemaMultipleOfChangeInResponseValidatorTest extends OasCompatibil
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "新值必须==旧值或是旧值的倍数",
+            SchemaMultipleOfChangeInResponseValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
