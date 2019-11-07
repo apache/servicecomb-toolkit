@@ -38,7 +38,7 @@ public class DefaultComponentsDiffValidatorFactoryTest {
   @Test
   public void create() {
     List<ComponentsDiffValidator> validators = validatorFactory.create();
-    assertThat(validators).hasSize(7);
+    assertThat(validators).hasSize(6);
   }
 }
 
