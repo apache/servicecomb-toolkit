@@ -47,7 +47,7 @@ public class SchemaRequiredChangeInRequestValidatorTest extends OasCompatibility
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许新增required字段",
+            SchemaRequiredChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
@@ -58,7 +58,7 @@ public class SchemaRequiredChangeInRequestValidatorTest extends OasCompatibility
           }
         ),
         createViolationBoth(
-          "不允许新增required字段",
+            SchemaRequiredChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

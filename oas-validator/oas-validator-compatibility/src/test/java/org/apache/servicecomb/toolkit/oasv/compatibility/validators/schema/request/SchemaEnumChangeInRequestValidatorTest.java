@@ -17,22 +17,28 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.schema.request;
 
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.MEDIA_TYPE;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.OPERATION;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PARAMETER;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PATHS;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PATH_ITEM;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.REQUEST_BODY;
+import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.SCHEMA;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
+
+import org.apache.servicecomb.toolkit.oasv.compatibility.validators.OasCompatibilityTestBase;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaCompareValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
-
-import org.apache.servicecomb.toolkit.oasv.compatibility.validators.OasCompatibilityTestBase;
-import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.Test;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.List;
-
-import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.*;
-import static org.assertj.core.api.Assertions.assertThat;
+import io.swagger.v3.oas.models.OpenAPI;
 
 @ContextConfiguration(classes = SchemaEnumChangeInRequestValidatorTest.TestConfiguration.class)
 public class SchemaEnumChangeInRequestValidatorTest extends OasCompatibilityTestBase {
@@ -47,7 +53,7 @@ public class SchemaEnumChangeInRequestValidatorTest extends OasCompatibilityTest
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许删除enum",
+            SchemaEnumChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
@@ -59,7 +65,7 @@ public class SchemaEnumChangeInRequestValidatorTest extends OasCompatibilityTest
           }
         ),
         createViolationBoth(
-          "不允许删除enum",
+            SchemaEnumChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

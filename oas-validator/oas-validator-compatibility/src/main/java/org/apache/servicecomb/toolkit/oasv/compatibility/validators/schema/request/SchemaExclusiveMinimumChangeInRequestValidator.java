@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.schema.request;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.util.ChangeRangeCheckUtils;
 import org.apache.servicecomb.toolkit.oasv.compatibility.validators.schema.SchemaPropertyChangeValidator;
@@ -47,7 +48,7 @@ public class SchemaExclusiveMinimumChangeInRequestValidator extends SchemaProper
 
   @Override
   protected String getMessage(Boolean leftProperty, Boolean rightProperty) {
-    return "仅允许true->false的修改";
+    return DiffViolationMessages.TRUE_TO_FALSE;
   }
 
   @Override

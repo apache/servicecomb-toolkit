@@ -47,7 +47,7 @@ public class SchemaMultipleOfChangeInRequestValidatorTest extends OasCompatibili
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "新值必须==旧值或是旧值的因子",
+            SchemaMultipleOfChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
@@ -59,7 +59,7 @@ public class SchemaMultipleOfChangeInRequestValidatorTest extends OasCompatibili
           }
         ),
         createViolationBoth(
-          "新值必须==旧值或是旧值的因子",
+            SchemaMultipleOfChangeInRequestValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

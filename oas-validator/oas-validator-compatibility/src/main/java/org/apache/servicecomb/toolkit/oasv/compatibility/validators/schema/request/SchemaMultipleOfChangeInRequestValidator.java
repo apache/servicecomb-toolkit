@@ -28,6 +28,8 @@ import static org.apache.servicecomb.toolkit.oasv.diffvalidation.util.OasDiffVal
 
 public class SchemaMultipleOfChangeInRequestValidator extends SchemaPropertyChangeValidator<BigDecimal> {
 
+  public static final String VIOLATION_MESSAGE = "right value is neither equal to left value nor a factor of left value";
+
   @Override
   protected BigDecimal getProperty(Schema schema) {
     return schema.getMultipleOf();
@@ -40,7 +42,7 @@ public class SchemaMultipleOfChangeInRequestValidator extends SchemaPropertyChan
 
   @Override
   protected String getMessage(BigDecimal leftProperty, BigDecimal rightProperty) {
-    return "新值必须==旧值或是旧值的因子";
+    return VIOLATION_MESSAGE;
   }
 
   @Override

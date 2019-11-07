@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.requestbody;
 
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasObjectDiffValidatorTemplate;
@@ -53,7 +54,7 @@ public class RequestBodyRequiredChangeDiffValidator
     return singletonList(new OasDiffViolation(
       leftLocation.property("required"),
       rightLocation.property("required"),
-      "仅允许true->false的修改"
+      DiffViolationMessages.TRUE_TO_FALSE
     ));
 
   }
