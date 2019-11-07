@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.servicecomb.toolkit.oasv.common.OasObjectProperty;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
 import org.apache.servicecomb.toolkit.oasv.compliance.factory.DefaultOasSpecValidatorFactory;
@@ -37,7 +36,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import io.airlift.airline.Arguments;
-import io.airlift.airline.Command;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
@@ -79,22 +77,14 @@ public class CheckStyleBase implements Runnable {
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     if (CollectionUtils.isNotEmpty(violations)) {
       for (OasViolation violation : violations) {
-        LOGGER.info("{}: {}", toPathString(violation.getLocation()), violation.getError());
+        LOGGER.info("path  : {}\nerror : {}\n------",
+            OasObjectPropertyLocation.toPathString(violation.getLocation()), violation.getError());
       }
       return;
     }
     LOGGER.info("Everything is good");
   }
 
-  private String toPathString(OasObjectPropertyLocation location) {
-    StringBuilder sb = new StringBuilder();
-    List<OasObjectProperty> path = location.getPath();
-    for (OasObjectProperty property : path) {
-      sb.append(property.getName()).append('.');
-    }
-    sb.deleteCharAt(sb.length() - 1);
-    return sb.toString();
-  }
 
   private OasSpecValidator createOasSpecValidator() {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(

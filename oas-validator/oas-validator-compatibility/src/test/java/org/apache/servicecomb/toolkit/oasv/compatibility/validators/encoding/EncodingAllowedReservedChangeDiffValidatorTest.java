@@ -40,7 +40,6 @@ public class EncodingAllowedReservedChangeDiffValidatorTest extends OasCompatibi
   @Test
   public void validate() {
     OpenAPI leftOpenAPI = loadRelative("petstore-encoding-allow-reserved-a.yaml");
-    System.out.println(leftOpenAPI.toString());
     OpenAPI rightOpenAPI = loadRelative("petstore-encoding-allow-reserved-b.yaml");
     List<OasDiffViolation> violations = oasSpecDiffValidator
       .validate(createContext(leftOpenAPI, rightOpenAPI), leftOpenAPI, rightOpenAPI);

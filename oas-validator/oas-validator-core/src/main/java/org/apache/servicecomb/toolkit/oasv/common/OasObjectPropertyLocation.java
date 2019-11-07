@@ -117,4 +117,18 @@ public class OasObjectPropertyLocation {
       .add("path=" + path)
       .toString();
   }
+
+  public static String toPathString(OasObjectPropertyLocation location) {
+    if (location == null) {
+      return "";
+    }
+
+    StringBuilder sb = new StringBuilder();
+    List<OasObjectProperty> path = location.getPath();
+    for (OasObjectProperty property : path) {
+      sb.append(property.getName()).append('.');
+    }
+    sb.deleteCharAt(sb.length() - 1);
+    return sb.toString();
+  }
 }
