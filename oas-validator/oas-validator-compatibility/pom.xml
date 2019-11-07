@@ -37,6 +37,17 @@
       <artifactId>oas-validator-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <!-- test deps -->
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
