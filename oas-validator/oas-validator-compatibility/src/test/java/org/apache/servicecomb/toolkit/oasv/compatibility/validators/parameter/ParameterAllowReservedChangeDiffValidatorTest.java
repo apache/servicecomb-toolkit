@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.parameter;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ParameterDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
@@ -41,10 +42,7 @@ public class ParameterAllowReservedChangeDiffValidatorTest extends OasCompatibil
   public void validate() {
   }
 
-  /**
-   * TODO swagger parser对于allowReserved字段的反序列化存在问题，先跳过此测试
-   * https://github.com/swagger-api/swagger-parser/issues/1108
-   */
+  @Test
   public void validateBroken() {
     OpenAPI leftOpenAPI = loadRelative("petstore-parameter-allow-reserved-a.yaml");
     System.out.println(leftOpenAPI.toString());
@@ -55,7 +53,7 @@ public class ParameterAllowReservedChangeDiffValidatorTest extends OasCompatibil
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolation(
-          "[name=limit4,in=query]:仅允许false->true的修改",
+          "[name=limit4,in=query]:" + DiffViolationMessages.FALSE_TO_TRUE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

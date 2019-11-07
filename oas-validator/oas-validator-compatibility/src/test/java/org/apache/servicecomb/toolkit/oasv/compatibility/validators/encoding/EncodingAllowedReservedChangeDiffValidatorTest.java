@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.encoding;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.EncodingDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
@@ -47,7 +48,7 @@ public class EncodingAllowedReservedChangeDiffValidatorTest extends OasCompatibi
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolation(
-          "仅允许false->true的修改",
+          DiffViolationMessages.FALSE_TO_TRUE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

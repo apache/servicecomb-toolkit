@@ -34,6 +34,8 @@ public class ParameterAddDiffValidator
   extends OasObjectDiffValidatorTemplate<Parameter>
   implements ParameterDiffValidator {
 
+  public static final String VIOLATION_MESSAGE = "required=true parameter is not allowed on right side";
+
   @Override
   protected List<OasDiffViolation> validateAdd(OasDiffValidationContext context,
     OasObjectPropertyLocation rightLocation, Parameter rightOasObject) {
@@ -45,7 +47,7 @@ public class ParameterAddDiffValidator
     String message = new StringBuilder()
       .append(ParameterUtils.getKeyString(rightOasObject))
       .append(':')
-      .append("仅允许新增required=false的parameter")
+      .append(VIOLATION_MESSAGE)
       .toString()
       ;
 

@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.requestbody;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.RequestBodyDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
@@ -47,7 +48,7 @@ public class RequestBodyRequiredChangeDiffValidatorTest extends OasCompatibility
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "仅允许true->false的修改",
+          DiffViolationMessages.TRUE_TO_FALSE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

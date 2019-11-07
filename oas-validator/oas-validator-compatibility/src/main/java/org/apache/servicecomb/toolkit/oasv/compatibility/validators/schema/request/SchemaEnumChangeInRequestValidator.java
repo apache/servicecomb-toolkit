@@ -30,6 +30,8 @@ import static java.util.Collections.emptyList;
 
 public class SchemaEnumChangeInRequestValidator extends SchemaPropertyChangeValidator<List> {
 
+  public static final String VIOLATION_MESSAGE = "delete enum on right side is not allowed";
+
   @Override
   protected List getProperty(Schema schema) {
     return ObjectUtils.defaultIfNull(schema.getEnum(), emptyList());
@@ -47,7 +49,7 @@ public class SchemaEnumChangeInRequestValidator extends SchemaPropertyChangeVali
 
   @Override
   protected String getMessage(List leftProperty, List rightProperty) {
-    return "不允许删除enum";
+    return VIOLATION_MESSAGE;
   }
 
   @Override

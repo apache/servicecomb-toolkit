@@ -47,7 +47,7 @@ public class SchemaEnumChangeInResponseValidatorTest extends OasCompatibilityTes
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许新增enum",
+            SchemaEnumChangeInResponseValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

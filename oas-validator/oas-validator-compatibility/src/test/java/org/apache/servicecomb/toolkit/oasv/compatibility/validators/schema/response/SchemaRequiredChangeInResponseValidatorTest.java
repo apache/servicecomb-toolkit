@@ -47,7 +47,7 @@ public class SchemaRequiredChangeInResponseValidatorTest extends OasCompatibilit
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "不允许删除required字段",
+            SchemaRequiredChangeInResponseValidator.VIOLATION_MESSAGE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

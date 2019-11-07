@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.parameter;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ParameterDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
@@ -47,7 +48,7 @@ public class ParameterRequiredChangeDiffValidatorTest extends OasCompatibilityTe
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolation(
-          "[name=limit,in=query]:仅允许true->false的修改",
+          "[name=limit,in=query]:" + DiffViolationMessages.TRUE_TO_FALSE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,

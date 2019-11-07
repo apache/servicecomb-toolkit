@@ -18,6 +18,7 @@
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.parameter;
 
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffValidationContext;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasObjectDiffValidatorTemplate;
@@ -54,7 +55,7 @@ public class ParameterAllowReservedChangeDiffValidator
     String message = new StringBuilder()
       .append(ParameterUtils.getKeyString(rightOasObject))
       .append(':')
-      .append("仅允许false->true的修改")
+      .append(DiffViolationMessages.FALSE_TO_TRUE)
       .toString();
 
     return singletonList(new OasDiffViolation(

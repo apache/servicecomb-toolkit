@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compatibility.validators.schema.response;
 
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DiffViolationMessages;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViolation;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaCompareValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.config.OasDiffValidatorsSkeletonConfiguration;
@@ -47,7 +48,7 @@ public class SchemaUniqueItemsChangeInResponseValidatorTest extends OasCompatibi
     assertThat(violations)
       .containsExactlyInAnyOrder(
         createViolationBoth(
-          "仅允许false->true的修改",
+          DiffViolationMessages.FALSE_TO_TRUE,
           new Object[] {
             "paths", PATHS,
             "/pets", PATH_ITEM,
