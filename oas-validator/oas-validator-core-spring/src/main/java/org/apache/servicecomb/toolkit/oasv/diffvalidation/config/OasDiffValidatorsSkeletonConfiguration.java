@@ -17,13 +17,46 @@
 
 package org.apache.servicecomb.toolkit.oasv.diffvalidation.config;
 
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.*;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.*;
+import java.util.List;
+
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.CallbackDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ComponentsDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.DefaultOasSpecDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.EncodingDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.HeaderDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.InfoDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.LinkDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.MediaTypeDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasSpecDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OpenApiDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OperationDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ParameterDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.PathItemDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.PathsDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.RequestBodyDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ResponseDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ResponsesDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaAddValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaCompareValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaDelValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.SchemaDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ServerDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.TagDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsCallbacksDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsHeadersDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsLinksDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsParametersDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsRequestBodiesDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsResponsesDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.encoding.EncodingHeadersDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.header.HeaderSchemaDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.mediatype.MediaTypeEncodingDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.mediatype.MediaTypeSchemaDiffValidator;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.*;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.OpenApiComponentsDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.OpenApiInfoDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.OpenApiPathsDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.OpenApiServersDiffValidator;
+import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.openapi.OpenApiTagsDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.operation.OperationParametersDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.operation.OperationRequestBodyDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.operation.OperationResponsesDiffValidator;
@@ -40,8 +73,6 @@ import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.schema.Schema
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
 public class OasDiffValidatorsSkeletonConfiguration {
 
@@ -54,12 +85,6 @@ public class OasDiffValidatorsSkeletonConfiguration {
   public ComponentsDiffValidator componentsCallbacksDiffValidator(
     List<CallbackDiffValidator> diffValidators) {
     return new ComponentsCallbacksDiffValidator(diffValidators);
-  }
-
-  @Bean
-  public ComponentsDiffValidator componentsExamplesDiffValidator(
-    List<ExampleDiffValidator> diffValidators) {
-    return new ComponentsExamplesDiffValidator(diffValidators);
   }
 
   @Bean
