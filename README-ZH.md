@@ -275,11 +275,25 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 #### 3.3.3 契约风格检查
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle openapi.yaml
+$ java -jar toolkit-cli-{version}.jar checkstyle oas.yaml
+或者
+$ java -jar toolkit-cli-{version}.jar cs oas.yaml
 ```
 
 > **checkstyle** Command argument
 * &lt;file&gt; OpenAPI v3 spec yaml文件
+
+#### 3.3.4 契约兼容性检查
+
+```shell
+$ java -jar toolkit-cli-{version}.jar checkcompatibility left-oas.yaml right-oas.yaml
+或者
+$ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
+```
+
+> **checkcompatibility** Command argument
+* &lt;files&gt; Two OpenAPI v3 spec yaml file
+
 
 ### 3.4 使用案例
 可以在[这里](./samples/README-ZH.md)找到使用插件的一些示例 

@@ -270,11 +270,24 @@ e.g：-f swagger-ui
 #### 3.3.3 Service contract style checking
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle openapi.yaml
+$ java -jar toolkit-cli-{version}.jar checkstyle oas.yaml
+or
+$ java -jar toolkit-cli-{version}.jar cs oas.yaml
 ```
 
 > **checkstyle** Command argument
 * &lt;file&gt; OpenAPI v3 spec yaml file
+
+#### 3.3.4 Service contract compatibility checking
+
+```shell
+$ java -jar toolkit-cli-{version}.jar checkcompatibility left-oas.yaml right-oas.yaml
+or
+$ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
+```
+
+> **checkcompatibility** Command argument
+* &lt;files&gt; Two OpenAPI v3 spec yaml file
 
 
 ### 3.4 Use case
