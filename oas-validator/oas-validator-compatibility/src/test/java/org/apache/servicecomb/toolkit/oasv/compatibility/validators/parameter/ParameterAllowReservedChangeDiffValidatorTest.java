@@ -45,7 +45,6 @@ public class ParameterAllowReservedChangeDiffValidatorTest extends OasCompatibil
   @Test
   public void validateBroken() {
     OpenAPI leftOpenAPI = loadRelative("petstore-parameter-allow-reserved-a.yaml");
-    System.out.println(leftOpenAPI.toString());
     OpenAPI rightOpenAPI = loadRelative("petstore-parameter-allow-reserved-b.yaml");
     List<OasDiffViolation> violations = oasSpecDiffValidator
       .validate(createContext(leftOpenAPI, rightOpenAPI), leftOpenAPI, rightOpenAPI);
