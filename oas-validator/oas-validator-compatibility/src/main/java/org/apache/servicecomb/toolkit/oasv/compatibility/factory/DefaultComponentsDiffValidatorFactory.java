@@ -24,14 +24,12 @@ import java.util.List;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.api.ComponentsDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.CallbackDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.ComponentsDiffValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.ExampleDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.HeaderDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.LinkDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.ParameterDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.RequestBodyDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.factory.ResponseDiffValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsCallbacksDiffValidator;
-import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsExamplesDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsHeadersDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsLinksDiffValidator;
 import org.apache.servicecomb.toolkit.oasv.diffvalidation.skeleton.components.ComponentsParametersDiffValidator;
@@ -43,8 +41,6 @@ import org.springframework.stereotype.Component;
 public class DefaultComponentsDiffValidatorFactory implements ComponentsDiffValidatorFactory {
 
   private final CallbackDiffValidatorFactory callbackDiffValidatorFactory;
-
-  private final ExampleDiffValidatorFactory exampleDiffValidatorFactory;
 
   private final HeaderDiffValidatorFactory headerDiffValidatorFactory;
 
@@ -58,14 +54,12 @@ public class DefaultComponentsDiffValidatorFactory implements ComponentsDiffVali
 
   public DefaultComponentsDiffValidatorFactory(
       CallbackDiffValidatorFactory callbackDiffValidatorFactory,
-      ExampleDiffValidatorFactory exampleDiffValidatorFactory,
       HeaderDiffValidatorFactory headerDiffValidatorFactory,
       LinkDiffValidatorFactory linkDiffValidatorFactory,
       ParameterDiffValidatorFactory parameterDiffValidatorFactory,
       RequestBodyDiffValidatorFactory requestBodyDiffValidatorFactory,
       ResponseDiffValidatorFactory responseDiffValidatorFactory) {
     this.callbackDiffValidatorFactory = callbackDiffValidatorFactory;
-    this.exampleDiffValidatorFactory = exampleDiffValidatorFactory;
     this.headerDiffValidatorFactory = headerDiffValidatorFactory;
     this.linkDiffValidatorFactory = linkDiffValidatorFactory;
     this.parameterDiffValidatorFactory = parameterDiffValidatorFactory;
@@ -80,7 +74,6 @@ public class DefaultComponentsDiffValidatorFactory implements ComponentsDiffVali
 
     // skeletons
     validators.add(new ComponentsCallbacksDiffValidator(callbackDiffValidatorFactory.create()));
-    validators.add(new ComponentsExamplesDiffValidator(exampleDiffValidatorFactory.create()));
     validators.add(new ComponentsHeadersDiffValidator(headerDiffValidatorFactory.create()));
     validators.add(new ComponentsLinksDiffValidator(linkDiffValidatorFactory.create()));
     validators.add(new ComponentsParametersDiffValidator(parameterDiffValidatorFactory.create()));
