@@ -35,9 +35,14 @@ import java.util.regex.Pattern;
 import static org.apache.servicecomb.toolkit.oasv.util.StringCaseUtils.isLowerCamelCase;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>lower camel case校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>
+ * path name validator
+ * <ul>
+ *   <li>path name must be lower camel case</li>
+ * </ul>
  * <p>
- *   <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a>的变量也要是lower camel case的
+ *   <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a>
+ *   variable also must be lower camel case
  * </p>
  */
 public class PathsLowerCamelCaseValidator implements PathsValidator {

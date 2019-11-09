@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 public abstract class OasSpecLoader {
 
   /**
-   * 解析绝对路径下的文件
+   * Parse file at absolute path
    *
    * @param classpath
    * @return
@@ -37,7 +37,7 @@ public abstract class OasSpecLoader {
 
 
   /**
-   * 加载绝对路径下的文件
+   * Load file at absolute path
    *
    * @param classpath
    * @return
@@ -51,7 +51,7 @@ public abstract class OasSpecLoader {
   }
 
   /**
-   * 加载相对路径下的文件
+   * Load file at relative path
    *
    * @param fileName
    * @return

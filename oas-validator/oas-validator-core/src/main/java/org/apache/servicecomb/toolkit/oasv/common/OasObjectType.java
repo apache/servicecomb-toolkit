@@ -18,9 +18,9 @@
 package org.apache.servicecomb.toolkit.oasv.common;
 
 /**
- * OpenAPI v3 的Object类型
+ * OpenAPI v3 Object Type
  * <p>
- * 对应<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schema">OpenAPI Specification - Schema</a>
+ * Corresponding to <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schema">OpenAPI Specification - Schema</a>
  * </p>
  */
 public enum OasObjectType {

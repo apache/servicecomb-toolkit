@@ -36,7 +36,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * 递归检查当前Schema Object及其properties下的所有Sub Schema Object
+ * Template for recursively validate current Schema Object and Schema Object appears in its properties
  */
 public abstract class SchemaRecursiveValidatorTemplate implements SchemaValidator {
 

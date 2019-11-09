@@ -32,9 +32,10 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .tags(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>)大小校验器
+ * .tags(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>)
+ * not empty validator
  * <ul>
- *   <li>数量至少为一</li>
+ *   <li>at least one</li>
  * </ul>
  */
 public class OpenApiTagNotEmptyValidator implements OpenApiValidator {

@@ -23,10 +23,10 @@ import org.apache.servicecomb.toolkit.oasv.validation.api.ObjectPropertyRequired
 import io.swagger.v3.oas.models.info.Info;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">Info Object</a>属性校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">Info Object</a>
+ * property validator
  * <ul>
- * <li>description必须填写</li>
- * <li>version必须和Api版本一致</li>
+ * <li>description must not be null</li>
  * </ul>
  */
 public class InfoDescriptionRequiredValidator

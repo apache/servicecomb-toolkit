@@ -42,7 +42,7 @@ public class OasObjectDiffValidatorTemplate<T> implements OasObjectDiffValidator
   }
 
   /**
-   * 处理左边没有，右边有，即新增的情况。
+   * validate the adding situation, left side not exist but right side exists
    *
    * @param context
    * @param rightLocation
@@ -55,7 +55,7 @@ public class OasObjectDiffValidatorTemplate<T> implements OasObjectDiffValidator
   }
 
   /**
-   * 处理左边有，右边没有，即删除的情况。
+   * validate the delete situation, left side exists but right side not exist
    *
    * @param context
    * @param leftLocation
@@ -68,7 +68,8 @@ public class OasObjectDiffValidatorTemplate<T> implements OasObjectDiffValidator
   }
 
   /**
-   * 左右两边都有的情况。要注意，左右两边Object可能是equals==true的。
+   * validate the modification situation, both left side and right side right exists.
+   * notice that left maybe equals to right
    *
    * @param context
    * @param leftLocation

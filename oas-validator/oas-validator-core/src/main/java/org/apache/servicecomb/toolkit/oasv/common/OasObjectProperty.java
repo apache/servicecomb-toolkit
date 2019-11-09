@@ -21,17 +21,17 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * OpenAPI V3 对象属性信息
+ * OpenAPI V3 object property information
  */
 public class OasObjectProperty {
 
   /**
-   * 属性名称
+   * property name
    */
   private final String name;
 
   /**
-   * 属性的对象的类型，如果为null则代表基础类型，而不是OAS Object
+   * property object type, if null means primitive types, otherwise means OAS object
    */
   private final OasObjectType objectType;
 

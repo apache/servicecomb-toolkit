@@ -20,7 +20,7 @@ package org.apache.servicecomb.toolkit.oasv.validation.api;
 import io.swagger.v3.oas.models.Paths;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a> validator
  */
 public interface PathsValidator extends OasObjectValidator<Paths> {
 }

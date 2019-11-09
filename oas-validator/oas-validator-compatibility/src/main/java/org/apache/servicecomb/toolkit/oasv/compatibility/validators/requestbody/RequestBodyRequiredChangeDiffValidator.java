@@ -33,7 +33,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * 仅允许true->false的修改
+ * RequestBody.required only allow change true->false
  */
 public class RequestBodyRequiredChangeDiffValidator
   extends OasObjectDiffValidatorTemplate<RequestBody>

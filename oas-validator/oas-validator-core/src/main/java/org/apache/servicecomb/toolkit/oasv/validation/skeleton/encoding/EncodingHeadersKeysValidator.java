@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject">Encoding Object</a>
- * .headers属性校验器
+ * .headers property key validator
  */
 public class EncodingHeadersKeysValidator extends MapPropertyKeysValidator<Encoding>
   implements EncodingValidator {

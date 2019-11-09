@@ -30,7 +30,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PARAMETER
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .parameters校验器
+ * .parameters property validator
  */
 public class OperationParametersValidator extends ListPropertyValidator<Operation, Parameter>
   implements OperationValidator {

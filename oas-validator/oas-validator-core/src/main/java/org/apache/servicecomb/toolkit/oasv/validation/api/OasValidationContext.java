@@ -22,6 +22,9 @@ import io.swagger.v3.oas.models.OpenAPI;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * OAS object validation context
+ */
 public class OasValidationContext {
 
   private final OpenAPI openAPI;

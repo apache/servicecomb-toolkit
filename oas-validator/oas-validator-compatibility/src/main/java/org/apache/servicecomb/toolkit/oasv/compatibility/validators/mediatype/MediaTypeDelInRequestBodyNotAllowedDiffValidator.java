@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * 不允许在RequestBody.content下删除MediaType
+ * Delete MediaType Object under RequestBody.content is not allowed
  */
 public class MediaTypeDelInRequestBodyNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<MediaType>

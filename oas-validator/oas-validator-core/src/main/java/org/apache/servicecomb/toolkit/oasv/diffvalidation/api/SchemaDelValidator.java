@@ -25,11 +25,11 @@ import java.util.List;
 public interface SchemaDelValidator {
 
   /**
-   * 左侧有，右侧没有，即被删除的情况。
+   * validate the delete situation, left side exists but right side not exist
    *
    * @param context
    * @param leftLocation
-   * @param leftOasObject 被删除的Object
+   * @param leftOasObject deleted schema object
    * @return
    */
   List<OasDiffViolation> validate(

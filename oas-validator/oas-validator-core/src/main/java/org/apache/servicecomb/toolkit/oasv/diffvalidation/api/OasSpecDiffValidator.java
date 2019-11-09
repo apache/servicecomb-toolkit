@@ -22,7 +22,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import java.util.List;
 
 /**
- * OAS Spec差异校验器
+ * OAS Spec difference validator
  */
 public interface OasSpecDiffValidator {
 

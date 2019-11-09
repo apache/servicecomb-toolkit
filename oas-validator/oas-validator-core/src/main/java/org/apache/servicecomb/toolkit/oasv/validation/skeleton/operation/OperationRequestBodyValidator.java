@@ -30,7 +30,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.REQUEST_B
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .requestBody校验器
+ * .requestBody property validator
  */
 public class OperationRequestBodyValidator extends ObjectPropertyValidator<Operation, RequestBody>
   implements OperationValidator {

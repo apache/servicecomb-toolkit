@@ -39,7 +39,7 @@ public abstract class OasObjectDiffValidatorUtils {
   }
 
   /**
-   * assert 参数null合规
+   * assert parameters is not null-malformed
    *
    * @param leftLocation
    * @param leftOasObject

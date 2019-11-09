@@ -32,7 +32,8 @@ import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
 /**
- * 递归校验
+ * Schema object difference validator engine.
+ * It does validation recursively
  */
 public class SchemaDiffValidatorEngine
   extends OasObjectDiffValidatorTemplate<Schema>

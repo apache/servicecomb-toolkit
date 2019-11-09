@@ -28,7 +28,8 @@ import java.util.List;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .info (<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">Info Object</a>)校验器
+ * .info (<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">Info Object</a>)
+ * validator
  */
 public class OpenApiInfoValidator extends ObjectPropertyValidator<OpenAPI, Info>
   implements OpenApiValidator {

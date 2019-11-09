@@ -20,7 +20,7 @@ package org.apache.servicecomb.toolkit.oasv.validation.api;
 import io.swagger.v3.oas.models.OpenAPI;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a> validator
  */
 public interface OpenApiValidator extends OasObjectValidator<OpenAPI> {
 

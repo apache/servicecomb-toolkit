@@ -30,7 +30,8 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.TAG;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .tags(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>)校验器
+ * .tags(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>)
+ * validator
  */
 public class OpenApiTagsValidator extends ListPropertyValidator<OpenAPI, Tag>
   implements OpenApiValidator {

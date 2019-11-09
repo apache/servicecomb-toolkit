@@ -42,7 +42,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 /**
- * OAS骨架Validator配置，骨架Validator只那些自己没有验证逻辑，只是将OAS Object属性交给对应OAS Validator校验的Validator
+ * Skeleton OAS Validator configuration
+ * Skeleton Validators are those who don't have validation logic but just
+ * dispatch the property validation job to corresponding validators
  */
 @Configuration
 public class OasValidatorsSkeletonConfiguration {

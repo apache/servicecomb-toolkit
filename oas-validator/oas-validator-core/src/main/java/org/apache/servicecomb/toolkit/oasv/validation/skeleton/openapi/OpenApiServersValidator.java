@@ -30,7 +30,8 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.SERVER;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .servers(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serverObject">Server Object</a>)校验器
+ * .servers(List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#serverObject">Server Object</a>)
+ * validator
  */
 public class OpenApiServersValidator extends ListPropertyValidator<OpenAPI, Server>
   implements OpenApiValidator {

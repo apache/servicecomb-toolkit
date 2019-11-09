@@ -25,10 +25,10 @@ import java.util.List;
 import static org.apache.servicecomb.toolkit.oasv.diffvalidation.util.OasObjectDiffValidatorUtils.doDiffValidateProperty;
 
 /**
- * OAS Object对象的对象类型的属性差异校验器
+ * OAS Object object property difference validator
  *
- * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>所定义的对象
- * @param <P> 属性的类型
+ * @param <T> Object defined in <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>
+ * @param <P> Property type
  */
 public abstract class ObjectPropertyDiffValidator<T, P>
   extends OasObjectDiffValidatorTemplate<T> {
@@ -58,7 +58,7 @@ public abstract class ObjectPropertyDiffValidator<T, P>
   }
 
   /**
-   * @param oasObject 不用担心会是null
+   * @param oasObject will never be null
    * @return
    */
   protected abstract P getPropertyObject(T oasObject);

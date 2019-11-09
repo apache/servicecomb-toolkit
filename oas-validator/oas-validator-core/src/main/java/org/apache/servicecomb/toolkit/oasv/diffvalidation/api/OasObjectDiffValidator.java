@@ -22,21 +22,21 @@ import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import java.util.List;
 
 /**
- * OAS Object差异校验器接口
+ * OAS Object difference validator interface
  *
- * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>所定义的对象
+ * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a> Object
  */
 public interface OasObjectDiffValidator<T> {
 
   /**
-   * leftOasObject 和 rightOasObject 不可同时为null
+   * leftOasObject and rightOasObject should not be null at the same time
    *
-   * @param context        差异校验上下文
-   * @param leftLocation   左侧OAS Object位置（可能为空）
-   * @param leftOasObject  左侧OAS Object（可能为空）
-   * @param rightLocation  右侧OAS Object位置（可能为空）
-   * @param rightOasObject 右侧OAS Object（可能为空）
-   * @return 差异校验违例
+   * @param context        difference validation context
+   * @param leftLocation   left OAS Object location (maybe null)
+   * @param leftOasObject  left OAS Object (maybe null)
+   * @param rightLocation  right OAS Object location (maybe null)
+   * @param rightOasObject right OAS Object (maybe null)
+   * @return difference validation violations, maybe a empty list
    */
   List<OasDiffViolation> validate(OasDiffValidationContext context,
     OasObjectPropertyLocation leftLocation, T leftOasObject,

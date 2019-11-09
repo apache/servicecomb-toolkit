@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * 不允许在requestBody.content.'mediaType'.encoding.'encoding'.headers 下添加Header Object
+ * Add Header Object under requestBody.content.'mediaType'.encoding.'encoding'.headers is not allowed
  */
 public class HeaderAddInRequestBodyNotAllowedDiffValidator extends OasObjectDiffValidatorTemplate<Header>
   implements HeaderDiffValidator {

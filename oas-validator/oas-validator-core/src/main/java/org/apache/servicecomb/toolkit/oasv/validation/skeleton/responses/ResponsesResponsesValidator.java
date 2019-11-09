@@ -33,7 +33,7 @@ import java.util.Map;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject">Responses Object</a>
- * .default / .{Http Status Code} 属性校验器
+ * .default / .{Http Status Code} property validator
  */
 public class ResponsesResponsesValidator implements ResponsesValidator {
 

@@ -42,7 +42,7 @@ public class ImportError {
   }
 
   /**
-   * OAS Spec Yaml parse错误
+   * OAS Spec Yaml parse error
    *
    * @return
    */
@@ -51,7 +51,7 @@ public class ImportError {
   }
 
   /**
-   * 违反合规性检查
+   * check style violations
    *
    * @return
    */
@@ -60,7 +60,7 @@ public class ImportError {
   }
 
   /**
-   * 违反兼容性检查
+   * compatibility violations
    *
    * @return
    */

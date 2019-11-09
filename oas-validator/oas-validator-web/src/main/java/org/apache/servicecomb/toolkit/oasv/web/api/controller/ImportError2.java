@@ -51,7 +51,7 @@ public class ImportError2 {
 
 
   /**
-   * 违反兼容性检查
+   * compatibility violations
    *
    * @return
    */

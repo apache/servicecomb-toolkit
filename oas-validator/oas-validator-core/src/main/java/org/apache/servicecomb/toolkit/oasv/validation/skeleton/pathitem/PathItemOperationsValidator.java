@@ -33,8 +33,9 @@ import static java.util.Collections.emptyList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">Path Item Object</a>
- * .get / .put / .post / .delete / .options / .head / .patch / .trace 各个
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>的校验器
+ * .get / .put / .post / .delete / .options / .head / .patch / .trace
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
+ * validator
  */
 public class PathItemOperationsValidator implements PathItemValidator {
 

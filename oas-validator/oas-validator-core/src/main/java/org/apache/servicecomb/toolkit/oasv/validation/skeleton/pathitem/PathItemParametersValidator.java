@@ -30,7 +30,8 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PARAMETER
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">Path Item Object</a>
- * .parameters (List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>)的校验器
+ * .parameters (List of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>)
+ * validator
  */
 public class PathItemParametersValidator extends ListPropertyValidator<PathItem, Parameter>
   implements PathItemValidator {

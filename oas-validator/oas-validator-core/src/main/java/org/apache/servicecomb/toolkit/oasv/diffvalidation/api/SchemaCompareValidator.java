@@ -26,11 +26,11 @@ import java.util.List;
 public interface SchemaCompareValidator {
 
   /**
-   * 左右两侧都有的情况，比较左右两侧对象。
+   * validate the modification situation, both left side and right side right exists.
    * <p>
-   * 此方法不需要比较allOf、anyOf、oneOf、items、properties
+   * there is no need to check <code>allOf, anyOf, oneOf, items, properties</code>
    * </p>
-   * 这些field的递归工作由{@link SchemaDiffValidatorEngine}完成。
+   * they will be recursively checked by {@link SchemaDiffValidatorEngine}
    *
    * @param context
    * @param leftLocation

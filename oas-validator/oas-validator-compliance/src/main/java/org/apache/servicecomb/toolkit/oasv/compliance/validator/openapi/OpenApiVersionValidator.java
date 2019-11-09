@@ -28,9 +28,9 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .openapi属性校验器
+ * .openapi property validator
  * <ul>
- * <li>必须为3.0.x且>=3.0.2</li>
+ * <li>must be 3.0.x and >=3.0.2</li>
  * </ul>
  */
 public class OpenApiVersionValidator implements OpenApiValidator {

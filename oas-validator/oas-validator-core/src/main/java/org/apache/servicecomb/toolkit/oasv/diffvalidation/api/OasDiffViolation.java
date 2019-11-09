@@ -25,12 +25,12 @@ import java.util.StringJoiner;
 public class OasDiffViolation {
 
   /**
-   * 对象位置
+   * left OAS object location
    */
   private final OasObjectPropertyLocation leftLocation;
 
   /**
-   * 对象位置
+   * right OAS object location
    */
   private final OasObjectPropertyLocation rightLocation;
 
