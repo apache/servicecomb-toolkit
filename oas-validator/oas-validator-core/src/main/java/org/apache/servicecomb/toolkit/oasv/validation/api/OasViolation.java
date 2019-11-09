@@ -23,17 +23,17 @@ import java.util.Objects;
 import java.util.StringJoiner;
 
 /**
- * OpenAPI v3 校验出的违反限制条件的错误
+ * OpenAPI v3 validation violation
  */
 public class OasViolation {
 
   /**
-   * 对象位置
+   * Object location
    */
   private final OasObjectPropertyLocation location;
 
   /**
-   * 错误信息
+   * Error message
    */
   private final String error;
 

@@ -30,7 +30,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.SCHEMA;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#headerObject">Header Object</a>校验器
- * .schema属性校验器
+ * .schema property validator
  */
 public class HeaderSchemaValidator extends ObjectPropertyValidator<Header, Schema> implements HeaderValidator {
 

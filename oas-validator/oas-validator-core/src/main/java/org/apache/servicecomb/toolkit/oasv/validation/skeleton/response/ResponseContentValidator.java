@@ -31,7 +31,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.MEDIA_TYP
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responseObject">Response Object</a>
- * .content属性校验器
+ * .content property value validator
  */
 public class ResponseContentValidator extends MapPropertyValuesValidator<ApiResponse, MediaType>
   implements ResponseValidator {

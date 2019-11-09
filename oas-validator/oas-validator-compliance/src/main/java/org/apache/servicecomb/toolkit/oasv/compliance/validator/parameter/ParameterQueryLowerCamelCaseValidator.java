@@ -30,9 +30,9 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>
- * .name 属性校验器
+ * .name property validator
  * <ul>
- * <li>如果in=query，必须lower camel case</li>
+ * <li>must be lower camel case</li>
  * </ul>
  */
 public class ParameterQueryLowerCamelCaseValidator implements ParameterValidator {

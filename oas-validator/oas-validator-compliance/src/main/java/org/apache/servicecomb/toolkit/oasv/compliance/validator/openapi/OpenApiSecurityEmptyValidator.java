@@ -33,7 +33,7 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .security属性校验器
+ * .security property validator
  * <ul>
  * <li>This field is not allowed</li>
  * </ul>

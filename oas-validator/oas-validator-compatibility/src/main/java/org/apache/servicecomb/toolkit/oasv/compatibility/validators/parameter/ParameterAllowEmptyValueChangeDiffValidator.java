@@ -34,7 +34,7 @@ import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 /**
- * 仅允许false->true的修改
+ * Parameter.allowEmpty only allow change false->true
  */
 public class ParameterAllowEmptyValueChangeDiffValidator
   extends OasObjectDiffValidatorTemplate<Parameter>

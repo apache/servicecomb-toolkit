@@ -29,7 +29,9 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * operationId. 属性校验器lower camel case
+ * .operationId property validator
+ * <ul>
+ * <li>should be lower camel case</li>
  * </ul>
  */
 public class OperationIdLowerCamelCaseValidator implements OperationValidator {

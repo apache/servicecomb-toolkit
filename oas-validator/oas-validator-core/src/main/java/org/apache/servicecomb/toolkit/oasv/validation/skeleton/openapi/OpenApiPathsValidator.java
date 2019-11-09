@@ -30,7 +30,8 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.PATHS;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .paths(<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>)校验器
+ * .paths(<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>)
+ * validator
  */
 public class OpenApiPathsValidator extends ObjectPropertyValidator<OpenAPI, Paths>
   implements OpenApiValidator {

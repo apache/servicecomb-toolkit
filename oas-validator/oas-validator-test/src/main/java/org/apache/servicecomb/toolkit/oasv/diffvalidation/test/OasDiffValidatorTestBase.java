@@ -43,7 +43,7 @@ public abstract class OasDiffValidatorTestBase extends OasSpecLoader {
   }
 
   /**
-   * 两边path一样
+   * create violation with location swhich are same on both side
    *
    * @param error
    * @param path

@@ -33,7 +33,7 @@ import static java.util.Collections.emptyList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a>
- * .properties属性keys校验器
+ * .properties property key validator
  */
 public class SchemaPropertiesKeysValidator
   extends SchemaRecursiveValidatorTemplate {

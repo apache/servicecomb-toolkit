@@ -32,13 +32,15 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a>.title属性校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a>
+ * .title property validator
  * <ul>
- * <li>如果Schema Object的上级是
+ * <li>
+ *   if this Schema Object's parent is
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a>
  * /
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject">Components Object</a>
- * ，那么必须写title</li>
+ * , then title property is required</li>
  * </ul>
  */
 public class SchemaTitleValidator extends SchemaRecursiveValidatorTemplate {

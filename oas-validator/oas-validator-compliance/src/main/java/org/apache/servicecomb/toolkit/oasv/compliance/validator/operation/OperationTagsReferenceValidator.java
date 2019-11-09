@@ -36,9 +36,9 @@ import static java.util.stream.Collectors.toSet;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .tags属性校验器
+ * .tags property validator
  * <ul>
- * <li>必须在OpenAPI Object的tags属性里有对应</li>
+ * <li>must be defined in OpenAPI Object tags property</li>
  * </ul>
  */
 public class OperationTagsReferenceValidator implements OperationValidator {

@@ -24,9 +24,9 @@ import io.swagger.v3.oas.models.headers.Header;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#headerObject">Header Object</a>
- * .description属性校验器
+ * .description property validator
  * <ul>
- * <li>必须填写</li>
+ * <li>must not be null</li>
  * </ul>
  */
 public class HeaderDescriptionRequiredValidator

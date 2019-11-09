@@ -30,7 +30,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.RESPONSES
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .responses校验器
+ * .responses property validator
  */
 public class OperationResponsesValidator extends ObjectPropertyValidator<Operation, ApiResponses>
   implements OperationValidator {

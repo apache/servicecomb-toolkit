@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.toolkit.oasv.validation.api;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectType;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -27,14 +27,16 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>所定义的对象
- * @param <P> 属性的类型
+ * Object property should not be null validator
+ *
+ * @param <T> Objects defined in <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>
+ * @param <P> Property type
  */
 public abstract class ObjectPropertyRequiredValidator<T, P> implements OasObjectValidator<T> {
 
   @Override
   final public List<OasViolation> validate(OasValidationContext context, OasObjectPropertyLocation location,
-    T oasObject) {
+      T oasObject) {
     if (StringUtils.isNotBlank(get$ref(oasObject))) {
       return emptyList();
     }
@@ -44,7 +46,7 @@ public abstract class ObjectPropertyRequiredValidator<T, P> implements OasObject
       return singletonList(new OasViolation(propertyLoc, ViolationMessages.REQUIRED));
     }
     if (propertyObject != null && String.class.equals(propertyObject.getClass())
-      && StringUtils.isBlank((CharSequence) propertyObject)) {
+        && StringUtils.isBlank((CharSequence) propertyObject)) {
       OasObjectPropertyLocation propertyLoc = location.property(getPropertyName(), getPropertyType());
       return singletonList(new OasViolation(propertyLoc, ViolationMessages.REQUIRED));
     }

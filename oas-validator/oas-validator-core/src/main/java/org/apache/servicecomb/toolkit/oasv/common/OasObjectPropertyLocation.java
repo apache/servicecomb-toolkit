@@ -24,13 +24,15 @@ import java.util.*;
 import static java.util.Collections.singletonList;
 
 /**
- * OpenAPI v3 对象所在的位置
+ * OpenAPI v3 object location
  * <p>本对象immutable</p>
  */
 public class OasObjectPropertyLocation {
 
   /**
-   * 第一个元素是根对象，最后一个元素为当前对象，组合起来形成一个找到当前对象的路径
+   * first element stands for root object
+   * last element stands for current object
+   * this list stands for the path from root to current object
    */
   private final List<OasObjectProperty> path;
 
@@ -43,7 +45,7 @@ public class OasObjectPropertyLocation {
   }
 
   /**
-   * 创建一个根Location
+   * Create a location for root object
    *
    * @return
    */
@@ -52,11 +54,11 @@ public class OasObjectPropertyLocation {
   }
 
   /**
-   * 在当前路径下添加属性路径
+   * Add property to this location and return a new location
    *
-   * @param propertyName 属性名称
-   * @param propertyType 属性的OAS对象类型
-   * @return 获得新的 {@link OasObjectPropertyLocation}，原{@link OasObjectPropertyLocation}不变
+   * @param propertyName property name
+   * @param propertyType OAS object type of property
+   * @return a new {@link OasObjectPropertyLocation}，origin {@link OasObjectPropertyLocation} is untouched
    */
   public OasObjectPropertyLocation property(String propertyName, OasObjectType propertyType) {
     ArrayList<OasObjectProperty> oasObjectProperties = new ArrayList<>(path);
@@ -65,10 +67,10 @@ public class OasObjectPropertyLocation {
   }
 
   /**
-   * 在当前路径下添加非OAS Object类型的属性路径
+   * Add a non-object(primitive) type property to this location, and return a new location
    *
-   * @param propertyName
-   * @return 获得新的 {@link OasObjectPropertyLocation}，原{@link OasObjectPropertyLocation}不变
+   * @param propertyName property name
+   * @return a new {@link OasObjectPropertyLocation}，origin {@link OasObjectPropertyLocation} is untouched
    */
   public OasObjectPropertyLocation property(String propertyName) {
     ArrayList<OasObjectProperty> oasObjectProperties = new ArrayList<>(path);
@@ -77,16 +79,16 @@ public class OasObjectPropertyLocation {
   }
 
   /**
-   * 从根到属性的路径
+   * Get a path from root to leaf
    *
    * @return
    */
   public List<OasObjectProperty> getPath() {
-    return path;
+    return Collections.unmodifiableList(path);
   }
 
   /**
-   * 得到上级属性
+   * Get parent property
    *
    * @return
    */

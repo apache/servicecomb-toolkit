@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject">ApiResponse Object</a>
- * .callbacks属性key校验器
+ * .callbacks property key validator
  */
 public class ResponseHeadersKeysValidator extends MapPropertyKeysValidator<ApiResponse>
   implements ResponseValidator {

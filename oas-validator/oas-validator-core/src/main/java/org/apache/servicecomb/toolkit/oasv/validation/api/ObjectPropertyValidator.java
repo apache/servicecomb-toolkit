@@ -27,10 +27,10 @@ import static org.apache.servicecomb.toolkit.oasv.validation.util.OasObjectValid
 import static java.util.Collections.emptyList;
 
 /**
- * OAS Object对象的对象类型的属性校验器
+ * OAS Object object property validator
  *
- * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>所定义的对象
- * @param <P> 属性的类型
+ * @param <T> Objects defined in <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>
+ * @param <P> Property type
  */
 public abstract class ObjectPropertyValidator<T, P> implements OasObjectValidator<T> {
 

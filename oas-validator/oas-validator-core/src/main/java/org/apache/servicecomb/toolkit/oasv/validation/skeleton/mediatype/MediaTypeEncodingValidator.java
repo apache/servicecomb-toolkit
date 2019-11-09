@@ -31,7 +31,7 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.ENCODING;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">Media Type Object</a>
- * .encoding属性校验器
+ * .encoding property value validator
  */
 public class MediaTypeEncodingValidator extends MapPropertyValuesValidator<MediaType, Encoding>
   implements MediaTypeValidator {

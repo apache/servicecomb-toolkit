@@ -29,9 +29,9 @@ import static java.util.Collections.singletonList;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>
- * .name属性校验器
+ * .name property validator
  * <ul>
- * <li>upper camel case</li>
+ * <li>must be upper camel case</li>
  * </ul>
  */
 public class TagNameUpperCamelCaseValidator implements TagValidator {

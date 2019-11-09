@@ -25,11 +25,11 @@ import java.util.List;
 public interface SchemaAddValidator {
 
   /**
-   * 左侧没有，右侧有，即新增的情况。
+   * validate the adding situation, left side not exist but right side exists
    *
    * @param context
    * @param rightLocation
-   * @param rightOasObject 新增的Object
+   * @param rightOasObject added schema object
    * @return
    */
   List<OasDiffViolation> validate(OasDiffValidationContext context, OasObjectPropertyLocation rightLocation,

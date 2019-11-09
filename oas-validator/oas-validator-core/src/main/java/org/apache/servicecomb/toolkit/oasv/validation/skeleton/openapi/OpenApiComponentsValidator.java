@@ -30,7 +30,8 @@ import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.COMPONENT
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>
- * .components(<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject">Components Object</a>)校验器
+ * .components(<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject">Components Object</a>)
+ * validator
  */
 public class OpenApiComponentsValidator extends ObjectPropertyValidator<OpenAPI, Components>
   implements OpenApiValidator {

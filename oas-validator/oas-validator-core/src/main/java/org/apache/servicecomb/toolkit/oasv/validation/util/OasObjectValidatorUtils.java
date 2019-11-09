@@ -61,10 +61,10 @@ public abstract class OasObjectValidatorUtils {
   /**
    * @param <T>
    * @param context
-   * @param ownerLocation    拥有listProperty属性的对象的Location
-   * @param listPropertyName listProperty属性的名字
+   * @param ownerLocation    location of owner OAS object who own this listProperty
+   * @param listPropertyName listProperty name appears in owner OAS object
    * @param listProperty     null-safe
-   * @param elementType      listProperty中element的类型
+   * @param elementType      type of elements in listProperty
    * @param validators
    * @return
    */
@@ -92,8 +92,8 @@ public abstract class OasObjectValidatorUtils {
   }
 
   /**
-   * @param ownerLocation   拥有mapProperty属性的对象的Location
-   * @param mapPropertyName mapProperty属性的名字
+   * @param ownerLocation   location of owner OAS object who own this mapProperty
+   * @param mapPropertyName mapProperty name appears in owner OAS object
    * @param mapProperty     null-safe
    * @param keyPredicate
    * @param errorMessage
@@ -132,10 +132,10 @@ public abstract class OasObjectValidatorUtils {
   /**
    * @param <T>
    * @param context
-   * @param ownerLocation   拥有mapProperty属性的对象的Location
-   * @param mapPropertyName mapProperty属性的名字
+   * @param ownerLocation   location of owner OAS object who own this mapProperty
+   * @param mapPropertyName mapProperty name appears in owner OAS object
    * @param mapProperty     null-safe
-   * @param valueType       mapProperty中value的类型
+   * @param valueType       type of values in mapProperty
    * @param validators
    * @return
    */

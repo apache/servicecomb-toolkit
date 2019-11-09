@@ -33,9 +33,12 @@ import java.util.*;
 import static java.util.Collections.emptySet;
 
 /**
- * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>引用情况校验器
+ * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>
+ * referencing validator
  * <ul>
- * <li>不得存在没有被<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>引用的<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a></li>
+ * <li>
+ *   Every tag object must be referenced by <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
+ * </li>
  * </ul>
  */
 public class TagReferenceValidator implements TagValidator {

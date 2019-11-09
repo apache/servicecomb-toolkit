@@ -24,9 +24,9 @@ import io.swagger.v3.oas.models.Operation;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .summary属性校验器
+ * .summary property validator
  * <ul>
- * <li>必填</li>
+ * <li>is field is required</li>
  * </ul>
  */
 public class OperationSummaryRequiredValidator

@@ -34,7 +34,8 @@ import static org.apache.servicecomb.toolkit.oasv.validation.util.OasObjectValid
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathsObject">Paths Object</a>
- * /{path} (Map [String, <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">Path Item Object</a>])校验器
+ * /{path} (Map [String, <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">Path Item Object</a>])
+ * validator
  */
 public class PathsPathItemsValidator implements PathsValidator {
 

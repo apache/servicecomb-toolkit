@@ -22,16 +22,15 @@ import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import java.util.List;
 
 /**
- *
- * @param <T> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>所定义的对象
+ * @param <T> Objects defined in <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#table-of-contents">OpenAPI Specification</a>
  */
 public interface OasObjectValidator<T> {
 
   /**
-   * @param context   校验上下文
-   * @param location  OpenAPI Object的位置
+   * @param context   validation context
+   * @param location  OpenAPI Object location
    * @param oasObject OpenAPI Object
-   * @return 校验违例
+   * @return validation violations, maybe empty list
    */
   List<OasViolation> validate(OasValidationContext context, OasObjectPropertyLocation location, T oasObject);
 

@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * 不允许在responses.'response'.content.'mediaType' 下删除Header Object
+ * Delete MediaType Object under responses.'response'.content.'mediaType' is not allowed
  */
 public class MediaTypeDelInResponseNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<MediaType>
