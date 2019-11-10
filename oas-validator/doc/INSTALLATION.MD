@@ -31,6 +31,7 @@ mvn clean package spring-boot:run
 
 ### Java
 
-```
+```bash
 java -jar ./oas-validator-web/target/oas-validator-web-exec.jar
 ```
+
