@@ -278,6 +278,8 @@ $ java -jar toolkit-cli-{version}.jar cs oas.yaml
 > **checkstyle** Command argument
 * &lt;file&gt; OpenAPI v3 spec yaml file
 
+See [style check rules](oas-validator/README.md)
+
 #### 3.3.4 Service contract compatibility checking
 
 ```shell
@@ -288,6 +290,8 @@ $ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
 
 > **checkcompatibility** Command argument
 * &lt;files&gt; Two OpenAPI v3 spec yaml file
+
+See [compatibilty check rules](oas-validator/README.md)
 
 
 ### 3.4 Use case

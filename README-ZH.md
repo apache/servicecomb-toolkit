@@ -283,6 +283,8 @@ $ java -jar toolkit-cli-{version}.jar cs oas.yaml
 > **checkstyle** Command argument
 * &lt;file&gt; OpenAPI v3 spec yaml文件
 
+见[风格检查规则](oas-validator/README-ZH.md)
+
 #### 3.3.4 契约兼容性检查
 
 ```shell
@@ -293,6 +295,8 @@ $ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
 
 > **checkcompatibility** Command argument
 * &lt;files&gt; Two OpenAPI v3 spec yaml file
+
+见[兼容性检查规则](oas-validator/README-ZH.md)
 
 
 ### 3.4 使用案例

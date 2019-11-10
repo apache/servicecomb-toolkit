@@ -1,185 +1,168 @@
-# OAS Validator
+# OAS Validator | [中文](./README-ZH.md)
 
-OpenAPI V3 Spec校验工具。
+OpenAPI V3 Spec validation tools.
 
-[TOC]
+## Project structure
 
-## 项目结构
+* oas-validator-core: core apis and skeletons implementations
+* oas-validator-core-spring: Spring Boot Starter for core skeletons
+* oas-validator-test: test helpers for core api
+* oas-validator-compliance: check style validators
+* oas-validator-compliance-spring: Spring Boot Starter for check style validators
+* oas-validator-compatibility: compatibility validators
+* oas-validator-compatibility-spring: Spring Boot Starter for compatibility validators
+* oas-validator-web: web ui
 
-* oas-validator-core，核心API及骨架实现
-* oas-validator-core-spring，骨架的Spring Boot Autoconfiguration
-* oas-validator-test，核心API的测试帮助类
-* oas-validator-compliance，合规性校验实现
-* oas-validator-compliance-spring，合规性校验的Spring Boot Autoconfiguration
-* oas-validator-compatibility，兼容性校验实现
-* oas-validator-compatibility-spring，兼容性校验实现的Spring Boot Autoconfiguration
-* oas-validator-web，校验工具的操作UI
+## Style check rules
 
+OAS must compatible with [OAS 3.0.2][openapi-3.0.2], besides must obey the following rules.
 
+### String patterns
 
-## 校验工具安装
-
-[安装文档](./doc/INSTALLATION.MD)
-
-
-
-## 校验工具使用
-
-[使用文档](./doc/USAGE.MD)
-
-
-
-## 合规性校验
-
-OAS必须符合[OAS 3.0.2规范][openapi-3.0.2]（比如属性的名称、REQUIED要求）。除此之外则是我们自己的定义的合规性检查。
-
-### 一些字符串匹配规则
-
-* <a name="lower-camel-case"></a>Lower Camel Case：首字母小写的驼峰，对应的正则`^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
-* <a name="upper-camel-case"></a>Upper Camel Case：首字母大写的驼峰，对应的正则`^[A-Z]([a-z0-9]+[A-Z]?)*$`
-* <a name="upper-hyphen-case"></a>Upper Hyphen Case：单词首字母大写，多个单词用`-`连接，比如`Content-Type`、`Accept`、`X-Rate-Limit-Limit`。对应的正则：`^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
+* <a name="lower-camel-case"></a> Lower Camel Case: initial letter lowercase camel case, regex is `^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
+* <a name="upper-camel-case"></a> Upper Camel Case: initial letter uppercase camel case, regex is `^[A-Z]([a-z0-9]+[A-Z]?)*$`
+* <a name="upper-hyphen-case"></a> Upper Hyphen Case: initial letter uppercase, multiple words concat with `-`, such as `Content-Type`, `Accept`, `X-Rate-Limit-Limit`, regex is `^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
 
 ### OpenAPI Object [doc][spec-openapi]
 
 <a name="openapi-compliance"></a>
 
-* `openapi`属性必须为3.0.x且>=3.0.2
-* `info`属性见[Info Object合规性检查](#info-compliance)
-* `paths`属性，必须提供见[Paths Object合规性检查](#paths-compliance)
-* `components`属性见[Components Object合规性检查](#components-compliance)
-* `tags`属性，至少提供一个[Tag Object][spec-tag]
-  * 见[Tag Object合规性检查](#tag-compliance)
-* `security`属性，不允许提供
+* `openapi` property must be 3.0.x and >= 3.0.2
+* `info` propety, see [Info Object style check rules](#info-compliance)
+* `paths` property, must provide, see  [Paths Object style check rules](#paths-compliance)
+* `components` property, see [Components Object style check rules](#components-compliance)
+* `tags` property should at least provide one [Tag Object][spec-tag]
+  * see  [Tag Object style check rules](#tag-compliance)
+* `security` property, should not provide
 
 ### Info Object [doc][spec-info]
 
 <a name="info-compliance"></a>
 
-* `description`属性，必须填写
+* `description` property, required
 
 ### Tag Object [doc][spec-tag]
 
 <a name="tag-compliance"></a>
 
-- `name`属性，必须是[Upper Camel Case](#upper-camel-case)
-- `description`属性，必须填写
-- 不得存在[Operation Object][spec-operation]没有引用过的tag
+- `name` property, must be [Upper Camel Case](#upper-camel-case)
+- `description` property, required
+- Every tag should be referenced by at least one [Operation Object][spec-operation]
 
 ### Paths Object [doc][spec-paths]
 
 <a name="paths-compliance"></a>
 
-* path必须是[Lower Camel Case](#lower-camel-case)，包括[Path Templating][spec-path-templating]中的变量
-  * 见[Path Item Object合规性检查](#path-item-compliance)
+* path must be [Lower Camel Case](#lower-camel-case), including [Path Templating][spec-path-templating] variable
+  * see  [Path Item Object style check rules](#path-item-compliance)
 
 ### Path Item Object [doc][spec-path-item]
 
 <a name="path-item-compliance"></a>
 
-* `get/post/put/delete/...`属性，见[Operation Object合规性检查](operation-compliance)
-* `parameters`属性，见[Parameter Object合规性检查](#parameter-compliance)
+* `get/post/put/delete/...` properties, see  [Operation Object style check rules](operation-compliance)
+* `parameters` property, see  [Parameter Object style check rules](#parameter-compliance)
 
 ### Operation Object [doc][spec-operation]
 
 <a name="operation-compliance"></a>
 
-* `summary`属性、必须填写
-* `operationId`属性，且[Lower Camel Case](#lower-camel-case)
-* `parameters`属性，见[Parameter Object合规性检查](#parameter-compliance)
-* `requestBody`属性，见[Request Body Object合规性检查](#request-body-compliance)
-* `responses`属性，见[Responses Object合规性检查](#responses-compliance)
-* `tags`属性，且只能写一个tag，且必须在[OpenAPI Object][spec-openapi] 的 `tags`属性里所定义的范围内
-  
-* `servers`属性，不允许提供
+* `summary` property, required
+* `operationId` property, must be [Lower Camel Case](#lower-camel-case)
+* `parameters` property, see  [Parameter Object style check rules](#parameter-compliance)
+* `requestBody` property, see  [Request Body Object style check rules](#request-body-compliance)
+* `responses` property, see  [Responses Object style check rules](#responses-compliance)
+* `tags` property, can only provide one tag, must be in the range of [OpenAPI Object][spec-openapi]   `tags` property
+* `servers` property, should not provide
 
 ### Parameter Object [doc][spec-parameter]
 
 <a name="parameter-compliance"></a>
 
-* `description`属性，必须填写
-* `name`属性
-  * 如果`in`为path、query、cookie，则那么必须是[Lower Camel Case](#lower-camel-case)
-  * 如果`in`为header，则那么必须是[Upper Hyphen Case](#upper-hyphen-case)
-* `schema`属性，见[Schema Object合规性检查](#schema-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
+* `description` property, required
+* `name` property
+  * if `in` is path, query or cookie, then must be [Lower Camel Case](#lower-camel-case)
+  * if `in` is header, then must be [Upper Hyphen Case](#upper-hyphen-case)
+* `schema` property, see  [Schema Object check sytle rules](#schema-compliance)
+* `content` property, see  [Media Type Object style check rules](#media-type-compliance)
 
 ### Request Body Object [doc][spec-request-body]
 
 <a name="request-body-compliance"></a>
 
-* `description`属性，必须填写
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
+* `description` property, required
+* `content` property, see  [Media Type Object style check rules](#media-type-compliance)
 
 ### Media Type Object [doc][spec-media-type]
 
 <a name="media-type-compliance"></a>
 
-* `schema`属性，必须填写。见[Schema Object合规性检查](#schema-compliance)
-* `encoding`属性，见[Encoding Object合规性检查](#encoding-compliance)
+* `schema` property, required. See  [Schema Object style check rules](#schema-compliance)
+* `encoding` property, see  [Encoding Object style check rules](#encoding-compliance)
 
 ### Responses Object [doc][spec-responses]
 
 <a name="responses-compliance"></a>
 
-* 见[Response Object合规性检查](#response-compliance)
+* See [Response Object style check rules](#response-compliance)
 
 ### Response Object [doc][spec-response]
 
 <a name="response-compliance"></a>
 
-* `description`属性，必须填写
-* `headers`属性，name（`headers`的key）必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header Object合规性检查](#header-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
+* `description` property, required
+* `headers` property, name (`headers` key) must be [Upper Hyphen Case](#upper-hyphen-case)
+  * See [Header Object style check rules](#header-compliance)
+* `content` property, see [Media Type Object style check rules](#media-type-compliance)
 
 ### Schema Object [doc][spec-schema]
 
 <a name="schema-compliance"></a>
 
-* `title`属性，如果上级是[Schema Object][spec-schema]或[Components Object][spec-components]，那么必须填写
-* `properties`属性，name（`properties`的key）必须是[Lower Camel Case](#lower-camel-case)
-  * Sub Schema见[Schema Object合规性检查](#schema-compliance)
+* `title` property, required if parent is [Schema Object][spec-schema] or [Components Object][spec-components]
+* `properties` property, name(`properties` key) must be [Lower Camel Case](#lower-camel-case)
+  * Sub Schema, see [Schema Object style check rules](#schema-compliance)
 
 ### Encoding Object [doc][spec-encoding]
 
 <a name="encoding-compliance"></a>
 
-* `headers`属性，name（`headers`的key）必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header Object合规性检查](#header-compliance)
+* `headers` property, name(`headers` key) must be [Upper Hyphen Case](#upper-hyphen-case)
+  * See [Header Object style check rules](#header-compliance)
 
 ### Header Object [doc][spec-header]
 
 <a name="header-compliance"></a>
 
-* `description`属性，必须填写
-* `schema`属性，见[Schema Object合规性检查](#schema-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
+* `description` property, required
+* `schema` property, see [Schema Object style check rules](#schema-compliance)
+* `content` property, see [Media Type Object style check rules](#media-type-compliance)
 
 ### Components Object [doc][spec-components]
 
 <a name="components-compliance"></a>
 
-* `schemas`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Schema Object合规性检查](#schema-compliance)
-* `responses`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Response Object合规性检查](#response-compliance)
-* `parameters`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Parameter Object合规性检查](#parameter-compliance)
-* `examples`属性，name必须是[Upper Camel Case](#upper-camel-case)
-* `requestBodies`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Request Body合规性检查](#request-body-compliance)
-* `headers`属性，name必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header合规性检查](#header-compliance)
-* `links`属性，name必须是[Upper Camel Case](#upper-camel-case)
-* `callbacks`属性，name必须是[Upper Camel Case](#upper-camel-case)
+* `schemas` property, name must be [Upper Camel Case](#upper-camel-case)
+  * See [Schema Object style check rules](#schema-compliance)
+* `responses` property, name must be [Upper Camel Case](#upper-camel-case)
+  * See [Response Object style check rules](#response-compliance)
+* `parameters` property, name must be [Upper Camel Case](#upper-camel-case)
+  * See [Parameter Object style check rules](#parameter-compliance)
+* `examples` property, name must be [Upper Camel Case](#upper-camel-case)
+* `requestBodies` property, name must be [Upper Camel Case](#upper-camel-case)
+  * See [Request Body style check rules](#request-body-compliance)
+* `headers` property, name must be [Upper Hyphen Case](#upper-hyphen-case)
+  * See [Header style check rules](#header-compliance)
+* `links` property, name must be [Upper Camel Case](#upper-camel-case)
+* `callbacks` property, name must be [Upper Camel Case](#upper-camel-case)
 
-## 兼容性检查
+## Compatibility check rules
 
-对新旧两个版本的OAS做兼容性检查。
+Check whether new OAS spec compatibile with old spec.
 
-OAS可以使用[Reference Object][spec-reference]来描述Spec，两个不同的OAS会出现描述不同但语义相同的情况。比如下面的旧OAS没有使用[Reference Object][spec-reference]，而新OAS则使用了的情况：
+Notice: OAS could use [Reference Object][spec-reference], two  OAS which are different in text maybe semantically same. For example, below old OAS doesn't use [Reference Object][spec-reference] while the new one uses:
 
-旧OAS
+Old OAS
 
 ```yaml
 openapi: "3.0.0"
@@ -210,7 +193,7 @@ paths:
           description: A paged array of pets
 ```
 
-新OAS
+New OAS
 
 ```yaml
 paths:
@@ -236,7 +219,7 @@ components:
             type: string
 ```
 
-因此在检查兼容性的时候会将新旧OAS的[Reference Object][spec-reference]做解析，然后再检查，下面是一段[swagger-parser][swagger-parser]的例子：
+So, when do compatibility check we resolve [Reference Object][spec-reference] in old and new OAS first, then do the check, below is the code snippet using [swagger-parser][swagger-parser]:
 
 ```java
 OpenAPIV3Parser parser = new OpenAPIV3Parser();
@@ -250,97 +233,97 @@ parseOptions.setFlatten(false);
 SwaggerParseResult parseResult = parser.readContents(content, null, parseOptions);
 ```
 
-因此，检查下来如果发现不兼容，那么所报告的位置会和原文档有所不同。
+So if  compatibility violations be found, the reported location will be different from the location in origin OAS spec.
 
 ### Paths Object [doc][spec-paths]
 
 <a name="paths-compatibility"></a>
 
-* 新OAS必须包含旧OAS的所有的`path`，如果`path`使用了[Path Templating][spec-path-templating]，只要变量名发生了变化，那么即使语义上相同也会被认为不同，比如`/pets/{foo}`和`/pets/{bar}`会被认定为不同。
-  * 见[Path Item Object兼容性检查](#path-item-compatibility)
+* New OAS must include all the `path` appears in 旧OAS. If `path` uses [Path Templating][spec-path-templating], even the variable name changed, will be considered semantically different. For example `/pets/{foo}` and `/pets/{bar}` are different.
+  * See [Path Item Object compatibility check rules](#path-item-compatibility)
 
 ### Path Item Object [doc][spec-path-item]
 
 <a name="path-item-compatibility"></a>
 
-* 新OAS必须包含旧OAS的所有的get/put/post/delete/...[Operation Object][spec-operation]
+* New OAS must inclued all old OAS get/put/post/delete/...[Operation Object][spec-operation]
 
 ### Operation Object [doc][spec-operation]
 
 <a name="operation-compatibility"></a>
 
-* `operationId`属性，新旧OAS必须完全一致。
-* `parameters`属性，对它检查须在考虑到[Path Item Object parameters属性][spec-path-item-parameters]的情况下进行：
-  * 新OAS可以新增[Parameter Object][spec-parameter]，但是新增的[Parameter Object][spec-parameter]的`required`属性必须为`false`
-  * 新OAS可以删除[Parameter Object][spec-parameter]
-  * 针对单个[Parameter Object][spec-parameter]的修改的检查见[Parameter Object兼容性检查](#parameter-compatibility)（在同一个[Operation Object][spec-operation]下[Parameter Object][spec-parameter]依靠`name`和`in`两个属性作为ID）。
-* `requestBody`属性，见[Request Body Object兼容性检查](#request-body-compatibility)
-* `responses`属性，见[Responses Object兼容性检查](#responses-compatibility)
+* `operationId` property,  new and old must be identical
+* `parameters` property, check work must also consider [Path Item Object parameters property][spec-path-item-parameters]:
+  * New OAS could add new [Parameter Object][spec-parameter], but the new [Parameter Object][spec-parameter] `required` property must be `false`
+  * New OAS could delete[Parameter Object][spec-parameter]
+  * The check on [Parameter Object][spec-parameter] see [Parameter Object compatibility check rules](#parameter-compatibility)(Under the same [Operation Object][spec-operation] [Parameter Object][spec-parameter] is identified by `name` and `in` property)。
+* `requestBody` property, see [Request Body Object compatibility check rules](#request-body-compatibility)
+* `responses` property, see[Responses Object compatibility check rules](#responses-compatibility)
 
 ### Parameter Object [doc][spec-parameter]
 
 <a name="parameter-compatibility"></a>
 
-* `required`属性，只允许`true(旧) -> false(新)`
-* `allowEmptyValue`属性，只允许`false(旧) -> true(新)`的变化
-* `style`属性，新旧OAS必须保持一致
-* `explode`属性，新旧OAS必须保持一致
-* `allowReserved`属性，只允许`false(旧) -> true(新)`的变化
-* `schema`属性，见[Schema Object兼容性检查](#schema-compatibility)
-* `content`属性，新OAS必须包含旧OAS的所有media type（`content`的key），且不能新增media type
-  * 见[Media Type Object兼容性检查](#media-type-compatibility)
+* `required` property, only allow `true(old) -> false(new)` change
+* `allowEmptyValue` property, only allow `false(old) -> true(new)` change
+* `style` property, new and old must be identical
+* `explode` property, new and old must be identical
+* `allowReserved` property, only allow `false(old) -> true(new)` change
+* `schema` property, see [Schema Object compatibility check rules](#schema-compatibility)
+* `content`property, new OAS must include all old OAS media type (`content` keys), and add new media type is not allowed
+  * see [Media Type Object compatibility check rules](#media-type-compatibility)
 
 ### Request Body Object [doc][spec-request-body]
 
 <a name="request-body-compatibility"></a>
 
-* `content`属性，新OAS必须包含旧OAS的所有media type（`content`的key）
-  * 见[Media Type Object兼容性检查](#media-type-compatibility)
-* `required`属性，只允许`true(旧) -> false(新)`的变化
+* `content`property, new OAS must include all old OAS media type (`content` keys)
+  * See [Media Type Object compatibility check rules](#media-type-compatibility)
+* `required` property, only allow `true(old) -> false(new)` change
 
 ### Media Type Object [doc][spec-media-type]
 
 <a name="media-type-compatibility"></a>
 
-* `schema`属性，见[Schema Object兼容性检查](#schema-compatibility)
-* `encoding`属性，该属性仅适用于`requestBody`，因此新旧OAS的property name（`encoding`的key）必须完全一致
-  * 见[Encoding Object兼容性检查](#encoding-compatibility)
+* `schema` property, see [Schema Object compatibility check rules](#schema-compatibility)
+* `encoding` property, this property only apply to `requestBody`, so new OAS and old OAS property name(`encoding` key) must be identical
+  * See [Encoding Object compatibility check rules](#encoding-compatibility)
 
 ### Responses Object [doc][spec-responses]
 
 <a name="responses-compatibility"></a>
 
-* `default`属性，如果旧OAS没有定义`default`，那么新OAS也不能定义`default`。
-* `{Http Status Code}`属性，新OAS不允许新增。
-* 见[Response Object兼容性检查](#response-compatibility)
+* `default` property, if old OAS doesn't define `default`, then new OAS should not define `default` too.
+* `{Http Status Code}` property, new OAS is not allowed to add one.
+* See [Response Object compatibility check rules](#response-compatibility)
 
 ### Response Object [doc][spec-response]
 
 <a name="response-compatibility"></a>
 
-* `headers`属性，新OAS必须包含旧OAS的所有header name（`headers`的key），可以新增header name
-  * [Header Object][spec-header]见[Header Object兼容性检查](#header-compatibility)
-* `content`属性，新OAS必须包含旧OAS的所有media type（`content`的key），可以新增media type
-  - [Media Type Object][spec-media-type]见[Media Type Object兼容性检查](#media-type-compatibility)
+* `headers` property, new OAS must include all old OAS header name(`headers` keys), and add new header name is allowed
+  * [Header Object][spec-header] see [Header Object compatibility check rules](#header-compatibility)
+* `content` property, new OAS must include all old OAS media type(`content` keys), and add new media type is allowed
+  - [Media Type Object][spec-media-type] see [Media Type Object compatibility check rules](#media-type-compatibility)
 
 ### Schema Object [doc][spec-schema]
 
 <a name="schema-compatibility"></a>
 
-OAS中定义，Schema Object可以直接或间接用在：
+OAS allows Schema Object be directly or indirectly in:
 
-* 请求类：[Parameter Object][spec-parameter]、[Request Body Object][spec-request-body]、[Header Object][spec-header]
-* 响应类：[Header Object][spec-header]、[Response Object][spec-response]
+* Request: [Parameter Object][spec-parameter], [Request Body Object][spec-request-body], [Header Object][spec-header]
+* Response: [Header Object][spec-header], [Response Object][spec-response]
 
-不同用途的兼容性检查规则有所不同。
+In different context compatibility check rules are different.
 
-### 用做请求时
+### In request context
 
-原则上，当Schema Object用在请求时，只允许从紧到松的变化。
+When Schema Object is in response context, only allow change from more specific form to less specific form.
 
-* `type, format`组合所允许的变化范围
+* `type, format` combination allowed change:
 
-| 旧(type,format)  | 新(type,format)                                              |
+| Old (type,format)  | New (type,format)                                              |
 | ---------------- | ------------------------------------------------------------ |
 | integer, null    | integer, int64<br />number, double<br />number, null         |
 | integer, int32   | integer, int64<br />integer, null<br />number, float<br />number, double<br />number, null |
@@ -351,27 +334,27 @@ OAS中定义，Schema Object可以直接或间接用在：
 | string, null     | string, password                                             |
 | string, password | string, null                                                 |
 
-* `allOf`、`oneOf`、`anyOf`属性，在combine之后再做检查
-* `multipleOf`属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的因子，比如6(旧)->3(新)
-* `maximum`、`maxLength`、`maxItems`、`maxProperties`，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须>=旧OAS。
-* `minimum`、`minLenght`、`minItems`、`minProperties`，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须<=旧OAS。
-* `exclusiveMaximum`、`exclusiveMinimum`属性，仅允许`true(旧)->false(新)`的变化
-* `uniqueItems`属性，只允许`true(旧)->false(新)`的变化。
-* `required`属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。
-* `enum`属性，新OAS必须==旧OAS，或者新OAS是旧OAS的超集。
-* `properties`属性，新OAS可以新增property name（`properties`的key）或者减少property name。
-* `nullable`属性，只允许`false(旧)->true(新)`的变化。
-* `discriminator`属性，新旧OAS必须完全一致。
-* `xml`属性，新旧OAS必须完全一致。
-* `readOnly`、`writeOnly`，新旧OAS必须完全一致。
+* `allOf`, `oneOf`, `anyOf` property, combine them first then do check
+* `multipleOf` property, if old OAS is null, then new OAS must == old OAS or new OAS is a factor of old OAS, eg, 6(old)->3(new)
+* `maximum`, `maxLength`, `maxItems`, `maxProperties`, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must be >= old OAS
+* `minimum`, `minLenght`, `minItems`, `minProperties`, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must be <= old OAS.
+* `exclusiveMaximum`, `exclusiveMinimum` property, only allow change `true(old)->false(new)`
+* `uniqueItems` property, only allow change `true(old)->false(new)`
+* `required` property, new OAS must == old OAS or new OAS is old OAS subset
+* `enum` property, new OAS must == old OAS or new OAS is old OAS superset
+* `properties` property, new OAS could add or delete property name(`properties` key) 
+* `nullable` property, only allow change `false(old)->true(new)`
+* `discriminator` property, new and old must be identical
+* `xml` property, new and old must be identical
+* `readOnly`, `writeOnly` property, new and old must be identical
 
-### 用做响应时
+### In response context
 
-原则上，当Schema Object用在响应时，只允许从松到紧的变化。
+When Schema Object is in response context, only allow change from less specific form to more specific form.
 
-* `type, format`组合所允许的变化范围
+* `type, format` combination allowed change:
 
-| 旧(type,format)  | 新(type,format)                    |
+| Old (type,format)  | New (type,format)                    |
 | ---------------- | ---------------------------------- |
 | integer, null    | integer, int64<br />integer, int32 |
 | integer, int64   | integer, null<br />interger, int32 |
@@ -380,44 +363,44 @@ OAS中定义，Schema Object可以直接或间接用在：
 | string, null     | string, password                   |
 | string, password | string, null                       |
 
-* `allOf`、`oneOf`、`anyOf`属性，在combine之后再做检查
-* `multipleOf`属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的倍数，比如3(旧)->6(新)
-* `maximum`、`maxLength`、`maxItems`、`maxProperties`，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须<=旧OAS。
-* `minimum`、`minLenght`、`minItems`、`minProperties`，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须>=旧OAS。
-* `exclusiveMaximum`、`exclusiveMinimum`属性，仅允许`false(旧)->true(新)`的变化
-* `uniqueItems`属性，只允许`false(旧)->true(新)`的变化。
-* `required`属性，新OAS必须==旧OAS或者，新OAS是旧OAS的超集。
-* `enum`属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。
-* `properties`属性，新OAS可以新增property name（`properties`的key）或者减少property name。
-* `nullable`属性，只允许`true(旧)->false(新)`的变化。
-* `discriminator`属性，新旧OAS必须完全一致。
-* `xml`属性，新旧OAS必须完全一致。
-* `readOnly`、`writeOnly`，新旧OAS必须完全一致。
+* `allOf`, `oneOf`, `anyOf` property, combine them first then do check
+* `multipleOf` property if old OAS is null. new OAS must == old OAS or new OAS must be a multiple of old OAS, eg, 3(old)->6(new)
+* `maximum`, `maxLength`, `maxItems`, `maxProperties`, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must <= old OAS
+* `minimum`, `minLenght`, `minItems`, `minProperties`, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must >= old OAS
+* `exclusiveMaximum`, `exclusiveMinimum` property, only allow change  `false(old)->true(new)`
+* `uniqueItems` property, only allow change `false(old)->true(new)`
+* `required` new OAS must == old OAS or new OAS is old OAS superset
+* `enum` property, new OAS must == old OAS or new OAS is old OAS subset
+* `properties` property, new OAS could add or delete property name(`properties` key) 
+* `nullable` property , only allow change `true(old)->false(new)`
+* `discriminator` property, new and old must be identical
+* `xml` property, new and old must be identical
+* `readOnly`, `writeOnly` property, new and old must be identical
 
 ### Encoding Object [doc][spec-encoding]
 
 <a name="encoding-compatibility"></a>
 
-PS. Encoding Object仅针对Request Body Object有用
+Notice: Encoding Object only apply to Request Body Object
 
-* `contentType`属性，新旧OAS必须保持一致
-* `headers`属性，新OAS必须包含旧OAS的所有header name（`headers`的key），且不能新增header name，但是可以减少header name
-  * [Header Object][spec-header]见[Header Object兼容性检查](#header-compatibility)
-* `style`属性，新旧OAS必须保持一致
-* `explode`属性，新旧OAS必须保持一致
-* `allowReserved`属性，只允许`false(旧) -> true(新)`的变化
+* `contentType` property, new and old must be identical
+* `headers` property, new OAS can not add new he header name (`headers` key), but and delete header name
+  * [Header Object][spec-header] see [Header Object compatibility check rules](#header-compatibility)
+* `style` property, new and old must be identical
+* `explode` property, new and old must be identical
+* `allowReserved` property, only allow change `false(old) -> true(new)`
 
 ### Header Object [doc][spec-header]
 
 <a name="header-compatibility"></a>
 
-- `schema`属性，见[Schema Object兼容性检查](#schema-compatibility)
+- `schema` property, see [Schema Object compatibility check rules](#schema-compatibility)
 
 ### Components Object [doc][spec-components]
 
 <a name="components-compatibility"></a>
 
-[Components Object][spec-components]定义的都是可复用OAS Object，而在检查兼容性的时候所有`$ref`都已被解析了，因此不需要对[Components Object][spec-components]的属性做兼容性检查。
+[Components Object][spec-components] defines reusable OAS Object, but when doing compatibility check all `$ref` are resolved, so no need to check [Components Object][spec-components] compatibility.
 
 
 [spec-operation]: https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject
