@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * Add MediaType Object under Parameter.content is not allowed
+ * Adding MediaType Object under Parameter.content is not allowed
  */
 public class MediaTypeAddInParameterNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<MediaType>

@@ -42,7 +42,7 @@ public class OasObjectDiffValidatorTemplate<T> implements OasObjectDiffValidator
   }
 
   /**
-   * validate the adding situation, left side not exist but right side exists
+   * validate the adding situation, left side doesn't exist but right side exists
    *
    * @param context
    * @param rightLocation
@@ -55,7 +55,7 @@ public class OasObjectDiffValidatorTemplate<T> implements OasObjectDiffValidator
   }
 
   /**
-   * validate the delete situation, left side exists but right side not exist
+   * validate the deleting situation, left side exists but right side doesn't exist
    *
    * @param context
    * @param leftLocation

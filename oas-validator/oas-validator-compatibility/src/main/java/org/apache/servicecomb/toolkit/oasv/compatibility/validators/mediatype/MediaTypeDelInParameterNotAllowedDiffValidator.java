@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * Delete MediaType Object under Parameter.content is not allowed
+ * Deleting MediaType Object under Parameter.content is not allowed
  */
 public class MediaTypeDelInParameterNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<MediaType>

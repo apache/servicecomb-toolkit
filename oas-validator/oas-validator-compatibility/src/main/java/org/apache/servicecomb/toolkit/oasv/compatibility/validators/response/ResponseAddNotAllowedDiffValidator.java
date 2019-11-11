@@ -27,7 +27,7 @@ import static org.apache.servicecomb.toolkit.oasv.diffvalidation.api.OasDiffViol
 import static java.util.Collections.singletonList;
 
 /**
- * Add Response Object under responses.'http status code' is not allowed
+ * Adding Response Object under responses.'http status code' is not allowed
  */
 public class ResponseAddNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<ApiResponse>

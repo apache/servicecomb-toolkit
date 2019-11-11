@@ -30,7 +30,7 @@ import static java.util.Collections.emptyList;
 
 public class SchemaRequiredChangeInRequestValidator extends SchemaPropertyChangeValidator<List<String>> {
 
-  public static final String VIOLATION_MESSAGE = "add required fields is not allowed on right side";
+  public static final String VIOLATION_MESSAGE = "adding required fields is not allowed on right side";
 
   @Override
   protected List<String> getProperty(Schema schema) {

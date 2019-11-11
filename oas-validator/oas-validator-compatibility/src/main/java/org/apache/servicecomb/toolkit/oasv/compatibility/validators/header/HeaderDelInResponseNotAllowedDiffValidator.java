@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * Delete Header Object under responses.'response'.headers.headers is not allowed
+ * Deleting Header Object under responses.'response'.headers.headers is not allowed
  */
 public class HeaderDelInResponseNotAllowedDiffValidator extends OasObjectDiffValidatorTemplate<Header>
   implements HeaderDiffValidator {

@@ -29,7 +29,7 @@ import static java.util.Collections.emptyList;
 
 public class SchemaRequiredChangeInResponseValidator extends SchemaPropertyChangeValidator<List<String>> {
 
-  public static final String VIOLATION_MESSAGE = "delete required fields is not allowed on right side";
+  public static final String VIOLATION_MESSAGE = "deleting required fields is not allowed on right side";
 
   @Override
   protected List<String> getProperty(Schema schema) {

@@ -28,7 +28,7 @@ import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 
 /**
- * Delete MediaType Object under responses.'response'.content.'mediaType' is not allowed
+ * Deleting MediaType Object under responses.'response'.content.'mediaType' is not allowed
  */
 public class MediaTypeDelInResponseNotAllowedDiffValidator
   extends OasObjectDiffValidatorTemplate<MediaType>

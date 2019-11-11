@@ -25,7 +25,7 @@ import java.util.List;
 public interface SchemaDelValidator {
 
   /**
-   * validate the delete situation, left side exists but right side not exist
+   * validate the deleting situation, left side exists but right side not exist
    *
    * @param context
    * @param leftLocation
