@@ -30,7 +30,7 @@ import static java.util.Collections.emptyList;
 
 public class SchemaEnumChangeInRequestValidator extends SchemaPropertyChangeValidator<List> {
 
-  public static final String VIOLATION_MESSAGE = "delete enum on right side is not allowed";
+  public static final String VIOLATION_MESSAGE = "deleting enum on right side is not allowed";
 
   @Override
   protected List getProperty(Schema schema) {
