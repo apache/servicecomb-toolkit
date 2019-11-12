@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 
 import org.apache.servicecomb.provider.pojo.RpcSchema;
 import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.apache.servicecomb.toolkit.generator.parser.ServicecombJaxrsParser;
 import org.apache.servicecomb.toolkit.generator.parser.ServicecombPojoParser;
 import org.apache.servicecomb.toolkit.generator.parser.ServicecombSpringmvcParser;

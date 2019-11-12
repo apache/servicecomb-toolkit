@@ -37,7 +37,7 @@ import org.apache.servicecomb.provider.rest.common.RestSchema;
 import org.apache.servicecomb.toolkit.ContractsGenerator;
 import org.apache.servicecomb.toolkit.common.ContractFileType;
 import org.apache.servicecomb.toolkit.common.ImmediateClassLoader;
-import org.apache.servicecomb.toolkit.generator.OasGenerator;
+import org.apache.servicecomb.toolkit.generator.context.OasGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;

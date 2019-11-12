@@ -19,9 +19,9 @@ package org.apache.servicecomb.toolkit.generator.parser.api;
 
 import java.lang.annotation.Annotation;
 
-import org.apache.servicecomb.toolkit.generator.OasContext;
-import org.apache.servicecomb.toolkit.generator.OperationContext;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
 import org.apache.servicecomb.toolkit.generator.annotation.ClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.MethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ParamAnnotationProcessor;

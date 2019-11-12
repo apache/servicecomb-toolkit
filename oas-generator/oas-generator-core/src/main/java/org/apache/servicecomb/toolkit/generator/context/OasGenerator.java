@@ -15,9 +15,10 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit.generator;
+package org.apache.servicecomb.toolkit.generator.context;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ServiceLoader;
@@ -33,6 +34,7 @@ public class OasGenerator {
 
   static {
     ServiceLoader.load(OpenApiAnnotationParser.class).forEach(parserList::add);
+    parserList.sort(Comparator.comparingInt(OpenApiAnnotationParser::getOrder));
   }
 
   public OpenAPI generate(Class<?> cls) {

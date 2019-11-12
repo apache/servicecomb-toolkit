@@ -20,7 +20,7 @@ package org.apache.servicecomb.toolkit.generator.annotation;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.Content;

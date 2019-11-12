@@ -68,7 +68,7 @@ class GenerateUtil {
     contractConfig.put("outputDir", contractOutput);
     contractConfig.put("contractFileType", contractFileType);
 
-    // TODO: support users to add other getGenerator type soon
+    // TODO: support users to addParamCtx other getGenerator type soon
     ContractsGenerator contractGenerator = GeneratorFactory.getGenerator(ContractsGenerator.class, type);
     Objects.requireNonNull(contractGenerator).configure(contractConfig);
 
@@ -77,7 +77,7 @@ class GenerateUtil {
 
   static void generateDocument(String contractLocation, String documentOutput, String type) throws IOException {
 
-    // TODO: support users to add other getGenerator type soon
+    // TODO: support users to addParamCtx other getGenerator type soon
     DocGenerator docGenerator = GeneratorFactory.getGenerator(DocGenerator.class, type);
     if (docGenerator == null) {
       throw new RuntimeException("Cannot found document generator's implementation");

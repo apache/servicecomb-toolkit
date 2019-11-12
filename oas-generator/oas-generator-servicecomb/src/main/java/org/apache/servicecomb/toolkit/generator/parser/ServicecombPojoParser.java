@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.provider.pojo.RpcSchema;
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
 

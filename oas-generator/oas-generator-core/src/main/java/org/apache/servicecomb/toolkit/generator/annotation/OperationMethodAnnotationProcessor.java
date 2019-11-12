@@ -17,16 +17,15 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Optional;
 
-import io.swagger.v3.oas.annotations.ExternalDocumentation;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
+import org.apache.servicecomb.toolkit.generator.util.SwaggerAnnotationUtils;
+
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.extensions.Extension;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.servers.Server;
 
 public class OperationMethodAnnotationProcessor implements MethodAnnotationProcessor<Operation, OperationContext> {
 
@@ -34,24 +33,25 @@ public class OperationMethodAnnotationProcessor implements MethodAnnotationProce
   public void process(Operation annotation, OperationContext context) {
 
     context.setOperationId(annotation.operationId());
-    String s = annotation.operationId();
-    boolean deprecated = annotation.deprecated();
-    String description = annotation.description();
-    Extension[] extensions = annotation.extensions();
-    ExternalDocumentation externalDocumentation = annotation.externalDocs();
-    RequestBody requestBody = annotation.requestBody();
+    context.setDeprecated(annotation.deprecated());
+    context.setDescription(annotation.description());
+
+    Map<String, Object> extensionsFromAnnotation = SwaggerAnnotationUtils
+        .getExtensionsFromAnnotation(annotation.extensions());
+    Optional.ofNullable(extensionsFromAnnotation)
+        .ifPresent(extensions -> extensions.forEach(context::addExtension));
+
     ApiResponse[] responses = annotation.responses();
-    String method = annotation.method();
-    Server[] servers = annotation.servers();
-    SecurityRequirement[] security = annotation.security();
-    String[] tags = annotation.tags();
-    String summary = annotation.summary();
-    Parameter[] parameters = annotation.parameters();
+    MethodAnnotationProcessor apiResponseAnnotationProcessor = context.getParser()
+        .findMethodAnnotationProcessor(ApiResponse.class);
 
-//    context.getOpenAPI().setPaths();
+    for (ApiResponse response : responses) {
+      Optional.ofNullable(apiResponseAnnotationProcessor)
+          .ifPresent(processor -> processor.process(response, context));
+    }
 
-    // responseReference未解析
-    // hidden未解析
-    // authorizations未解析
+    context.setHttpMethod(annotation.method());
+    context.setSummary(annotation.summary());
+    Arrays.stream(annotation.tags()).forEach(context::addTag);
   }
 }

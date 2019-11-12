@@ -18,24 +18,22 @@
 package org.apache.servicecomb.toolkit.generator.annotation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.apache.servicecomb.toolkit.generator.util.ParamUtils;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 
 public class PathVariableAnnotationProcessor implements ParamAnnotationProcessor<PathVariable, ParameterContext> {
   @Override
   public void process(PathVariable pathVariable, ParameterContext parameterContext) {
-
     String paramName = pathVariable.name();
     if (StringUtils.isEmpty(paramName)) {
       paramName = ParamUtils
-          .getParamterName(parameterContext.getOperationContext().getMethod(), parameterContext.getParameter());
+          .getParameterName(parameterContext.getOperationContext().getMethod(), parameterContext.getParameter());
     }
 
+    parameterContext.setIn(InType.PATH);
     parameterContext.setName(paramName);
     parameterContext.setRequired(pathVariable.required());
-    parameterContext.setType(ParameterIn.PATH.toString());
   }
 }

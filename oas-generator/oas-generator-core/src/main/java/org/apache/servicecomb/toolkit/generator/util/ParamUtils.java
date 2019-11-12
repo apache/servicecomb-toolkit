@@ -36,14 +36,14 @@ public class ParamUtils {
 
   private static final String STATIC_CLASS_INIT = "<clinit>";
 
-  public static final Map<Method, String[]> paramterCache = new HashMap();
+  public static final Map<Method, String[]> parameterCache = new HashMap();
 
-  public static String getParamterName(Method method, Parameter parameter) {
+  public static String getParameterName(Method method, Parameter parameter) {
 
-    String[] parameterNames = paramterCache.get(method);
+    String[] parameterNames = parameterCache.get(method);
 
     if (parameterNames == null) {
-      parameterNames = initParamterNames(method);
+      parameterNames = initParameterNames(method);
       if (parameterNames == null) {
         return null;
       }
@@ -67,10 +67,10 @@ public class ParamUtils {
     return -1;
   }
 
-  private static String[] initParamterNames(Method m) {
+  private static String[] initParameterNames(Method m) {
 
     boolean isStatic = Modifier.isStatic(m.getModifiers());
-    String[] paramterNames = new String[m.getParameterCount()];
+    String[] parameterNames = new String[m.getParameterCount()];
 
     try {
 
@@ -101,7 +101,7 @@ public class ParamUtils {
           }
 
           if (!isSyntheticOrBridged(access) && !STATIC_CLASS_INIT.equals(name)) {
-            return new LocalVariableVisitor(this.api, descriptor, isStatic, paramterNames);
+            return new LocalVariableVisitor(this.api, descriptor, isStatic, parameterNames);
           }
 
           return methodVisitor;
@@ -111,9 +111,9 @@ public class ParamUtils {
       e.printStackTrace();
     }
 
-    paramterCache.put(m, paramterNames);
+    parameterCache.put(m, parameterNames);
 
-    return paramterNames;
+    return parameterNames;
   }
 
   private static boolean isSyntheticOrBridged(int access) {

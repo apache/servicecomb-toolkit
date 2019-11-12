@@ -25,21 +25,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.servicecomb.toolkit.generator.OasContext;
-import org.apache.servicecomb.toolkit.generator.OperationContext;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
 import org.apache.servicecomb.toolkit.generator.annotation.AnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ApiResponseMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ApiResponsesMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.MethodAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.OpenApiDefinitionClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.OperationMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ParamAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ParameterAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.RequestBodyParamAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
 import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
@@ -49,11 +53,11 @@ public abstract class AbstractAnnotationParser implements OpenApiAnnotationParse
 
   private OasContext context;
 
-  protected Map<Class, ClassAnnotationProcessor> classAnnotationMap = new HashMap<>();
+  protected Map<Class<? extends Annotation>, ClassAnnotationProcessor> classAnnotationMap = new HashMap<>();
 
-  protected Map<Class, MethodAnnotationProcessor> methodAnnotationMap = new HashMap<>();
+  protected Map<Class<? extends Annotation>, MethodAnnotationProcessor> methodAnnotationMap = new HashMap<>();
 
-  protected Map<Class, ParamAnnotationProcessor> parameterAnnotationMap = new HashMap<>();
+  protected Map<Class<? extends Annotation>, ParamAnnotationProcessor> parameterAnnotationMap = new HashMap<>();
 
   public AbstractAnnotationParser() {
     initMethodAnnotationProcessor();
@@ -128,11 +132,12 @@ public abstract class AbstractAnnotationParser implements OpenApiAnnotationParse
   }
 
   public void initClassAnnotationProcessor() {
-
+    classAnnotationMap.put(OpenAPIDefinition.class, new OpenApiDefinitionClassAnnotationProcessor());
   }
 
   public void initParameterAnnotationProcessor() {
     parameterAnnotationMap.put(Parameter.class, new ParameterAnnotationProcessor());
+    parameterAnnotationMap.put(RequestBody.class, new RequestBodyParamAnnotationProcessor());
   }
 
   @Override

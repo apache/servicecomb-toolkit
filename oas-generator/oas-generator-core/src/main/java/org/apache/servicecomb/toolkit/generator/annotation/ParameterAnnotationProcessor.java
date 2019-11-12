@@ -17,37 +17,68 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import java.lang.reflect.Type;
-import java.util.Arrays;
+import java.util.Collections;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
+import org.apache.servicecomb.toolkit.generator.util.SwaggerAnnotationUtils;
 
-import io.swagger.v3.core.util.ParameterProcessor;
-import io.swagger.v3.core.util.ReflectionUtils;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.Explode;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ParameterAnnotationProcessor implements ParamAnnotationProcessor<Parameter, ParameterContext> {
 
   @Override
-  public void process(Parameter parameter, ParameterContext parameterContext) {
+  public void process(Parameter parameterAnnotation, ParameterContext paramCtx) {
 
-    Schema schema = parameter.schema();
-    Type type = parameterContext.getActualType();
-    if (schema != null) {
+    Schema schema = parameterAnnotation.schema();
 
-      if (StringUtils.isNotEmpty(schema.type())) {
-        parameterContext.setType(schema.type());
-        type = ReflectionUtils.typeFromString(schema.type());
-      }
+    io.swagger.v3.oas.models.media.Schema schemaFromAnnotation = SwaggerAnnotationUtils.getSchemaFromAnnotation(schema);
+    if (schemaFromAnnotation != null) {
+      paramCtx.setSchema(schemaFromAnnotation);
     }
 
-    ParameterProcessor
-        .applyAnnotations(parameterContext.getOasParameter(), type, Arrays.asList(parameter),
-            parameterContext.getComponents(),
-            null, null, null);
+    paramCtx.setRequired(parameterAnnotation.required());
+    paramCtx.setAllowEmptyValue(parameterAnnotation.allowEmptyValue());
+    paramCtx.setAllowReserved(parameterAnnotation.allowReserved());
+    paramCtx.setDeprecated(parameterAnnotation.deprecated());
+    paramCtx.setExample(parameterAnnotation.example());
 
-    parameterContext.setRequired(parameter.required());
+    switch (parameterAnnotation.in()) {
+      case HEADER:
+        paramCtx.setIn(InType.HEADER);
+        break;
+      case COOKIE:
+        paramCtx.setIn(InType.COOKIE);
+        break;
+      case PATH:
+        paramCtx.setIn(InType.PATH);
+        break;
+      case QUERY:
+      case DEFAULT:
+      default:
+        paramCtx.setIn(InType.QUERY);
+    }
+
+    paramCtx.setDescription(parameterAnnotation.description());
+    paramCtx.setRef(parameterAnnotation.ref());
+    paramCtx.setName(parameterAnnotation.name());
+    paramCtx.setExplode(getExplode(parameterAnnotation.explode()));
+    paramCtx.applyAnnotations(Collections.singletonList(parameterAnnotation));
+  }
+
+  private Boolean getExplode(Explode explode) {
+
+    switch (explode) {
+      case TRUE: {
+        return true;
+      }
+      case FALSE:
+      case DEFAULT:
+      default: {
+        return false;
+      }
+    }
   }
 }

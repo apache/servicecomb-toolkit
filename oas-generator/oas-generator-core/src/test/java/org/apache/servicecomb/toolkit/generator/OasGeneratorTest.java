@@ -22,10 +22,14 @@ import java.lang.reflect.Parameter;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OasGenerator;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.junit.Assert;
 import org.junit.Test;
 
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
 
@@ -70,7 +74,7 @@ public class OasGeneratorTest {
     ParameterContext parameterContext = new ParameterContext(operationContext, parameter);
     parameterContext.setName(parameter.getName());
     parameterContext.setRequired(true);
-    parameterContext.setType(ParameterIn.QUERY.toString());
+    parameterContext.setIn(InType.QUERY);
 
     Assert.assertEquals(parameter.getName(), parameterContext.getName());
 

@@ -15,14 +15,17 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit.generator;
+package org.apache.servicecomb.toolkit.generator.context;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.servicecomb.toolkit.generator.HttpStatuses;
+import org.apache.servicecomb.toolkit.generator.MediaTypes;
 import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 
@@ -31,12 +34,16 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.parameters.Parameter;
+import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
 
-public class OperationContext {
+public class OperationContext implements IExtensionsContext {
+
+  private static final RequestBody nullRequestBody = new RequestBody();
 
   private OasContext parentContext;
 
@@ -52,9 +59,19 @@ public class OperationContext {
 
   private ApiResponses apiResponses = new ApiResponses();
 
-  private List<ParameterContext> parameterContextList = new ArrayList<>();
+  private List<ParameterContext> parameterContexts = new ArrayList<>();
 
   private OpenApiAnnotationParser parser;
+
+  private Boolean deprecated = false;
+
+  private String description = null;
+
+  private String summary;
+
+  private List<String> tags;
+
+  private String[] consumers;
 
   public OperationContext(Method method, OasContext parentContext) {
     this.parentContext = parentContext;
@@ -63,10 +80,7 @@ public class OperationContext {
     this.parentContext.addOperation(this);
   }
 
-  public void addParameter(ParameterContext context) {
-    parameterContextList.add(context);
-  }
-
+  @Override
   public OpenApiAnnotationParser getParser() {
     return parser;
   }
@@ -89,9 +103,45 @@ public class OperationContext {
     correctResponse(apiResponses);
     operation.setResponses(apiResponses);
 
+    RequestBody requestBody = new RequestBody();
+    Content content = new Content();
+    MediaType mediaType = new MediaType();
+
     // 处理参数
-    List<Parameter> parameterList = parameterContextList.stream()
-        .map(parameterContext -> parameterContext.toOasParameter())
+    List<Parameter> parameterList = parameterContexts.stream()
+        .map(parameterContext ->
+        {
+          // requestBody
+          if (parameterContext.isRequestBody()) {
+
+            Schema schema = mediaType.getSchema();
+            if (schema == null) {
+              schema = new ObjectSchema();
+              mediaType.schema(schema);
+            }
+            schema.addProperties(parameterContext.getName(), parameterContext.getSchema());
+            if (consumers != null) {
+              for (String consume : getConsumers()) {
+                content.addMediaType(consume, mediaType);
+              }
+            } else {
+              if (parameterContext.getConsumers() != null && parameterContext.getConsumers().size() > 0) {
+                for (String consume : parameterContext.getConsumers()) {
+                  content.addMediaType(consume, mediaType);
+                }
+              } else {
+                content.addMediaType(MediaTypes.APPLICATION_JSON, mediaType);
+              }
+            }
+
+            requestBody.setContent(content);
+            requestBody.setRequired(parameterContext.getRequired());
+            return null;
+          }
+
+          // parameter
+          return parameterContext.toParameter();
+        })
         .filter(parameter -> parameter != null)
         .collect(Collectors.toList());
 
@@ -99,7 +149,14 @@ public class OperationContext {
       operation.parameters(parameterList);
     }
 
+    if (!nullRequestBody.equals(requestBody)) {
+      operation.setRequestBody(requestBody);
+    }
     return operation;
+  }
+
+  public void setRequestBody(RequestBody requestBody) {
+    operation.requestBody(requestBody);
   }
 
   public void correctResponse(ApiResponses apiResponses) {
@@ -109,7 +166,7 @@ public class OperationContext {
     }
     // 处理响应
     // 没有注解被处理
-    if (apiResponses.get(HttpStatus.OK) == null) {
+    if (apiResponses.get(HttpStatuses.OK) == null) {
       ApiResponse apiResponse = new ApiResponse();
 
       Class<?> returnType = method.getReturnType();
@@ -123,10 +180,10 @@ public class OperationContext {
       mediaType.schema(refSchema);
 
       Content content = new Content();
-      content.addMediaType(MediaTypeConst.APPLICATION_JSON, mediaType);
+      content.addMediaType(MediaTypes.APPLICATION_JSON, mediaType);
       apiResponse.description("OK");
       apiResponse.setContent(content);
-      apiResponses.addApiResponse(HttpStatus.OK, apiResponse);
+      apiResponses.addApiResponse(HttpStatuses.OK, apiResponse);
     }
   }
 
@@ -187,5 +244,66 @@ public class OperationContext {
       throw new IllegalArgumentException(String.format("too many http method in the method %s", method.getName()));
     }
     this.httpMethod = httpMethod.toUpperCase();
+  }
+
+  public Boolean getDeprecated() {
+    return deprecated;
+  }
+
+  public void setDeprecated(Boolean deprecated) {
+    this.deprecated = deprecated;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getSummary() {
+    return summary;
+  }
+
+  public void setSummary(String summary) {
+    this.summary = summary;
+  }
+
+  public List<String> getTags() {
+    return tags;
+  }
+
+  public void setTags(List<String> tags) {
+    this.tags = tags;
+  }
+
+  public void addTag(String tag) {
+    if (tags == null) {
+      tags = new ArrayList<>();
+    }
+    tags.add(tag);
+  }
+
+  @Override
+  public void addExtension(String name, Object value) {
+    operation.addExtension(name, value);
+  }
+
+  @Override
+  public Map<String, Object> getExtensions() {
+    return operation.getExtensions();
+  }
+
+  public String[] getConsumers() {
+    return consumers;
+  }
+
+  public void setConsumers(String[] consumers) {
+    this.consumers = consumers;
+  }
+
+  public void addParamCtx(ParameterContext ctx) {
+    this.parameterContexts.add(ctx);
   }
 }

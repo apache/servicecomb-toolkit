@@ -15,27 +15,10 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit.generator.annotation;
+package org.apache.servicecomb.toolkit.generator.context;
 
-import org.apache.servicecomb.toolkit.generator.context.OperationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
 
-public class RequestMappingMethodAnnotationProcessor implements
-    MethodAnnotationProcessor<RequestMapping, OperationContext> {
-
-  @Override
-  public void process(RequestMapping requestMapping, OperationContext operationContext) {
-
-    String[] paths = requestMapping.value();
-    if (null == paths || paths.length == 0) {
-      return;
-    }
-
-    // swagger only support one basePath
-    if (paths.length > 1) {
-      throw new Error("not support multi path for " + operationContext.getMethod().getName());
-    }
-
-    operationContext.setPath(paths[0]);
-  }
+public interface Context {
+  OpenApiAnnotationParser getParser();
 }

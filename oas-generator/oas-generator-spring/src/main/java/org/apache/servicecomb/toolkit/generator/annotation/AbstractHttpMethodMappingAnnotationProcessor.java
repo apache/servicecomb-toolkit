@@ -21,8 +21,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.servicecomb.toolkit.generator.HttpStatus;
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.HttpStatuses;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -78,7 +78,7 @@ public abstract class AbstractHttpMethodMappingAnnotationProcessor<Annotation, C
         content.addMediaType(produce, mediaType);
       }
       apiResponse.setContent(content);
-      operationContext.addResponse(HttpStatus.OK, apiResponse);
+      operationContext.addResponse(HttpStatuses.OK, apiResponse);
     }
   }
 }
