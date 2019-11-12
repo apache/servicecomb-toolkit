@@ -19,7 +19,7 @@ package org.apache.servicecomb.toolkit.generator.annotation;
 
 import java.util.Arrays;
 
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

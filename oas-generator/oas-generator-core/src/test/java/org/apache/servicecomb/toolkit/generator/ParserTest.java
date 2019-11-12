@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.generator;
 
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.apache.servicecomb.toolkit.generator.parser.AbstractAnnotationParser;
 import org.junit.Test;
 

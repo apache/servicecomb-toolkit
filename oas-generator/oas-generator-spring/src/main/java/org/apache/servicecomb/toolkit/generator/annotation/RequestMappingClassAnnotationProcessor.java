@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import org.apache.servicecomb.toolkit.generator.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 public class RequestMappingClassAnnotationProcessor implements
@@ -31,7 +31,7 @@ public class RequestMappingClassAnnotationProcessor implements
       return;
     }
 
-    // swagger仅支持配一个basePath
+    // swagger only support one basePath
     if (paths.length > 1) {
       throw new Error("not support multi path for " + oasContext.getCls().getName());
     }

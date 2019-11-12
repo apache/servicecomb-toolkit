@@ -19,7 +19,7 @@ package org.apache.servicecomb.toolkit.generator.annotation;
 
 import javax.ws.rs.Path;
 
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 
 public class PathMethodAnnotationProcessor implements MethodAnnotationProcessor<Path, OperationContext> {
   @Override

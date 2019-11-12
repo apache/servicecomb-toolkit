@@ -19,6 +19,7 @@ package org.apache.servicecomb.toolkit.generator;
 
 import javax.ws.rs.Path;
 
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.apache.servicecomb.toolkit.generator.parser.JaxRsAnnotationParser;
 import org.junit.Assert;
 import org.junit.Test;

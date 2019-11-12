@@ -60,6 +60,10 @@ public class ModelConverter {
     interceptorMgr.sort(Comparator.comparingInt(ModelInterceptor::order));
   }
 
+  public static void unRegisterInterceptor(ModelInterceptor interceptor) {
+    interceptorMgr.remove(interceptor);
+  }
+
   public static Schema getSchema(Class<?> cls) {
     return getSchema(cls, null);
   }

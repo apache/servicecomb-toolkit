@@ -17,7 +17,10 @@
 
 package org.apache.servicecomb.toolkit.generator.parser;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HEAD;
 import javax.ws.rs.OPTIONS;
@@ -25,10 +28,20 @@ import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
+import org.apache.servicecomb.toolkit.generator.annotation.ConsumesAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.CookieParamAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.FormParamAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.HeaderParamAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.HttpMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.PathClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.PathMethodAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.PathParamAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.QueryParamAnnotationProcessor;
+
+import io.swagger.v3.oas.annotations.headers.Header;
 
 public class JaxRsAnnotationParser extends AbstractAnnotationParser {
 
@@ -51,6 +64,18 @@ public class JaxRsAnnotationParser extends AbstractAnnotationParser {
     methodAnnotationMap.put(PUT.class, httpMethodAnnotationProcessor);
     methodAnnotationMap.put(OPTIONS.class, httpMethodAnnotationProcessor);
     methodAnnotationMap.put(HEAD.class, httpMethodAnnotationProcessor);
+    methodAnnotationMap.put(Consumes.class, new ConsumesAnnotationProcessor());
+  }
+
+  @Override
+  public void initParameterAnnotationProcessor() {
+    super.initParameterAnnotationProcessor();
+
+    parameterAnnotationMap.put(QueryParam.class, new QueryParamAnnotationProcessor());
+    parameterAnnotationMap.put(CookieParam.class, new CookieParamAnnotationProcessor());
+    parameterAnnotationMap.put(FormParam.class, new FormParamAnnotationProcessor());
+    parameterAnnotationMap.put(PathParam.class, new PathParamAnnotationProcessor());
+    parameterAnnotationMap.put(Header.class, new HeaderParamAnnotationProcessor());
   }
 
   @Override

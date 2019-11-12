@@ -41,13 +41,11 @@
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>provider-rest-common</artifactId>
-      <version>1.2.0</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>provider-pojo</artifactId>
-      <version>1.2.0</version>
       <exclusions>
         <exclusion>
           <groupId>commons-lang</groupId>

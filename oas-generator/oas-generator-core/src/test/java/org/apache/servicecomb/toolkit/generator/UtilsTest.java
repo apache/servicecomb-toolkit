@@ -17,15 +17,22 @@
 
 package org.apache.servicecomb.toolkit.generator;
 
+import static org.mockito.Mockito.when;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.List;
 
 import org.apache.servicecomb.toolkit.generator.annotation.ModelInterceptor;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 import org.apache.servicecomb.toolkit.generator.util.ParamUtils;
+import org.apache.servicecomb.toolkit.generator.util.SwaggerAnnotationUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
@@ -38,8 +45,8 @@ public class UtilsTest {
 
     Method method = ParameterClass.class.getMethod("method", String.class);
     Parameter parameter = method.getParameters()[0];
-    String paramterName = ParamUtils.getParamterName(method, parameter);
-    Assert.assertEquals("param", paramterName);
+    String parameterName = ParamUtils.getParameterName(method, parameter);
+    Assert.assertEquals("param", parameterName);
   }
 
   @Test
@@ -60,7 +67,7 @@ public class UtilsTest {
     schema = ModelConverter.getSchema(ParameterClass.class, components);
     Assert.assertNotNull(schema.get$ref());
 
-    ModelConverter.registerInterceptor(new ModelInterceptor() {
+    ModelInterceptor mockModelInterceptor = new ModelInterceptor() {
       @Override
       public int order() {
         return 0;
@@ -70,10 +77,22 @@ public class UtilsTest {
       public Schema process(Class<?> cls, Components components) {
         return new Schema().name("unknown");
       }
-    });
+    };
 
+    ModelConverter.registerInterceptor(mockModelInterceptor);
     schema = ModelConverter.getSchema(ParameterClass.class);
     Assert.assertEquals("unknown", schema.getName());
+    ModelConverter.unRegisterInterceptor(mockModelInterceptor);
+  }
+
+  @Test
+  public void getContentFromAnnotation() {
+    Content contents = Mockito.mock(Content.class);
+    when(contents.encoding()).thenReturn(new Encoding[] {Mockito.mock(Encoding.class)});
+    List<io.swagger.v3.oas.models.media.Content> contentFromAnnotation = SwaggerAnnotationUtils
+        .getContentFromAnnotation(contents);
+
+    Assert.assertEquals(1, contentFromAnnotation.size());
   }
 
   class ParameterClass {

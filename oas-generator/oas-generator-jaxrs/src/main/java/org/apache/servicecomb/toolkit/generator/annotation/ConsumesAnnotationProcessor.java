@@ -17,25 +17,13 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
+import javax.ws.rs.Consumes;
+
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-public class RequestMappingMethodAnnotationProcessor implements
-    MethodAnnotationProcessor<RequestMapping, OperationContext> {
-
+public class ConsumesAnnotationProcessor implements MethodAnnotationProcessor<Consumes, OperationContext> {
   @Override
-  public void process(RequestMapping requestMapping, OperationContext operationContext) {
-
-    String[] paths = requestMapping.value();
-    if (null == paths || paths.length == 0) {
-      return;
-    }
-
-    // swagger only support one basePath
-    if (paths.length > 1) {
-      throw new Error("not support multi path for " + operationContext.getMethod().getName());
-    }
-
-    operationContext.setPath(paths[0]);
+  public void process(Consumes consumes, OperationContext operationContext) {
+    operationContext.setConsumers(consumes.value());
   }
 }

@@ -18,7 +18,8 @@
 package org.apache.servicecomb.toolkit.generator.annotation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
@@ -27,6 +28,8 @@ public class RequestParamAnnotationProcessor implements ParamAnnotationProcessor
 
   @Override
   public void process(RequestParam requestParam, ParameterContext parameterContext) {
+
+    parameterContext.setIn(InType.QUERY);
     String name = requestParam.value();
     if (StringUtils.isEmpty(name)) {
       name = requestParam.name();

@@ -17,12 +17,17 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.MediaTypes;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.springframework.web.bind.annotation.RequestPart;
 
 public class RequestPartAnnotationProcessor implements ParamAnnotationProcessor<RequestPart, ParameterContext> {
   @Override
   public void process(RequestPart requestPart, ParameterContext parameterContext) {
-
+    parameterContext.setIn(InType.BODY);
+    parameterContext.addConsume(MediaTypes.MULTIPART_FORM_DATA);
+    parameterContext.setRequired(requestPart.required());
+    parameterContext.setName(requestPart.name());
   }
 }

@@ -19,7 +19,7 @@ package org.apache.servicecomb.toolkit.generator.annotation;
 
 import javax.ws.rs.Path;
 
-import org.apache.servicecomb.toolkit.generator.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 
 public class PathClassAnnotationProcessor implements ClassAnnotationProcessor<Path, OasContext> {
   @Override

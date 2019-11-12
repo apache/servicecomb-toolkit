@@ -21,7 +21,7 @@ import java.lang.annotation.Annotation;
 
 import javax.ws.rs.HttpMethod;
 
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 
 public class HttpMethodAnnotationProcessor implements MethodAnnotationProcessor<Annotation, OperationContext> {
   @Override

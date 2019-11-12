@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import org.apache.servicecomb.toolkit.generator.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 

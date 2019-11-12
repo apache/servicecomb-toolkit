@@ -17,13 +17,15 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.springframework.web.bind.annotation.RequestBody;
 
 public class RequestBodyAnnotationProcessor implements ParamAnnotationProcessor<RequestBody, ParameterContext> {
 
   @Override
   public void process(RequestBody requestBody, ParameterContext parameterContext) {
+    parameterContext.setIn(InType.BODY);
     parameterContext.setRequired(requestBody.required());
   }
 }

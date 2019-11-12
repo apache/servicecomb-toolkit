@@ -17,15 +17,19 @@
 
 package org.apache.servicecomb.toolkit.goodbye;
 
+import javax.servlet.http.Part;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class GoodbyeController {
 
   @GetMapping("/goodbye/{name}")
-  public String sayGoodbye(@PathVariable("name") String name) {
+  public String sayGoodbye(@PathVariable("name") String name, @RequestPart MultipartFile file, @RequestPart Part part) {
     return "Goodbye," + name;
   }
 }

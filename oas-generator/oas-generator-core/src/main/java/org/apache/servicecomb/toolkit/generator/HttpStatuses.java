@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.toolkit.generator;
 
-public class HttpStatus {
+public class HttpStatuses {
 
   public static String OK = "200";
 

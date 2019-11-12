@@ -31,6 +31,9 @@ import org.apache.servicecomb.toolkit.generator.annotation.RequestMappingClassAn
 import org.apache.servicecomb.toolkit.generator.annotation.RequestMappingMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.RequestParamAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.RequestPartAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
+import org.apache.servicecomb.toolkit.generator.context.OperationContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -117,7 +120,7 @@ public class SpringAnnotationProcessorTest {
     operationContext = new OperationContext(requestParamMethod, oasContext);
     parameterContext = new ParameterContext(operationContext, requestParamMethodParam);
     requestParamAnnotationProcessor.process(requestParamAnnotation, parameterContext);
-    io.swagger.v3.oas.models.parameters.Parameter oasParameter = parameterContext.toOasParameter();
+    io.swagger.v3.oas.models.parameters.Parameter oasParameter = parameterContext.toParameter();
     Assert.assertNull(parameterContext.getDefaultValue());
     Assert.assertNull(oasParameter.getSchema().getDefault());
 
@@ -129,7 +132,7 @@ public class SpringAnnotationProcessorTest {
     operationContext = new OperationContext(pathVariableMethod, oasContext);
     parameterContext = new ParameterContext(operationContext, pathVariableMethodParam);
     pathVariableAnnotationProcessor.process(pathVariableAnnotation, parameterContext);
-    parameterContext.toOasParameter();
+    parameterContext.toParameter();
     Assert.assertTrue(parameterContext.isRequired());
 
     RequestPartAnnotationProcessor requestPartAnnotationProcessor = new RequestPartAnnotationProcessor();
@@ -140,7 +143,7 @@ public class SpringAnnotationProcessorTest {
     operationContext = new OperationContext(requestPartMethod, oasContext);
     parameterContext = new ParameterContext(operationContext, requestPartMethodParam);
     requestPartAnnotationProcessor.process(requestPartParamAnnotation, parameterContext);
-    oasParameter = parameterContext.toOasParameter();
+    oasParameter = parameterContext.toParameter();
     Assert.assertNull(parameterContext.getDefaultValue());
     Assert.assertEquals(FileSchema.class, oasParameter.getSchema().getClass());
 
@@ -152,7 +155,7 @@ public class SpringAnnotationProcessorTest {
     operationContext = new OperationContext(requestPartMethod, oasContext);
     parameterContext = new ParameterContext(operationContext, requestHeaderMethodParam);
     requestHeaderAnnotationProcessor.process(requestHeaderParamAnnotation, parameterContext);
-    oasParameter = parameterContext.toOasParameter();
+    oasParameter = parameterContext.toParameter();
     Assert.assertNull(parameterContext.getDefaultValue());
     Assert.assertNull(oasParameter.getSchema().getDefault());
 
@@ -164,7 +167,7 @@ public class SpringAnnotationProcessorTest {
     operationContext = new OperationContext(requestBodyMethod, oasContext);
     parameterContext = new ParameterContext(operationContext, requestBodyMethodParam);
     requestBodyAnnotationProcessor.process(requestBodyParamAnnotation, parameterContext);
-    parameterContext.toOasParameter();
+    parameterContext.toParameter();
     Assert.assertTrue(parameterContext.isRequired());
   }
 

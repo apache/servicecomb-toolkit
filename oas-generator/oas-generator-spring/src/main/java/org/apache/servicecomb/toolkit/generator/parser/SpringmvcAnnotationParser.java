@@ -17,20 +17,30 @@
 
 package org.apache.servicecomb.toolkit.generator.parser;
 
-import org.apache.servicecomb.toolkit.generator.OasContext;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import org.apache.servicecomb.toolkit.generator.annotation.GetMappingMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.PathVariableAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.PostMappingMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.PutMappingMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.RequestBodyAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.RequestHeaderAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.RequestMappingClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.RequestMappingMethodAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.RequestParamAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.RequestPartAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 
 public class SpringmvcAnnotationParser extends AbstractAnnotationParser {
@@ -73,6 +83,20 @@ public class SpringmvcAnnotationParser extends AbstractAnnotationParser {
     super.initParameterAnnotationProcessor();
     parameterAnnotationMap.put(PathVariable.class, new PathVariableAnnotationProcessor());
     parameterAnnotationMap.put(RequestBody.class, new RequestBodyAnnotationProcessor());
+    parameterAnnotationMap.put(RequestPart.class, new RequestPartAnnotationProcessor());
+    parameterAnnotationMap.put(RequestParam.class, new RequestParamAnnotationProcessor());
+    parameterAnnotationMap.put(RequestHeader.class, new RequestHeaderAnnotationProcessor());
+  }
+
+  public static void main(String[] args) {
+    List<Integer> integers = new ArrayList<>();
+    integers.add(1);
+    integers.add(2);
+    integers.add(5);
+    integers.add(3);
+    integers.sort(Comparator.comparingInt(Integer::intValue));
+
+    integers.forEach(System.out::println);
   }
 }
 

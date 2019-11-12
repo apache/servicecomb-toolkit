@@ -15,11 +15,12 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.toolkit.generator;
+package org.apache.servicecomb.toolkit.generator.context;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
@@ -32,7 +33,7 @@ import io.swagger.v3.oas.models.Paths;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.servers.Server;
 
-public class OasContext {
+public class OasContext implements IExtensionsContext {
 
   private OpenAPI openAPI;
 
@@ -43,6 +44,8 @@ public class OasContext {
   private List<OperationContext> operationList = new ArrayList<>();
 
   private OpenApiAnnotationParser parser;
+
+  private List<ISchemaContext> schemaCtxList = new ArrayList<>();
 
   public OasContext(OpenApiAnnotationParser parser) {
     this(new OpenAPI(), parser);
@@ -83,7 +86,7 @@ public class OasContext {
     correctComponents();
 
     openAPI.servers(Collections.singletonList(new Server().url(basePath)));
-
+    schemaCtxList.forEach(schemaCtx -> openAPI.schema(schemaCtx.getSchema().getName(), schemaCtx.getSchema()));
     return openAPI;
   }
 
@@ -117,6 +120,7 @@ public class OasContext {
     }
   }
 
+  @Override
   public OpenApiAnnotationParser getParser() {
     return parser;
   }
@@ -147,5 +151,15 @@ public class OasContext {
 
   public void addOperation(OperationContext operation) {
     operationList.add(operation);
+  }
+
+  @Override
+  public void addExtension(String name, Object value) {
+    openAPI.addExtension(name, value);
+  }
+
+  @Override
+  public Map<String, Object> getExtensions() {
+    return openAPI.getExtensions();
   }
 }

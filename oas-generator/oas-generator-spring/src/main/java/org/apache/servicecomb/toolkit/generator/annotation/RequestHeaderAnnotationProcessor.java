@@ -18,18 +18,17 @@
 package org.apache.servicecomb.toolkit.generator.annotation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.servicecomb.toolkit.generator.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ValueConstants;
-
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 
 public class RequestHeaderAnnotationProcessor implements ParamAnnotationProcessor<RequestHeader, ParameterContext> {
 
   @Override
   public void process(RequestHeader requestHeader, ParameterContext parameterContext) {
-    parameterContext.setType(ParameterIn.HEADER.toString());
+    parameterContext.setIn(InType.HEADER);
     parameterContext.setRequired(requestHeader.required());
 
     if (!ObjectUtils.isEmpty(requestHeader.defaultValue()) && !ValueConstants.DEFAULT_NONE
