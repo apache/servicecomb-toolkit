@@ -21,8 +21,10 @@ import java.lang.reflect.Method;
 
 import org.apache.servicecomb.toolkit.generator.annotation.ApiResponseMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ApiResponsesMethodAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.OpenApiDefinitionClassAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.OperationMethodAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.annotation.ParameterAnnotationProcessor;
+import org.apache.servicecomb.toolkit.generator.annotation.RequestBodyParamAnnotationProcessor;
 import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
@@ -112,11 +114,9 @@ public class AnnotationProcessorTest {
   @Test
   public void processOperationAnnotation() throws NoSuchMethodException {
 
-    OasContext oasContext = new OasContext(null);
-    OperationContext context = new OperationContext(null, oasContext);
+    OasContext oasContext = null;
+
     OperationMethodAnnotationProcessor operationMethodAnnotationProcessor = new OperationMethodAnnotationProcessor();
-//    Operation operation = Mockito.mock(Operation.class);
-//    operationMethodAnnotationProcessor.process(operation, context);
 
     Method helloMethod = OpenapiDef.class.getDeclaredMethod("hello", String.class, Object.class);
     Operation operation = helloMethod.getAnnotation(Operation.class);
@@ -131,10 +131,51 @@ public class AnnotationProcessorTest {
         return true;
       }
     });
-    context = new OperationContext(helloMethod, oasContext);
+    OperationContext context = new OperationContext(helloMethod, oasContext);
     operationMethodAnnotationProcessor.process(operation, context);
+    Assert.assertEquals("hello-operation", context.getOperationId());
   }
 
+  @Test
+  public void processOpenApiDefinitionClassAnnotation() throws NoSuchMethodException {
+
+    OasContext oasContext = null;
+
+    OpenApiDefinitionClassAnnotationProcessor openApiDefinitionClassAnnotationProcessor = new OpenApiDefinitionClassAnnotationProcessor();
+
+    OpenAPIDefinition openAPIDefinition = OpenapiDef.class.getAnnotation(OpenAPIDefinition.class);
+    oasContext = new OasContext(new AbstractAnnotationParser() {
+      @Override
+      public int getOrder() {
+        return 0;
+      }
+
+      @Override
+      public boolean canProcess(Class<?> cls) {
+        return true;
+      }
+    });
+    openApiDefinitionClassAnnotationProcessor.process(openAPIDefinition, oasContext);
+//    Assert.assertEquals("hello-operation", context.getOperationId());
+  }
+
+  @Test
+  public void processRequestBodyAnnotation() throws NoSuchMethodException {
+
+    OasContext oasContext = new OasContext(null);
+    RequestBodyParamAnnotationProcessor operationMethodAnnotationProcessor = new RequestBodyParamAnnotationProcessor();
+
+    RequestBody requestBody = Mockito.mock(RequestBody.class);
+    Mockito.when(requestBody.content()).thenReturn(new Content[] {Mockito.mock(Content.class)});
+    Mockito.when(requestBody.ref()).thenReturn("#components/string");
+
+    Method helloMethod = OpenapiDef.class.getDeclaredMethod("hello", String.class, Object.class);
+    OperationContext operationContext = new OperationContext(helloMethod, oasContext);
+    ParameterContext parameterContext = new ParameterContext(operationContext, null);
+    operationMethodAnnotationProcessor.process(requestBody, parameterContext);
+
+    Assert.assertTrue(parameterContext.isRequestBody());
+  }
 
   @Test
   public void processParameterAnnotation() throws NoSuchMethodException, IllegalAccessException,

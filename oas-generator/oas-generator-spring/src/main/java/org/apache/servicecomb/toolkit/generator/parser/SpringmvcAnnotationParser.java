@@ -47,7 +47,7 @@ public class SpringmvcAnnotationParser extends AbstractAnnotationParser {
 
   @Override
   public int getOrder() {
-    return 0;
+    return 200;
   }
 
   @Override
@@ -86,17 +86,6 @@ public class SpringmvcAnnotationParser extends AbstractAnnotationParser {
     parameterAnnotationMap.put(RequestPart.class, new RequestPartAnnotationProcessor());
     parameterAnnotationMap.put(RequestParam.class, new RequestParamAnnotationProcessor());
     parameterAnnotationMap.put(RequestHeader.class, new RequestHeaderAnnotationProcessor());
-  }
-
-  public static void main(String[] args) {
-    List<Integer> integers = new ArrayList<>();
-    integers.add(1);
-    integers.add(2);
-    integers.add(5);
-    integers.add(3);
-    integers.sort(Comparator.comparingInt(Integer::intValue));
-
-    integers.forEach(System.out::println);
   }
 }
 

@@ -23,8 +23,6 @@ import org.objectweb.asm.Type;
 
 public class LocalVariableVisitor extends MethodVisitor {
 
-  private boolean isStatic;
-
   private String[] parameterNames;
 
   private final int[] lvtSlotIndex;
@@ -33,7 +31,6 @@ public class LocalVariableVisitor extends MethodVisitor {
 
   public LocalVariableVisitor(int api, String desc, boolean isStatic, String[] parameterNames) {
     super(api);
-    this.isStatic = isStatic;
     this.parameterNames = parameterNames;
     this.args = Type.getArgumentTypes(desc);
     this.lvtSlotIndex = computeLvtSlotIndices(isStatic, this.args);

@@ -29,6 +29,7 @@ public class SpringParserTest {
   public void parse() {
     SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
 
+    Assert.assertEquals(200, parser.getOrder());
     boolean canProcess = parser.canProcess(String.class);
     Assert.assertFalse(canProcess);
 
