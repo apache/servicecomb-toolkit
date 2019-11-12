@@ -34,7 +34,10 @@ import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
 import org.apache.servicecomb.toolkit.generator.context.ParameterContext.InType;
 import org.junit.Test;
 
+import io.swagger.v3.oas.annotations.enums.ParameterStyle;
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
+import io.swagger.v3.oas.models.parameters.RequestBody;
+import io.swagger.v3.oas.models.responses.ApiResponses;
 
 public class ContextTest {
 
@@ -53,6 +56,8 @@ public class ContextTest {
     context.setDefaultValue("default");
     context.setIn(InType.QUERY);
     context.setName("param1");
+    context.setDescription("desc");
+    context.setStyle(ParameterStyle.SIMPLE);
     context.addExtension("extension-key", "extension-value");
 
     assertFalse(context.isRequestBody());
@@ -72,7 +77,10 @@ public class ContextTest {
     assertEquals(parameter, context.getParameter());
     assertNotNull(context.getSchema());
     assertEquals("default", context.getDefaultValue());
+    assertEquals("desc", context.getDescription());
+    assertEquals(ParameterStyle.SIMPLE, context.getStyle());
     assertFalse(context.isRequired());
+    assertNull(context.getDeprecated());
 
     context.setIn(InType.COOKIE);
     assertFalse(context.isRequestBody());
@@ -93,6 +101,12 @@ public class ContextTest {
     context.setIn(InType.BODY);
     context.toParameter();
     assertTrue(context.isRequestBody());
+
+    context.addConsume(MediaTypes.APPLICATION_JSON);
+    assertEquals(MediaTypes.APPLICATION_JSON, context.getConsumers().get(0));
+
+    context.setRequestBody(new RequestBody());
+    assertNotNull(context.getRequestBody());
   }
 
   @Test
@@ -103,10 +117,26 @@ public class ContextTest {
     Parameter parameter = method.getParameters()[0];
     ParameterContext context = new ParameterContext(operationContext, parameter);
     context.setIn(InType.FORM);
-
+    oasContext.toOpenAPI();
     operationContext.setHttpMethod(HttpMethod.GET.name());
+    operationContext.setTags(null);
+    operationContext.setApiResponses(new ApiResponses());
+    operationContext.setDescription("desc");
+    operationContext.setConsumers(new String[] {MediaTypes.APPLICATION_JSON});
+    operationContext.addExtension("x-extension", "value");
     operationContext.toOperation();
+    oasContext.toOpenAPI();
+    oasContext.addExtension("x-extension", "value");
 
+    assertEquals("value", oasContext.getExtensions().get("x-extension"));
+    assertEquals("value", operationContext.getExtensions().get("x-extension"));
     assertEquals(HttpMethod.GET.name(), operationContext.getHttpMethod());
+    assertNotNull(operationContext.getOperation());
+    assertNotNull(operationContext.getApiResponses());
+    assertEquals(oasContext, operationContext.getOpenApiContext());
+    assertNull(operationContext.getSummary());
+    assertNull(operationContext.getTags());
+    assertEquals(MediaTypes.APPLICATION_JSON, operationContext.getConsumers()[0]);
+    assertEquals("desc", operationContext.getDescription());
   }
 }

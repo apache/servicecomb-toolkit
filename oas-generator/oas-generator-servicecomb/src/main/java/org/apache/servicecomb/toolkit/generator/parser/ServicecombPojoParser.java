@@ -29,7 +29,7 @@ public class ServicecombPojoParser extends AbstractAnnotationParser {
 
   @Override
   public int getOrder() {
-    return 0;
+    return 100;
   }
 
   @Override

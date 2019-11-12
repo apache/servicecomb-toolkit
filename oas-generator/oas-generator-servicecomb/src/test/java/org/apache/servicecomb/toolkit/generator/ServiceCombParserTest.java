@@ -41,11 +41,19 @@ public class ServiceCombParserTest {
     boolean canProcess = servicecombJaxrsParser.canProcess(ServicecombJaxrs.class);
     Assert.assertTrue(canProcess);
 
+    canProcess = servicecombJaxrsParser.canProcess(ServicecombPojo.class);
+    Assert.assertFalse(canProcess);
+
     canProcess = servicecombSpringmvcParser.canProcess(ServicecombSpringmvc.class);
     Assert.assertTrue(canProcess);
+    canProcess = servicecombSpringmvcParser.canProcess(ServicecombPojo.class);
+    Assert.assertFalse(canProcess);
 
     canProcess = servicecombPojoParser.canProcess(ServicecombPojo.class);
     Assert.assertTrue(canProcess);
+    canProcess = servicecombPojoParser.canProcess(ServicecombSpringmvc.class);
+    Assert.assertFalse(canProcess);
+    Assert.assertEquals(100, servicecombPojoParser.getOrder());
 
     OasContext pojoOasContext = new OasContext(servicecombPojoParser);
     servicecombPojoParser.parser(ServicecombPojo.class, pojoOasContext);
