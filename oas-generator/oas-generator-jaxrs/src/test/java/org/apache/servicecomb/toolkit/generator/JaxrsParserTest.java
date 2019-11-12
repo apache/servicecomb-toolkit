@@ -56,12 +56,4 @@ public class JaxrsParserTest {
       return "no resource";
     }
   }
-
-  public static void main(String[] args) {
-    OneResource.class.getMethods();
-    Components components1 = new Components();
-    Components components2 = new Components();
-
-    System.out.println(components1.equals(components2));
-  }
 }
