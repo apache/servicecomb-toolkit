@@ -34,6 +34,7 @@
     <swagger-codegen-version>2.4.3</swagger-codegen-version>
     <maven-plugin-version>1.0.0</maven-plugin-version>
     <junit-version>4.8.1</junit-version>
+    <log4j2.version>2.3</log4j2.version>
   </properties>
 
   <dependencies>
@@ -55,7 +56,35 @@
           <groupId>com.google.guava</groupId>
           <artifactId>listenablefuture</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+        </exclusion>
       </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j2.version}</version>
+    </dependency>
+
+    <dependency><!-- 桥接：告诉commons logging使用Log4j2 -->
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-jcl</artifactId>
+      <version>${log4j2.version}</version>
     </dependency>
 
     <dependency>
