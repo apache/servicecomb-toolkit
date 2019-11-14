@@ -17,6 +17,12 @@
 
 sudo: required
 
+addons:
+  sonarcloud:
+    organization: "apache"
+    token:
+      secure: "f3NWLu++z+mkqTdwS3IyA+WTMl+rWnd1Oligpo5hBq0I+qlL57SgZd75ak6lRp8UTZLV54bRS7oEAnA2yv1ZLrX7+VuhsMxM8fc7T1xa09AQDwPmcpU45kKR2dWgNbUfdUoed3lZQA7yqsjg5id7tBmgUJsG+nAaFAiIGPGm6yLpaTSjceSQ5Z3VeC5L9S1G7Xyy3hzE1Fybmh6Py0QK92jlcFNLi5Ac0FbEtUbb+o6UR+RzzB+dB71D+5iaBOBg5QrGacGDdQavs1BSzw4byTo6Ci7cu+Ofw3nJpofoJL+qLPwE6ABW5vgBfxxUn1u6XkmQ9m02QfPx6nMPlhMqmoko6SZ8naA4KZjo+o29H0Cv39CSmqe+LoeKerXNColEM9OiMzbEja1I91AsO0KiIwQrLzQ1mqiDwa+hKSHgEKvnwtZBifu43AM5kLiBO/u/WXichhkUbn/nB9b0N+vMalv+F+HSp78wwGcFbMekJ2Dx1hH3m0mtnx2OP6FjLSW/AEMhaQmEwYLtN70jJUJ5QPCoA6XQL3RvHMHOEcRtddk4XPwteer7c/NXp34Vqbvb76AyRRotnyoNKTYVtGFsSSOxUiYRg1noUvTKC+VbSTtux65mebI/kzZ42TOJamS8slRPmfQWvN1SI7YsvLs7brWT4KV+2bTQpFJL5azSjtU=" # encrypted value of your token
+
 cache:
   directories:
   - "$HOME/.m2"
