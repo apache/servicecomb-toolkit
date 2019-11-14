@@ -37,6 +37,51 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    
+    <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
+    <swagger.version>2.0.10</swagger.version>
+    <swagger-codegen.version>2.4.3</swagger-codegen.version>
+    <junit.version>4.12</junit.version>
+    <asm.version>7.2</asm.version>
+    <powermock.version>1.6.2</powermock.version>
+    <javachassis.version>1.2.0</javachassis.version>
+    <spring.version>5.1.6.RELEASE</spring.version>
+    <airline.version>0.7</airline.version>
+    <log4j2.version>2.3</log4j2.version>
+    <org.eclipse.jgit.version>5.3.0.201903130848-r</org.eclipse.jgit.version>
+    <mockito-core.version>2.25.0</mockito-core.version>
+    <maven-core.version>3.6.0</maven-core.version>
+    <openapi-generator.version>4.1.2</openapi-generator.version>
+    <commons-lang3.version>3.4</commons-lang3.version>
+    <maven-aether-provider.version>3.2.2</maven-aether-provider.version>
+    <swagger-parser.version>2.0.15</swagger-parser.version>
+    <commons-collections4.version>4.3</commons-collections4.version>
+    <commons-io.version>2.6</commons-io.version>
+    <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+    <fabric8.dmp.version>0.28.0</fabric8.dmp.version>
+    <maven-compat.version>3.2.2</maven-compat.version>
+    <webjars.version>4.3.1</webjars.version>
+          
+    <maven.surefire.version>3.0.0-M3</maven.surefire.version>
+    <maven-plugin-plugin.version>3.5</maven-plugin-plugin.version>
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
+    <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+    <maven-resources-plugin.version>3.0.0</maven-resources-plugin.version>
+    <spring-boot-maven-plugin.version>1.5.12.RELEASE</spring-boot-maven-plugin.version>
+    <maven-plugin-testing-harness.version>3.3.0</maven-plugin-testing-harness.version>
+    <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+    <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+    <jacoco-maven-plugin.version>0.7.8</jacoco-maven-plugin.version>
+    <maven-remote-resources-plugin.version>1.6.0</maven-remote-resources-plugin.version>
+    <apache-rat-plugin.version>0.13</apache-rat-plugin.version>
+    <license-maven-plugin.version>1.19</license-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.7.8</jacoco-maven-plugin.version>
   </properties>
 
   <licenses>
@@ -223,6 +268,213 @@
         <artifactId>oas-generator-spring</artifactId>
         <version>${project.version}</version>
       </dependency>
+      
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>javax.ws.rs-api</artifactId>
+        <version>${javax.ws.rs-api.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-models</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-core</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-rest-common</artifactId>
+        <version>${javachassis.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-pojo</artifactId>
+        <version>${javachassis.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-module-junit4</artifactId>
+        <version>${powermock.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.powermock</groupId>
+        <artifactId>powermock-api-mockito</artifactId>
+        <version>${powermock.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>io.airlift</groupId>
+        <artifactId>airline</artifactId>
+        <version>${airline.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      
+      <dependency><!-- 桥接：告诉commons logging使用Log4j2 -->
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-jcl</artifactId>
+        <version>${log4j2.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-codegen</artifactId>
+        <version>${swagger-codegen.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId>
+        <artifactId>org.eclipse.jgit</artifactId>
+        <version>${org.eclipse.jgit.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito-core.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-core</artifactId>
+        <version>${maven-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.plugin-testing</groupId>
+        <artifactId>maven-plugin-testing-harness</artifactId>
+        <version>${maven-plugin-testing-harness.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.openapitools</groupId>
+        <artifactId>openapi-generator</artifactId>
+        <version>${openapi-generator.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>swagger-generator-core</artifactId>
+        <version>${javachassis.version}</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-plugin-api</artifactId>
+        <version>${maven-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-annotations</artifactId>
+        <version>${maven-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven.plugin-tools</groupId>
+        <artifactId>maven-plugin-tools-annotations</artifactId>
+        <version>${maven-core.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-aether-provider</artifactId>
+        <version>${maven-aether-provider.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.apache.maven</groupId>
+        <artifactId>maven-compat</artifactId>
+        <version>${maven-compat.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-collections4</artifactId>
+        <version>${commons-collections4.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.swagger.parser.v3</groupId>
+        <artifactId>swagger-parser</artifactId>
+        <version>${swagger-parser.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>org.webjars</groupId>
+        <artifactId>bootstrap</artifactId>
+        <version>${webjars.version}</version>
+      </dependency>
+      
     </dependencies>
   </dependencyManagement>
 
@@ -232,7 +484,8 @@
         <plugin>
           <groupId>org.eluder.coveralls</groupId>
           <artifactId>coveralls-maven-plugin</artifactId>
-          <version>4.3.0</version>
+          <version>${coveralls-maven-plugin.version}</version>
+
           <configuration>
             <jacocoReports>
               <jacocoReport>
@@ -245,7 +498,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.7.8</version>
+          <version>${jacoco-maven-plugin.version}</version>
           <executions>
             <execution>
               <id>default-prepare-agent</id>
@@ -281,6 +534,56 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${maven-resources-plugin.version}</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${spring-boot-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-plugin-plugin</artifactId>
+          <version>${maven-plugin-plugin.version}</version>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven.surefire.version}</version>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-report-plugin</artifactId>
+          <version>${maven.surefire.version}</version>
+          <executions>
+            <execution>
+              <id>report</id>
+              <phase>post-integration-test</phase>
+              <goals>
+                <goal>report-only</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        
       </plugins>
     </pluginManagement>
 
@@ -289,7 +592,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>1.19</version>
+        <version>${license-maven-plugin.version}</version>
         <executions>
           <execution>
             <id>default-cli</id>
@@ -320,7 +623,7 @@
       <plugin>
         <groupId>org.apache.rat</groupId>
         <artifactId>apache-rat-plugin</artifactId>
-        <version>0.13</version>
+        <version>${apache-rat-plugin.version}</version>
         <configuration>
           <excludes>
             <exclude>DISCLAIMER</exclude>
@@ -354,7 +657,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-remote-resources-plugin</artifactId>
-        <version>1.6.0</version>
+        <version>${maven-remote-resources-plugin.version}</version>
         <executions>
           <execution>
             <id>process-resource-bundles</id>
@@ -383,7 +686,6 @@
           <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.7.8</version>
           </plugin>
         </plugins>
       </build>
@@ -402,7 +704,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
+            <version>${maven-gpg-plugin.version}</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
@@ -416,7 +718,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
-            <version>2.2.1</version>
+            <version>${maven-source-plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -429,7 +731,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>2.9.1</version>
+            <version>${maven-javadoc-plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -442,7 +744,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.3</version>
+            <version>${maven-release-plugin.version}</version>
             <configuration>
               <autoVersionSubmodules>true</autoVersionSubmodules>
               <useReleaseProfile>false</useReleaseProfile>

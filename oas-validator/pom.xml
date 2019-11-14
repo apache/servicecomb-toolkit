@@ -30,21 +30,6 @@
   <artifactId>oas-validator-parent</artifactId>
   <packaging>pom</packaging>
   
-  <properties>
-    <java.version>1.8</java.version>
-    <maven.compiler.source>${java.version}</maven.compiler.source>
-    <maven.compiler.target>${java.version}</maven.compiler.target>
-    <fabric8.dmp.version>0.28.0</fabric8.dmp.version>
-
-    <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-    <maven.surefire.version>3.0.0-M3</maven.surefire.version>
-
-    <swagger-parser.version>2.0.15</swagger-parser.version>
-    <commons-collections4.version>4.3</commons-collections4.version>
-    <commons-io.version>2.6</commons-io.version>
-    <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
-  </properties>
-
   <modules>
     <module>oas-validator-core</module>
     <module>oas-validator-core-spring</module>
@@ -55,66 +40,5 @@
     <module>oas-validator-compatibility-spring</module>
     <module>oas-validator-web</module>
   </modules>
-
-  <dependencyManagement>
-    <dependencies>
-
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-collections4</artifactId>
-        <version>${commons-collections4.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.swagger.parser.v3</groupId>
-        <artifactId>swagger-parser</artifactId>
-        <version>${swagger-parser.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>${commons-io.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-report-plugin</artifactId>
-          <version>${maven.surefire.version}</version>
-          <executions>
-            <execution>
-              <id>report</id>
-              <phase>post-integration-test</phase>
-              <goals>
-                <goal>report-only</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        
-      </plugins>
-    </pluginManagement>
-    
-  </build>
-
 
 </project>

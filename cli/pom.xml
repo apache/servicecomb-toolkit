@@ -23,6 +23,7 @@
     <artifactId>toolkit</artifactId>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <version>0.2.0-SNAPSHOT</version>
+    <relativePath>../</relativePath>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -30,7 +31,7 @@
 
   <properties>
     <main.class>org.apache.servicecomb.toolkit.cli.ToolkitMain</main.class>
-    <log4j2.version>2.3</log4j2.version>
+    
   </properties>
 
   <dependencies>
@@ -43,7 +44,6 @@
           <artifactId>annotations</artifactId>
         </exclusion>
       </exclusions>
-      <version>0.7</version>
     </dependency>
 
     <dependency>
@@ -54,7 +54,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
       <scope>test</scope>
     </dependency>
 
@@ -66,19 +65,16 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j2.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-api</artifactId>
-      <version>${log4j2.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j2.version}</version>
     </dependency>
 
     <dependency>
@@ -97,26 +93,16 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-        </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>1.5.12.RELEASE</version>
         <configuration>
           <fork>true</fork>
           <mainClass>${main.class}</mainClass>

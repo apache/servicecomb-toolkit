@@ -62,7 +62,6 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-core</artifactId>
-      <version>${project.version}</version>
     </dependency>
 
     <dependency>
