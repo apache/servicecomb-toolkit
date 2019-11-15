@@ -24,7 +24,7 @@ if [ "$TAGGEDCOMMIT" == "" ]; then
 else
     TAGGEDCOMMIT=true
 fi
-echo $TAGGEDCOMMIT
+echo "TAGGEDCOMMIT=$TAGGEDCOMMIT"
 
 if [ "$TAGGEDCOMMIT" == "true" ]; then
 	echo "Skipping the installation as it is tagged commit"
@@ -36,12 +36,18 @@ else
 	fi
 	
 	echo "Running the unit tests and integration tests here!"
-	mvn clean install -Pjacoco coveralls:report
+  echo "TRAVIS_SECURE_ENV_VARS=$TRAVIS_SECURE_ENV_VARS";
+  if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
+    echo "Running sonar build";
+    mvn clean install -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=servicecomb-toolkit
+  else
+    mvn clean install -Pjacoco coveralls:report
+  fi;
 	
-if [ $? == 0 ]; then
-	echo "${green}Installation Success..${reset}"
-else
-	echo "${red}Installation or Test Cases failed, please check the above logs for more details.${reset}"
-	exit 1
-fi
+  if [ $? == 0 ]; then
+    echo "${green}Installation Success..${reset}"
+  else
+    echo "${red}Installation or Test Cases failed, please check the above logs for more details.${reset}"
+    exit 1
+  fi
 fi
