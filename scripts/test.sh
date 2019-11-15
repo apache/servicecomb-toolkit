@@ -36,11 +36,12 @@ else
 	fi
 	
 	echo "Running the unit tests and integration tests here!"
-  echo "TRAVIS_SECURE_ENV_VARS=$TRAVIS_SECURE_ENV_VARS";
-  if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
-    echo "Running sonar build";
+  echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    echo "Not a pull request build, running build with sonar"
     mvn clean install -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=servicecomb-toolkit
   else
+    echo "Pull request build or local build"
     mvn clean install -Pjacoco coveralls:report
   fi;
 	
