@@ -32,7 +32,7 @@
   <version>0.2.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Microservice development toolkit</name>
+  <name>Apache ServiceComb Toolkit</name>
   <url>https://github.com/apache/servicecomb-toolkit</url>
 
   <properties>

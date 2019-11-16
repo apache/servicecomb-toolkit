@@ -23,6 +23,10 @@ addons:
     token:
       secure: "1Pp5GWvkXduqhSG0Kuy9pMO262od+D+MIRZ6NtkYDy9wPrU1A8cCB3eC9/i0Q29X+BuzOQ17oW1UgUhdIV2VSx2EwF6xpCT9KNhBqV/Y8dzvw9RD6dW/QHgbv4U9L4I5EriM3dWuWIl31yoD4LCwWPHkLIysLiiSqjSCceeANIGE/ErqfokZOuZ2ghmN5DwKLyS8U/28N9mBu3U6WC8DjIJzT4jS9Z6m4w5bd08RoxtQIA2XoeYsjoEbaZJXUwl7ktoZVXwyOwpGiMa8YcScVDEepd7+QlFtyNQ4PUg0TBriiSAl9K7UEpcYODBS6nbPIUk//geZvoBUA2QgrBgHQpEosYD81qJOdCP1+TPJbiYpGbgIzE4qR3CIotJJPDkv9mdPRfhRaubVkjBkXQWNhSXnWMQjeG1re+A8ZPL1dkBMHw06aMfS/kwPFzgq4QJ01x3DegdMKHt1s/B5vM+iqRbcrDOjcF7XS7S/TVanQ4IosmoLYOUtxUMrs0S8Weqbcn8V5KNbuxkugrSHIWiWwYv8DRot42sv9bZ8x+MM+R7Tp2dR1MsQwhA6pZOacUtz3vNFT4JbzynXfkEltrHEDnW4B2xPmuI/xiXWWBQ2jPl/0NROvsMY8cGamH9o6Y/4fL8NHiul4M3RMZ5TqENM91zQPvxFHQ7H6BM/OchVtqM="
 
+# SonarCloud give a warning if using shallow clone (default), so we disable it
+git:
+  depth: false
+
 cache:
   directories:
   - "$HOME/.m2"
