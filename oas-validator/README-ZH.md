@@ -8,7 +8,6 @@ OpenAPI V3 Spec校验工具。
 * oas-validator-core-spring，骨架的Spring Boot Starter
 * oas-validator-test，核心API的测试帮助类
 * oas-validator-compliance，合规性校验实现
-* oas-validator-compliance-spring，合规性校验的Spring Boot Starter
 * oas-validator-compatibility，兼容性校验实现
 * oas-validator-compatibility-spring，兼容性校验实现的Spring Boot Starter
 * oas-validator-web，校验工具的操作UI

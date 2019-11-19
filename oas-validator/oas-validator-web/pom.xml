@@ -56,7 +56,7 @@
 
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
-      <artifactId>oas-validator-compliance-spring</artifactId>
+      <artifactId>oas-validator-compliance</artifactId>
     </dependency>
 
     <dependency>
