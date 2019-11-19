@@ -17,7 +17,11 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.*;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ParameterValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.parameter.ParameterContentValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.parameter.ParameterSchemaValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +43,90 @@ public class DefaultParameterValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<ParameterValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(7);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class
+    );
+  }
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterNameCookieCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class,
+        ParameterNameCookieCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterNameHeaderCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class,
+        ParameterNameHeaderCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create3() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterNamePathCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class,
+        ParameterNamePathCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create4() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterNameQueryCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class,
+        ParameterNameQueryCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create5() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterDescriptionRequiredValidator.CONFIG_KEY, "true"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class,
+        ParameterDescriptionRequiredValidator.class
+    );
+  }
+
+  @Test
+  public void create6() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ParameterDescriptionRequiredValidator.CONFIG_KEY, "false"));
+    List<ParameterValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ParameterSchemaValidator.class,
+        ParameterContentValidator.class
+    );
   }
 
 }

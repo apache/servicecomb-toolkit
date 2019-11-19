@@ -17,7 +17,12 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiSecuritySizeEqValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiTagsSizeGteValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiVersionGteValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OpenApiValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +44,61 @@ public class DefaultOpenApiValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<OpenApiValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(8);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<OpenApiValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(5);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OpenApiTagsValidator.class,
+        OpenApiInfoValidator.class,
+        OpenApiPathsValidator.class,
+        OpenApiComponentsValidator.class,
+        OpenApiServersValidator.class
+    );
+  }
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OpenApiSecuritySizeEqValidator.CONFIG_KEY, "0"));
+    List<OpenApiValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(6);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OpenApiTagsValidator.class,
+        OpenApiInfoValidator.class,
+        OpenApiPathsValidator.class,
+        OpenApiComponentsValidator.class,
+        OpenApiServersValidator.class,
+        OpenApiSecuritySizeEqValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OpenApiTagsSizeGteValidator.CONFIG_KEY, "0"));
+    List<OpenApiValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(6);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OpenApiTagsValidator.class,
+        OpenApiInfoValidator.class,
+        OpenApiPathsValidator.class,
+        OpenApiComponentsValidator.class,
+        OpenApiServersValidator.class,
+        OpenApiTagsSizeGteValidator.class
+    );
+  }
+
+  @Test
+  public void create3() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OpenApiVersionGteValidator.CONFIG_KEY, "0"));
+    List<OpenApiValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(6);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OpenApiTagsValidator.class,
+        OpenApiInfoValidator.class,
+        OpenApiPathsValidator.class,
+        OpenApiComponentsValidator.class,
+        OpenApiServersValidator.class,
+        OpenApiVersionGteValidator.class
+    );
   }
 
 }

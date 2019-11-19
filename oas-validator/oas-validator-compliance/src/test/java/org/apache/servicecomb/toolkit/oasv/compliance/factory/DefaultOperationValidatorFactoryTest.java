@@ -17,7 +17,12 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.operation.*;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OperationValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.operation.OperationParametersValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.operation.OperationRequestBodyValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.operation.OperationResponsesValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +44,102 @@ public class DefaultOperationValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<OperationValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(8);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class
+    );
   }
 
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationSummaryRequiredValidator.CONFIG_KEY, "true"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(4);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class,
+        OperationSummaryRequiredValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationSummaryRequiredValidator.CONFIG_KEY, "false"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class
+    );
+  }
+
+  @Test
+  public void creat3() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationIdCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(4);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class,
+        OperationIdCaseValidator.class
+    );
+  }
+
+  @Test
+  public void creat4() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationTagsSizeEqValidator.CONFIG_KEY, "1"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(4);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class,
+        OperationTagsSizeEqValidator.class
+    );
+  }
+
+  @Test
+  public void create5() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationServersSizeEqValidator.CONFIG_KEY, "1"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(4);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class,
+        OperationServersSizeEqValidator.class
+    );
+  }
+
+  @Test
+  public void create6() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationTagsReferenceValidator.CONFIG_KEY, "true"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(4);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class,
+        OperationTagsReferenceValidator.class
+    );
+  }
+
+  @Test
+  public void create7() {
+    FactoryOptions options = new FactoryOptions(singletonMap(OperationTagsReferenceValidator.CONFIG_KEY, "false"));
+    List<OperationValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        OperationParametersValidator.class,
+        OperationResponsesValidator.class,
+        OperationRequestBodyValidator.class
+    );
+  }
 }

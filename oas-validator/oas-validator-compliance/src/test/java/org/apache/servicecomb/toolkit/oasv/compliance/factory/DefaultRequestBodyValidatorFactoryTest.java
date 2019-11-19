@@ -17,7 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.requestbody.RequestBodyDescriptionRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.RequestBodyValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.requestbody.RequestBodyContentValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +42,34 @@ public class DefaultRequestBodyValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<RequestBodyValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(2);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<RequestBodyValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        RequestBodyContentValidator.class
+    );
   }
 
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(RequestBodyDescriptionRequiredValidator.CONFIG_KEY, "true"));
+    List<RequestBodyValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        RequestBodyContentValidator.class,
+        RequestBodyDescriptionRequiredValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(RequestBodyDescriptionRequiredValidator.CONFIG_KEY, "false"));
+    List<RequestBodyValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        RequestBodyContentValidator.class
+    );
+  }
 }

@@ -63,7 +63,7 @@ public abstract class StringCaseUtils {
     case "upper-hyphen-case":
       return isUpperHyphenCase(string);
     default:
-      throw new IllegalArgumentException("Unrecgonized case");
+      throw new IllegalArgumentException("Unrecognized case: " + expectedCase);
     }
   }
 }

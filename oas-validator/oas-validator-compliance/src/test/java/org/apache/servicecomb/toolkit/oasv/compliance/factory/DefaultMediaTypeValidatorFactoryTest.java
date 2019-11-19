@@ -17,7 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.MediaTypeValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.mediatype.MediaTypeEncodingValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.mediatype.MediaTypeSchemaValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +41,13 @@ public class DefaultMediaTypeValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<MediaTypeValidator> validators = validatorFactory.create(null);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<MediaTypeValidator> validators = validatorFactory.create(options);
     assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        MediaTypeSchemaValidator.class,
+        MediaTypeEncodingValidator.class
+    );
   }
 
 }

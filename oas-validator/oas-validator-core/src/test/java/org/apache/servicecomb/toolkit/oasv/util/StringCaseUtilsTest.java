@@ -20,7 +20,6 @@ package org.apache.servicecomb.toolkit.oasv.util;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 
 public class StringCaseUtilsTest {
 
@@ -175,8 +174,10 @@ public class StringCaseUtilsTest {
 
   @Test
   public void testIsMatchCase() {
-    // TODO
-    assertEquals(true, false);
+
+    assertThat(StringCaseUtils.isMatchCase("lower-camel-case", "a0")).isTrue();
+    assertThat(StringCaseUtils.isMatchCase("upper-camel-case", "A0")).isTrue();
+    assertThat(StringCaseUtils.isMatchCase("upper-hyphen-case", "A-A")).isTrue();
   }
 
 }
