@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static java.util.Collections.emptyMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -35,7 +37,8 @@ public class DefaultOasSpecValidatorFactoryTest {
 
   @Test
   public void create() {
-    OasSpecValidator validator = validatorFactory.create(null);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    OasSpecValidator validator = validatorFactory.create(options);
     assertThat(validator).isNotNull();
   }
 }

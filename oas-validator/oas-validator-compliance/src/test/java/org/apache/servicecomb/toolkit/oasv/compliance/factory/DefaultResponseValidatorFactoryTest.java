@@ -17,7 +17,11 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.response.ResponseHeadersKeysCaseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ResponseValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.response.ResponseContentValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.response.ResponseHeadersValuesValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +43,26 @@ public class DefaultResponseValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<ResponseValidator> validators = validatorFactory.create(null);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<ResponseValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ResponseContentValidator.class,
+        ResponseHeadersValuesValidator.class
+    );
+  }
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ResponseHeadersKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ResponseValidator> validators = validatorFactory.create(options);
     assertThat(validators).hasSize(3);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ResponseContentValidator.class,
+        ResponseHeadersValuesValidator.class,
+        ResponseHeadersKeysCaseValidator.class
+    );
   }
 
 }

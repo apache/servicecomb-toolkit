@@ -17,6 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.tag.TagDescriptionRequiredValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.tag.TagMustBeReferencedValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.tag.TagNameCaseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.TagValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +30,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,7 +43,52 @@ public class DefaultTagValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<TagValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(3);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(0);
+  }
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(singletonMap(TagDescriptionRequiredValidator.CONFIG_KEY, "true"));
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        TagDescriptionRequiredValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(singletonMap(TagDescriptionRequiredValidator.CONFIG_KEY, "false"));
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(0);
+  }
+
+  @Test
+  public void create3() {
+    FactoryOptions options = new FactoryOptions(singletonMap(TagMustBeReferencedValidator.CONFIG_KEY, "true"));
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        TagMustBeReferencedValidator.class
+    );
+  }
+
+  @Test
+  public void create4() {
+    FactoryOptions options = new FactoryOptions(singletonMap(TagMustBeReferencedValidator.CONFIG_KEY, "false"));
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(0);
+  }
+
+  @Test
+  public void create5() {
+    FactoryOptions options = new FactoryOptions(singletonMap(TagNameCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<TagValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        TagNameCaseValidator.class
+    );
   }
 }

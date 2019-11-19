@@ -17,7 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.header.HeaderDescriptionRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.HeaderValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.header.HeaderSchemaValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +42,35 @@ public class DefaultHeaderValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<HeaderValidator> validators = validatorFactory.create(null);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<HeaderValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        HeaderSchemaValidator.class
+    );
+  }
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(HeaderDescriptionRequiredValidator.CONFIG_KEY, "true"));
+    List<HeaderValidator> validators = validatorFactory.create(options);
     assertThat(validators).hasSize(2);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        HeaderSchemaValidator.class,
+        HeaderDescriptionRequiredValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(HeaderDescriptionRequiredValidator.CONFIG_KEY, "false"));
+    List<HeaderValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(1);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        HeaderSchemaValidator.class
+    );
   }
 
 }

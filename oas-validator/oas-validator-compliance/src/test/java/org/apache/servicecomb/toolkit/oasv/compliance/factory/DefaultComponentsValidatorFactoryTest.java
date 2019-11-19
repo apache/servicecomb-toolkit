@@ -17,7 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.components.*;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ComponentsValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static java.util.Collections.emptyMap;
+import static java.util.Collections.singletonMap;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
@@ -37,8 +42,169 @@ public class DefaultComponentsValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<ComponentsValidator> validators = validatorFactory.create(null);
-    assertThat(validators).hasSize(14);
+    FactoryOptions options = new FactoryOptions(emptyMap());
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(6);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class
+    );
   }
-  
+
+  @Test
+  public void create1() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsCallbacksKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsCallbacksKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create2() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsExamplesKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsExamplesKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create3() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsHeadersKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsHeadersKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create4() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsLinksKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsLinksKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create5() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsParametersKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsParametersKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create6() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsRequestBodiesKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsRequestBodiesKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create7() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsResponsesKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsResponsesKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create8() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsSchemasKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsSchemasKeysCaseValidator.class
+    );
+  }
+
+  @Test
+  public void create9() {
+    FactoryOptions options = new FactoryOptions(
+        singletonMap(ComponentsSecuritySchemesKeysCaseValidator.CONFIG_KEY, "upper-camel-case"));
+    List<ComponentsValidator> validators = validatorFactory.create(options);
+    assertThat(validators).hasSize(7);
+    assertThat(validators).hasOnlyElementsOfTypes(
+        ComponentsHeadersValuesValidator.class,
+        ComponentsParametersValuesValidator.class,
+        ComponentsRequestBodiesValuesValidator.class,
+        ComponentsResponsesValuesValidator.class,
+        ComponentsSchemasValuesValidator.class,
+        ComponentsSecuritySchemesValuesValidator.class,
+        ComponentsSecuritySchemesKeysCaseValidator.class
+    );
+  }
 }
