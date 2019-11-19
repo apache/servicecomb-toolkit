@@ -17,27 +17,42 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.schema.SchemaKeysValidators;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.schema.SchemaTitleValidator;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.schema.SchemaPropertiesKeysCaseValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.schema.SchemaTitleRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.SchemaValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.SchemaValidatorFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultSchemaValidatorFactory implements SchemaValidatorFactory {
 
   @Override
-  public List<SchemaValidator> create() {
+  public List<SchemaValidator> create(FactoryOptions options) {
     ArrayList<SchemaValidator> validators = new ArrayList<>();
 
     // concretes
-    validators.add(new SchemaTitleValidator());
-    validators.add(SchemaKeysValidators.PROPERTIES_LOWER_CAMEL_CASE_VALIDATOR);
-
+    addSchemaTitleRequiredValidator(validators, options);
+    addSchemaPropertiesKeysCaseValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
+
+  private void addSchemaTitleRequiredValidator(List<SchemaValidator> validators, FactoryOptions options) {
+    Boolean required = options.getBoolean(SchemaTitleRequiredValidator.CONFIG_KEY);
+    if (Boolean.TRUE.equals(required)) {
+      validators.add(new SchemaTitleRequiredValidator());
+    }
+  }
+
+  private void addSchemaPropertiesKeysCaseValidator(List<SchemaValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(SchemaPropertiesKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new SchemaPropertiesKeysCaseValidator(expectedCase));
+    }
+  }
+
 }

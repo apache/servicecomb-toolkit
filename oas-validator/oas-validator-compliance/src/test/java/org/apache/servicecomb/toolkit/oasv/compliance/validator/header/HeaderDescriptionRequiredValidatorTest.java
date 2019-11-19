@@ -17,16 +17,13 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.validator.header;
 
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasComplianceTestBase;
-import org.apache.servicecomb.toolkit.oasv.validation.api.HeaderValidator;
+import io.swagger.v3.oas.models.OpenAPI;
+import org.apache.servicecomb.toolkit.oasv.compliance.factory.ValidatorFactoryComponents;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasStyleCheckTestBase;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ViolationMessages;
-import org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration;
-import io.swagger.v3.oas.models.OpenAPI;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
@@ -34,12 +31,17 @@ import java.util.List;
 import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = HeaderDescriptionRequiredValidatorTest.TestConfiguration.class)
-public class HeaderDescriptionRequiredValidatorTest extends OasComplianceTestBase {
+@ContextConfiguration(classes = ValidatorFactoryComponents.class)
+public class HeaderDescriptionRequiredValidatorTest extends OasStyleCheckTestBase {
 
   @Test
   public void testValidate() {
     OpenAPI openAPI = loadRelative("petstore-header-no-desc.yaml");
+    OasSpecValidator oasSpecValidator =
+        oasSpecValidatorFactory.create(
+            singleOption(HeaderDescriptionRequiredValidator.CONFIG_KEY, "true")
+        );
+
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations)
       .containsExactlyInAnyOrder(
@@ -65,18 +67,5 @@ public class HeaderDescriptionRequiredValidatorTest extends OasComplianceTestBas
       );
   }
 
-  @Configuration
-  @Import({
-    OasValidatorsSkeletonConfiguration.class
-  })
-  public static class TestConfiguration {
-
-    @Bean
-
-    public HeaderValidator headerValidator() {
-      return new HeaderDescriptionRequiredValidator();
-    }
-
-  }
 
 }

@@ -17,26 +17,18 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiSecuritySizeEqValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiTagsSizeGteValidator;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiVersionGteValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OpenApiValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.factory.*;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.*;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiSecurityEmptyValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiTagNotEmptyValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.openapi.OpenApiVersionValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OpenApiValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.ComponentsValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.InfoValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.OpenApiValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.PathsValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.ServerValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.TagValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.OpenApiComponentsValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.OpenApiInfoValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.OpenApiPathsValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.OpenApiServersValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.openapi.OpenApiTagsValidator;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DefaultOpenApiValidatorFactory implements OpenApiValidatorFactory {
@@ -65,22 +57,44 @@ public class DefaultOpenApiValidatorFactory implements OpenApiValidatorFactory {
   }
 
   @Override
-  public List<OpenApiValidator> create() {
+  public List<OpenApiValidator> create(FactoryOptions options) {
 
     List<OpenApiValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new OpenApiTagsValidator(tagValidatorFactory.create()));
-    validators.add(new OpenApiInfoValidator(infoValidatorFactory.create()));
-    validators.add(new OpenApiPathsValidator(pathsValidatorFactory.create()));
-    validators.add(new OpenApiComponentsValidator(componentsValidatorFactory.create()));
-    validators.add(new OpenApiServersValidator(serverValidatorFactory.create()));
+    validators.add(new OpenApiTagsValidator(tagValidatorFactory.create(options)));
+    validators.add(new OpenApiInfoValidator(infoValidatorFactory.create(options)));
+    validators.add(new OpenApiPathsValidator(pathsValidatorFactory.create(options)));
+    validators.add(new OpenApiComponentsValidator(componentsValidatorFactory.create(options)));
+    validators.add(new OpenApiServersValidator(serverValidatorFactory.create(options)));
 
     // concretes
-    validators.add(new OpenApiSecurityEmptyValidator());
-    validators.add(new OpenApiTagNotEmptyValidator());
-    validators.add(new OpenApiVersionValidator());
+    addOpenApiSecuritySizeValidator(validators, options);
+    addOpenApiTagsSizeValidator(validators, options);
+    addOpenApiVersionGteValidator(validators, options);
 
     return Collections.unmodifiableList(validators);
   }
+
+  private void addOpenApiSecuritySizeValidator(List<OpenApiValidator> validators, FactoryOptions options) {
+    Integer size = options.getInteger(OpenApiSecuritySizeEqValidator.CONFIG_KEY);
+    if (size != null) {
+      validators.add(new OpenApiSecuritySizeEqValidator(size));
+    }
+  }
+
+  private void addOpenApiTagsSizeValidator(List<OpenApiValidator> validators, FactoryOptions options) {
+    Integer size = options.getInteger(OpenApiTagsSizeGteValidator.CONFIG_KEY);
+    if (size != null) {
+      validators.add(new OpenApiTagsSizeGteValidator(size));
+    }
+  }
+
+  private void addOpenApiVersionGteValidator(List<OpenApiValidator> validators, FactoryOptions options) {
+    String versionGte = options.getString(OpenApiVersionGteValidator.CONFIG_KEY);
+    if (versionGte != null) {
+      validators.add(new OpenApiVersionGteValidator(versionGte));
+    }
+  }
+
 }

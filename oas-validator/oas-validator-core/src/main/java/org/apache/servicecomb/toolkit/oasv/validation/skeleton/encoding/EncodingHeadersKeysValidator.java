@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.toolkit.oasv.validation.skeleton.encoding;
 
-import org.apache.servicecomb.toolkit.oasv.validation.api.MapPropertyKeysValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.api.EncodingValidator;
 import io.swagger.v3.oas.models.media.Encoding;
+import org.apache.servicecomb.toolkit.oasv.validation.api.EncodingValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.MapPropertyKeysValidator;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -33,7 +33,7 @@ public class EncodingHeadersKeysValidator extends MapPropertyKeysValidator<Encod
   implements EncodingValidator {
 
   public EncodingHeadersKeysValidator(Predicate<String> keyPredicate,
-    Function<String, String> errorFunction) {
+      Function<String, String> errorFunction) {
     super(keyPredicate, errorFunction);
   }
 

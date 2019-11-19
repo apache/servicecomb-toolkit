@@ -17,15 +17,16 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ResponsesValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.ResponseValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.ResponsesValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.responses.ResponsesResponsesValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultResponsesValidatorFactory implements ResponsesValidatorFactory {
@@ -38,12 +39,12 @@ public class DefaultResponsesValidatorFactory implements ResponsesValidatorFacto
   }
 
   @Override
-  public List<ResponsesValidator> create() {
+  public List<ResponsesValidator> create(FactoryOptions options) {
 
     List<ResponsesValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new ResponsesResponsesValidator(responseValidatorFactory.create()));
+    validators.add(new ResponsesResponsesValidator(responseValidatorFactory.create(options)));
 
     return Collections.unmodifiableList(validators);
   }

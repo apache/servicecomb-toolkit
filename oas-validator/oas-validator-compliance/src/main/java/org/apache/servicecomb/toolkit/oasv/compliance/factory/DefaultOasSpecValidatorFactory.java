@@ -17,6 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.DefaultOasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.OasSpecValidatorFactory;
@@ -34,8 +35,8 @@ public class DefaultOasSpecValidatorFactory implements OasSpecValidatorFactory {
   }
 
   @Override
-  public OasSpecValidator create() {
-    return new DefaultOasSpecValidator(openApiValidatorFactory.create());
+  public OasSpecValidator create(FactoryOptions options) {
+    return new DefaultOasSpecValidator(openApiValidatorFactory.create(options));
   }
 
 }

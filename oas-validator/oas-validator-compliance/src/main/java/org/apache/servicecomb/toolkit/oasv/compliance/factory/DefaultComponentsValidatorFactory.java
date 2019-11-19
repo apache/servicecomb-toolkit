@@ -17,26 +17,16 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.components.*;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ComponentsValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.factory.*;
+import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.*;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.components.ComponentsKeysValidators;
-import org.apache.servicecomb.toolkit.oasv.validation.api.ComponentsValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.ComponentsValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.HeaderValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.ParameterValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.RequestBodyValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.ResponseValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.SchemaValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.factory.SecuritySchemeValidatorFactory;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsHeadersValuesValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsParametersValuesValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsRequestBodiesValuesValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsResponsesValuesValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsSchemasValuesValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.skeleton.components.ComponentsSecuritySchemesValuesValidator;
-import org.springframework.stereotype.Component;
 
 
 @Component
@@ -70,27 +60,92 @@ public class DefaultComponentsValidatorFactory implements ComponentsValidatorFac
   }
 
   @Override
-  public List<ComponentsValidator> create() {
+  public List<ComponentsValidator> create(FactoryOptions options) {
     List<ComponentsValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new ComponentsHeadersValuesValidator(headerValidatorFactory.create()));
-    validators.add(new ComponentsParametersValuesValidator(parameterValidatorFactory.create()));
-    validators.add(new ComponentsRequestBodiesValuesValidator(requestBodyValidatorFactory.create()));
-    validators.add(new ComponentsResponsesValuesValidator(responseValidatorFactory.create()));
-    validators.add(new ComponentsSchemasValuesValidator(schemaValidatorFactory.create()));
-    validators.add(new ComponentsSecuritySchemesValuesValidator(securitySchemeValidatorFactory.create()));
+    validators.add(new ComponentsHeadersValuesValidator(headerValidatorFactory.create(options)));
+    validators.add(new ComponentsParametersValuesValidator(parameterValidatorFactory.create(options)));
+    validators.add(new ComponentsRequestBodiesValuesValidator(requestBodyValidatorFactory.create(options)));
+    validators.add(new ComponentsResponsesValuesValidator(responseValidatorFactory.create(options)));
+    validators.add(new ComponentsSchemasValuesValidator(schemaValidatorFactory.create(options)));
+    validators.add(new ComponentsSecuritySchemesValuesValidator(securitySchemeValidatorFactory.create(options)));
 
     // concretes
-    validators.add(ComponentsKeysValidators.CALLBACKS_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.EXAMPLES_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.HEADERS_UPPER_HYPHEN_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.LINKS_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.PARAMETERS_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.REQUEST_BODIES_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.RESPONSES_UPPER_CAMEL_CASE_VALIDATOR);
-    validators.add(ComponentsKeysValidators.SCHEMAS_UPPER_CAMEL_CASE_VALIDATOR);
-
+    addComponentsCallbacksKeysCaseValidator(validators, options);
+    addComponentsExamplesKeysCaseValidator(validators, options);
+    addComponentsHeadersKeysCaseValidator(validators, options);
+    addComponentsLinksKeysCaseValidator(validators, options);
+    addComponentsParametersKeysCaseValidator(validators, options);
+    addComponentsRequestBodiesKeysCaseValidator(validators, options);
+    addComponentsResponsesKeysCaseValidator(validators, options);
+    addComponentsSchemasKeysCaseValidator(validators, options);
+    addComponentsSecuritySchemesKeysCaseValidator(validators, options);
     return Collections.unmodifiableList(validators);
+  }
+
+  private void addComponentsCallbacksKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsCallbacksKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsCallbacksKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsExamplesKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsExamplesKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsExamplesKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsHeadersKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsHeadersKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsHeadersKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsLinksKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsLinksKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsLinksKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsParametersKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsParametersKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsParametersKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsRequestBodiesKeysCaseValidator(List<ComponentsValidator> validators,
+      FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsRequestBodiesKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsRequestBodiesKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsResponsesKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsResponsesKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsResponsesKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsSchemasKeysCaseValidator(List<ComponentsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsSchemasKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsSchemasKeysCaseValidator(expectedCase));
+    }
+  }
+
+  private void addComponentsSecuritySchemesKeysCaseValidator(List<ComponentsValidator> validators,
+      FactoryOptions options) {
+    String expectedCase = options.getString(ComponentsSecuritySchemesKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ComponentsSecuritySchemesKeysCaseValidator(expectedCase));
+    }
   }
 }

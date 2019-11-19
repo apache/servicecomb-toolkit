@@ -17,15 +17,8 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.ParameterCookieLowerCamelCaseValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.ParameterDescriptionRequiredValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.ParameterHeaderUpperHyphenCaseValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.ParameterPathLowerCamelCaseValidator;
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.ParameterQueryLowerCamelCaseValidator;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.parameter.*;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ParameterValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.MediaTypeValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.ParameterValidatorFactory;
@@ -33,6 +26,10 @@ import org.apache.servicecomb.toolkit.oasv.validation.factory.SchemaValidatorFac
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.parameter.ParameterContentValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.parameter.ParameterSchemaValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultParameterValidatorFactory implements ParameterValidatorFactory {
@@ -49,21 +46,57 @@ public class DefaultParameterValidatorFactory implements ParameterValidatorFacto
   }
 
   @Override
-  public List<ParameterValidator> create() {
+  public List<ParameterValidator> create(FactoryOptions options) {
 
     List<ParameterValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new ParameterSchemaValidator(schemaValidatorFactory.create()));
-    validators.add(new ParameterContentValidator(mediaTypeValidatorFactory.create()));
+    validators.add(new ParameterSchemaValidator(schemaValidatorFactory.create(options)));
+    validators.add(new ParameterContentValidator(mediaTypeValidatorFactory.create(options)));
 
     // concretes
-    validators.add(new ParameterCookieLowerCamelCaseValidator());
-    validators.add(new ParameterHeaderUpperHyphenCaseValidator());
-    validators.add(new ParameterPathLowerCamelCaseValidator());
-    validators.add(new ParameterQueryLowerCamelCaseValidator());
-    validators.add(new ParameterDescriptionRequiredValidator());
+    addParameterNameCookieCaseValidator(validators, options);
+    addParameterNameHeaderCaseValidator(validators, options);
+    addParameterNamePathCaseValidator(validators, options);
+    addParameterNameQueryCaseValidator(validators, options);
+    addParameterDescriptionRequiredValidator(validators, options);
 
     return Collections.unmodifiableList(validators);
   }
+
+  private void addParameterNameCookieCaseValidator(List<ParameterValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ParameterNameCookieCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ParameterNameCookieCaseValidator(expectedCase));
+    }
+  }
+
+  private void addParameterNameHeaderCaseValidator(List<ParameterValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ParameterNameHeaderCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ParameterNameHeaderCaseValidator(expectedCase));
+    }
+  }
+
+  private void addParameterNamePathCaseValidator(List<ParameterValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ParameterNamePathCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ParameterNamePathCaseValidator(expectedCase));
+    }
+  }
+
+  private void addParameterNameQueryCaseValidator(List<ParameterValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ParameterNameQueryCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ParameterNameQueryCaseValidator(expectedCase));
+    }
+  }
+
+  private void addParameterDescriptionRequiredValidator(List<ParameterValidator> validators, FactoryOptions options) {
+    Boolean required = options.getBoolean(ParameterDescriptionRequiredValidator.CONFIG_KEY);
+    if (Boolean.TRUE.equals(required)) {
+      validators.add(new ParameterDescriptionRequiredValidator());
+    }
+  }
+
 }

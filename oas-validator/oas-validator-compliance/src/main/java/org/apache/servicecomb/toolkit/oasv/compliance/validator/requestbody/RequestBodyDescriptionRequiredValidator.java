@@ -26,12 +26,15 @@ import io.swagger.v3.oas.models.parameters.RequestBody;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#request-body-object">Request Object</a>
  * .description property validator
  * <ul>
+ * <li>config item: requestBody.description.required=*boolean*</li>
  * <li>this field is required</li>
  * </ul>
  */
 public class RequestBodyDescriptionRequiredValidator
   extends ObjectPropertyRequiredValidator<RequestBody, String>
   implements RequestBodyValidator {
+
+  public static final String CONFIG_KEY = "requestBody.description.required";
 
   @Override
   protected String get$ref(RequestBody oasObject) {

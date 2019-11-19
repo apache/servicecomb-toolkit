@@ -17,8 +17,9 @@
 
 package org.apache.servicecomb.toolkit.oasv.validation.factory;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 
 public interface OasSpecValidatorFactory {
-  OasSpecValidator create();
+  OasSpecValidator create(FactoryOptions options);
 }

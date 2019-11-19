@@ -26,12 +26,15 @@ import io.swagger.v3.oas.models.parameters.Parameter;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>
  * .description property validator
  * <ul>
+ * <li>config item: parameter.description.required=*boolean*</li>
  * <li>this field is required</li>
  * </ul>
  */
 public class ParameterDescriptionRequiredValidator
   extends ObjectPropertyRequiredValidator<Parameter, String>
   implements ParameterValidator {
+
+  public static final String CONFIG_KEY = "parameter.description.required";
 
   @Override
   protected String get$ref(Parameter oasObject) {

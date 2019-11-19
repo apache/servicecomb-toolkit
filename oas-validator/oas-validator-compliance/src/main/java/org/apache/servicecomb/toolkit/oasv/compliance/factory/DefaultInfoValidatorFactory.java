@@ -17,26 +17,32 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.info.InfoDescriptionRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.InfoValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.InfoValidatorFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 @Component
 public class DefaultInfoValidatorFactory implements InfoValidatorFactory {
 
   @Override
-  public List<InfoValidator> create() {
-    ArrayList<InfoValidator> validators = new ArrayList<>();
+  public List<InfoValidator> create(FactoryOptions options) {
+    List<InfoValidator> validators = new ArrayList<>();
 
     // concretes
-    validators.add(new InfoDescriptionRequiredValidator());
-
+    addInfoDescriptionRequiredValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
 
+  private void addInfoDescriptionRequiredValidator(List<InfoValidator> validators, FactoryOptions options) {
+    Boolean required = options.getBoolean(InfoDescriptionRequiredValidator.CONFIG_KEY);
+    if (Boolean.TRUE.equals(required)) {
+      validators.add(new InfoDescriptionRequiredValidator());
+    }
+  }
 }

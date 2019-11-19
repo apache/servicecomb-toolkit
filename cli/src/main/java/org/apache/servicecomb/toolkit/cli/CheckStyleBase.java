@@ -17,16 +17,14 @@
 
 package org.apache.servicecomb.toolkit.cli;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-
+import io.airlift.airline.Arguments;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
-import org.apache.servicecomb.toolkit.oasv.compliance.factory.DefaultOasSpecValidatorFactory;
+import org.apache.servicecomb.toolkit.oasv.compliance.factory.ValidatorFactoryComponents;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
@@ -35,9 +33,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import io.airlift.airline.Arguments;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class CheckStyleBase implements Runnable {
 
@@ -88,10 +87,11 @@ public class CheckStyleBase implements Runnable {
 
   private OasSpecValidator createOasSpecValidator() {
     AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
-        DefaultOasSpecValidatorFactory.class.getPackage().getName());
+        ValidatorFactoryComponents.class);
     try {
       OasSpecValidatorFactory oasSpecValidatorFactory = ctx.getBean(OasSpecValidatorFactory.class);
-      return oasSpecValidatorFactory.create();
+      // TODO load options
+      return oasSpecValidatorFactory.create(null);
     } finally {
       ctx.close();
     }

@@ -19,10 +19,11 @@ package org.apache.servicecomb.toolkit.oasv.validation.factory;
 
 import java.util.List;
 
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasObjectValidator;
 
 public interface OasObjectValidatorFactory<T extends OasObjectValidator> {
 
-  List<T> create();
+  List<T> create(FactoryOptions options);
 
 }

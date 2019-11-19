@@ -17,14 +17,14 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.validator.operation;
 
-import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OperationValidator;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.tags.Tag;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OperationValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +36,17 @@ import static java.util.stream.Collectors.toSet;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .tags property validator
+ * .tags must reference root tags validator
  * <ul>
- * <li>must be defined in OpenAPI Object tags property</li>
+ * <li>config item: operation.tags.element.must_reference_root_tags=*boolean*</li>
+ * <li>must reference tags defined in OpenAPI Object tags property</li>
  * </ul>
  */
 public class OperationTagsReferenceValidator implements OperationValidator {
+
+  public static final String CONFIG_KEY = "operation.tags.element.must_reference_root_tags";
+
+  public static final String ERROR = "is not defined in $.tags";
 
   @Override
   public List<OasViolation> validate(OasValidationContext context, OasObjectPropertyLocation location,
@@ -59,7 +64,7 @@ public class OperationTagsReferenceValidator implements OperationValidator {
       String tagName = tags.get(i);
       if (!globalTagNames.contains(tagName)) {
         violations.add(
-          new OasViolation(location.property("tags[" + i + "]"), "Is not defined in $.tags"));
+          new OasViolation(location.property("tags[" + i + "]"), ERROR));
       }
     }
 

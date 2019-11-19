@@ -54,4 +54,16 @@ public abstract class StringCaseUtils {
     return UPPER_HYPHEN_CASE.matcher(string).matches();
   }
 
+  public static boolean isMatchCase(String expectedCase, String string) {
+    switch (expectedCase) {
+    case "upper-camel-case":
+      return isUpperCamelCase(string);
+    case "lower-camel-case":
+      return isLowerCamelCase(string);
+    case "upper-hyphen-case":
+      return isUpperHyphenCase(string);
+    default:
+      throw new IllegalArgumentException("Unrecgonized case");
+    }
+  }
 }

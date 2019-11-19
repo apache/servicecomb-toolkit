@@ -17,10 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.MediaTypeValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.EncodingValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.MediaTypeValidatorFactory;
@@ -28,6 +25,10 @@ import org.apache.servicecomb.toolkit.oasv.validation.factory.SchemaValidatorFac
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.mediatype.MediaTypeEncodingValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.mediatype.MediaTypeSchemaValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultMediaTypeValidatorFactory implements MediaTypeValidatorFactory {
@@ -44,13 +45,13 @@ public class DefaultMediaTypeValidatorFactory implements MediaTypeValidatorFacto
   }
 
   @Override
-  public List<MediaTypeValidator> create() {
+  public List<MediaTypeValidator> create(FactoryOptions options) {
 
     List<MediaTypeValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new MediaTypeSchemaValidator(schemaValidatorFactory.create()));
-    validators.add(new MediaTypeEncodingValidator(encodingValidatorFactory.create()));
+    validators.add(new MediaTypeSchemaValidator(schemaValidatorFactory.create(options)));
+    validators.add(new MediaTypeEncodingValidator(encodingValidatorFactory.create(options)));
 
     return Collections.unmodifiableList(validators);
   }

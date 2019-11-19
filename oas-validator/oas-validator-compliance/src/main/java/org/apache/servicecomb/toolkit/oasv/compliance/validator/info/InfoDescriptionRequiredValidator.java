@@ -17,21 +17,24 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.validator.info;
 
-import org.apache.servicecomb.toolkit.oasv.validation.api.InfoValidator;
-import org.apache.servicecomb.toolkit.oasv.common.OasObjectType;
-import org.apache.servicecomb.toolkit.oasv.validation.api.ObjectPropertyRequiredValidator;
 import io.swagger.v3.oas.models.info.Info;
+import org.apache.servicecomb.toolkit.oasv.common.OasObjectType;
+import org.apache.servicecomb.toolkit.oasv.validation.api.InfoValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ObjectPropertyRequiredValidator;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">Info Object</a>
- * property validator
+ * description property validator
  * <ul>
- * <li>description must not be null</li>
+ *   <li>config item: info.description.required=*boolean*</li>
+ *   <li>description must not be null</li>
  * </ul>
  */
 public class InfoDescriptionRequiredValidator
   extends ObjectPropertyRequiredValidator<Info, String>
   implements InfoValidator {
+
+  public static final String CONFIG_KEY = "info.description.required";
 
   @Override
   protected String get$ref(Info oasObject) {

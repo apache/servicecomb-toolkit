@@ -17,16 +17,17 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.requestbody.RequestBodyDescriptionRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.RequestBodyValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.MediaTypeValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.RequestBodyValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.requestbody.RequestBodyContentValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultRequestBodyValidatorFactory implements RequestBodyValidatorFactory {
@@ -39,15 +40,24 @@ public class DefaultRequestBodyValidatorFactory implements RequestBodyValidatorF
   }
 
   @Override
-  public List<RequestBodyValidator> create() {
+  public List<RequestBodyValidator> create(FactoryOptions options) {
 
     List<RequestBodyValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new RequestBodyContentValidator(mediaTypeValidatorFactory.create()));
+    validators.add(new RequestBodyContentValidator(mediaTypeValidatorFactory.create(options)));
 
     // concretes
-    validators.add(new RequestBodyDescriptionRequiredValidator());
+    addRequestBodyDescriptionRequiredValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
+
+  private void addRequestBodyDescriptionRequiredValidator(List<RequestBodyValidator> validators,
+      FactoryOptions options) {
+    Boolean required = options.getBoolean(RequestBodyDescriptionRequiredValidator.CONFIG_KEY);
+    if (Boolean.TRUE.equals(required)) {
+      validators.add(new RequestBodyDescriptionRequiredValidator());
+    }
+  }
+
 }
