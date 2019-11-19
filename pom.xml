@@ -227,12 +227,6 @@
 
       <dependency>
         <groupId>org.apache.servicecomb.toolkit</groupId>
-        <artifactId>oas-validator-compliance-spring</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.servicecomb.toolkit</groupId>
         <artifactId>oas-validator-compatibility</artifactId>
         <version>${project.version}</version>
       </dependency>
