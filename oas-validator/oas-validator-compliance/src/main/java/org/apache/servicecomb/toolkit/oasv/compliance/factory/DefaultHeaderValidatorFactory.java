@@ -17,16 +17,17 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.compliance.validator.header.HeaderDescriptionRequiredValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.HeaderValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.HeaderValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.SchemaValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.header.HeaderSchemaValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultHeaderValidatorFactory implements HeaderValidatorFactory {
@@ -39,16 +40,23 @@ public class DefaultHeaderValidatorFactory implements HeaderValidatorFactory {
   }
 
   @Override
-  public List<HeaderValidator> create() {
+  public List<HeaderValidator> create(FactoryOptions options) {
 
     List<HeaderValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new HeaderSchemaValidator(schemaValidatorFactory.create()));
+    validators.add(new HeaderSchemaValidator(schemaValidatorFactory.create(options)));
 
     // concretes
-    validators.add(new HeaderDescriptionRequiredValidator());
-
+    addHeaderDescriptionRequiredValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
+
+  private void addHeaderDescriptionRequiredValidator(List<HeaderValidator> validators, FactoryOptions options) {
+    Boolean required = options.getBoolean(HeaderDescriptionRequiredValidator.CONFIG_KEY);
+    if (Boolean.TRUE.equals(required)) {
+      validators.add(new HeaderDescriptionRequiredValidator());
+    }
+  }
+
 }

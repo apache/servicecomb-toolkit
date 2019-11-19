@@ -26,12 +26,15 @@ import io.swagger.v3.oas.models.tags.Tag;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>
  * .description property validator
  * <ul>
- * <li>this field is required</li>
+ *   <li>config item: tag.description.required=*boolean*</li>
+ *   <li>this field is required</li>
  * </ul>
  */
 public class TagDescriptionRequiredValidator
   extends ObjectPropertyRequiredValidator<Tag, String>
   implements TagValidator {
+
+  public static final String CONFIG_KEY = "tag.description.required";
 
   @Override
   protected String get$ref(Tag oasObject) {

@@ -17,10 +17,6 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
 import org.apache.servicecomb.toolkit.oasv.validation.api.ComponentsValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ValidatorFactoryTestConfiguration.class)
+@ContextConfiguration(classes = ValidatorFactoryComponents.class)
 public class DefaultComponentsValidatorFactoryTest {
 
   @Autowired
@@ -37,7 +37,7 @@ public class DefaultComponentsValidatorFactoryTest {
 
   @Test
   public void create() {
-    List<ComponentsValidator> validators = validatorFactory.create();
+    List<ComponentsValidator> validators = validatorFactory.create(null);
     assertThat(validators).hasSize(14);
   }
   

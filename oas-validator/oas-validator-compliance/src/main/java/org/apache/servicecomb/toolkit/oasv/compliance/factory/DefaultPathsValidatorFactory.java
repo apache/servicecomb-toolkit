@@ -17,16 +17,17 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.paths.PathsLowerCamelCaseValidator;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.paths.PathsKeyCaseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.PathsValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.PathItemValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.PathsValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.paths.PathsPathItemsValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultPathsValidatorFactory implements PathsValidatorFactory {
@@ -39,16 +40,22 @@ public class DefaultPathsValidatorFactory implements PathsValidatorFactory {
   }
 
   @Override
-  public List<PathsValidator> create() {
+  public List<PathsValidator> create(FactoryOptions options) {
     List<PathsValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new PathsPathItemsValidator(pathItemValidatorFactory.create()));
+    validators.add(new PathsPathItemsValidator(pathItemValidatorFactory.create(options)));
 
     // concretes
-    validators.add(new PathsLowerCamelCaseValidator());
-
+    addPathsKeyCaseValidator(validators, options);
     return Collections.unmodifiableList(validators);
+  }
+
+  private void addPathsKeyCaseValidator(List<PathsValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(PathsKeyCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new PathsKeyCaseValidator(expectedCase));
+    }
   }
 
 }

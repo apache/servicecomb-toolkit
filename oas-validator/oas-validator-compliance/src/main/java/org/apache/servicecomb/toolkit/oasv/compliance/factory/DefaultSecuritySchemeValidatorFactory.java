@@ -17,18 +17,19 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.SecuritySchemeValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.SecuritySchemeValidatorFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultSecuritySchemeValidatorFactory implements SecuritySchemeValidatorFactory {
 
   @Override
-  public List<SecuritySchemeValidator> create() {
+  public List<SecuritySchemeValidator> create(FactoryOptions options) {
     return Collections.emptyList();
   }
 }

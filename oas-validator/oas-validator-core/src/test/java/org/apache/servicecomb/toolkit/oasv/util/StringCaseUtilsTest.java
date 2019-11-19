@@ -17,9 +17,10 @@
 
 package org.apache.servicecomb.toolkit.oasv.util;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class StringCaseUtilsTest {
 
@@ -171,4 +172,11 @@ public class StringCaseUtilsTest {
     assertThat(StringCaseUtils.isUpperHyphenCase("aaA00_")).isFalse();
 
   }
+
+  @Test
+  public void testIsMatchCase() {
+    // TODO
+    assertEquals(true, false);
+  }
+
 }

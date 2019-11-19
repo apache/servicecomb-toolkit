@@ -17,15 +17,12 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.validator.operation;
 
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasComplianceTestBase;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
-import org.apache.servicecomb.toolkit.oasv.validation.api.OperationValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.config.OasValidatorsSkeletonConfiguration;
 import io.swagger.v3.oas.models.OpenAPI;
+import org.apache.servicecomb.toolkit.oasv.compliance.factory.ValidatorFactoryComponents;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.OasStyleCheckTestBase;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
 import org.junit.Test;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
@@ -33,33 +30,24 @@ import java.util.List;
 import static org.apache.servicecomb.toolkit.oasv.common.OasObjectType.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ContextConfiguration(classes = OperationTagsReferenceValidatorTest.TestConfiguration.class)
-public class OperationTagsReferenceValidatorTest extends OasComplianceTestBase {
+@ContextConfiguration(classes = ValidatorFactoryComponents.class)
+public class OperationTagsReferenceValidatorTest extends OasStyleCheckTestBase {
 
   @Test
   public void testValidate() {
     OpenAPI openAPI = loadRelative("petstore-operation-tags-reference.yaml");
+    OasSpecValidator oasSpecValidator =
+        oasSpecValidatorFactory.create(
+            singleOption(OperationTagsReferenceValidator.CONFIG_KEY, "true")
+        );
+
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     assertThat(violations).containsExactly(
-      createViolation("Is not defined in $.tags",
+        createViolation(OperationTagsReferenceValidator.ERROR,
         "paths", PATHS,
         "/pets", PATH_ITEM,
         "get", OPERATION,
         "tags[0]", null));
-  }
-
-  @Configuration
-  @Import({
-    OasValidatorsSkeletonConfiguration.class
-  })
-  public static class TestConfiguration {
-
-    @Bean
-
-    public OperationValidator operationValidator() {
-      return new OperationTagsReferenceValidator();
-    }
-
   }
 
 }

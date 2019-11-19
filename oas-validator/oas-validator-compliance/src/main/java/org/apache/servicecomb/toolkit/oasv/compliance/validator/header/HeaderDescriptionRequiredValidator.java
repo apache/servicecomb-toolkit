@@ -26,12 +26,16 @@ import io.swagger.v3.oas.models.headers.Header;
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#headerObject">Header Object</a>
  * .description property validator
  * <ul>
- * <li>must not be null</li>
+ *   <li>config item: header.description.required=*boolean*</li>
+ *   <li>description must not be null</li>
  * </ul>
  */
 public class HeaderDescriptionRequiredValidator
   extends ObjectPropertyRequiredValidator<Header, String>
   implements HeaderValidator {
+
+  public static final String CONFIG_KEY = "header.description.required";
+
 
   @Override
   protected String get$ref(Header oasObject) {

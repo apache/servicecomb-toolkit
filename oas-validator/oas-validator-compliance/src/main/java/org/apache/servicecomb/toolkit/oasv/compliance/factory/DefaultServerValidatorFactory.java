@@ -17,18 +17,19 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.Collections;
-import java.util.List;
-
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ServerValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.ServerValidatorFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultServerValidatorFactory implements ServerValidatorFactory {
 
   @Override
-  public List<ServerValidator> create() {
+  public List<ServerValidator> create(FactoryOptions options) {
     return Collections.emptyList();
   }
 

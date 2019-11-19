@@ -17,16 +17,17 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.encoding.EncodingKeysValidators;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.encoding.EncodingHeadersKeysCaseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.EncodingValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.EncodingValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.HeaderValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.encoding.EncodingHeadersValuesValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultEncodingValidatorFactory implements EncodingValidatorFactory {
@@ -39,16 +40,23 @@ public class DefaultEncodingValidatorFactory implements EncodingValidatorFactory
   }
 
   @Override
-  public List<EncodingValidator> create() {
+  public List<EncodingValidator> create(FactoryOptions options) {
 
     List<EncodingValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new EncodingHeadersValuesValidator(headerValidatorFactory.create()));
+    validators.add(new EncodingHeadersValuesValidator(headerValidatorFactory.create(options)));
 
     // concrete
-    validators.add(EncodingKeysValidators.HEADERS_UPPER_HYPHEN_CASE_VALIDATOR);
-
+    addEncodingHeadersKeysCaseValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
+
+  private void addEncodingHeadersKeysCaseValidator(List<EncodingValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(EncodingHeadersKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new EncodingHeadersKeysCaseValidator(expectedCase));
+    }
+  }
+
 }

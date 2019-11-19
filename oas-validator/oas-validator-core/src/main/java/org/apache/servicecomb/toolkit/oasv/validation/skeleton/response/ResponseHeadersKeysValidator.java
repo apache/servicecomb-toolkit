@@ -17,9 +17,9 @@
 
 package org.apache.servicecomb.toolkit.oasv.validation.skeleton.response;
 
-import org.apache.servicecomb.toolkit.oasv.validation.api.ResponseValidator;
-import org.apache.servicecomb.toolkit.oasv.validation.api.MapPropertyKeysValidator;
 import io.swagger.v3.oas.models.responses.ApiResponse;
+import org.apache.servicecomb.toolkit.oasv.validation.api.MapPropertyKeysValidator;
+import org.apache.servicecomb.toolkit.oasv.validation.api.ResponseValidator;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -27,13 +27,13 @@ import java.util.function.Predicate;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject">ApiResponse Object</a>
- * .callbacks property key validator
+ * .headers property key validator
  */
 public class ResponseHeadersKeysValidator extends MapPropertyKeysValidator<ApiResponse>
   implements ResponseValidator {
 
   public ResponseHeadersKeysValidator(Predicate<String> keyPredicate,
-    Function<String, String> errorFunction) {
+      Function<String, String> errorFunction) {
     super(keyPredicate, errorFunction);
   }
 

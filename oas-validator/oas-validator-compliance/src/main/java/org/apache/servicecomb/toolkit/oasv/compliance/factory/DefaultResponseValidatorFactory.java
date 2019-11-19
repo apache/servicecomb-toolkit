@@ -17,11 +17,8 @@
 
 package org.apache.servicecomb.toolkit.oasv.compliance.factory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.apache.servicecomb.toolkit.oasv.compliance.validator.response.ResponseKeysValidators;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
+import org.apache.servicecomb.toolkit.oasv.compliance.validator.response.ResponseHeadersKeysCaseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.ResponseValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.HeaderValidatorFactory;
 import org.apache.servicecomb.toolkit.oasv.validation.factory.MediaTypeValidatorFactory;
@@ -29,6 +26,10 @@ import org.apache.servicecomb.toolkit.oasv.validation.factory.ResponseValidatorF
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.response.ResponseContentValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.skeleton.response.ResponseHeadersValuesValidator;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class DefaultResponseValidatorFactory implements ResponseValidatorFactory {
@@ -45,17 +46,24 @@ public class DefaultResponseValidatorFactory implements ResponseValidatorFactory
   }
 
   @Override
-  public List<ResponseValidator> create() {
+  public List<ResponseValidator> create(FactoryOptions options) {
 
     List<ResponseValidator> validators = new ArrayList<>();
 
     // skeletons
-    validators.add(new ResponseContentValidator(mediaTypeValidatorFactory.create()));
-    validators.add(new ResponseHeadersValuesValidator(headerValidatorFactory.create()));
+    validators.add(new ResponseContentValidator(mediaTypeValidatorFactory.create(options)));
+    validators.add(new ResponseHeadersValuesValidator(headerValidatorFactory.create(options)));
 
     // concretes
-    validators.add(ResponseKeysValidators.HEADERS_UPPER_HYPHEN_CASE_VALIDATOR);
-
+    addResponseHeadersKeysCaseValidator(validators, options);
     return Collections.unmodifiableList(validators);
   }
+
+  private void addResponseHeadersKeysCaseValidator(List<ResponseValidator> validators, FactoryOptions options) {
+    String expectedCase = options.getString(ResponseHeadersKeysCaseValidator.CONFIG_KEY);
+    if (expectedCase != null) {
+      validators.add(new ResponseHeadersKeysCaseValidator(expectedCase));
+    }
+  }
+
 }

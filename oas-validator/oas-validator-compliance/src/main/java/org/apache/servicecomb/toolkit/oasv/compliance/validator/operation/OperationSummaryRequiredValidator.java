@@ -24,14 +24,17 @@ import io.swagger.v3.oas.models.Operation;
 
 /**
  * <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>
- * .summary property validator
+ * .summary required validator
  * <ul>
- * <li>is field is required</li>
+ *   <li>config item: operation.summary.required=*boolean*</li>
+ *   <li>this field is required</li>
  * </ul>
  */
 public class OperationSummaryRequiredValidator
   extends ObjectPropertyRequiredValidator<Operation, String>
   implements OperationValidator {
+
+  public static final String CONFIG_KEY = "operation.summary.required";
 
   @Override
   protected String get$ref(Operation oasObject) {
