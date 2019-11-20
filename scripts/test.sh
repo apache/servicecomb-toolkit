@@ -39,7 +39,7 @@ else
   
   if [ -n "$TRAVIS_JOB_ID" ]; then
     echo "${green}[SCRIPT] It's a travis job.${reset}"
-    MVN_CMD=$MVN_CMD "coveralls:report"
+    MVN_CMD="$MVN_CMD coveralls:report"
   else
     echo "${green}[SCRIPT] It's not a travis job.${reset}"
   fi
@@ -47,7 +47,7 @@ else
   echo "${green}[SCRIPT] TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST${reset}"
   if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "${green}[SCRIPT] It's not a PR build, enable sonar.${reset}"
-    MVN_CMD=$MVN_CMD "sonar:sonar -Dsonar.projectKey=servicecomb-toolkit"
+    MVN_CMD="$MVN_CMD sonar:sonar -Dsonar.projectKey=servicecomb-toolkit"
   else
     echo "${green}[SCRIPT] It's a PR build or local build.${reset}"
   fi;
