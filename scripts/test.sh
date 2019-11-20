@@ -20,35 +20,45 @@
 ##Check if the commit is tagged commit or not
 TAGGEDCOMMIT=$(git tag -l --contains HEAD)
 if [ "$TAGGEDCOMMIT" == "" ]; then
-    TAGGEDCOMMIT=false
+  TAGGEDCOMMIT=false
 else
-    TAGGEDCOMMIT=true
+  TAGGEDCOMMIT=true
 fi
-echo "TAGGEDCOMMIT=$TAGGEDCOMMIT"
+echo "${green}[SCRIPT] TAGGEDCOMMIT=$TAGGEDCOMMIT${reset}"
 
 if [ "$TAGGEDCOMMIT" == "true" ]; then
-	echo "Skipping the installation as it is tagged commit"
+  echo "${green}[SCRIPT] Skipping the installation as it is tagged commit.${reset}"
 else
-	mvn apache-rat:check
-	if [ $? != 0 ]; then
-		echo "${red}Rat check failed.${reset}"
-		exit 1
-	fi
-	
-	echo "Running the unit tests and integration tests here!"
-  echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
+  mvn apache-rat:check
+  if [ $? != 0 ]; then
+    echo "${red}[SCRIPT] Rat check failed.${reset}"
+    exit 1
+  fi
+  
+  MVN_CMD="clean install -Pjacoco"
+  
+  if [ -n "$TRAVIS_JOB_ID" ]; then
+    echo "${green}[SCRIPT] It's a travis job.${reset}"
+    MVN_CMD=$MVN_CMD "coveralls:report"
+  else
+    echo "${green}[SCRIPT] It's not a travis job.${reset}"
+  fi
+  
+  echo "${green}[SCRIPT] TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST${reset}"
   if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    echo "Not a pull request build, running build with sonar"
-    mvn clean install -Pjacoco coveralls:report sonar:sonar -Dsonar.projectKey=servicecomb-toolkit
+    echo "${green}[SCRIPT] It's not a PR build, enable sonar.${reset}"
+    MVN_CMD=$MVN_CMD "sonar:sonar -Dsonar.projectKey=servicecomb-toolkit"
   else
-    echo "Pull request build or local build"
-    mvn clean install -Pjacoco coveralls:report
+    echo "${green}[SCRIPT] It's a PR build or local build.${reset}"
   fi;
-	
+  
+  echo "${green}[SCRIPT] Running unit and integration tests.${reset}"
+  mvn $MVN_CMD
+  
   if [ $? == 0 ]; then
-    echo "${green}Installation Success..${reset}"
+    echo "${green}[SCRIPT] Build success.${reset}"
   else
-    echo "${red}Installation or Test Cases failed, please check the above logs for more details.${reset}"
+    echo "${red}[SCRIPT] Build or tests failed, please check the logs for more details.${reset}"
     exit 1
   fi
 fi
