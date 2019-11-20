@@ -60,12 +60,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.servicecomb.toolkit</groupId>
-      <artifactId>oas-validator-core-spring</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
