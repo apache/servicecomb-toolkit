@@ -17,14 +17,14 @@
 
 package org.apache.servicecomb.toolkit.cli;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 public class CliTest {
 
@@ -95,6 +95,9 @@ public class CliTest {
   public void testCheckStyle() throws IOException {
     String[] args = new String[] {
         "checkstyle",
+        "-r",
+        Paths.get("./src/test/resources/oas/style-rules.properties").toFile().getCanonicalPath(),
+        "-f",
         Paths.get("./src/test/resources/oas/style.yaml").toFile().getCanonicalPath()
     };
     ToolkitMain.main(args);
@@ -104,6 +107,9 @@ public class CliTest {
   public void testCheckStyleAbbr() throws IOException {
     String[] args = new String[] {
         "cs",
+        "-r",
+        Paths.get("./src/test/resources/oas/style-rules.properties").toFile().getCanonicalPath(),
+        "-f",
         Paths.get("./src/test/resources/oas/style.yaml").toFile().getCanonicalPath()
     };
     ToolkitMain.main(args);

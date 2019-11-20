@@ -275,13 +275,14 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 #### 3.3.3 契约风格检查
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle oas.yaml
-或者
-$ java -jar toolkit-cli-{version}.jar cs oas.yaml
+$ java -jar toolkit-cli-{version}.jar checkstyle -r style-check-rules.yaml -f oas.yaml
+or
+$ java -jar toolkit-cli-{version}.jar cs -r style-check-rules.yaml -f oas.yaml
 ```
 
 > **checkstyle** Command argument
-* &lt;file&gt; OpenAPI v3 spec yaml文件
+* -r, --rules-file. Rules properties file.
+* -f, --file. OpenAPI v3 spec yaml.
 
 见[风格检查规则](oas-validator/README-ZH.md)
 
