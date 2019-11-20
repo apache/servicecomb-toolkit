@@ -17,36 +17,38 @@
 
 package org.apache.servicecomb.toolkit.oasv.web.api.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
 import org.apache.servicecomb.toolkit.oasv.util.SyntaxChecker;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
+import org.apache.servicecomb.toolkit.oasv.validation.factory.OasSpecValidatorFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/api/compliance")
-public class ComplianceController {
+public class ComplianceController implements InitializingBean {
 
   @Autowired
-  private OasSpecValidator oasSpecValidator;
-  
+  private OasSpecValidatorFactory oasSpecValidatorFactory;
+
+  private FactoryOptions factoryOptions;
 
   @PostMapping(consumes = MimeTypeUtils.TEXT_PLAIN_VALUE, produces = MimeTypeUtils.APPLICATION_JSON_VALUE)
   @ResponseStatus(value = HttpStatus.OK)
@@ -76,6 +78,7 @@ public class ComplianceController {
     }
 
     OpenAPI openAPI = loadByYaml(yaml);
+    OasSpecValidator oasSpecValidator = oasSpecValidatorFactory.create(factoryOptions);
     List<OasViolation> violations = oasSpecValidator.validate(createContext(openAPI), openAPI);
     if (CollectionUtils.isNotEmpty(violations)) {
       importError.addViolations(violations);
@@ -102,5 +105,16 @@ public class ComplianceController {
   
   
   private void initContext(OasValidationContext context) {
+  }
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    PathMatchingResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
+    try (InputStream inputStream
+        = resourceResolver.getResource("classpath:style-check-rules.properties").getInputStream()) {
+      Properties properties = new Properties();
+      properties.load(inputStream);
+      this.factoryOptions = new FactoryOptions(properties);
+    }
   }
 }
