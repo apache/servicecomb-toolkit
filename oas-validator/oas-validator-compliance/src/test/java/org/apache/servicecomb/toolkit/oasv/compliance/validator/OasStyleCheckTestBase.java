@@ -21,11 +21,11 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import io.swagger.v3.parser.util.ClasspathHelper;
 import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
-import org.apache.servicecomb.toolkit.oasv.validation.test.OasValidatorTestBaseNew;
+import org.apache.servicecomb.toolkit.oasv.validation.test.OasValidatorTestBase;
 
 import java.util.Collections;
 
-public class OasStyleCheckTestBase extends OasValidatorTestBaseNew {
+public class OasStyleCheckTestBase extends OasValidatorTestBase {
 
   @Override
   protected SwaggerParseResult parseAbsolute(String classpath) {

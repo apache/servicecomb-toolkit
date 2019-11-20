@@ -17,11 +17,13 @@
 
 package org.apache.servicecomb.toolkit.oasv.validation.test;
 
+import io.swagger.v3.oas.models.OpenAPI;
 import org.apache.servicecomb.toolkit.oasv.OasSpecLoader;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectType;
-import org.apache.servicecomb.toolkit.oasv.validation.api.*;
-import io.swagger.v3.oas.models.OpenAPI;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
+import org.apache.servicecomb.toolkit.oasv.validation.api.OasViolation;
+import org.apache.servicecomb.toolkit.oasv.validation.factory.OasSpecValidatorFactory;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -30,7 +32,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public abstract class OasValidatorTestBase extends OasSpecLoader {
 
   @Autowired
-  protected OasSpecValidator oasSpecValidator;
+  protected OasSpecValidatorFactory oasSpecValidatorFactory;
 
   final protected OasValidationContext createContext(OpenAPI openAPI) {
     OasValidationContext oasValidationContext = new OasValidationContext(openAPI);
