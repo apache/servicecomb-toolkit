@@ -12,149 +12,135 @@ OpenAPI V3 Spec校验工具。
 * oas-validator-compatibility-spring，兼容性校验实现的Spring Boot Starter
 * oas-validator-web，校验工具的操作UI
 
-## 合规性校验
+## 风格校验
 
-OAS必须符合[OAS 3.0.2规范][openapi-3.0.2]（比如属性的名称、REQUIED要求）。除此之外则是我们自己的定义的合规性检查。
+OAS必须符合[OAS 3.0.2规范][openapi-3.0.2]（比如属性的名称、REQUIED要求）。除此之外则是我们自己的定义的风格检查。
 
 ### 一些字符串匹配规则
 
-* <a name="lower-camel-case"></a>Lower Camel Case：首字母小写的驼峰，对应的正则`^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
-* <a name="upper-camel-case"></a>Upper Camel Case：首字母大写的驼峰，对应的正则`^[A-Z]([a-z0-9]+[A-Z]?)*$`
-* <a name="upper-hyphen-case"></a>Upper Hyphen Case：单词首字母大写，多个单词用`-`连接，比如`Content-Type`、`Accept`、`X-Rate-Limit-Limit`。对应的正则：`^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
+* <a name="lower-camel-case"></a>lower-camel-case：首字母小写的驼峰，对应的正则`^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
+* <a name="upper-camel-case"></a>upper-camel-case：首字母大写的驼峰，对应的正则`^[A-Z]([a-z0-9]+[A-Z]?)*$`
+* <a name="upper-hyphen-case"></a>upper-hyphen-case：单词首字母大写，多个单词用`-`连接，比如`Content-Type`、`Accept`、`X-Rate-Limit-Limit`。对应的正则：`^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
 
-### OpenAPI Object [doc][spec-openapi]
+### 配置校验规则
 
-<a name="openapi-compliance"></a>
+下面是配置文件的例子`style-check-rule.properties`：
 
-* `openapi`属性必须为3.0.x且>=3.0.2
-* `info`属性见[Info Object合规性检查](#info-compliance)
-* `paths`属性，必须提供见[Paths Object合规性检查](#paths-compliance)
-* `components`属性见[Components Object合规性检查](#components-compliance)
-* `tags`属性，至少提供一个[Tag Object][spec-tag]
-  * 见[Tag Object合规性检查](#tag-compliance)
-* `security`属性，不允许提供
+```properties
+#######################
+# OpenAPI Object
+#######################
+# openapi property must be 3.0.x and >= 3.0.2
+openAPI.openapi.gte=3.0.2
+# tags property size should >= 1
+openAPI.tags.size.gte=1
+# security property size must == 0
+openAPI.security.size.eq=0
 
-### Info Object [doc][spec-info]
+#######################
+# Info Object
+#######################
+# description property is required
+info.description.required=true
 
-<a name="info-compliance"></a>
+#######################
+# Tag Object
+#######################
+# name property, must be upper-camel-case
+tag.name.case=upper-camel-case
+# tag should be referenced by at least one Operation Object
+tag.name.must_be_referenced=true
+# description property, required
+tag.description.required=true
 
-* `description`属性，必须填写
+#######################
+# Paths Object
+#######################
+# path must be lower-camel-case, including Path Templating variable
+paths.key.case=lower-camel-case
 
-### Tag Object [doc][spec-tag]
+#######################
+# Operation Object
+#######################
+# summary property, required
+operation.summary.required=true
+# operationId property, must be lower-camel-case
+operation.operationId.case=lower-camel-case
+# tags property, size must == 1
+operation.tags.size.eq=1
+# all tags should references which are defined in $.tags
+operation.tags.element.must_reference_root_tags=true
+# servers property, size must == 0
+operations.servers.size.eq=0
 
-<a name="tag-compliance"></a>
+#######################
+# Parameter Object
+#######################
+# description property, required
+parameter.description.required=true
+# name property, for header parameter, must be upper-hyphen-case
+parameter.name.header.case=upper-hyphen-case
+# name property, for cookie parameter, must be lower-camel-case
+parameter.name.cookie.case=lower-camel-case
+# name property, for path parameter, must be lower-camel-case
+parameter.name.path.case=lower-camel-case
+# name property, for query parameter, must be lower-camel-case
+parameter.name.query.case=lower-camel-case
 
-- `name`属性，必须是[Upper Camel Case](#upper-camel-case)
-- `description`属性，必须填写
-- 不得存在[Operation Object][spec-operation]没有引用过的tag
+#######################
+# RequestBody Object
+#######################
+# description property, required
+requestBody.description.required=true
 
-### Paths Object [doc][spec-paths]
+#######################
+# Response Object
+#######################
+# headers property's key must be upper-hyphen-case
+response.headers.key.case=upper-hyphen-case
 
-<a name="paths-compliance"></a>
+#######################
+# Schema Object
+#######################
+# title property, required if parent is Schema Object or Components Object
+schema.title.required=true
+# properties property, name(properties key) must be lower-camel-case
+schema.properties.key.case=lower-camel-case
 
-* path必须是[Lower Camel Case](#lower-camel-case)，包括[Path Templating][spec-path-templating]中的变量
-  * 见[Path Item Object合规性检查](#path-item-compliance)
+#######################
+# Encoding Object
+#######################
+# headers property's key must be upper-hyphen-case
+encoding.headers.key.case=upper-hyphen-case
 
-### Path Item Object [doc][spec-path-item]
+#######################
+# Header Object
+#######################
+# description property, required
+header.description.required=true
 
-<a name="path-item-compliance"></a>
-
-* `get/post/put/delete/...`属性，见[Operation Object合规性检查](operation-compliance)
-* `parameters`属性，见[Parameter Object合规性检查](#parameter-compliance)
-
-### Operation Object [doc][spec-operation]
-
-<a name="operation-compliance"></a>
-
-* `summary`属性、必须填写
-* `operationId`属性，且[Lower Camel Case](#lower-camel-case)
-* `parameters`属性，见[Parameter Object合规性检查](#parameter-compliance)
-* `requestBody`属性，见[Request Body Object合规性检查](#request-body-compliance)
-* `responses`属性，见[Responses Object合规性检查](#responses-compliance)
-* `tags`属性，且只能写一个tag，且必须在[OpenAPI Object][spec-openapi] 的 `tags`属性里所定义的范围内
-  
-* `servers`属性，不允许提供
-
-### Parameter Object [doc][spec-parameter]
-
-<a name="parameter-compliance"></a>
-
-* `description`属性，必须填写
-* `name`属性
-  * 如果`in`为path、query、cookie，则那么必须是[Lower Camel Case](#lower-camel-case)
-  * 如果`in`为header，则那么必须是[Upper Hyphen Case](#upper-hyphen-case)
-* `schema`属性，见[Schema Object合规性检查](#schema-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
-
-### Request Body Object [doc][spec-request-body]
-
-<a name="request-body-compliance"></a>
-
-* `description`属性，必须填写
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
-
-### Media Type Object [doc][spec-media-type]
-
-<a name="media-type-compliance"></a>
-
-* `schema`属性，必须填写。见[Schema Object合规性检查](#schema-compliance)
-* `encoding`属性，见[Encoding Object合规性检查](#encoding-compliance)
-
-### Responses Object [doc][spec-responses]
-
-<a name="responses-compliance"></a>
-
-* 见[Response Object合规性检查](#response-compliance)
-
-### Response Object [doc][spec-response]
-
-<a name="response-compliance"></a>
-
-* `description`属性，必须填写
-* `headers`属性，name（`headers`的key）必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header Object合规性检查](#header-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
-
-### Schema Object [doc][spec-schema]
-
-<a name="schema-compliance"></a>
-
-* `title`属性，如果上级是[Schema Object][spec-schema]或[Components Object][spec-components]，那么必须填写
-* `properties`属性，name（`properties`的key）必须是[Lower Camel Case](#lower-camel-case)
-  * Sub Schema见[Schema Object合规性检查](#schema-compliance)
-
-### Encoding Object [doc][spec-encoding]
-
-<a name="encoding-compliance"></a>
-
-* `headers`属性，name（`headers`的key）必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header Object合规性检查](#header-compliance)
-
-### Header Object [doc][spec-header]
-
-<a name="header-compliance"></a>
-
-* `description`属性，必须填写
-* `schema`属性，见[Schema Object合规性检查](#schema-compliance)
-* `content`属性，见[Media Type Object合规性检查](#media-type-compliance)
-
-### Components Object [doc][spec-components]
-
-<a name="components-compliance"></a>
-
-* `schemas`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Schema Object合规性检查](#schema-compliance)
-* `responses`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Response Object合规性检查](#response-compliance)
-* `parameters`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Parameter Object合规性检查](#parameter-compliance)
-* `examples`属性，name必须是[Upper Camel Case](#upper-camel-case)
-* `requestBodies`属性，name必须是[Upper Camel Case](#upper-camel-case)
-  * 见[Request Body合规性检查](#request-body-compliance)
-* `headers`属性，name必须是[Upper Hyphen Case](#upper-hyphen-case)
-  * 见[Header合规性检查](#header-compliance)
-* `links`属性，name必须是[Upper Camel Case](#upper-camel-case)
-* `callbacks`属性，name必须是[Upper Camel Case](#upper-camel-case)
+#######################
+# Components Object
+#######################
+# schemas property's key must be upper-camel-case
+components.schemas.key.case=upper-camel-case
+# responses property's key must be upper-camel-case
+components.responses.key.case=upper-camel-case
+# parameters property's key must be upper-camel-case
+components.parameters.key.case=upper-camel-case
+# examples property's key must be upper-camel-case
+components.examples.key.case=upper-camel-case
+# requestBodies property's key must be upper-camel-case
+components.requestBodies.key.case=upper-camel-case
+# headers property's key must be upper-hyphen-case
+components.headers.key.case=upper-hyphen-case
+# links property's key must be upper-camel-case
+components.links.key.case=upper-hyphen-case
+# callbacks property's key must be upper-camel-case
+components.callbacks.key.case=upper-camel-case
+# headers property's key must be upper-camel-case
+components.headers.key.case=upper-camel-case
+```
 
 ## 兼容性检查
 

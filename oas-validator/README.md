@@ -12,150 +12,137 @@ OpenAPI V3 Spec validation tools.
 * oas-validator-compatibility-spring: Spring Boot Starter for compatibility validators
 * oas-validator-web: web ui
 
-## Style check rules
+## Style checking
 
-OAS must compatible with [OAS 3.0.2][openapi-3.0.2], besides must obey the following rules.
+OAS must compatible with [OAS 3.0.2][openapi-3.0.2], besides must obey the following rules. 
 
 ### String patterns
 
-* <a name="lower-camel-case"></a> Lower Camel Case: initial letter lowercase camel case, regex is `^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
-* <a name="upper-camel-case"></a> Upper Camel Case: initial letter uppercase camel case, regex is `^[A-Z]([a-z0-9]+[A-Z]?)*$`
-* <a name="upper-hyphen-case"></a> Upper Hyphen Case: initial letter uppercase, multiple words concat with `-`, such as `Content-Type`, `Accept`, `X-Rate-Limit-Limit`, regex is `^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
+* <a name="lower-camel-case"></a> lower-camel-case: initial letter lowercase camel case, regex is `^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$`
+* <a name="upper-camel-case"></a> upper-camel-case: initial letter uppercase camel case, regex is `^[A-Z]([a-z0-9]+[A-Z]?)*$`
+* <a name="upper-hyphen-case"></a> upper-hyphen-case: initial letter uppercase, multiple words concat with `-`, such as `Content-Type`, `Accept`, `X-Rate-Limit-Limit`, regex is `^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$`
 
-### OpenAPI Object [doc][spec-openapi]
+### Rules properties file
 
-<a name="openapi-compliance"></a>
+Below is a  `style-check-rule.properties` example:
 
-* `openapi` property must be 3.0.x and >= 3.0.2
-* `info` propety, see [Info Object style check rules](#info-compliance)
-* `paths` property, must provide, see  [Paths Object style check rules](#paths-compliance)
-* `components` property, see [Components Object style check rules](#components-compliance)
-* `tags` property should at least provide one [Tag Object][spec-tag]
-  * see  [Tag Object style check rules](#tag-compliance)
-* `security` property, should not provide
+```properties
+#######################
+# OpenAPI Object
+#######################
+# openapi property must be 3.0.x and >= 3.0.2
+openAPI.openapi.gte=3.0.2
+# tags property size should >= 1
+openAPI.tags.size.gte=1
+# security property size must == 0
+openAPI.security.size.eq=0
 
-### Info Object [doc][spec-info]
+#######################
+# Info Object
+#######################
+# description property is required
+info.description.required=true
 
-<a name="info-compliance"></a>
+#######################
+# Tag Object
+#######################
+# name property, must be upper-camel-case
+tag.name.case=upper-camel-case
+# tag should be referenced by at least one Operation Object
+tag.name.must_be_referenced=true
+# description property, required
+tag.description.required=true
 
-* `description` property, required
+#######################
+# Paths Object
+#######################
+# path must be lower-camel-case, including Path Templating variable
+paths.key.case=lower-camel-case
 
-### Tag Object [doc][spec-tag]
+#######################
+# Operation Object
+#######################
+# summary property, required
+operation.summary.required=true
+# operationId property, must be lower-camel-case
+operation.operationId.case=lower-camel-case
+# tags property, size must == 1
+operation.tags.size.eq=1
+# all tags should references which are defined in $.tags
+operation.tags.element.must_reference_root_tags=true
+# servers property, size must == 0
+operations.servers.size.eq=0
 
-<a name="tag-compliance"></a>
+#######################
+# Parameter Object
+#######################
+# description property, required
+parameter.description.required=true
+# name property, for header parameter, must be upper-hyphen-case
+parameter.name.header.case=upper-hyphen-case
+# name property, for cookie parameter, must be lower-camel-case
+parameter.name.cookie.case=lower-camel-case
+# name property, for path parameter, must be lower-camel-case
+parameter.name.path.case=lower-camel-case
+# name property, for query parameter, must be lower-camel-case
+parameter.name.query.case=lower-camel-case
 
-- `name` property, must be [Upper Camel Case](#upper-camel-case)
-- `description` property, required
-- Every tag should be referenced by at least one [Operation Object][spec-operation]
+#######################
+# RequestBody Object
+#######################
+# description property, required
+requestBody.description.required=true
 
-### Paths Object [doc][spec-paths]
+#######################
+# Response Object
+#######################
+# headers property's key must be upper-hyphen-case
+response.headers.key.case=upper-hyphen-case
 
-<a name="paths-compliance"></a>
+#######################
+# Schema Object
+#######################
+# title property, required if parent is Schema Object or Components Object
+schema.title.required=true
+# properties property, name(properties key) must be lower-camel-case
+schema.properties.key.case=lower-camel-case
 
-* path must be [Lower Camel Case](#lower-camel-case), including [Path Templating][spec-path-templating] variable
-  * see  [Path Item Object style check rules](#path-item-compliance)
+#######################
+# Encoding Object
+#######################
+# headers property's key must be upper-hyphen-case
+encoding.headers.key.case=upper-hyphen-case
 
-### Path Item Object [doc][spec-path-item]
+#######################
+# Header Object
+#######################
+# description property, required
+header.description.required=true
 
-<a name="path-item-compliance"></a>
+#######################
+# Components Object
+#######################
+# schemas property's key must be upper-camel-case
+components.schemas.key.case=upper-camel-case
+# responses property's key must be upper-camel-case
+components.responses.key.case=upper-camel-case
+# parameters property's key must be upper-camel-case
+components.parameters.key.case=upper-camel-case
+# examples property's key must be upper-camel-case
+components.examples.key.case=upper-camel-case
+# requestBodies property's key must be upper-camel-case
+components.requestBodies.key.case=upper-camel-case
+# headers property's key must be upper-hyphen-case
+components.headers.key.case=upper-hyphen-case
+# links property's key must be upper-camel-case
+components.links.key.case=upper-hyphen-case
+# callbacks property's key must be upper-camel-case
+components.callbacks.key.case=upper-camel-case
+# headers property's key must be upper-camel-case
+components.headers.key.case=upper-camel-case
+```
 
-* `get/post/put/delete/...` properties, see  [Operation Object style check rules](operation-compliance)
-* `parameters` property, see  [Parameter Object style check rules](#parameter-compliance)
-
-### Operation Object [doc][spec-operation]
-
-<a name="operation-compliance"></a>
-
-* `summary` property, required
-* `operationId` property, must be [Lower Camel Case](#lower-camel-case)
-* `parameters` property, see  [Parameter Object style check rules](#parameter-compliance)
-* `requestBody` property, see  [Request Body Object style check rules](#request-body-compliance)
-* `responses` property, see  [Responses Object style check rules](#responses-compliance)
-* `tags` property, can only provide one tag, must be in the range of [OpenAPI Object][spec-openapi]   `tags` property
-* `servers` property, should not provide
-
-### Parameter Object [doc][spec-parameter]
-
-<a name="parameter-compliance"></a>
-
-* `description` property, required
-* `name` property
-  * if `in` is path, query or cookie, then must be [Lower Camel Case](#lower-camel-case)
-  * if `in` is header, then must be [Upper Hyphen Case](#upper-hyphen-case)
-* `schema` property, see  [Schema Object check sytle rules](#schema-compliance)
-* `content` property, see  [Media Type Object style check rules](#media-type-compliance)
-
-### Request Body Object [doc][spec-request-body]
-
-<a name="request-body-compliance"></a>
-
-* `description` property, required
-* `content` property, see  [Media Type Object style check rules](#media-type-compliance)
-
-### Media Type Object [doc][spec-media-type]
-
-<a name="media-type-compliance"></a>
-
-* `schema` property, required. See  [Schema Object style check rules](#schema-compliance)
-* `encoding` property, see  [Encoding Object style check rules](#encoding-compliance)
-
-### Responses Object [doc][spec-responses]
-
-<a name="responses-compliance"></a>
-
-* See [Response Object style check rules](#response-compliance)
-
-### Response Object [doc][spec-response]
-
-<a name="response-compliance"></a>
-
-* `description` property, required
-* `headers` property, name (`headers` key) must be [Upper Hyphen Case](#upper-hyphen-case)
-  * See [Header Object style check rules](#header-compliance)
-* `content` property, see [Media Type Object style check rules](#media-type-compliance)
-
-### Schema Object [doc][spec-schema]
-
-<a name="schema-compliance"></a>
-
-* `title` property, required if parent is [Schema Object][spec-schema] or [Components Object][spec-components]
-* `properties` property, name(`properties` key) must be [Lower Camel Case](#lower-camel-case)
-  * Sub Schema, see [Schema Object style check rules](#schema-compliance)
-
-### Encoding Object [doc][spec-encoding]
-
-<a name="encoding-compliance"></a>
-
-* `headers` property, name(`headers` key) must be [Upper Hyphen Case](#upper-hyphen-case)
-  * See [Header Object style check rules](#header-compliance)
-
-### Header Object [doc][spec-header]
-
-<a name="header-compliance"></a>
-
-* `description` property, required
-* `schema` property, see [Schema Object style check rules](#schema-compliance)
-* `content` property, see [Media Type Object style check rules](#media-type-compliance)
-
-### Components Object [doc][spec-components]
-
-<a name="components-compliance"></a>
-
-* `schemas` property, name must be [Upper Camel Case](#upper-camel-case)
-  * See [Schema Object style check rules](#schema-compliance)
-* `responses` property, name must be [Upper Camel Case](#upper-camel-case)
-  * See [Response Object style check rules](#response-compliance)
-* `parameters` property, name must be [Upper Camel Case](#upper-camel-case)
-  * See [Parameter Object style check rules](#parameter-compliance)
-* `examples` property, name must be [Upper Camel Case](#upper-camel-case)
-* `requestBodies` property, name must be [Upper Camel Case](#upper-camel-case)
-  * See [Request Body style check rules](#request-body-compliance)
-* `headers` property, name must be [Upper Hyphen Case](#upper-hyphen-case)
-  * See [Header style check rules](#header-compliance)
-* `links` property, name must be [Upper Camel Case](#upper-camel-case)
-* `callbacks` property, name must be [Upper Camel Case](#upper-camel-case)
-
-## Compatibility check rules
+## Compatibility checking
 
 Check whether new OAS spec compatibile with old spec.
 
