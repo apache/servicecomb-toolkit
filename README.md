@@ -270,13 +270,14 @@ e.g：-f swagger-ui
 #### 3.3.3 Service contract style checking
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle oas.yaml
+$ java -jar toolkit-cli-{version}.jar checkstyle -r style-check-rules.yaml -f oas.yaml
 or
-$ java -jar toolkit-cli-{version}.jar cs oas.yaml
+$ java -jar toolkit-cli-{version}.jar cs -r style-check-rules.yaml -f oas.yaml
 ```
 
 > **checkstyle** Command argument
-* &lt;file&gt; OpenAPI v3 spec yaml file
+* -r, --rules-file. Rules properties file.
+* -f, --file. OpenAPI v3 spec yaml.
 
 See [style check rules](oas-validator/README.md)
 
