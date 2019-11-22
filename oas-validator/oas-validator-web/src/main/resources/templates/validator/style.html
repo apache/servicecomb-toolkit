@@ -20,7 +20,7 @@
 <head>
   <meta content="text/html;charset=UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>The OpenAPI Specification Tools - Compliance Validator</title>
+  <title>The OpenAPI Specification Tools - Style Check Validator</title>
 
   <link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.css}" rel="stylesheet">
 </head>
@@ -29,7 +29,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <!-- Navbar content -->
-    <a class="navbar-brand" href="#">Servicecomb toolkit</a>
+    <a class="navbar-brand" href="#">Apache ServiceComb Toolkit OAS Validator</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -46,20 +46,20 @@
 
   <div class="container">
     
-    <h2>合规性校验 &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 1rem;">[<a href="#" th:href="@{/doc/validator.html#header-n20}" target="_blank">文档</a>]</span> </h2>
+    <h2>风格校验 &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 1rem;">[<a href="https://github.com/apache/servicecomb-toolkit/blob/master/oas-validator/README.md" target="_blank">文档</a>]</span> </h2>
     <div class="" style="height: 20px;"></div>
   
     <div>
       <textarea name="yaml" placeholder="OpenAPI Document（yaml）" style="width: 80%; height: 480px;"></textarea>
       <div>
-      <button id="complianceValidate" class="btn btn-info">合规性校验</button>
+      <button id="styleValidate" class="btn btn-info">风格校验</button>
       </div>
     </div>
     
     <div class="" style="height: 20px;"></div>
     
     <div>
-      <code id="complianceViolations"></code>
+      <code id="styleViolations"></code>
     </div>
 
     <div class="" style="height: 20px;"></div>
@@ -89,7 +89,7 @@
 
     $(function(){
     
-    $('#complianceValidate').on('click', function(e) {
+    $('#styleValidate').on('click', function(e) {
       var url = "/api/style";
       
       var yaml = $('textarea[name="yaml"]').val(); if (yaml=="") {return;}
@@ -105,10 +105,10 @@
         
         var data = json.data;
 
-        var complianceViolations = $("#complianceViolations");
-        complianceViolations.empty();
+        var styleViolations = $("#styleViolations");
+        styleViolations.empty();
 
-        if (!addParseErrors(complianceViolations, data.parseErrors)) {
+        if (!addParseErrors(styleViolations, data.parseErrors)) {
           return;
         }
 
@@ -131,8 +131,8 @@
           
           var errorInfo = ""+ locationPath + " : " + violation.error;
           
-          complianceViolations.append(errorInfo);
-          complianceViolations.append("<br/>");
+          styleViolations.append(errorInfo);
+          styleViolations.append("<br/>");
         });
         
       });
