@@ -33,12 +33,12 @@ public class ValidatorController {
     return "validator/index";
   }
 
-  @GetMapping(path = "/compliance")
+  @GetMapping(path = "/style")
   public String complianceValidator() {
     
     
     
-    return "validator/compliance";
+    return "validator/style";
   }
 
   @GetMapping(path = "/compatibility")
