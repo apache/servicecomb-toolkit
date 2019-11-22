@@ -17,12 +17,16 @@
 
 package org.apache.servicecomb.toolkit.oasv.web.api.controller;
 
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
-import org.apache.servicecomb.toolkit.oasv.style.ComplianceCheckParser;
+import org.apache.servicecomb.toolkit.oasv.style.StyleCheckParser;
 import org.apache.servicecomb.toolkit.oasv.util.SyntaxChecker;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
@@ -33,17 +37,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.MimeTypeUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 @RestController
-@RequestMapping("/api/compliance")
-public class ComplianceController implements InitializingBean {
+@RequestMapping("/api/style")
+public class StyleController implements InitializingBean {
 
   @Autowired
   private OasSpecValidatorFactory oasSpecValidatorFactory;
@@ -72,7 +77,7 @@ public class ComplianceController implements InitializingBean {
       return importError;
     }
 
-    SwaggerParseResult parseResult = ComplianceCheckParser.parseYaml(yaml);
+    SwaggerParseResult parseResult = StyleCheckParser.parseYaml(yaml);
     if (CollectionUtils.isNotEmpty(parseResult.getMessages())) {
       throw new RuntimeException(StringUtils.join(parseResult.getMessages(), ","));
     }
@@ -88,7 +93,7 @@ public class ComplianceController implements InitializingBean {
   }
 
   private OpenAPI loadByYaml(String yaml) {
-    SwaggerParseResult parseResult = ComplianceCheckParser.parseYaml(yaml);
+    SwaggerParseResult parseResult = StyleCheckParser.parseYaml(yaml);
     if (CollectionUtils.isNotEmpty(parseResult.getMessages())) {
       throw new RuntimeException(StringUtils.join(parseResult.getMessages(), ","));
     }

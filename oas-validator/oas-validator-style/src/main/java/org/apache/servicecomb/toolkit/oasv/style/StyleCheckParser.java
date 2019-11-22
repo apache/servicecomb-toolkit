@@ -17,27 +17,28 @@
 
 package org.apache.servicecomb.toolkit.oasv.style;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-
+import io.swagger.v3.parser.OpenAPIV3Parser;
+import io.swagger.v3.parser.core.models.ParseOptions;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
-import io.swagger.v3.parser.util.ClasspathHelper;
 
-public class ComplianceCheckParserTest {
+public abstract class StyleCheckParser {
 
-  @Test
-  public void parseYaml() {
-    String yaml = loadRelative("parser-test.yaml");
-    SwaggerParseResult swaggerParseResult = ComplianceCheckParser.parseYaml(yaml);
-    assertThat(swaggerParseResult).isNotNull();
-    assertThat(swaggerParseResult.getOpenAPI()).isNotNull();
-    assertThat(swaggerParseResult.getMessages()).isEmpty();
+  private StyleCheckParser() {
+    // singleton
   }
 
-  private String loadRelative(String filename) {
-    String basePath = getClass().getPackage().getName().replaceAll("\\.", "/");
-    return ClasspathHelper.loadFileFromClasspath(basePath + "/" + filename);
+  public static SwaggerParseResult parseYaml(String yaml) {
+    OpenAPIV3Parser parser = new OpenAPIV3Parser();
+    return parser.readContents(yaml, null, createParseOptions());
+  }
+
+  private static ParseOptions createParseOptions() {
+
+    ParseOptions parseOptions = new ParseOptions();
+    parseOptions.setResolve(true);
+    parseOptions.setResolveCombinators(false);
+    parseOptions.setResolveFully(false);
+    parseOptions.setFlatten(false);
+    return parseOptions;
   }
 }
