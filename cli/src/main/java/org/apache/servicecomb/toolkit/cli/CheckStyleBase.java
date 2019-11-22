@@ -25,7 +25,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
 import org.apache.servicecomb.toolkit.oasv.common.OasObjectPropertyLocation;
-import org.apache.servicecomb.toolkit.oasv.style.ComplianceCheckParser;
+import org.apache.servicecomb.toolkit.oasv.style.StyleCheckParser;
 import org.apache.servicecomb.toolkit.oasv.style.factory.ValidatorFactoryComponents;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;
@@ -72,7 +72,7 @@ public class CheckStyleBase implements Runnable {
       throw new RuntimeException(e);
     }
 
-    SwaggerParseResult parseResult = ComplianceCheckParser.parseYaml(yaml);
+    SwaggerParseResult parseResult = StyleCheckParser.parseYaml(yaml);
     OpenAPI openAPI = parseResult.getOpenAPI();
     if (openAPI == null) {
       StringJoiner sj = new StringJoiner("\n");
