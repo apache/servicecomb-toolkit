@@ -7,7 +7,7 @@ OpenAPI V3 Spec validation tools.
 * oas-validator-core: core apis and skeletons implementations
 * oas-validator-core-spring: Spring Boot Starter for core skeletons
 * oas-validator-test: test helpers for core api
-* oas-validator-compliance: check style validators
+* oas-validator-style: check style validators
 * oas-validator-compatibility: compatibility validators
 * oas-validator-compatibility-spring: Spring Boot Starter for compatibility validators
 * oas-validator-web: web ui

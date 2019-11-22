@@ -426,7 +426,7 @@ For details, see their respective project links.
 * micrometer-core (io.micrometer:micrometer-core:1.1.4 - https://github.com/micrometer-metrics/micrometer)
 * oas-validator-compatibility (org.apache.servicecomb.toolkit:oas-validator-compatibility:0.2.0-SNAPSHOT - no url defined)
 * oas-validator-compatibility-spring (org.apache.servicecomb.toolkit:oas-validator-compatibility-spring:0.2.0-SNAPSHOT - no url defined)
-* oas-validator-compliance (org.apache.servicecomb.toolkit:oas-validator-compliance:0.2.0-SNAPSHOT - no url defined)
+* oas-validator-style (org.apache.servicecomb.toolkit:oas-validator-style:0.2.0-SNAPSHOT - no url defined)
 * oas-validator-core (org.apache.servicecomb.toolkit:oas-validator-core:0.2.0-SNAPSHOT - no url defined)
 * oas-validator-core-spring (org.apache.servicecomb.toolkit:oas-validator-core-spring:0.2.0-SNAPSHOT - no url defined)
 * oas-validator-test (org.apache.servicecomb.toolkit:oas-validator-test:0.2.0-SNAPSHOT - no url defined)
