@@ -22,7 +22,7 @@ import io.swagger.v3.parser.core.models.SwaggerParseResult;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
-import org.apache.servicecomb.toolkit.oasv.compliance.ComplianceCheckParser;
+import org.apache.servicecomb.toolkit.oasv.style.ComplianceCheckParser;
 import org.apache.servicecomb.toolkit.oasv.util.SyntaxChecker;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasSpecValidator;
 import org.apache.servicecomb.toolkit.oasv.validation.api.OasValidationContext;

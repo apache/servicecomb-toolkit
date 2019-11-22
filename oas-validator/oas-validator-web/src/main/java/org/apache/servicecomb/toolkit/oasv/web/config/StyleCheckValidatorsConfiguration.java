@@ -17,7 +17,7 @@
 
 package org.apache.servicecomb.toolkit.oasv.web.config;
 
-import org.apache.servicecomb.toolkit.oasv.compliance.factory.ValidatorFactoryComponents;
+import org.apache.servicecomb.toolkit.oasv.style.factory.ValidatorFactoryComponents;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 

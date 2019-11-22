@@ -221,7 +221,7 @@
 
       <dependency>
         <groupId>org.apache.servicecomb.toolkit</groupId>
-        <artifactId>oas-validator-compliance</artifactId>
+        <artifactId>oas-validator-style</artifactId>
         <version>${project.version}</version>
       </dependency>
 

@@ -56,7 +56,7 @@
 
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
-      <artifactId>oas-validator-compliance</artifactId>
+      <artifactId>oas-validator-style</artifactId>
     </dependency>
 
     <dependency>
