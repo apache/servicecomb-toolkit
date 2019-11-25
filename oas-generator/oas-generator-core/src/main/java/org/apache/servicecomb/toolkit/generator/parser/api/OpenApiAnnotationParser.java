@@ -36,7 +36,8 @@ public interface OpenApiAnnotationParser {
   void parser(Class<?> cls, OasContext context);
 
   /**
-   * 用于排序, 对于同一个类，同时只能为springmvc或者jaxrs其中一种
+   * Used for sorting
+   * For the same parsing class, only the same programming model can be parsed at the same time.
    * @return
    */
   int getOrder();

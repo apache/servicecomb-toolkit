@@ -75,7 +75,7 @@ public class OasContext implements IExtensionsContext {
       pathItem.operation(HttpMethod.valueOf(operationCtx.getHttpMethod()), operationCtx.toOperation());
     }
 
-    // 如果没有restful资源则返回null
+    // return null if there is no restful resource
     if (openAPI.getPaths() == null || openAPI.getPaths().size() == 0) {
       return null;
     }
