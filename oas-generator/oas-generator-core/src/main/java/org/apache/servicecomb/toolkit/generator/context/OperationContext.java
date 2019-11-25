@@ -107,7 +107,7 @@ public class OperationContext implements IExtensionsContext {
     Content content = new Content();
     MediaType mediaType = new MediaType();
 
-    // 处理参数
+    // process parameter
     List<Parameter> parameterList = parameterContexts.stream()
         .map(parameterContext ->
         {
@@ -164,8 +164,9 @@ public class OperationContext implements IExtensionsContext {
     if (apiResponses == null) {
       return;
     }
-    // 处理响应
-    // 没有注解被处理
+
+    // no annotations are processed
+    // generate a default response based on the method return value
     if (apiResponses.get(HttpStatuses.OK) == null) {
       ApiResponse apiResponse = new ApiResponse();
 

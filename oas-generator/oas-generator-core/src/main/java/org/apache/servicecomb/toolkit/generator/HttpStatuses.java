@@ -19,6 +19,9 @@ package org.apache.servicecomb.toolkit.generator;
 
 public class HttpStatuses {
 
-  public static String OK = "200";
+  /**
+   *  HTTP/1.0 - RFC 1945
+   */
+  public final static String OK = "200";
 
 }
