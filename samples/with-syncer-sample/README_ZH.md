@@ -12,7 +12,7 @@
 
 在通常情况下，他们是无法通过服务注册中心进行相互调用的。这时我们引入了Apache ServiceComb Syncer，这让一切变得简单。开发者A在Provider侧启动一个Syncer进程syncer-a，开发者B在Consumer侧启动一个Syncer进程syncer-b，进行一些简单的配置，它们将会把各自关联的服务注册中心的实例进行相互同步。此时Provider和Consumer就可以通过服务注册中心进行相互通信了。
 
-![toolkit-syncer](https://github.com/kakulisen/picture_repo/blob/master/pratice/toolkit-syncer.png?raw=true)
+![toolkit-syncer](../../images/toolkit-syncer.png)
 
 #### 环境要求
 * windows
