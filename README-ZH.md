@@ -22,7 +22,7 @@ Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
 * 契约与代码一致性校验
 
-  校验应用的实际实现（如数据和服务API）是否与样本服务契约描述一致。
+  校验应用的实际实现（如数据和服务API）是否与样本服务契约描述一致。支持风格校验和兼容性校验,详情请见[OAS Validator](./oas-validator/README-ZH.md)
 
 * 契约/代码生成文档
 
@@ -30,19 +30,19 @@ Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
 * Todo List
 
-  * 支持一键生成以SpringCloud为底座的微服务工程。
-
-  * 支持一键从遗留应用代码生成微服务工程。
-
-  * 支持基于gradle的契约开发插件。
-
-  * 支持插件埋入eclipse。
+  * 支持gradle plugin, eclipse plugin, intellij plugin。
 
   * 支持word、pdf等流行格式文档。
 
   * 支持契约增量生成代码。
 
   * 工具能力服务化。
+    
+  * Server端自动/半自动测试
+    
+  * Interface匹配性校验
+  
+  * 支持生成包含连接Mysql/Redis等常见DB的代码片段的微服务脚手架
 
 ### 1.3 适用场景
 
@@ -82,7 +82,7 @@ $ git clone https://github.com/apache/servicecomb-toolkit.git
 $ cd toolkit
 
 # 构建打包
-$ mvn clean install
+$ mvn clean install -DskipTests
 ```
 
 
