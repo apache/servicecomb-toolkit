@@ -22,27 +22,27 @@ Apache ServiceComb Toolkit is a contract-based microservice development toolkit
 
 * Service contract and code consistency check
 
-  Verify that the actual implementation of the application (such as the data and service API) is consistent with the agreed service contract description.
+  Verify that the actual implementation of the application (such as the data and service API) is consistent with the agreed service contract description. Support style check and compatibility check. See details [oas-validator](./oas-validator/README.md)
 
 * Service contract/code generation document
 
   Enter a service contract that conforms to the OpenAPI specification, one-click generation of a document in html format.
 
 * Todo List
-
-  * Support contract one-click production microservice engineering based on popular microservice framework such as SpringCloud.
-
-  * Support one-click generation of micro-service engineering from legacy application code
-
-  * Support gradle-based contract development plugin.
-
-  * Support plugins to embed eclipse.
+  
+  * Support gradle plugin, eclipse plugin, intellij plugin.
 
   * Support for generating popular format documents such as word, pdf.
 
   * Support contract incremental generation code.
 
-  * make capability as a service.
+  * Make capability as a service.
+  
+  * Server-side automatic / semi-automatic test
+  
+  * Interface matching check
+  
+  * Support for generating microservice scaffolding containing code snippets that connect to common DBs such as Mysql / Redis
 
 ### 1.3 Applicable Scene
 
