@@ -32,9 +32,11 @@ cache:
   - "$HOME/.m2"
 
 language: java
-
-install: true
 jdk:
 - openjdk8
-
-script: ./scripts/test.sh
+jobs:
+  include:
+  - stage: Test
+    script: ./scripts/test.sh
+  - stage: Deploy on
+    script: if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then bash ./scripts/deploy.sh; fi
