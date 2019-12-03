@@ -25,6 +25,107 @@
   <artifactId>apache-servicecomb-toolkit-distribution</artifactId>
   <name>Toolkit::Distribution</name>
   <packaging>pom</packaging>
+
+  <!-- sort by project directory name, easy to check if the module is missed -->
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>cli</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>codegen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>contractgen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>docgen</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-core-spring</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-test</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-style</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compatibility</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-validator-compatibility-spring</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-servicecomb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-jaxrs</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.servicecomb.toolkit</groupId>
+      <artifactId>oas-generator-spring</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+  </dependencies>
+
   <profiles>
     <profile>
       <id>release</id>
@@ -42,6 +143,18 @@
                 <configuration>
                   <descriptors>
                     <descriptor>src/assembly/src.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+              <execution>
+                <id>bin</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/assembly/bin.xml</descriptor>
                   </descriptors>
                 </configuration>
               </execution>
