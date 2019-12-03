@@ -36,7 +36,7 @@ import static java.util.Collections.singletonList;
  * size validator
  * <ul>
  *   <li>config item: openAPI.tags.size.gte=expected</li>
- *   <li>size should be >= *expected*</li>
+ *   <li>size should be &gt;= *expected*</li>
  * </ul>
  */
 public class OpenApiTagsSizeGteValidator implements OpenApiValidator {
