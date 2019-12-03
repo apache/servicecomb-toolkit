@@ -31,7 +31,7 @@ import static java.util.Collections.singletonList;
  * .openapi property validator
  <ul>
  *   <li>config item: openAPI.openapi.gte=expected</li>
- *   <li>version should be >= *expected*</li>
+ *   <li>version should be &gt;= *expected*</li>
  * </ul>
  */
 public class OpenApiVersionGteValidator implements OpenApiValidator {

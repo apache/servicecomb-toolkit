@@ -34,7 +34,7 @@ import static java.util.Collections.singletonList;
 import static org.apache.commons.lang3.ObjectUtils.defaultIfNull;
 
 /**
- * Parameter.required only allow change true->false
+ * Parameter.required only allow change true-&gt;false
  */
 public class ParameterRequiredChangeDiffValidator
   extends OasObjectDiffValidatorTemplate<Parameter>
