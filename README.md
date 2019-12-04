@@ -22,7 +22,11 @@ Apache ServiceComb Toolkit is a contract-based microservice development toolkit
 
 * Service contract and code consistency check
 
-  Verify that the actual implementation of the application (such as the data and service API) is consistent with the agreed service contract description. Support style check and compatibility check. See details [oas-validator](./oas-validator/README.md)
+  Verify that the actual implementation of the application (such as the data and service API) is consistent with the agreed service contract description.
+
+* Service contract style checking and compatibility checking
+
+  The style checking checks whether the contract conforms to [OAS 3.0.2 specification] [openapi-3.0.2] and custom rules; the compatibility checking checks whether new OAS spec compatible with old spec
 
 * Service contract/code generation document
 
