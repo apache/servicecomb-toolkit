@@ -309,7 +309,7 @@ You can find a copy of the License at licenses/LICENSE-cal10n
 
 ===========================================================================
 This product bundles of asm which is licensed under BSD 3-Clause License
-For details, see https://github.com/hamcrest/JavaHamcrest/blob/master/LICENSE.txt
+For details, see https://asm.ow2.io/license.html 
 You can find a copy of the License at licenses/LICENSE-asm
 
 * asm (org.ow2.asm:asm:7.2 - http://asm.ow2.io/)
@@ -319,10 +319,13 @@ This product bundles the following libraries which are licensed
 under the Apache License v2.
 For details, see their respective project links.
 
+* airline (io.airlift:airline:0.7 - https://github.com/airlift/airline)
 * A Jackson 2.x helper (com.github.jknack:handlebars-jackson2:4.1.2 - https://github.com/jknack/handlebars.java/handlebars-jackson2)
 * ASM based accessors helper used by json-smart (net.minidev:accessors-smart:1.2 - http://www.minidev.net/)
 * Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
 * Apache Commons Collections (org.apache.commons:commons-collections4:4.3 - http://commons.apache.org/proper/commons-collections/)
+* Apache Commons Compress (org.apache.commons:commons-compress:1.16.1 - http://commons.apache.org/proper/commons-compress/)
+* Apache Commons Configuration (commons-configuration:commons-configuration:1.10 - http://commons.apache.org/configuration/)
 * Apache Commons Lang (org.apache.commons:commons-lang3:3.4 - http://commons.apache.org/proper/commons-lang/)
 * Apache Commons Lang (org.apache.commons:commons-lang3:3.8.1 - http://commons.apache.org/proper/commons-lang/)
 * Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
@@ -335,7 +338,6 @@ For details, see their respective project links.
 * Apache Log4j SLF4J Binding (org.apache.logging.log4j:log4j-slf4j-impl:2.11.0 - https://logging.apache.org/log4j/2.x/log4j-slf4j-impl/)
 * Apache Log4j to SLF4J Adapter (org.apache.logging.log4j:log4j-to-slf4j:2.11.2 - https://logging.apache.org/log4j/2.x/log4j-to-slf4j/)
 * AssertJ fluent assertions (org.assertj:assertj-core:3.11.1 - http://assertj.org/assertj-core)
-* Bean Validation API (javax.validation:validation-api:1.1.0.Final - http://beanvalidation.org)
 * Bean Validation API (javax.validation:validation-api:2.0.1.Final - http://beanvalidation.org)
 * Bootstrap (org.webjars:bootstrap:4.3.1 - http://webjars.org)
 * Byte Buddy (without dependencies) (net.bytebuddy:byte-buddy:1.9.3 - http://bytebuddy.net/byte-buddy)
@@ -454,6 +456,7 @@ For details, see their respective project links.
 * swagger-parser (io.swagger:swagger-parser:1.0.44 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
 * swagger-parser (org.openapitools.swagger.parser:swagger-parser-core:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-core)
 * swagger-parser (org.openapitools.swagger.parser:swagger-parser:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
+* swagger-parser (org.openapitools.swagger.parser:swagger-parser-core:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-core)
 * swagger-parser-v2-converter (io.swagger.parser.v3:swagger-parser-v2-converter:2.0.12 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v2-converter)
 * swagger-parser-v2-converter (org.openapitools.swagger.parser:swagger-parser-v2-converter:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v2-converter)
 * swagger-parser-v3 (io.swagger.parser.v3:swagger-parser-v3:2.0.12 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v3)
@@ -465,6 +468,8 @@ For details, see their respective project links.
 * tomcat-embed-el (org.apache.tomcat.embed:tomcat-embed-el:9.0.17 - https://tomcat.apache.org/)
 * tomcat-embed-websocket (org.apache.tomcat.embed:tomcat-embed-websocket:9.0.17 - https://tomcat.apache.org/)
 * unbescape (org.unbescape:unbescape:1.1.6.RELEASE - http://www.unbescape.org)
+* Woodstox (com.fasterxml.woodstox:woodstox-core:5.0.3 - https://github.com/FasterXML/woodstox)
+* archaius-core (com.netflix.archaius:archaius-core:0.7.3 - https://github.com/Netflix/archaius)
 
 ===========================================================================
 This product bundles Webjars which is licensed under the
@@ -533,3 +538,24 @@ For details, see http://asm.objectweb.org/asm/
 You can find a copy of the License at licenses/LICENSE-asm
 
 * ASM Core (org.ow2.asm:asm:5.0.4 - http://asm.objectweb.org/asm/)
+
+===========================================================================
+This product bundles jmustache which is licensed under The (New) BSD License.
+For details, see http://github.com/samskivert/jmustache
+You can find a copy of the License at licenses/LICENSE-jmustache
+
+* jmustache (com.samskivert:jmustache:1.14 - http://github.com/samskivert/jmustache)
+
+===========================================================================
+This product bundles JSch which is licensed under Revised BSD.
+For details, see http://www.jcraft.com/jsch/
+You can find a copy of the License at licenses/LICENSE-jsch
+
+* JSch (com.jcraft:jsch:0.1.54 - http://www.jcraft.com/jsch/)
+
+===========================================================================
+This product bundles JZlib which is licensed under Revised BSD.
+For details, see http://www.jcraft.com/jzlib/
+You can find a copy of the License at licenses/LICENSE-jzlib
+
+* JZlib (com.jcraft:jzlib:1.1.1 - http://www.jcraft.com/jzlib/)
