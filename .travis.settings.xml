@@ -23,10 +23,5 @@
       <username>${env.SONATYPE_USERNAME}</username>
       <password>${env.SONATYPE_PASSWORD}</password>
     </server>
-    <server>
-      <id>apache.releases.https</id>
-      <username>${env.SONATYPE_USERNAME}</username>
-      <password>${env.SONATYPE_PASSWORD}</password>
-    </server>
   </servers>
 </settings>
