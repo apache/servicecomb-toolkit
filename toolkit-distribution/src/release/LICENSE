@@ -545,14 +545,14 @@ You can find a copy of the License at licenses/LICENSE-jmustache
 
 ===========================================================================
 This product bundles JSch which is licensed under Revised BSD.
-For details, see http://www.jcraft.com/jsch/
+For details, see http://www.jcraft.com/jsch/LICENSE.txt
 You can find a copy of the License at licenses/LICENSE-jsch
 
 * JSch (com.jcraft:jsch:0.1.54 - http://www.jcraft.com/jsch/)
 
 ===========================================================================
 This product bundles JZlib which is licensed under Revised BSD.
-For details, see http://www.jcraft.com/jzlib/
+For details, see http://www.jcraft.com/jzlib/LICENSE.txt
 You can find a copy of the License at licenses/LICENSE-jzlib
 
 * JZlib (com.jcraft:jzlib:1.1.1 - http://www.jcraft.com/jzlib/)
