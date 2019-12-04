@@ -319,7 +319,6 @@ This product bundles the following libraries which are licensed
 under the Apache License v2.
 For details, see their respective project links.
 
-* airline (io.airlift:airline:0.7 - https://github.com/airlift/airline)
 * A Jackson 2.x helper (com.github.jknack:handlebars-jackson2:4.1.2 - https://github.com/jknack/handlebars.java/handlebars-jackson2)
 * ASM based accessors helper used by json-smart (net.minidev:accessors-smart:1.2 - http://www.minidev.net/)
 * Apache Commons Codec (commons-codec:commons-codec:1.9 - http://commons.apache.org/proper/commons-codec/)
@@ -456,7 +455,6 @@ For details, see their respective project links.
 * swagger-parser (io.swagger:swagger-parser:1.0.44 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
 * swagger-parser (org.openapitools.swagger.parser:swagger-parser-core:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-core)
 * swagger-parser (org.openapitools.swagger.parser:swagger-parser:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser)
-* swagger-parser (org.openapitools.swagger.parser:swagger-parser-core:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-core)
 * swagger-parser-v2-converter (io.swagger.parser.v3:swagger-parser-v2-converter:2.0.12 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v2-converter)
 * swagger-parser-v2-converter (org.openapitools.swagger.parser:swagger-parser-v2-converter:2.0.14-OpenAPITools.org-1 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v2-converter)
 * swagger-parser-v3 (io.swagger.parser.v3:swagger-parser-v3:2.0.12 - http://nexus.sonatype.org/oss-repository-hosting.html/swagger-parser-project/modules/swagger-parser-v3)
@@ -468,7 +466,6 @@ For details, see their respective project links.
 * tomcat-embed-el (org.apache.tomcat.embed:tomcat-embed-el:9.0.17 - https://tomcat.apache.org/)
 * tomcat-embed-websocket (org.apache.tomcat.embed:tomcat-embed-websocket:9.0.17 - https://tomcat.apache.org/)
 * unbescape (org.unbescape:unbescape:1.1.6.RELEASE - http://www.unbescape.org)
-* Woodstox (com.fasterxml.woodstox:woodstox-core:5.0.3 - https://github.com/FasterXML/woodstox)
 * archaius-core (com.netflix.archaius:archaius-core:0.7.3 - https://github.com/Netflix/archaius)
 
 ===========================================================================
