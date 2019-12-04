@@ -22,8 +22,12 @@ Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件
 
 * 契约与代码一致性校验
 
-  校验应用的实际实现（如数据和服务API）是否与样本服务契约描述一致。支持风格校验和兼容性校验,详情请见[OAS Validator](./oas-validator/README-ZH.md)
+  校验应用的实际实现（如数据和服务API）是否与样本服务契约描述一致。
 
+* 契约的风格校验和兼容性校验
+
+  风格校验检查契约是否符合[OAS 3.0.2规范][openapi-3.0.2]以及自定义的规则; 兼容性校验检查新旧两个版本的OAS的兼容性 
+  
 * 契约/代码生成文档
 
   输入符合OpenAPI规范的服务契约，一键生成html格式的文档。
@@ -82,7 +86,7 @@ $ git clone https://github.com/apache/servicecomb-toolkit.git
 $ cd toolkit
 
 # 构建打包
-$ mvn clean install -DskipTests
+$ mvn clean install
 ```
 
 
