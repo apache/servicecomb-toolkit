@@ -97,7 +97,7 @@ $ mvn clean install
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
@@ -153,7 +153,7 @@ mvn toolkit:verify
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>
@@ -187,7 +187,7 @@ mvn toolkit:generate
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>contract</sourceType>
@@ -217,7 +217,7 @@ mvn toolkit:generate
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code -->
         <sourceType>code</sourceType>

@@ -95,7 +95,7 @@ Configured in the pom file of the maven project
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>
@@ -146,7 +146,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>
@@ -181,7 +181,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>contract</sourceType>
@@ -212,7 +212,7 @@ example
 <plugin>
     <groupId>org.apache.servicecomb.toolkit</groupId>
     <artifactId>toolkit-maven-plugin</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
     <configuration>
         <!-- Set to 'code' to resolve the current project. Set to 'contract' to resolve the contract file for the specified path.If not set, the default is 'code' -->
         <sourceType>code</sourceType>
