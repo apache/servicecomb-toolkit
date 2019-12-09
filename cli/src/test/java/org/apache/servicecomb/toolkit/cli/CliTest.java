@@ -18,7 +18,9 @@
 package org.apache.servicecomb.toolkit.cli;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +29,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class CliTest {
+  @Rule
+  public final ExpectedSystemExit exit = ExpectedSystemExit.none();
 
   @Test
   public void testGenerateServiceCombCodeFromSingleContract() throws IOException {
@@ -93,6 +97,7 @@ public class CliTest {
 
   @Test
   public void testCheckStyle() throws IOException {
+    exit.expectSystemExitWithStatus(1);
     String[] args = new String[] {
         "checkstyle",
         "-r",
@@ -105,6 +110,7 @@ public class CliTest {
 
   @Test
   public void testCheckStyleAbbr() throws IOException {
+    exit.expectSystemExitWithStatus(1);
     String[] args = new String[] {
         "cs",
         "-r",
@@ -117,6 +123,7 @@ public class CliTest {
 
   @Test
   public void testCheckCompatibility() throws IOException {
+    exit.expectSystemExitWithStatus(1);
     String[] args = new String[] {
         "checkcompatibility",
         Paths.get("./src/test/resources/oas/compatibility-left.yaml").toFile().getCanonicalPath(),
@@ -127,6 +134,7 @@ public class CliTest {
 
   @Test
   public void testCheckCompatibilityAbbr() throws IOException {
+    exit.expectSystemExitWithStatus(1);
     String[] args = new String[] {
         "cc",
         Paths.get("./src/test/resources/oas/compatibility-left.yaml").toFile().getCanonicalPath(),

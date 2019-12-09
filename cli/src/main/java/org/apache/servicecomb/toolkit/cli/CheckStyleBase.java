@@ -21,6 +21,13 @@ import com.google.common.base.Charsets;
 import io.airlift.airline.Option;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.parser.core.models.SwaggerParseResult;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Properties;
+import java.util.StringJoiner;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.servicecomb.toolkit.oasv.FactoryOptions;
@@ -35,13 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Properties;
-import java.util.StringJoiner;
 
 public class CheckStyleBase implements Runnable {
 
@@ -92,7 +92,7 @@ public class CheckStyleBase implements Runnable {
         LOGGER.info("path  : {}\nerror : {}\n------",
             OasObjectPropertyLocation.toPathString(violation.getLocation()), violation.getError());
       }
-      return;
+      throw new ValidationFailedException("check not passed");
     }
     LOGGER.info("Everything is good");
   }

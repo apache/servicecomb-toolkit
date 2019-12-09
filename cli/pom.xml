@@ -31,7 +31,7 @@
 
   <properties>
     <main.class>org.apache.servicecomb.toolkit.cli.ToolkitMain</main.class>
-    
+
   </properties>
 
   <dependencies>
@@ -85,6 +85,12 @@
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-compatibility</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.stefanbirkner</groupId>
+      <artifactId>system-rules</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 
