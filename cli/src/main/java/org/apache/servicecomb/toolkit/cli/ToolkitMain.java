@@ -43,9 +43,13 @@ public class ToolkitMain {
         CheckCompatibility.class, CheckCompatibilityAbbr.class,
         Help.class
     );
-    Runnable cmd = builder.build().parse(args);
+    try {
+      Runnable cmd = builder.build().parse(args);
 
-    cmd.run();
+      cmd.run();
+    } catch (CommandFailedException | ValidationFailedException ex) {
+      System.exit(1);
+    }
   }
 
   private static void initialProjectVersion() {
