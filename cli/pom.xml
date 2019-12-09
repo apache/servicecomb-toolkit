@@ -86,6 +86,14 @@
       <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-compatibility</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.stefanbirkner</groupId>
+      <artifactId>system-rules</artifactId>
+      <version>1.19.0</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>

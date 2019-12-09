@@ -80,7 +80,7 @@ public class CheckCompatibilityBase implements Runnable {
             violation.getError()
         );
       }
-      return;
+      throw new ValidationFailedException("check not passed");
     }
     LOGGER.info("Everything is good");
   }
