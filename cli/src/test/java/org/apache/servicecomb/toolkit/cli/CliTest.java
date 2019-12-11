@@ -28,6 +28,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 
+import org.apache.commons.io.FileUtils;
+
 public class CliTest {
   @Rule
   public final ExpectedSystemExit exit = ExpectedSystemExit.none();
@@ -55,7 +57,7 @@ public class CliTest {
         Assert.assertTrue(!Files.exists(tempFile));
         ToolkitMain.main(args);
         Assert.assertTrue(Files.exists(tempFile));
-        Assert.assertTrue(Files.size(tempFile) > 0);
+        Assert.assertTrue(FileUtils.sizeOfDirectory(tempFile.toFile()) > 0);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -90,7 +92,7 @@ public class CliTest {
     ToolkitMain.main(args);
 
     Assert.assertTrue(Files.exists(tempFile));
-    Assert.assertTrue(Files.size(tempFile) > 0);
+    Assert.assertTrue(FileUtils.sizeOfDirectory(tempFile.toFile()) > 0);
 
     tempDir.toFile().deleteOnExit();
   }
@@ -142,6 +144,4 @@ public class CliTest {
     };
     ToolkitMain.main(args);
   }
-
-
 }
