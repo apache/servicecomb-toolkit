@@ -17,12 +17,23 @@
 ## ---------------------------------------------------------------------------
 #bin/sh
 
-echo "Deploy a Non-Signed Staging Release"
-mvn deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B -DskipTests --settings .travis.settings.xml
-if [ $? == 0 ]; then
-	echo "${green}Snapshot Deployment is Success, please log on to Nexus Repo to see the snapshot release..${reset}"
+TAGGEDCOMMIT=$(git tag -l --contains HEAD)
+if [ "$TAGGEDCOMMIT" == "" ]; then
+  TAGGEDCOMMIT=false
 else
-	echo "${red}Snapshot deployment failed.${reset}"
+  TAGGEDCOMMIT=true
 fi
-
-echo "Deployment Completed"
+echo "${green}[SCRIPT] TAGGEDCOMMIT=$TAGGEDCOMMIT${reset}"
+VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+if [[ "$TAGGEDCOMMIT" == "true" ]] || [[ ! $VERSION =~ "SNAPSHOT" ]]; then
+  echo "${green}[SCRIPT] Skipping the Non-Signed Staging deploy as it is tagged commit.${reset}"
+else
+  echo "Deploy a Non-Signed Staging Release"
+  mvn deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B -DskipTests --settings .travis.settings.xml
+  if [ $? == 0 ]; then
+        echo "${green}Snapshot Deployment is Success, please log on to Nexus Repo to see the snapshot release..${reset}"
+  else
+        echo "${red}Snapshot deployment failed.${reset}"
+  fi
+  echo "Deployment Completed"
+fi
