@@ -234,13 +234,14 @@ mvn toolkit:verify
 
 
 ### 3.3 使用toolkit cli工具
-可执行jar包位于toolkit/cli/target/bin目录下
+* 如果你使用的是正式发布版本（>=0.2.0）,可以在解压二进制包后直接使用cli.sh  
+* 如果你是通过源码构建，可以将`cli/scripts/cli.sh`与`cli/target/bin/toolkit-cli-{version}.jar`放置在同一目录，然后使用cli.sh
 ```shell
-$ java -jar toolkit-cli-{version}.jar help
+$ ./cli.sh help
 ```
 #### 3.3.1 契约生成微服务工程
 ```shell
-$ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
+$ ./cli.sh  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
 > **codegenerate** 命令选项说明:
 * -m, --microservice-framework : 指定微服务框架,现支持ServiceComb  
@@ -266,7 +267,7 @@ $ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.ya
 
 #### 3.3.2 契约生成文档
 ```shell
-$ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
+$ ./cli.sh docgenerate -i swagger.yaml -o ./document
 ```
 > **docgenerate** 命令选项说明:
 * -i, --input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件  
@@ -279,9 +280,9 @@ $ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
 #### 3.3.3 契约风格检查
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle -r style-check-rules.yaml -f oas.yaml
+$ ./cli.sh checkstyle -r style-check-rules.yaml -f oas.yaml
 or
-$ java -jar toolkit-cli-{version}.jar cs -r style-check-rules.yaml -f oas.yaml
+$ ./cli.sh cs -r style-check-rules.yaml -f oas.yaml
 ```
 
 > **checkstyle** Command argument
@@ -293,9 +294,9 @@ $ java -jar toolkit-cli-{version}.jar cs -r style-check-rules.yaml -f oas.yaml
 #### 3.3.4 契约兼容性检查
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkcompatibility left-oas.yaml right-oas.yaml
+$ ./cli.sh checkcompatibility left-oas.yaml right-oas.yaml
 或者
-$ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
+$ ./cli.sh cc left-oas.yaml right-oas.yaml
 ```
 
 > **checkcompatibility** Command argument
