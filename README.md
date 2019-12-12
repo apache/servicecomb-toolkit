@@ -229,13 +229,14 @@ mvn toolkit:verify
 
 
 ### 3.3 Use the toolkit cli
-The executable jar package is located in the toolkit/cli/target/bin directory
+* If you are using the official release version ( >=0.2.0 ), you can use cli.sh directly after decompressing the binary package   
+* If you are building from source, you can put `cli/scripts/cli.sh` in the same directory as`cli/target/bin/toolkit-cli-{version}.jar` and then use cli.sh
 ```shell
-$ java -jar toolkit-cli-{version}.jar help
+$ ./cli.sh help
 ```
 #### 3.3.1 Service contract generation microservice project
 ```shell
-$ java -jar toolkit-cli-{version}.jar  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
+$ ./cli.sh codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMVC
 ```
 > **codegenerate** Command option
 * -m, --microservice-framework. Specify microservices framework, now supports ServiceComb.  
@@ -261,7 +262,7 @@ e.g.：--service-type provider
 
 #### 3.3.2 Service contract generation document
 ```shell
-$ java -jar toolkit-cli-{version}.jar docgenerate -i swagger.yaml -o ./document
+$ ./cli.sh docgenerate -i swagger.yaml -o ./document
 ```
 > **docgenerate** Command option
 * -i, --input. Specifies contract files that follow the OpenAPI specification, supports yaml and json formats, and supports specifying local and network files.
@@ -274,9 +275,9 @@ e.g：-f swagger-ui
 #### 3.3.3 Service contract style checking
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkstyle -r style-check-rules.yaml -f oas.yaml
+$ ./cli.sh checkstyle -r style-check-rules.yaml -f oas.yaml
 or
-$ java -jar toolkit-cli-{version}.jar cs -r style-check-rules.yaml -f oas.yaml
+$ ./cli.sh cs -r style-check-rules.yaml -f oas.yaml
 ```
 
 > **checkstyle** Command argument
@@ -288,9 +289,9 @@ See [style check rules](oas-validator/README.md)
 #### 3.3.4 Service contract compatibility checking
 
 ```shell
-$ java -jar toolkit-cli-{version}.jar checkcompatibility left-oas.yaml right-oas.yaml
+$ ./cli.sh checkcompatibility left-oas.yaml right-oas.yaml
 or
-$ java -jar toolkit-cli-{version}.jar cc left-oas.yaml right-oas.yaml
+$ ./cli.sh cc left-oas.yaml right-oas.yaml
 ```
 
 > **checkcompatibility** Command argument

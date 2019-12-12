@@ -42,6 +42,14 @@
         <include>licenses/**</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <directory>../cli/scripts</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>cli.sh</include>
+        <include>cli.cmd</include>
+      </includes>
+    </fileSet>
   </fileSets>
   <dependencySets>
     <dependencySet>
