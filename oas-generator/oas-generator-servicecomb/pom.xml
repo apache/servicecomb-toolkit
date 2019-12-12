@@ -59,6 +59,26 @@
           <groupId>io.zipkin.brave</groupId>
           <artifactId>*</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>io.vertx</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>foundation-vertx</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>foundation-ssl</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>foundation-config</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>deployment</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
     
