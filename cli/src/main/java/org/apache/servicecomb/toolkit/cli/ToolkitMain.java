@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Properties;
 
+import org.apache.commons.lang3.StringUtils;
+
 import io.airlift.airline.Cli;
 import io.airlift.airline.Help;
 
@@ -33,7 +35,14 @@ public class ToolkitMain {
 
     initialProjectVersion();
 
-    Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("cli.sh");
+    String scriptName = System.getProperty("script.name");
+    Cli.CliBuilder<Runnable> builder = null;
+    if (StringUtils.isNotEmpty(scriptName)) {
+      builder = Cli.builder(scriptName);
+    } else {
+      builder = Cli.builder("java -jar toolkit-cli-" + projectVersion + ".jar");
+    }
+
     builder.withDescription("Microservice development toolkit(version " + projectVersion
         + "). ");
     builder.withDefaultCommand(Help.class);

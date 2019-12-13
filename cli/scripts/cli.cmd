@@ -55,7 +55,7 @@ if "%allparam:~-1%"==" " set "allparam=%allparam:~0,-1%"&goto intercept_right
 
 :eof
 
-java -jar %jarFile% %allparam%
+java -Dscript.name="cli.cmd" -jar %jarFile% %allparam%
 exit /B %SUCCESS_CODE%
 
 :JAVA_HOME_ERROR

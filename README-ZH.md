@@ -234,8 +234,15 @@ mvn toolkit:verify
 
 
 ### 3.3 使用toolkit cli工具
-* 如果你使用的是正式发布版本（>=0.2.0）,可以在解压二进制包后直接使用cli.sh  
-* 如果你是通过源码构建，可以将`cli/scripts/cli.sh`与`cli/target/bin/toolkit-cli-{version}.jar`放置在同一目录，然后使用cli.sh
+
+#### 3.3.0 获取
+* 如果你使用的是正式发布版本（>=0.2.0）,可以在解压二进制包后直接使用里面的脚本文件
+  * 在Linux及Mac环境，请使用cli.sh  
+  * 在Windows环境，请使用cli.cmd
+  
+* 如果你是通过源码构建，可以将`cli/scripts/cli.*`与`cli/target/bin/toolkit-cli-{version}.jar`放置在同一目录，然后根据不同环境选择不同脚本
+
+以下所有示例均通过Linux环境的cli.sh进行介绍
 ```shell
 $ ./cli.sh help
 ```

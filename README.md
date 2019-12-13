@@ -229,8 +229,12 @@ mvn toolkit:verify
 
 
 ### 3.3 Use the toolkit cli
-* If you are using the official release version ( >=0.2.0 ), you can use cli.sh directly after decompressing the binary package   
-* If you are building from source, you can put `cli/scripts/cli.sh` in the same directory as`cli/target/bin/toolkit-cli-{version}.jar` and then use cli.sh
+* If you are using the official release version ( >=0.2.0 ), you can use the script files directly after decompressing the binary package
+  * In Linux and Mac environment, please use cli.sh
+  * In the Windows environment, please use cli.cmd
+* If you are building from source, you can put `cli/scripts/cli.*` in the same directory as`cli/target/bin/toolkit-cli-{version}.jar` and then choose different scripts according to different environments
+
+All the examples below are introduced through cli.sh for Linux environment
 ```shell
 $ ./cli.sh help
 ```
