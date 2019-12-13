@@ -47,4 +47,4 @@ if [[ ! -f ${jarFile} ]]; then
  exit 1
 fi
 
-java -jar ${jarFile} $*
+java -Dscript.name="cli.sh" -jar ${jarFile} $*
