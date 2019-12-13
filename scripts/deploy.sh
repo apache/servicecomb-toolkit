@@ -17,16 +17,9 @@
 ## ---------------------------------------------------------------------------
 #bin/sh
 
-TAGGEDCOMMIT=$(git tag -l --contains HEAD)
-if [ "$TAGGEDCOMMIT" == "" ]; then
-  TAGGEDCOMMIT=false
-else
-  TAGGEDCOMMIT=true
-fi
-echo "${green}[SCRIPT] TAGGEDCOMMIT=$TAGGEDCOMMIT${reset}"
 VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-if [[ "$TAGGEDCOMMIT" == "true" ]] || [[ ! $VERSION =~ "SNAPSHOT" ]]; then
-  echo "${green}[SCRIPT] Skipping the Non-Signed Staging deploy as it is tagged commit.${reset}"
+if [[ ! $VERSION =~ "SNAPSHOT" ]]; then
+  echo "${green}[SCRIPT] Not Snapshot Version,Skipping Deployment.${reset}"
 else
   echo "Deploy a Non-Signed Staging Release"
   mvn deploy -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -B -DskipTests --settings .travis.settings.xml
