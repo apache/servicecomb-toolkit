@@ -33,7 +33,7 @@ public class ToolkitMain {
 
     initialProjectVersion();
 
-    Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("java -jar toolkit-cli-" + projectVersion + ".jar");
+    Cli.CliBuilder<Runnable> builder = Cli.<Runnable>builder("cli.sh");
     builder.withDescription("Microservice development toolkit(version " + projectVersion
         + "). ");
     builder.withDefaultCommand(Help.class);

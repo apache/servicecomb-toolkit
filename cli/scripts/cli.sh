@@ -24,7 +24,20 @@ if [ -z "$JAVA_HOME" -o ! -f "$JAVA_HOME/bin/java" ]; then
   exit 1
 fi
 
-shellDir=$(dirname $(readlink -f "$0"))
+# resolve links - $0 may be a softlink
+PRG="$0"
+
+while [ -h "$PRG" ] ; do
+  ls=`ls -ld "$PRG"`
+  link=`expr "$ls" : '.*-> \(.*\)$'`
+  if expr "$link" : '/.*' > /dev/null; then
+    PRG="$link"
+  else
+    PRG=`dirname "$PRG"`/"$link"
+  fi
+done
+
+shellDir=`dirname "$PRG"`
 
 # check if jar file exist
 jarFile=$(find ${shellDir} -name "cli-*.jar" | head -n 1)
