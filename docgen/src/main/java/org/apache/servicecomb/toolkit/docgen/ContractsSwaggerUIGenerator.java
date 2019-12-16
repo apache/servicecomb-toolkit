@@ -50,7 +50,7 @@ public class ContractsSwaggerUIGenerator implements DocGenerator {
   @Override
 
   public boolean canProcess(String type) {
-    return "default".equals(type);
+    return "default".equals(type) || "swagger-ui".equals(type);
   }
 
   @Override

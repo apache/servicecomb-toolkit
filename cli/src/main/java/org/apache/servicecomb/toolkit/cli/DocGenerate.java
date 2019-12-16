@@ -19,7 +19,6 @@ package org.apache.servicecomb.toolkit.cli;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,14 +28,16 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.servicecomb.swagger.SwaggerUtils;
-import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.DocGenerator;
+import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
+import io.swagger.parser.OpenAPIParser;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.core.models.SwaggerParseResult;
 
 @Command(name = "docgenerate", description = "Generate document by OpenAPI specification file")
 public class DocGenerate implements Runnable {
@@ -50,7 +51,7 @@ public class DocGenerate implements Runnable {
 
   @Option(name = {"-f", "--format"}, title = "document format", required = false,
       description = "format of document, as swagger-ui or asciidoc-html (swagger-ui by default)")
-  private String format = "html";
+  private String format = "swagger-ui";
 
   @Option(name = {"-o", "--output"}, title = "output directory",
       description = "location of the generated document (current dir by default)")
@@ -73,7 +74,7 @@ public class DocGenerate implements Runnable {
           @Override
           public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
 
-            docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(file.toUri().toURL()));
+            docGeneratorConfig.put("contractContent", parseOpenApi(specPath));
             docGeneratorConfig.put("outputPath",
                 output + File.separator + file.toFile().getName().substring(0, file.toFile().getName().indexOf(".")));
             docGenerator.configure(docGeneratorConfig);
@@ -85,7 +86,7 @@ public class DocGenerate implements Runnable {
       } else if (Files.isRegularFile(specPath)) {
         fileName[0] = specPath.toFile().getName();
 
-        docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(specPath.toUri().toURL()));
+        docGeneratorConfig.put("contractContent", parseOpenApi(specPath));
         docGeneratorConfig.put("outputPath", output + File.separator + new File(specFile).getName()
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
@@ -93,7 +94,7 @@ public class DocGenerate implements Runnable {
       } else {
         fileName[0] = specFile;
 
-        docGeneratorConfig.put("contractContent", SwaggerUtils.parseSwagger(URI.create(specFile).toURL()));
+        docGeneratorConfig.put("contractContent", parseOpenApi(specPath));
         docGeneratorConfig.put("outputPath", output + File.separator + new File(specFile).getName()
             .substring(0, new File(specFile).getName().indexOf(".")));
         docGenerator.configure(docGeneratorConfig);
@@ -104,5 +105,12 @@ public class DocGenerate implements Runnable {
     } catch (IOException e) {
       LOGGER.error(e.getMessage());
     }
+  }
+
+  public OpenAPI parseOpenApi(Path file) {
+    SwaggerParseResult swaggerParseResult = new OpenAPIParser()
+        .readLocation(file.toString(), null, null);
+    OpenAPI openAPI = swaggerParseResult.getOpenAPI();
+    return openAPI;
   }
 }

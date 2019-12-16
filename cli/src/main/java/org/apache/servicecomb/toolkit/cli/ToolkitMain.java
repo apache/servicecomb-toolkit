@@ -40,7 +40,7 @@ public class ToolkitMain {
     if (StringUtils.isNotEmpty(scriptName)) {
       builder = Cli.builder(scriptName);
     } else {
-      builder = Cli.builder("java -jar toolkit-cli-" + projectVersion + ".jar");
+      builder = Cli.builder("java -jar cli-" + projectVersion + ".jar");
     }
 
     builder.withDescription("Microservice development toolkit(version " + projectVersion
