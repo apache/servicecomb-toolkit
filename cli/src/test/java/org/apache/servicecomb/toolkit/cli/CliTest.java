@@ -52,7 +52,9 @@ public class CliTest {
             "-o",
             tempFile.toFile().getCanonicalPath(),
             "-p",
-            model
+            model,
+            "--properties",
+            "prop1=value,prop2=value"
         };
         Assert.assertTrue(!Files.exists(tempFile));
         ToolkitMain.main(args);

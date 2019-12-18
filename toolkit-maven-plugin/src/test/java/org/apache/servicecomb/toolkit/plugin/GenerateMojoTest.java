@@ -27,14 +27,13 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Objects;
 
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.testing.MojoRule;
 import org.apache.maven.plugin.testing.resources.TestResources;
-import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.servicecomb.toolkit.common.FileUtils;
 import org.junit.Rule;
@@ -99,6 +98,7 @@ public class GenerateMojoTest {
       testResourcesEx.setVariableValueToObject("contractFileType", "yaml");
       testResourcesEx.setVariableValueToObject("documentType", "html");
       testResourcesEx.setVariableValueToObject("service", new ServiceConfig());
+      testResourcesEx.setVariableValueToObject("additionalProperties", new HashMap<>());
 
       testResourcesEx.execute();
 
