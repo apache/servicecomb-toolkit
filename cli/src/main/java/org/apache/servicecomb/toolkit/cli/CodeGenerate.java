@@ -27,10 +27,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
-import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.CodeGenerator;
+import org.apache.servicecomb.toolkit.GeneratorFactory;
 import org.apache.servicecomb.toolkit.codegen.ProjectMetaConstant;
 import org.openapitools.codegen.config.CodegenConfigurator;
 import org.slf4j.Logger;
@@ -85,11 +87,30 @@ public class CodeGenerate implements Runnable {
       description = "microservice type of generated microservice project. optional value is provider,consumer,all")
   private String serviceType = "all";
 
+  @Option(
+      name = {"--properties"},
+      title = "additional properties",
+      description =
+          "usage: --properties name=value,name=value. These Properties can be referenced by the mustache templates."
+              + " You can specify one or more value")
+  private String properties;
+
   @Override
   public void run() {
 
     CodegenConfigurator configurator = new CodegenConfigurator();
+
     CodeGenerator codegenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "default");
+
+    // add additional property
+    Optional.ofNullable(properties).ifPresent(properties ->
+        Arrays.stream(properties.split(",")).forEach(property -> {
+          String[] split = property.split("=");
+          if (split != null && split.length == 2) {
+            configurator.addAdditionalProperty(split[0], split[1]);
+          }
+        })
+    );
 
     configurator.setOutputDir(output)
         .setGroupId(groupId)

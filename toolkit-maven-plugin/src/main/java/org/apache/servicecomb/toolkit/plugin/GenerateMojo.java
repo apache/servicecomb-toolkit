@@ -72,6 +72,17 @@ public class GenerateMojo extends AbstractMojo {
   @Parameter
   private ServiceConfig service;
 
+  /**
+   * A map of additional properties that can be referenced by the mustache templates
+   * <additionalProperties>
+   *     <prop1>value</prop1>
+   *     <prop2>value</prop2>
+   *     ...
+   * </additionalProperties>
+   */
+  @Parameter
+  private Map<String, Object> additionalProperties;
+
   @Override
   public void execute() {
 
@@ -149,7 +160,7 @@ public class GenerateMojo extends AbstractMojo {
           outputDirectory + File.separator + "project" + File.separator;
       try {
         FileUtils.createDirectory(codeOutput);
-        Map<String, Object> externalConfig = new HashMap<>();
+        Map<String, Object> externalConfig = Optional.ofNullable(additionalProperties).orElse(new HashMap<>());
         externalConfig.put(GeneratorExternalConfigConstant.PROVIDER_PROJECT_NAME,
             project.getBasedir().getName() + providerProjectNameSuffix);
         externalConfig.put(GeneratorExternalConfigConstant.CONSUMER_PROJECT_NAME,
