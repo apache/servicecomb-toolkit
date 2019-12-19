@@ -34,6 +34,7 @@ import org.apache.servicecomb.toolkit.generator.annotation.RequestPartAnnotation
 import org.apache.servicecomb.toolkit.generator.context.OasContext;
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.apache.servicecomb.toolkit.generator.context.ParameterContext;
+import org.apache.servicecomb.toolkit.generator.parser.SpringmvcAnnotationParser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +45,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,13 +57,15 @@ public class SpringAnnotationProcessorTest {
 
   @Test
   public void getHttpMethod() throws NoSuchMethodException {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
 
-    OasContext oasContext = new OasContext(null);
+    OasContext oasContext = new OasContext(parser);
     Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
     RequestMapping requestMappingClassAnnotation = httpMethodResourceClass.getAnnotation(RequestMapping.class);
     RequestMappingClassAnnotationProcessor requestMappingClassAnnotationProcessor = new RequestMappingClassAnnotationProcessor();
     requestMappingClassAnnotationProcessor.process(requestMappingClassAnnotation, oasContext);
     Assert.assertEquals(requestMappingClassAnnotation.value()[0], oasContext.getBasePath());
+    Assert.assertEquals(RequestMethod.GET.name(), oasContext.getHttpMethod());
 
     RequestMappingMethodAnnotationProcessor requestMappingMethodAnnotationProcessor = new RequestMappingMethodAnnotationProcessor();
     Method requestMethod = httpMethodResourceClass.getMethod("request");
@@ -71,6 +75,16 @@ public class SpringAnnotationProcessorTest {
     Assert
         .assertEquals(requestMappingMethodAnnotation.value()[0],
             requestOperationContext.getPath());
+    Assert.assertEquals(RequestMethod.POST.name(), requestOperationContext.getHttpMethod());
+
+    Method getRequestMethod = httpMethodResourceClass.getMethod("getRequest");
+    RequestMapping getRequestMappingMethodAnnotation = getRequestMethod.getAnnotation(RequestMapping.class);
+    OperationContext getRequestOperationContext = new OperationContext(getRequestMethod, oasContext);
+    requestMappingMethodAnnotationProcessor.process(getRequestMappingMethodAnnotation, getRequestOperationContext);
+    Assert
+        .assertEquals(getRequestMappingMethodAnnotation.value()[0],
+            getRequestOperationContext.getPath());
+    Assert.assertEquals(RequestMethod.GET.name(), getRequestOperationContext.getHttpMethod());
 
     GetMappingMethodAnnotationProcessor getMappingMethodAnnotationProcessor = new GetMappingMethodAnnotationProcessor();
     Method getMethod = httpMethodResourceClass.getMethod("get");
@@ -178,12 +192,17 @@ public class SpringAnnotationProcessorTest {
   }
 
   @RestController
-  @RequestMapping("/path")
+  @RequestMapping(value = "/path", method = RequestMethod.GET)
   class HttpMethodResource {
 
-    @RequestMapping("/request")
+    @RequestMapping(value = "/request", method = RequestMethod.POST, headers = "cookie=1")
     public String request() {
       return "request";
+    }
+
+    @RequestMapping(value = "/getRequest")
+    public String getRequest() {
+      return "getRequest";
     }
 
     @GetMapping(value = "/get", consumes = {"application/json"}, produces = {"application/json"})
