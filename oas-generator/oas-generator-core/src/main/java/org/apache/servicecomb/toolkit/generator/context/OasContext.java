@@ -47,6 +47,14 @@ public class OasContext implements IExtensionsContext {
 
   private List<ISchemaContext> schemaCtxList = new ArrayList<>();
 
+  private String httpMethod;
+
+  private String[] consumers;
+
+  private String[] produces;
+
+  private String[] headers;
+
   public OasContext(OpenApiAnnotationParser parser) {
     this(new OpenAPI(), parser);
   }
@@ -161,5 +169,37 @@ public class OasContext implements IExtensionsContext {
   @Override
   public Map<String, Object> getExtensions() {
     return openAPI.getExtensions();
+  }
+
+  public String getHttpMethod() {
+    return httpMethod;
+  }
+
+  public void setHttpMethod(String httpMethod) {
+    this.httpMethod = httpMethod;
+  }
+
+  public String[] getConsumers() {
+    return consumers;
+  }
+
+  public void setConsumers(String[] consumers) {
+    this.consumers = consumers;
+  }
+
+  public String[] getProduces() {
+    return produces;
+  }
+
+  public void setProduces(String[] produces) {
+    this.produces = produces;
+  }
+
+  public String[] getHeaders() {
+    return headers;
+  }
+
+  public void setHeaders(String[] headers) {
+    this.headers = headers;
   }
 }

@@ -19,23 +19,32 @@ package org.apache.servicecomb.toolkit.generator.annotation;
 
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-public class RequestMappingMethodAnnotationProcessor implements
-    MethodAnnotationProcessor<RequestMapping, OperationContext> {
+public class RequestMappingMethodAnnotationProcessor extends
+    AbstractHttpMethodMappingAnnotationProcessor<RequestMapping, OperationContext> {
 
   @Override
   public void process(RequestMapping requestMapping, OperationContext operationContext) {
 
-    String[] paths = requestMapping.value();
-    if (null == paths || paths.length == 0) {
+    this.processPath(requestMapping.path(), operationContext);
+    this.processPath(requestMapping.value(), operationContext);
+    this.processMethod(requestMapping.method(), operationContext);
+    this.processConsumes(requestMapping.consumes(), operationContext);
+    this.processProduces(requestMapping.produces(), operationContext);
+    this.processHeaders(requestMapping.headers(), operationContext);
+  }
+
+  protected void processMethod(RequestMethod[] requestMethods, OperationContext operationContext) {
+    if (null == requestMethods || requestMethods.length == 0) {
       return;
     }
 
-    // swagger only support one basePath
-    if (paths.length > 1) {
-      throw new Error("not support multi path for " + operationContext.getMethod().getName());
+    if (requestMethods.length > 1) {
+      throw new Error(
+          "not allowed multi http method for " + operationContext.getMethod().getName());
     }
 
-    operationContext.setPath(paths[0]);
+    this.processMethod(requestMethods[0], operationContext);
   }
 }

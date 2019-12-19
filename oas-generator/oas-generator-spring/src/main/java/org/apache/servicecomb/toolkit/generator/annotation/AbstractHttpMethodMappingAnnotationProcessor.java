@@ -17,21 +17,8 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.servicecomb.toolkit.generator.HttpStatuses;
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
-import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
-import org.apache.servicecomb.toolkit.generator.util.RequestResponse;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import io.swagger.v3.oas.models.media.Content;
-import io.swagger.v3.oas.models.media.MediaType;
-import io.swagger.v3.oas.models.media.Schema;
-import io.swagger.v3.oas.models.responses.ApiResponse;
 
 public abstract class AbstractHttpMethodMappingAnnotationProcessor<Annotation, Context> implements
     MethodAnnotationProcessor<Annotation, Context> {
@@ -58,6 +45,8 @@ public abstract class AbstractHttpMethodMappingAnnotationProcessor<Annotation, C
     if (null == consumes || consumes.length == 0) {
       return;
     }
+
+    operationContext.setConsumers(consumes);
   }
 
   protected void processProduces(String[] produces, OperationContext operationContext) {
@@ -65,22 +54,13 @@ public abstract class AbstractHttpMethodMappingAnnotationProcessor<Annotation, C
       return;
     }
 
-    List<String> produceList = Arrays.stream(produces).filter(s -> !StringUtils.isEmpty(s))
-        .collect(Collectors.toList());
+    operationContext.setProduces(produces);
+  }
 
-    if (!produceList.isEmpty()) {
-      ApiResponse apiResponse = new ApiResponse();
-      Content content = new Content();
-      MediaType mediaType = new MediaType();
-      Schema schema = ModelConverter
-          .getSchema(operationContext.getMethod().getReturnType(), operationContext.getComponents(),
-              RequestResponse.RESPONSE);
-      mediaType.schema(schema);
-      for (String produce : produceList) {
-        content.addMediaType(produce, mediaType);
-      }
-      apiResponse.setContent(content);
-      operationContext.addResponse(HttpStatuses.OK, apiResponse);
+  protected void processHeaders(String[] headers, OperationContext operationContext) {
+    if (null == headers || headers.length == 0) {
+      return;
     }
+    operationContext.setHeaders(headers);
   }
 }

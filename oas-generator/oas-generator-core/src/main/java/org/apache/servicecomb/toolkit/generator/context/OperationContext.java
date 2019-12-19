@@ -19,8 +19,10 @@ package org.apache.servicecomb.toolkit.generator.context;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -37,6 +39,8 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.MediaType;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.HeaderParameter;
 import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.parameters.RequestBody;
 import io.swagger.v3.oas.models.responses.ApiResponse;
@@ -74,6 +78,10 @@ public class OperationContext implements IExtensionsContext {
 
   private String[] consumers;
 
+  private String[] produces;
+
+  private String[] headers;
+
   public OperationContext(Method method, OasContext parentContext) {
     this.parentContext = parentContext;
     this.method = method;
@@ -87,7 +95,7 @@ public class OperationContext implements IExtensionsContext {
   }
 
   public boolean hasOperation() {
-    return httpMethod != null && method != null;
+    return getHttpMethod() != null && method != null;
   }
 
   public Operation toOperation() {
@@ -101,6 +109,8 @@ public class OperationContext implements IExtensionsContext {
     }
 
     operation.operationId(operationId);
+    processHeaders();
+    processProduces();
     correctResponse(apiResponses);
     operation.setResponses(apiResponses);
 
@@ -154,6 +164,57 @@ public class OperationContext implements IExtensionsContext {
       operation.setRequestBody(requestBody);
     }
     return operation;
+  }
+
+  private void processHeaders() {
+
+    if (headers == null) {
+      headers = parentContext.getHeaders();
+    }
+
+    if (headers == null) {
+      return;
+    }
+
+    Arrays.stream(headers).forEach(header -> {
+      String[] headMap = header.split("=");
+      if (headMap.length == 2) {
+        HeaderParameter headerParameter = new HeaderParameter();
+        headerParameter.setName(headMap[0]);
+        StringSchema value = new StringSchema();
+        value.setDefault(headMap[1]);
+        headerParameter.setSchema(value);
+        operation.addParametersItem(headerParameter);
+      }
+    });
+  }
+
+  private void processProduces() {
+
+    if (produces == null) {
+      produces = parentContext.getProduces();
+    }
+
+    if (produces == null) {
+      return;
+    }
+
+    List<String> produceList = Arrays.stream(produces).filter(s -> !StringUtils.isEmpty(s))
+        .collect(Collectors.toList());
+
+    if (!produceList.isEmpty()) {
+      ApiResponse apiResponse = new ApiResponse();
+      Content content = new Content();
+      MediaType mediaType = new MediaType();
+      Schema schema = ModelConverter
+          .getSchema(getMethod().getReturnType(), getComponents(), RequestResponse.RESPONSE);
+      mediaType.schema(schema);
+      for (String produce : produceList) {
+        content.addMediaType(produce, mediaType);
+      }
+      apiResponse.setContent(content);
+      addResponse(HttpStatuses.OK, apiResponse);
+    }
   }
 
   public void setRequestBody(RequestBody requestBody) {
@@ -238,7 +299,7 @@ public class OperationContext implements IExtensionsContext {
   }
 
   public String getHttpMethod() {
-    return httpMethod;
+    return Optional.ofNullable(httpMethod).orElse(parentContext.getHttpMethod());
   }
 
   public void setHttpMethod(String httpMethod) {
@@ -307,5 +368,21 @@ public class OperationContext implements IExtensionsContext {
 
   public void addParamCtx(ParameterContext ctx) {
     this.parameterContexts.add(ctx);
+  }
+
+  public String[] getProduces() {
+    return produces;
+  }
+
+  public void setProduces(String[] produces) {
+    this.produces = produces;
+  }
+
+  public String[] getHeaders() {
+    return headers;
+  }
+
+  public void setHeaders(String[] headers) {
+    this.headers = headers;
   }
 }
