@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.toolkit.generator;
 
+import java.lang.reflect.Type;
+
 import org.apache.servicecomb.toolkit.generator.annotation.ModelInterceptor;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +35,7 @@ public class MultipartFileInterceptor implements ModelInterceptor {
   }
 
   @Override
-  public Schema process(Class<?> cls, Components components) {
+  public Schema process(Type cls, Components components) {
 
     if (!MultipartFile.class.equals(cls)) {
       return null;

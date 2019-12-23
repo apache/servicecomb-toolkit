@@ -17,6 +17,8 @@
 
 package org.apache.servicecomb.toolkit.generator.annotation;
 
+import java.lang.reflect.Type;
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.Schema;
 
@@ -24,5 +26,5 @@ public interface ModelInterceptor {
 
   int order();
 
-  Schema process(Class<?> cls, Components components);
+  Schema process(Type cls, Components components);
 }

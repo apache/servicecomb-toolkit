@@ -17,10 +17,16 @@
 
 package org.apache.servicecomb.toolkit.generator.util;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.ServiceLoader;
 
 import org.apache.servicecomb.toolkit.generator.annotation.ModelInterceptor;
@@ -37,6 +43,7 @@ import io.swagger.v3.core.util.PrimitiveType;
 import io.swagger.v3.core.util.RefUtils;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.media.ArraySchema;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 
 public class ModelConverter {
@@ -64,11 +71,11 @@ public class ModelConverter {
     interceptorMgr.remove(interceptor);
   }
 
-  public static Schema getSchema(Class<?> cls) {
+  public static Schema getSchema(Type cls) {
     return getSchema(cls, null);
   }
 
-  public static Schema getSchema(Class<?> cls, Components components) {
+  public static Schema getSchema(Type cls, Components components) {
 
     for (ModelInterceptor interceptor : interceptorMgr) {
       Schema schema = interceptor.process(cls, components);
@@ -77,16 +84,42 @@ public class ModelConverter {
       }
     }
 
+    if (cls instanceof Class) {
+      Map<String, Type> beanProperties = getBeanProperties((Class) cls);
+
+      Optional.ofNullable(beanProperties)
+          .ifPresent(properties -> properties.forEach((name, type) ->
+              {
+                if (type instanceof ParameterizedType) {
+                  Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
+                  Arrays.stream(actualTypeArguments).forEach(arg -> getSchema(arg, components));
+                }
+
+                if (type instanceof Class) {
+                  getSchema(type, components);
+                }
+              })
+          );
+    }
+
     Schema schema = PrimitiveType.createProperty(cls);
     if (schema == null) {
       schema = context
           .resolve(new AnnotatedType(cls));
     }
 
+    if (schema == null) {
+      if (cls == List.class) {
+        schema = new ArraySchema();
+        ((ArraySchema) schema).setItems(new ObjectSchema());
+      }
+    }
+
     if (components == null) {
       return schema;
     }
 
+    // correct reference
     Schema refSchema = schema;
 
     if (shouldExtractRef(schema)) {
@@ -142,5 +175,28 @@ public class ModelConverter {
     mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     return mapper;
+  }
+
+  public static Map<String, Type> getBeanProperties(Class cls) {
+    if (cls.isPrimitive()) {
+      return null;
+    }
+    Method[] declaredMethods = cls.getDeclaredMethods();
+    Map<String, Type> beanProperties = new HashMap<>();
+
+    for (Method method : declaredMethods) {
+      if (method.getName().startsWith("get")) {
+        if (method.getReturnType() != null && method.getReturnType() != void.class) {
+          String propName = method.getName().substring(3);
+          try {
+            cls.getDeclaredMethod("set" + propName, method.getReturnType());
+            beanProperties.put(method.getName(), method.getGenericReturnType());
+          } catch (NoSuchMethodException e) {
+            continue;
+          }
+        }
+      }
+    }
+    return beanProperties;
   }
 }
