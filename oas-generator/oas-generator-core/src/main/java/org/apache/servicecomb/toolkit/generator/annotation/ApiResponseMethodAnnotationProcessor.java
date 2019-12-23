@@ -46,6 +46,8 @@ public class ApiResponseMethodAnnotationProcessor implements
 
     if (StringUtils.isNotEmpty(response.description())) {
       apiResponse.setDescription(response.description());
+    } else {
+      apiResponse.description("OK");
     }
 
     Header[] headersAnnotation = response.headers();

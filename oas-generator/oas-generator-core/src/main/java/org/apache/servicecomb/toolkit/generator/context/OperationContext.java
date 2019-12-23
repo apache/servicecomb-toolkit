@@ -212,6 +212,7 @@ public class OperationContext implements IExtensionsContext {
       for (String produce : produceList) {
         content.addMediaType(produce, mediaType);
       }
+      apiResponse.description("OK");
       apiResponse.setContent(content);
       addResponse(HttpStatuses.OK, apiResponse);
     }
