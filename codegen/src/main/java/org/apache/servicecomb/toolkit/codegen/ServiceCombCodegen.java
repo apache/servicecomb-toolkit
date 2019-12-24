@@ -20,18 +20,15 @@ package org.apache.servicecomb.toolkit.codegen;
 import static org.openapitools.codegen.utils.StringUtils.camelize;
 
 import java.io.File;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.CliOption;
 import org.openapitools.codegen.CodegenConstants;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
-import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.languages.SpringCodegen;
 
 import io.swagger.codegen.mustache.CamelCaseLambda;
@@ -139,11 +136,6 @@ public class ServiceCombCodegen extends AbstractJavaCodegenExt {
 
     importMapping.put("OffsetDateTime", "java.time.OffsetDateTime");
     additionalProperties.put("dateLibrary", "java8");
-    if (StringUtils.isEmpty((String) additionalProperties.get("mainClassPackage"))) {
-      additionalProperties.put("mainClassPackage", mainClassPackage);
-    } else {
-      mainClassPackage = (String) additionalProperties.get("mainClassPackage");
-    }
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());
     additionalProperties.put("getRelativeBasePath", new GetRelativeBasePathLambda());

@@ -21,6 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.languages.AbstractJavaCodegen;
@@ -46,7 +47,17 @@ public abstract class AbstractJavaCodegenExt extends AbstractJavaCodegen {
     apiPackage = groupId + "." + artifactId + ".api";
     modelPackage = groupId + "." + artifactId + ".model";
     mainClassPackage = groupId + "." + artifactId;
+  }
 
+  @Override
+  public void processOpts() {
+    super.processOpts();
+    if (StringUtils.isEmpty((String) additionalProperties.get("mainClassPackage"))) {
+      mainClassPackage = apiPackage.substring(0, apiPackage.lastIndexOf("."));
+      additionalProperties.put("mainClassPackage", mainClassPackage);
+    } else {
+      mainClassPackage = (String) additionalProperties.get("mainClassPackage");
+    }
   }
 
   @Override
