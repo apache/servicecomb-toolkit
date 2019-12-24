@@ -64,11 +64,6 @@ public class SpringCloudCodegen extends AbstractJavaCodegenExt {
 
     importMapping.put("OffsetDateTime", "java.time.OffsetDateTime");
     additionalProperties.put("dateLibrary", "java8");
-    if (StringUtils.isEmpty((String) additionalProperties.get("mainClassPackage"))) {
-      additionalProperties.put("mainClassPackage", mainClassPackage);
-    } else {
-      mainClassPackage = (String) additionalProperties.get("mainClassPackage");
-    }
     additionalProperties.put("camelcase", new CamelCaseLambda());
     additionalProperties.put("apiTemplateFiles", apiTemplateFiles);
     additionalProperties.put("getGenericClassType", new GetGenericClassTypeLambda());

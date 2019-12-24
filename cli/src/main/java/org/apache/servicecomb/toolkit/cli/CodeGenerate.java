@@ -98,9 +98,14 @@ public class CodeGenerate implements Runnable {
   @Override
   public void run() {
 
-    CodegenConfigurator configurator = new CodegenConfigurator();
-
     CodeGenerator codegenerator = GeneratorFactory.getGenerator(CodeGenerator.class, "default");
+
+    if (codegenerator == null) {
+      LOGGER.warn("Not CodeGenerator found");
+      return;
+    }
+
+    CodegenConfigurator configurator = new CodegenConfigurator();
 
     // add additional property
     Optional.ofNullable(properties).ifPresent(properties ->
@@ -151,7 +156,7 @@ public class CodeGenerate implements Runnable {
           return;
         }
       } else {
-        configurator.setInputSpec(specFile);
+        configurator.setInputSpec(specFile).addAdditionalProperty("apiName", contractFile.getName().split("\\.")[0]);
         codegenerator.configure(Collections.singletonMap("configurator", configurator));
         codegenerator.generate();
       }
