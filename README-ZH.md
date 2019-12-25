@@ -132,6 +132,13 @@ $ mvn clean install
             <!-- 服务id，默认值为artifactId的值 -->
             <serviceId>servicecomb-consumer</serviceId>
         </service>
+        <!-- 指定额外的属性值，这些属性值可以被mustach模板引用。仅为生成代码时使用，即goal为generate -->
+        <additionalProperties>
+            <prop1>value</prop1>
+            <prop2>value</prop2>
+            ...
+            <propN>value</propN>
+        </additionalProperties>
     </configuration>
 </plugin>
 ```
@@ -270,7 +277,9 @@ $ ./cli.sh  codegenerate -m ServiceComb -i swagger.yaml -o ./project -p SpringMV
 * --model-package : 指定生成项目的model package   
 例：--model-package com.demo.model
 * -t, --service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all                  
-例：--service-type provider  
+例：--service-type provider
+* --properties : 指定额外的属性值，这些属性值可以被mustach模板引用
+例：--properties applicationId=app,providerServiceId=provider  
 
 #### 3.3.2 契约生成文档
 ```shell
