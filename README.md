@@ -124,6 +124,13 @@ Configured in the pom file of the maven project
             <!-- Microservice project 'packageName',optional,the default is 'domain.orgnization.project.sample' -->
             <packageName>domain.orgnization.project.sample</packageName>
         </service>
+        <!-- Specify additional attribute values that can be referenced by the mustache template.Only used when plugin goal is generate -->
+        <additionalProperties>
+            <prop1>value</prop1>
+            <prop2>value</prop2>
+            ...
+            <propN>value</propN>
+        </additionalProperties>
     </configuration>
 </plugin>
 ```
@@ -263,6 +270,8 @@ e.g.：--api-package com.demo.api
 e.g.：--model-package com.demo.model
 * -t, --service-type : Specify microservice type of generated microservice project. optional value is provider,consumer,all               
 e.g.：--service-type provider  
+* --properties : Specify additional attribute values that can be referenced by the mustache template
+e.g.：--properties applicationId=app,providerServiceId=provider 
 
 #### 3.3.2 Service contract generation document
 ```shell
