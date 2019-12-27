@@ -28,6 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 import org.apache.servicecomb.toolkit.generator.util.ParamUtils;
+import org.apache.servicecomb.toolkit.generator.util.RequestResponse;
 
 import io.swagger.v3.core.util.ParameterProcessor;
 import io.swagger.v3.core.util.ReflectionUtils;
@@ -96,7 +97,7 @@ public class ParameterContext implements ISchemaContext, IExtensionsContext {
     }
     ensureName();
     if (schema == null || nullSchema.equals(schema)) {
-      schema = ModelConverter.getSchema(parameter.getType(), getComponents());
+      schema = ModelConverter.getSchema(parameter.getType(), getComponents(), RequestResponse.REQUEST);
       oasParameter.schema(schema);
     }
 
@@ -236,7 +237,7 @@ public class ParameterContext implements ISchemaContext, IExtensionsContext {
 
     Schema refSchema = oasParameter.getSchema();
     if (refSchema == null || nullSchema.equals(refSchema)) {
-      refSchema = ModelConverter.getSchema(parameter.getType(), getComponents());
+      refSchema = ModelConverter.getSchema(parameter.getType(), getComponents(), RequestResponse.REQUEST);
       oasParameter.schema(refSchema);
     }
 

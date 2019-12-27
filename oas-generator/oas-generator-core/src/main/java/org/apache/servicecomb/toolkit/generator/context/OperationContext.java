@@ -28,6 +28,7 @@ import org.apache.servicecomb.toolkit.generator.HttpStatuses;
 import org.apache.servicecomb.toolkit.generator.MediaTypes;
 import org.apache.servicecomb.toolkit.generator.parser.api.OpenApiAnnotationParser;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
+import org.apache.servicecomb.toolkit.generator.util.RequestResponse;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -177,7 +178,7 @@ public class OperationContext implements IExtensionsContext {
 
       MediaType mediaType = new MediaType();
 
-      Schema refSchema = ModelConverter.getSchema(returnType, getComponents());
+      Schema refSchema = ModelConverter.getSchema(returnType, getComponents(), RequestResponse.RESPONSE);
       mediaType.schema(refSchema);
 
       Content content = new Content();
