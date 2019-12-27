@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import org.apache.servicecomb.toolkit.generator.HttpStatuses;
 import org.apache.servicecomb.toolkit.generator.context.OperationContext;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
+import org.apache.servicecomb.toolkit.generator.util.RequestResponse;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -72,7 +73,8 @@ public abstract class AbstractHttpMethodMappingAnnotationProcessor<Annotation, C
       Content content = new Content();
       MediaType mediaType = new MediaType();
       Schema schema = ModelConverter
-          .getSchema(operationContext.getMethod().getReturnType(), operationContext.getComponents());
+          .getSchema(operationContext.getMethod().getReturnType(), operationContext.getComponents(),
+              RequestResponse.RESPONSE);
       mediaType.schema(schema);
       for (String produce : produceList) {
         content.addMediaType(produce, mediaType);

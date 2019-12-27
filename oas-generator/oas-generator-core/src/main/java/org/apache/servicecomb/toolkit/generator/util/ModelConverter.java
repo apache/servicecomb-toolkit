@@ -18,14 +18,13 @@
 package org.apache.servicecomb.toolkit.generator.util;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
 
@@ -72,10 +71,10 @@ public class ModelConverter {
   }
 
   public static Schema getSchema(Type cls) {
-    return getSchema(cls, null);
+    return getSchema(cls, null, null);
   }
 
-  public static Schema getSchema(Type cls, Components components) {
+  public static Schema getSchema(Type cls, Components components, RequestResponse requestResponse) {
 
     for (ModelInterceptor interceptor : interceptorMgr) {
       Schema schema = interceptor.process(cls, components);
@@ -84,19 +83,29 @@ public class ModelConverter {
       }
     }
 
-    if (cls instanceof Class) {
-      Map<String, Type> beanProperties = getBeanProperties((Class) cls);
+    if (cls instanceof Class && requestResponse != null) {
+
+      List<Type> beanProperties = null;
+      switch (requestResponse) {
+        case REQUEST:
+          beanProperties = getRequestBeanTypes((Class) cls);
+          break;
+        case RESPONSE:
+          beanProperties = getResponseBeanTypes((Class) cls);
+          break;
+        default:
+      }
 
       Optional.ofNullable(beanProperties)
-          .ifPresent(properties -> properties.forEach((name, type) ->
+          .ifPresent(properties -> properties.forEach(type ->
               {
                 if (type instanceof ParameterizedType) {
                   Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
-                  Arrays.stream(actualTypeArguments).forEach(arg -> getSchema(arg, components));
+                  Arrays.stream(actualTypeArguments).forEach(arg -> getSchema(arg, components, requestResponse));
                 }
 
                 if (type instanceof Class) {
-                  getSchema(type, components);
+                  getSchema(type, components, requestResponse);
                 }
               })
           );
@@ -177,26 +186,54 @@ public class ModelConverter {
     return mapper;
   }
 
-  public static Map<String, Type> getBeanProperties(Class cls) {
+  public static List<Type> getRequestBeanTypes(Class cls) {
     if (cls.isPrimitive()) {
       return null;
     }
     Method[] declaredMethods = cls.getDeclaredMethods();
-    Map<String, Type> beanProperties = new HashMap<>();
+    List<Type> beanProperties = new ArrayList<>();
 
     for (Method method : declaredMethods) {
-      if (method.getName().startsWith("get")) {
-        if (method.getReturnType() != null && method.getReturnType() != void.class) {
-          String propName = method.getName().substring(3);
-          try {
-            cls.getDeclaredMethod("set" + propName, method.getReturnType());
-            beanProperties.put(method.getName(), method.getGenericReturnType());
-          } catch (NoSuchMethodException e) {
-            continue;
-          }
-        }
+
+      /**
+       * Meet the following requirements, can be considered a request bean property
+       * 1. method modifiers is public and non-static
+       * 2. method name should be setAbc or setABC, setabc is not a setter method
+       * 3. return value of method is void
+       * 4. method has only one parameter
+       */
+      if (Modifier.isPublic(method.getModifiers()) && !Modifier.isStatic(method.getModifiers()) && method.getName()
+          .startsWith("set") && method.getName().length() > 3 && Character.isUpperCase(method.getName().charAt(3))
+          && method.getReturnType()
+          .equals(Void.TYPE) && method.getParameterCount() == 1) {
+        beanProperties.add(method.getGenericParameterTypes()[0]);
       }
     }
     return beanProperties;
+  }
+
+  public static List<Type> getResponseBeanTypes(Class cls) {
+    if (cls.isPrimitive()) {
+      return null;
+    }
+    Method[] declaredMethods = cls.getDeclaredMethods();
+    List<Type> beanPropertyTypes = new ArrayList<>();
+
+    for (Method method : declaredMethods) {
+      /**
+       * Meet the following requirements, can be considered a response bean property
+       * 1. method modifiers is public and non-static
+       * 2. method name should be getAbc or getABC, getabc is not a getter method
+       * 3. return value of method is not void
+       * 4. method has no parameters
+       */
+      if (Modifier.isPublic(method.getModifiers()) && !Modifier.isStatic(method.getModifiers()) && method.getName()
+          .startsWith("get") && method.getName().length() > 3 && Character.isUpperCase(method.getName().charAt(3))
+          && !method.getReturnType()
+          .equals(Void.TYPE) && method.getParameterCount() == 0) {
+        beanPropertyTypes.add(method.getGenericReturnType());
+      }
+    }
+    return beanPropertyTypes;
   }
 }

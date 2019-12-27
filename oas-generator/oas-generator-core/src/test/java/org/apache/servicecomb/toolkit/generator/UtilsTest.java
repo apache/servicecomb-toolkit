@@ -27,6 +27,7 @@ import java.util.List;
 import org.apache.servicecomb.toolkit.generator.annotation.ModelInterceptor;
 import org.apache.servicecomb.toolkit.generator.util.ModelConverter;
 import org.apache.servicecomb.toolkit.generator.util.ParamUtils;
+import org.apache.servicecomb.toolkit.generator.util.RequestResponse;
 import org.apache.servicecomb.toolkit.generator.util.SwaggerAnnotationUtils;
 import org.junit.Assert;
 import org.junit.Test;
@@ -62,10 +63,10 @@ public class UtilsTest {
     Assert.assertEquals(ArraySchema.class, schema.getClass());
 
     Components components = new Components();
-    schema = ModelConverter.getSchema(ParameterClass[].class, components);
+    schema = ModelConverter.getSchema(ParameterClass[].class, components, null);
     Assert.assertEquals(ArraySchema.class, schema.getClass());
 
-    schema = ModelConverter.getSchema(ParameterClass.class, components);
+    schema = ModelConverter.getSchema(ParameterClass.class, components, null);
     Assert.assertNotNull(schema.get$ref());
 
     ModelInterceptor mockModelInterceptor = new ModelInterceptor() {
@@ -86,7 +87,7 @@ public class UtilsTest {
     ModelConverter.unRegisterInterceptor(mockModelInterceptor);
 
     Components component = new Components();
-    ModelConverter.getSchema(BeanClass.class, component);
+    ModelConverter.getSchema(BeanClass.class, component, RequestResponse.REQUEST);
     Assert.assertNotNull(component.getSchemas().get("Value"));
 
     Schema beanClass = component.getSchemas().get("BeanClass");
@@ -136,6 +137,21 @@ public class UtilsTest {
   }
 
   @Test
+  public void getRequestOrResponseBean() {
+
+    List<Type> requestBeanTypes = ModelConverter.getRequestBeanTypes(RequestBeanClass.class);
+    List<Type> responseBeanTypes = ModelConverter.getResponseBeanTypes(ResponseBeanClass.class);
+
+    Assert.assertNotNull(requestBeanTypes);
+    Assert.assertNotNull(responseBeanTypes);
+
+    Assert.assertEquals(1, requestBeanTypes.size());
+    Assert.assertEquals("Value", ((Class) requestBeanTypes.get(0)).getSimpleName());
+    Assert.assertEquals(1, responseBeanTypes.size());
+    Assert.assertEquals("Value", ((Class) responseBeanTypes.get(0)).getSimpleName());
+  }
+
+  @Test
   public void getContentFromAnnotation() {
     Content contents = Mockito.mock(Content.class);
     when(contents.encoding()).thenReturn(new Encoding[] {Mockito.mock(Encoding.class)});
@@ -143,6 +159,33 @@ public class UtilsTest {
         .getContentFromAnnotation(contents);
 
     Assert.assertEquals(1, contentFromAnnotation.size());
+  }
+
+  class RequestBeanClass {
+
+    public void setValue(Value value) {
+    }
+
+    public void setName(String name, String alias) {
+    }
+
+    public Integer getSomething() {
+      return 0;
+    }
+  }
+
+  class ResponseBeanClass {
+
+    public Value getValue() {
+      return new Value();
+    }
+
+    public String getName(String name) {
+      return name;
+    }
+
+    public void setSomething(Integer something) {
+    }
   }
 
   class ParameterClass {
