@@ -56,35 +56,90 @@ import io.swagger.v3.oas.models.media.FileSchema;
 public class SpringAnnotationProcessorTest {
 
   @Test
-  public void getHttpMethod() throws NoSuchMethodException {
-    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+  public void methodOfRequestMapping() throws NoSuchMethodException {
 
+    // class level
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
+    RequestMapping requestMappingClassAnnotation = httpMethodResourceClass.getAnnotation(RequestMapping.class);
+    RequestMappingClassAnnotationProcessor requestMappingClassAnnotationProcessor = new RequestMappingClassAnnotationProcessor();
+    requestMappingClassAnnotationProcessor.process(requestMappingClassAnnotation, oasContext);
+    Assert.assertEquals(RequestMethod.GET.name(), oasContext.getHttpMethod());
+
+    // method level
+    RequestMappingMethodAnnotationProcessor requestMappingMethodAnnotationProcessor = new RequestMappingMethodAnnotationProcessor();
+    Method requestMethod = httpMethodResourceClass.getMethod("request");
+    RequestMapping requestMappingMethodAnnotation = requestMethod.getAnnotation(RequestMapping.class);
+    OperationContext requestOperationContext = new OperationContext(requestMethod, oasContext);
+    requestMappingMethodAnnotationProcessor.process(requestMappingMethodAnnotation, requestOperationContext);
+    Assert.assertEquals(RequestMethod.POST.name(), requestOperationContext.getHttpMethod());
+
+    // default
+    Method getRequestMethod = httpMethodResourceClass.getMethod("getRequest");
+    RequestMapping getRequestMappingMethodAnnotation = getRequestMethod.getAnnotation(RequestMapping.class);
+    OperationContext getRequestOperationContext = new OperationContext(getRequestMethod, oasContext);
+    requestMappingMethodAnnotationProcessor.process(getRequestMappingMethodAnnotation, getRequestOperationContext);
+    Assert.assertEquals(RequestMethod.GET.name(), getRequestOperationContext.getHttpMethod());
+  }
+
+  @Test
+  public void pathOfRequestMapping() {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
     OasContext oasContext = new OasContext(parser);
     Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
     RequestMapping requestMappingClassAnnotation = httpMethodResourceClass.getAnnotation(RequestMapping.class);
     RequestMappingClassAnnotationProcessor requestMappingClassAnnotationProcessor = new RequestMappingClassAnnotationProcessor();
     requestMappingClassAnnotationProcessor.process(requestMappingClassAnnotation, oasContext);
     Assert.assertEquals(requestMappingClassAnnotation.value()[0], oasContext.getBasePath());
-    Assert.assertEquals(RequestMethod.GET.name(), oasContext.getHttpMethod());
+  }
 
+  @Test
+  public void headersOfRequestMapping() throws NoSuchMethodException {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
     RequestMappingMethodAnnotationProcessor requestMappingMethodAnnotationProcessor = new RequestMappingMethodAnnotationProcessor();
     Method requestMethod = httpMethodResourceClass.getMethod("request");
     RequestMapping requestMappingMethodAnnotation = requestMethod.getAnnotation(RequestMapping.class);
     OperationContext requestOperationContext = new OperationContext(requestMethod, oasContext);
     requestMappingMethodAnnotationProcessor.process(requestMappingMethodAnnotation, requestOperationContext);
-    Assert
-        .assertEquals(requestMappingMethodAnnotation.value()[0],
-            requestOperationContext.getPath());
-    Assert.assertEquals(RequestMethod.POST.name(), requestOperationContext.getHttpMethod());
+    Assert.assertArrayEquals(requestMappingMethodAnnotation.headers(), requestOperationContext.getHeaders());
+  }
 
-    Method getRequestMethod = httpMethodResourceClass.getMethod("getRequest");
-    RequestMapping getRequestMappingMethodAnnotation = getRequestMethod.getAnnotation(RequestMapping.class);
-    OperationContext getRequestOperationContext = new OperationContext(getRequestMethod, oasContext);
-    requestMappingMethodAnnotationProcessor.process(getRequestMappingMethodAnnotation, getRequestOperationContext);
-    Assert
-        .assertEquals(getRequestMappingMethodAnnotation.value()[0],
-            getRequestOperationContext.getPath());
-    Assert.assertEquals(RequestMethod.GET.name(), getRequestOperationContext.getHttpMethod());
+  @Test
+  public void consumesOfRequestMapping() throws NoSuchMethodException {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
+    RequestMappingMethodAnnotationProcessor requestMappingMethodAnnotationProcessor = new RequestMappingMethodAnnotationProcessor();
+    Method requestMethod = httpMethodResourceClass.getMethod("request");
+    RequestMapping requestMappingMethodAnnotation = requestMethod.getAnnotation(RequestMapping.class);
+    OperationContext requestOperationContext = new OperationContext(requestMethod, oasContext);
+    requestMappingMethodAnnotationProcessor.process(requestMappingMethodAnnotation, requestOperationContext);
+    Assert.assertArrayEquals(requestMappingMethodAnnotation.consumes(), requestOperationContext.getConsumers());
+  }
+
+  @Test
+  public void producesOfRequestMapping() throws NoSuchMethodException {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
+    RequestMappingMethodAnnotationProcessor requestMappingMethodAnnotationProcessor = new RequestMappingMethodAnnotationProcessor();
+    Method requestMethod = httpMethodResourceClass.getMethod("request");
+    RequestMapping requestMappingMethodAnnotation = requestMethod.getAnnotation(RequestMapping.class);
+    OperationContext requestOperationContext = new OperationContext(requestMethod, oasContext);
+    requestMappingMethodAnnotationProcessor.process(requestMappingMethodAnnotation, requestOperationContext);
+    Assert.assertArrayEquals(requestMappingMethodAnnotation.produces(), requestOperationContext.getProduces());
+  }
+
+
+  @Test
+  public void methodOfGetMapping() throws NoSuchMethodException {
+
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
 
     GetMappingMethodAnnotationProcessor getMappingMethodAnnotationProcessor = new GetMappingMethodAnnotationProcessor();
     Method getMethod = httpMethodResourceClass.getMethod("get");
@@ -93,6 +148,14 @@ public class SpringAnnotationProcessorTest {
     getMappingMethodAnnotationProcessor.process(getMappingAnnotation, getOperationContext);
     Assert
         .assertEquals(getMappingAnnotation.value()[0], getOperationContext.getPath());
+  }
+
+  @Test
+  public void methodOfPostMapping() throws NoSuchMethodException {
+
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
 
     PostMappingMethodAnnotationProcessor postMappingMethodAnnotationProcessor = new PostMappingMethodAnnotationProcessor();
     Method postMethod = httpMethodResourceClass.getMethod("post");
@@ -101,6 +164,14 @@ public class SpringAnnotationProcessorTest {
     postMappingMethodAnnotationProcessor.process(postMappingAnnotation, postOperationContext);
     Assert
         .assertEquals(postMappingAnnotation.value()[0], postOperationContext.getPath());
+  }
+
+  @Test
+  public void methodOfPutMapping() throws NoSuchMethodException {
+
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
 
     PutMappingMethodAnnotationProcessor putMappingMethodAnnotationProcessor = new PutMappingMethodAnnotationProcessor();
     Method putMethod = httpMethodResourceClass.getMethod("put");
@@ -109,6 +180,13 @@ public class SpringAnnotationProcessorTest {
     putMappingMethodAnnotationProcessor.process(putMappingAnnotation, putOperationContext);
     Assert
         .assertEquals(putMappingAnnotation.value()[0], putOperationContext.getPath());
+  }
+
+  @Test
+  public void methodOfDeleteMapping() throws NoSuchMethodException {
+    SpringmvcAnnotationParser parser = new SpringmvcAnnotationParser();
+    OasContext oasContext = new OasContext(parser);
+    Class<HttpMethodResource> httpMethodResourceClass = HttpMethodResource.class;
 
     DeleteMappingMethodAnnotationProcessor deleteMappingMethodAnnotationProcessor = new DeleteMappingMethodAnnotationProcessor();
     Method deleteMethod = httpMethodResourceClass.getMethod("delete");
@@ -195,7 +273,7 @@ public class SpringAnnotationProcessorTest {
   @RequestMapping(value = "/path", method = RequestMethod.GET)
   class HttpMethodResource {
 
-    @RequestMapping(value = "/request", method = RequestMethod.POST, headers = "cookie=1")
+    @RequestMapping(value = "/request", method = RequestMethod.POST, headers = "cookie=1", consumes = "application/json", produces = "application/json")
     public String request() {
       return "request";
     }

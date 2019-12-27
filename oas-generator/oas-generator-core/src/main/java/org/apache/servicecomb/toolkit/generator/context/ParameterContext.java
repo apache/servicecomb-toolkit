@@ -82,7 +82,7 @@ public class ParameterContext implements ISchemaContext, IExtensionsContext {
 
   private RequestBody requestBody;
 
-  private List<String> consumers;
+  private List<String> consumes;
 
   public ParameterContext(OperationContext parentContext, Parameter parameter) {
     this.parentContext = parentContext;
@@ -208,14 +208,14 @@ public class ParameterContext implements ISchemaContext, IExtensionsContext {
   }
 
   public void addConsume(String consume) {
-    if (consumers == null) {
-      consumers = new ArrayList<>();
+    if (consumes == null) {
+      consumes = new ArrayList<>();
     }
-    consumers.add(consume);
+    consumes.add(consume);
   }
 
   public List<String> getConsumers() {
-    return consumers;
+    return consumes;
   }
 
   public Type getRealType() {

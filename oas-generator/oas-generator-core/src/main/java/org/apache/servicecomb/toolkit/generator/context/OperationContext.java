@@ -76,7 +76,7 @@ public class OperationContext implements IExtensionsContext {
 
   private List<String> tags;
 
-  private String[] consumers;
+  private String[] consumes;
 
   private String[] produces;
 
@@ -131,7 +131,7 @@ public class OperationContext implements IExtensionsContext {
               mediaType.schema(schema);
             }
             schema.addProperties(parameterContext.getName(), parameterContext.getSchema());
-            if (consumers != null) {
+            if (consumes != null) {
               for (String consume : getConsumers()) {
                 content.addMediaType(consume, mediaType);
               }
@@ -168,11 +168,7 @@ public class OperationContext implements IExtensionsContext {
 
   private void processHeaders() {
 
-    if (headers == null) {
-      headers = parentContext.getHeaders();
-    }
-
-    if (headers == null) {
+    if (getHeaders() == null) {
       return;
     }
 
@@ -191,11 +187,7 @@ public class OperationContext implements IExtensionsContext {
 
   private void processProduces() {
 
-    if (produces == null) {
-      produces = parentContext.getProduces();
-    }
-
-    if (produces == null) {
+    if (getProduces() == null) {
       return;
     }
 
@@ -360,11 +352,11 @@ public class OperationContext implements IExtensionsContext {
   }
 
   public String[] getConsumers() {
-    return consumers;
+    return consumes;
   }
 
-  public void setConsumers(String[] consumers) {
-    this.consumers = consumers;
+  public void setConsumers(String[] consumes) {
+    this.consumes = consumes;
   }
 
   public void addParamCtx(ParameterContext ctx) {
@@ -372,6 +364,11 @@ public class OperationContext implements IExtensionsContext {
   }
 
   public String[] getProduces() {
+
+    if (produces == null) {
+      produces = parentContext.getProduces();
+    }
+
     return produces;
   }
 
@@ -380,6 +377,11 @@ public class OperationContext implements IExtensionsContext {
   }
 
   public String[] getHeaders() {
+
+    if (headers == null) {
+      headers = parentContext.getHeaders();
+    }
+
     return headers;
   }
 

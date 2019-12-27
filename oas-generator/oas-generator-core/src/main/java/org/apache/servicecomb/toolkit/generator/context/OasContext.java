@@ -49,7 +49,7 @@ public class OasContext implements IExtensionsContext {
 
   private String httpMethod;
 
-  private String[] consumers;
+  private String[] consumes;
 
   private String[] produces;
 
@@ -180,11 +180,11 @@ public class OasContext implements IExtensionsContext {
   }
 
   public String[] getConsumers() {
-    return consumers;
+    return consumes;
   }
 
-  public void setConsumers(String[] consumers) {
-    this.consumers = consumers;
+  public void setConsumers(String[] consumes) {
+    this.consumes = consumes;
   }
 
   public String[] getProduces() {
