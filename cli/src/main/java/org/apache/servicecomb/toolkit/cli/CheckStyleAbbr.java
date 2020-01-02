@@ -20,7 +20,7 @@ package org.apache.servicecomb.toolkit.cli;
 import io.airlift.airline.Command;
 
 @Command(name = "cs",
-    description = "Check style for OpenAPI v3 spec yaml(abbr for checkstyle)")
+    description = "Check style for OpenAPI v3 spec yaml", hidden = true)
 public class CheckStyleAbbr extends CheckStyleBase {
 
 }

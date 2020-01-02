@@ -21,7 +21,8 @@ import io.airlift.airline.Command;
 
 @Command(name = "cc",
     description = "Check compatibility for two OpenAPI v3 spec yamls,"
-        + " right one should be semantically compatible with left one(abbr for checkcompatibility)")
+        + " right one should be semantically compatible with left one",
+    hidden = true)
 public class CheckCompatibilityAbbr extends CheckCompatibilityBase {
 
 }
