@@ -78,12 +78,6 @@
 
     <dependency>
       <groupId>org.apache.servicecomb.toolkit</groupId>
-      <artifactId>oas-validator-test</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.servicecomb.toolkit</groupId>
       <artifactId>oas-validator-style</artifactId>
       <version>${project.version}</version>
     </dependency>
