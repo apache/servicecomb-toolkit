@@ -210,13 +210,6 @@ following licenses.
 
 ================================================================
 This product bundles libraries which are licensed under the
-Eclipse Public License v1.0.
-You can find a copy of the License at licenses/LICENSE-epl-v10
-
-* JUnit (junit:junit:4.12 - http://junit.org)
-
-================================================================
-This product bundles libraries which are licensed under the
 Mozilla Public License, Version 2.0
 You can find a copy of the License at licenses/LICENSE-mozilla-v20
 
@@ -526,7 +519,6 @@ You can find a copy of the License at licenses/LICENSE-epl-v10
 
 * Logback Classic Module (ch.qos.logback:logback-classic:1.2.3 - http://logback.qos.ch/logback-classic)
 * Logback Core Module (ch.qos.logback:logback-core:1.2.3 - http://logback.qos.ch/logback-core)
-* JUnit (junit:junit:4.12 - http://junit.org)
 
 ===========================================================================
 This product bundles ASM Core which is licensed under the
