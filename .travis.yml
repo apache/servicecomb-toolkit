@@ -25,7 +25,7 @@ addons:
 
 # SonarCloud give a warning if using shallow clone (default), so we disable it
 git:
-  depth: false
+  depth: 3
 
 cache:
   directories:
