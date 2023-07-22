@@ -53,7 +53,7 @@
     <org.eclipse.jgit.version>5.3.0.201903130848-r</org.eclipse.jgit.version>
     <mockito-core.version>2.25.0</mockito-core.version>
     <maven-core.version>3.6.0</maven-core.version>
-    <openapi-generator.version>4.1.2</openapi-generator.version>
+    <openapi-generator.version>5.1.0</openapi-generator.version>
     <commons-lang3.version>3.4</commons-lang3.version>
     <maven-aether-provider.version>3.2.2</maven-aether-provider.version>
     <swagger-parser.version>2.0.15</swagger-parser.version>
