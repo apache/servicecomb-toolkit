@@ -3,6 +3,7 @@
 Apache ServiceComb Toolkit is a contract-based microservice development toolkit
 
 > Notice to contributors: this project is not active due to lack of maintainers. If you are interested in this project, please cantact us and we will help you to be a committer. 
+
 > Notice to users: this project is not active due to lack of maintainers. Before we find enough resources, do not use this project if possible. 
 
 ## 1 Introduction
