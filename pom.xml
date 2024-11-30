@@ -50,7 +50,7 @@
     <javachassis.version>1.2.0</javachassis.version>
     <airline.version>0.7</airline.version>
     <log4j2.version>2.3</log4j2.version>
-    <org.eclipse.jgit.version>5.3.0.201903130848-r</org.eclipse.jgit.version>
+    <org.eclipse.jgit.version>6.6.1.202309021850-r</org.eclipse.jgit.version>
     <mockito-core.version>2.25.0</mockito-core.version>
     <maven-core.version>3.6.0</maven-core.version>
     <openapi-generator.version>4.1.2</openapi-generator.version>
