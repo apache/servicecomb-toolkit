@@ -43,7 +43,7 @@
     
     <javax.ws.rs-api.version>2.1</javax.ws.rs-api.version>
     <swagger.version>2.0.10</swagger.version>
-    <swagger-codegen.version>2.4.3</swagger-codegen.version>
+    <swagger-codegen.version>2.4.19</swagger-codegen.version>
     <junit.version>4.12</junit.version>
     <asm.version>7.2</asm.version>
     <powermock.version>1.6.2</powermock.version>
